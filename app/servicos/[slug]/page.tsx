@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import NavLinks from "../../components/NavLinks";
 import ThemeToggle from "../../components/ThemeToggle";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
 /* ── Benefit icon SVGs ─────────────────────────────────────────────────── */
 const BenefitIcon = ({ id }: { id: string }) => {

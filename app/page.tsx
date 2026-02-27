@@ -4,7 +4,7 @@ import ContactForm from "./components/ContactForm";
 import FaqAccordion from "./components/FaqAccordion";
 import HeroVisual from "./components/HeroVisual";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
 const jsonLd = {
   "@context": "https://schema.org",
