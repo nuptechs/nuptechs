@@ -23,10 +23,12 @@ const products = [
 const blogSlugs = [
   "como-automatizar-processos-manuais",
   "llms-no-mundo-corporativo",
-  "software-sob-medida-vs-saas"
+  "software-sob-medida-vs-saas",
+  "dashboard-bi-para-pmes",
+  "como-escolher-stack-tecnologica",
+  "integracao-api-whatsapp-business"
 ];
 
-// EN service slugs (mirror of dictionaries.ts)
 const servicesEn = [
   "intelligent-automation",
   "bi-dashboards",
@@ -36,7 +38,6 @@ const servicesEn = [
   "security-compliance"
 ];
 
-// ES service slugs
 const servicesEs = [
   "automatizacion-inteligente",
   "dashboards-bi",
@@ -49,7 +50,7 @@ const servicesEs = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
-    // ── Home (PT) ──────────────────────────────────────
+    // ── Home PT ────────────────────────────────────────
     {
       url: siteUrl,
       lastModified: now,
@@ -91,7 +92,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         }
       }
     },
-    // ── Listagens PT ──────────────────────────────────
+    // ── Sobre PT ───────────────────────────────────────
     {
       url: `${siteUrl}/sobre`,
       lastModified: now,
@@ -100,11 +101,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: {
         languages: {
           "pt-BR": `${siteUrl}/sobre`,
-          "en-US": `${siteUrl}/en`,
-          "es-419": `${siteUrl}/es`,
-        },
-      },
+          "en-US": `${siteUrl}/en/about`,
+          "es-419": `${siteUrl}/es/about`
+        }
+      }
     },
+    // ── About EN ──────────────────────────────────────
+    {
+      url: `${siteUrl}/en/about`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/sobre`,
+          "en-US": `${siteUrl}/en/about`,
+          "es-419": `${siteUrl}/es/about`
+        }
+      }
+    },
+    // ── About ES ──────────────────────────────────────
+    {
+      url: `${siteUrl}/es/about`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/sobre`,
+          "en-US": `${siteUrl}/en/about`,
+          "es-419": `${siteUrl}/es/about`
+        }
+      }
+    },
+    // ── Listagens PT ──────────────────────────────────
     {
       url: `${siteUrl}/servicos`,
       lastModified: now,

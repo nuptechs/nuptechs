@@ -220,6 +220,305 @@ export const posts: Record<string, {
 <p>Na NuPtechs, todo projeto de IA começa com um diagnóstico de 30 minutos onde mapeamos o processo atual, estimamos o impacto e definimos as métricas de sucesso. Gratuito, sem compromisso.</p>
     `
   },
+  "dashboard-bi-para-pmes": {
+    slug: "dashboard-bi-para-pmes",
+    tag: "Business Intelligence",
+    title: "Dashboard de BI para PMEs: como sair das planilhas e tomar decisões em tempo real",
+    description: "Guia completo para pequenas e médias empresas implementarem inteligência de dados sem depender de relatórios manuais ou consultores caros.",
+    keywords: ["dashboard BI PME", "business intelligence pequenas empresas", "sair das planilhas", "decisões baseadas em dados", "BI acessível para empresas"],
+    readTime: "7 min",
+    publishedAt: "2026-02-22",
+    content: `
+<p class="lead">A maioria das pequenas e médias empresas toma decisões estratégicas baseadas em planilhas desatualizadas, relatórios mensais que chegam tarde demais e sensações — não em dados em tempo real. O problema não é falta de dados: é falta de acesso a eles no momento certo.</p>
+
+<p>Neste artigo, mostramos como PMEs podem implementar um dashboard de Business Intelligence funcional, sem precisar de uma equipe de dados própria ou de contratar plataformas empresariais que custam dezenas de milhares por ano.</p>
+
+<h2>Por que a planilha deixou de ser suficiente</h2>
+
+<p>A planilha foi a primeira ferramenta de BI da história corporativa — e ainda tem seu lugar. Mas ela falha em três pontos críticos quando o negócio cresce:</p>
+
+<ul>
+  <li><strong>Latência:</strong> Os dados precisam ser coletados, formatados e consolidados manualmente. Quando o relatório fica pronto, os dados já têm dias ou semanas.</li>
+  <li><strong>Escala:</strong> Com mais fontes de dados (CRM, ERP, e-commerce, financeiro), manter a planilha atualizada e consistente torna-se um trabalho em tempo integral.</li>
+  <li><strong>Erro humano:</strong> Uma fórmula errada, uma linha duplicada ou uma coluna não atualizada pode comprometer toda a análise — e o problema frequentemente só aparece meses depois.</li>
+</ul>
+
+<p>Um dashboard de BI resolve esses três problemas: conecta diretamente às fontes de dados, atualiza em tempo real (ou em ciclos curtos) e elimina a camada manual.</p>
+
+<h2>O que um dashboard de BI precisa ter (e o que pode ignorar)</h2>
+
+<p>A indústria de BI vende complexidade. Mas para a maioria das PMEs, um dashboard eficiente precisa de apenas quatro elementos:</p>
+
+<h3>1. KPIs do negócio na tela principal</h3>
+<p>Faturamento do mês vs. meta, ticket médio, número de pedidos, margem bruta — os 5 a 8 indicadores que o gestor olha toda manhã para saber se o negócio está saudável. Tudo em uma tela, sem precisar navegar.</p>
+
+<h3>2. Drill-down para o detalhe</h3>
+<p>Quando um KPI está fora do esperado, é preciso entender o porquê sem abrir outra ferramenta. Um bom dashboard permite clicar em "faturamento do mês" e ver o detalhamento por produto, canal de venda, região ou vendedor em segundos.</p>
+
+<h3>3. Alertas automáticos</h3>
+<p>Em vez de checar o dashboard todo dia, configure alertas: "me avise quando o estoque de produto X cair abaixo de 50 unidades" ou "me avise se o churn semanal superar 5%". O dashboard que avisa proativamente é mais valioso que o que espera ser consultado.</p>
+
+<h3>4. Dados históricos comparativos</h3>
+<p>A análise mais útil não é "quanto vendemos este mês" — é "quanto vendemos este mês vs. o mesmo mês do ano passado, e qual a tendência". Sem histórico estruturado, você perde o contexto para interpretar os números.</p>
+
+<h2>As fontes de dados que precisam estar conectadas</h2>
+
+<p>Um dashboard de BI só é tão bom quanto as fontes que alimentam. Para a maioria das PMEs, as conexões prioritárias são:</p>
+
+<ul>
+  <li><strong>Financeiro:</strong> Contas a pagar, contas a receber, fluxo de caixa — idealmente integrado ao sistema contábil ou bancário via API.</li>
+  <li><strong>Comercial:</strong> Pipeline de vendas, funil de conversão, metas por vendedor — via CRM.</li>
+  <li><strong>Operacional:</strong> Estoque, pedidos em aberto, tempo de entrega — via ERP ou sistema próprio.</li>
+  <li><strong>Marketing:</strong> Custo de aquisição, conversão por canal, ROAS — via Google Ads, Meta Ads e Google Analytics.</li>
+</ul>
+
+<p>Não precisa conectar tudo ao mesmo tempo. Comece com as duas fontes mais críticas para o seu negócio e expanda progressivamente.</p>
+
+<h2>Stack tecnológico para PMEs: sem exagero</h2>
+
+<p>Existe uma pressão para usar plataformas "enterprise" como Tableau, Power BI ou Looker. São ótimas ferramentas — mas custam caro, têm curva de aprendizado alta e, para a maioria das PMEs, entregam 80% das funcionalidades que nunca serão usadas.</p>
+
+<p>Para PMEs, uma stack mais enxuta frequentemente funciona melhor:</p>
+
+<ul>
+  <li><strong>Banco de dados:</strong> PostgreSQL ou MySQL — robusto, gratuito e suportado por praticamente toda ferramenta de visualização.</li>
+  <li><strong>ETL (integração de dados):</strong> n8n ou scripts Python agendados via CRON — conecta as fontes, normaliza e carrega no banco.</li>
+  <li><strong>Visualização:</strong> Grafana (gratuito, altamente customizável) ou Metabase (gratuito, mais amigável para não-técnicos).</li>
+  <li><strong>Alertas:</strong> Email, WhatsApp ou Slack via webhooks — custo marginal zero.</li>
+</ul>
+
+<p>Esta stack pode ser implementada em 2 a 4 semanas para os primeiros KPIs e evoluída de forma incremental.</p>
+
+<h2>O erro mais comum: o dashboard sem dono</h2>
+
+<p>O maior motivo de fracasso em projetos de BI não é tecnológico — é organizacional. Um dashboard implementado sem um "dono" designado que o mantém atualizado e que cobra da equipe sua utilização vira um painel bonito que ninguém usa depois de 3 meses.</p>
+
+<p>Antes de implementar, defina:</p>
+<ul>
+  <li>Quem é o gestor responsável por cada KPI?</li>
+  <li>Qual é a cadência de revisão do dashboard (diária? semanal?)?</li>
+  <li>O que acontece quando um indicador está fora da meta?</li>
+</ul>
+
+<p>A tecnologia é a parte fácil. A parte difícil é criar o hábito de usar os dados para tomar decisões.</p>
+
+<h2>Por onde começar agora</h2>
+
+<p>Se você quer sair das planilhas sem um projeto de seis meses, o caminho mais rápido é:</p>
+
+<ol>
+  <li>Liste os 5 indicadores que você consulta toda semana — esses são seus primeiros KPIs.</li>
+  <li>Identifique em qual sistema cada um desses indicadores está hoje.</li>
+  <li>Verifique se esse sistema tem API (a maioria dos ERPs e CRMs modernos tem).</li>
+  <li>Com essas três informações em mãos, um diagnóstico técnico de 30 minutos é suficiente para estimar o esforço de implementação.</li>
+</ol>
+
+<p>Na NuPtechs, já implementamos dashboards de BI para PMEs em setores de saúde, varejo, serviços e logística. Em média, o primeiro dashboard funcional fica pronto em 2 a 3 semanas — e o ROI aparece na primeira reunião de resultado em que os gestores chegam com dados em vez de estimativas.</p>
+    `
+  },
+  "como-escolher-stack-tecnologica": {
+    slug: "como-escolher-stack-tecnologica",
+    tag: "Desenvolvimento Ágil",
+    title: "Como escolher a stack tecnológica certa para o seu projeto de software",
+    description: "Os critérios que engenheiros seniores usam para definir linguagem, banco de dados e infraestrutura — e como evitar as decisões que viram dívida técnica.",
+    keywords: ["como escolher stack tecnológica", "linguagem de programação para projeto", "arquitetura de software empresarial", "dívida técnica stack", "escolher banco de dados"],
+    readTime: "6 min",
+    publishedAt: "2026-02-18",
+    content: `
+<p class="lead">A escolha de stack tecnológica é uma das decisões com maior impacto de longo prazo em um projeto de software — e uma das mais frequentemente feitas pelos motivos errados. "É o que eu sei usar", "está na moda" ou "foi o que o fornecedor recomendou" não são critérios técnicos. São atalhos que viram dívida.</p>
+
+<p>Neste artigo, apresentamos os critérios que engenheiros seniores usam para tomar essa decisão de forma estruturada — independentemente do projeto.</p>
+
+<h2>O que é uma "stack" e por que importa tanto</h2>
+
+<p>Stack tecnológica é o conjunto de linguagens, frameworks, bancos de dados, serviços de infraestrutura e ferramentas que compõem um sistema. A stack define:</p>
+
+<ul>
+  <li>A velocidade com que novas funcionalidades podem ser entregues</li>
+  <li>O custo de manutenção e operação ao longo do tempo</li>
+  <li>A facilidade de contratar e onboar novos desenvolvedores</li>
+  <li>A resiliência e escalabilidade do sistema em condições adversas</li>
+</ul>
+
+<p>Uma stack escolhida bem não aparece — o sistema simplesmente funciona. Uma stack escolhida mal gera lentidão, bugs recorrentes, dificuldade de manutenção e, eventualmente, uma reescrita completa que custa 3 a 10 vezes o projeto original.</p>
+
+<h2>Os cinco critérios de avaliação</h2>
+
+<h3>1. Fit com o problema</h3>
+<p>Cada linguagem e framework tem pontos fortes e fracos. Python é excelente para processamento de dados e IA, mas não é a melhor escolha para aplicações de tempo real de alta concorrência. Node.js brilha em APIs com muitas conexões simultâneas, mas pode ser complexo para processamento computacionalmente intenso.</p>
+
+<p>A primeira pergunta é sempre: <strong>qual é o perfil de carga e a natureza do problema?</strong> CPU-bound, I/O-bound, processamento em batch, tempo real, alta concorrência — cada perfil tem soluções mais adequadas.</p>
+
+<h3>2. Maturidade do ecossistema</h3>
+<p>Uma linguagem jovem ou um framework recém-lançado pode parecer atraente, mas o ecossistema importa. Bibliotecas disponíveis, documentação, comunidade ativa, frequência de updates de segurança e histórico de breaking changes são fatores que determinam o custo de manutenção nos próximos anos.</p>
+
+<p>Regra prática: para sistemas que precisam durar 5+ anos, prefira tecnologias com mais de 5 anos de histórico estável. Inove na lógica de negócio, não na infraestrutura.</p>
+
+<h3>3. Disponibilidade de profissionais</h3>
+<p>A stack mais elegante do mundo não adianta se contratar um desenvolvedor para mantê-la leva 6 meses. Avalie o pool de profissionais disponíveis no seu contexto geográfico e orçamentário.</p>
+
+<p>Isso não significa usar sempre o que é mais comum — significa ponderar a raridade da skill contra os benefícios técnicos. Go é uma linguagem excelente, mas o pool de desenvolvedores no Brasil ainda é menor que o de Python ou JavaScript. Para um projeto crítico com equipe pequena, isso importa.</p>
+
+<h3>4. Custo de operação em escala</h3>
+<p>O custo de hospedar e operar o sistema em produção muda radicalmente dependendo das escolhas de stack. Uma aplicação Java em uma instância EC2 dedicada vs. funções serverless em Node.js podem ter custos muito diferentes conforme o padrão de uso.</p>
+
+<p>Estime o custo de infraestrutura para 10x, 100x e 1000x o volume inicial. Algumas escolhas de stack que são baratas no início se tornam proibitivas em escala — e vice-versa.</p>
+
+<h3>5. Velocidade de iteração inicial</h3>
+<p>Para MVPs e projetos com alto grau de incerteza, a capacidade de iterar rapidamente vale mais do que a otimização prematura. Frameworks que oferecem produtividade alta no início — mesmo com algum custo de performance — frequentemente são a escolha certa para validar hipóteses de produto.</p>
+
+<p>É legítimo escolher uma stack de alta produtividade para o MVP e reavaliá-la quando o produto amadurecer e as gargalos de performance ficarem visíveis.</p>
+
+<h2>Banco de dados: o erro mais caro</h2>
+
+<p>A escolha do banco de dados é frequentemente a mais difícil de reverter. Migrar de banco depois do sistema em produção é um projeto de meses com alto risco. Por isso, esta decisão merece atenção especial.</p>
+
+<p>A dicotomia SQL vs. NoSQL ainda confunde muita gente. A heurística mais útil:</p>
+
+<ul>
+  <li><strong>Dados relacionais com integridade crítica</strong> (transações financeiras, saúde, contratos): PostgreSQL. Ponto.</li>
+  <li><strong>Dados com estrutura flexível e alta velocidade de escrita</strong> (logs, eventos, IoT): MongoDB ou Cassandra.</li>
+  <li><strong>Cache e dados temporários de alta frequência:</strong> Redis.</li>
+  <li><strong>Buscas full-text e vetoriais</strong> (IA, recomendações): Elasticsearch ou pgvector.</li>
+</ul>
+
+<p>Em muitos sistemas modernos, a resposta certa é <strong>usar mais de um banco</strong> — cada um para o tipo de dado que gerencia melhor. O erro é tentar usar um banco para tudo.</p>
+
+<h2>Infraestrutura: cloud vs. on-premise em 2026</h2>
+
+<p>Em 2026, a discussão cloud vs. on-premise para a maioria das empresas já está resolvida: cloud, exceto quando há requisitos regulatórios específicos que exijam dados on-premise (setores como defesa, alguns nichos do financeiro e saúde pública).</p>
+
+<p>A decisão relevante agora é <strong>qual modelo de cloud</strong>:</p>
+<ul>
+  <li><strong>IaaS</strong> (EC2, Compute Engine): controle máximo, mas você gerencia o SO, patches e escalabilidade.</li>
+  <li><strong>PaaS</strong> (Heroku, Railway, Render): menos controle, muito mais velocidade de deploy e operação.</li>
+  <li><strong>Serverless</strong> (Vercel, AWS Lambda, Cloudflare Workers): custo zero em idle, escalabilidade automática, mas com limitações de runtime e vendor lock-in mais pronunciado.</li>
+</ul>
+
+<p>Para sistemas novos sem requisitos especiais de performance ou compliance: comece com PaaS ou serverless. Migre para IaaS apenas quando a escala ou os requisitos técnicos justificarem o overhead operacional.</p>
+
+<h2>O que nunca deve guiar a escolha de stack</h2>
+
+<p>Alguns critérios que aparecem frequentemente em decisões de stack, mas que são armadilhas:</p>
+
+<ul>
+  <li><strong>"É o que eu sei":</strong> A familiaridade do desenvolvedor importa, mas não deve ser o fator principal. Um desenvolvedor sênior aprende uma nova linguagem em semanas. A stack sobrevive anos.</li>
+  <li><strong>"Está na moda":</strong> Tecnologias seguem ciclos de hype. O que é trending no Twitter hoje pode estar abandonado em 3 anos. Prefira estabilidade e maturidade.</li>
+  <li><strong>"A empresa X usa isso":</strong> O contexto de uma startup de 50 engenheiros ou de uma big tech com décadas de investimento em tooling raramente se traduz para PMEs ou projetos menores.</li>
+</ul>
+
+<h2>A avaliação de stack em projetos NuPtechs</h2>
+
+<p>Em todo projeto que executamos, a definição de stack passa por um processo estruturado: análise do perfil de carga, mapeamento de integrações necessárias, avaliação do time que vai manter o sistema pós-entrega e estimativa de custo operacional em 1, 3 e 5 anos.</p>
+
+<p>Quando esse processo aponta para uma stack diferente da que o cliente esperava, explicamos o raciocínio — e chegamos juntos a uma decisão informada.</p>
+
+<p>Se você tem um projeto em avaliação e quer uma segunda opinião técnica sobre a stack, o diagnóstico gratuito da NuPtechs pode ajudar. 30 minutos, sem compromisso.</p>
+    `
+  },
+  "integracao-api-whatsapp-business": {
+    slug: "integracao-api-whatsapp-business",
+    tag: "Integrações",
+    title: "Como integrar a API do WhatsApp Business ao seu sistema empresarial",
+    description: "Passo a passo técnico e estratégico para empresas que querem automatizar atendimento, confirmações e notificações via WhatsApp sem depender de plataformas caras.",
+    keywords: ["API WhatsApp Business", "integrar WhatsApp sistema empresarial", "automação WhatsApp empresas", "WhatsApp API custo", "chatbot WhatsApp"],
+    readTime: "8 min",
+    publishedAt: "2026-02-12",
+    content: `
+<p class="lead">O WhatsApp é o canal de comunicação dominante no Brasil — 99% dos smartphones têm o app instalado, e a taxa de abertura de mensagens supera 90%. Para empresas, isso significa que qualquer automação bem executada via WhatsApp tem impacto imediato e mensurável. O problema é que a maioria das implementações é feita de forma errada: cara, frágil ou fora dos termos de uso.</p>
+
+<p>Este guia cobre o que você precisa saber para integrar a API oficial do WhatsApp Business ao seu sistema — de forma correta, escalável e com custo controlado.</p>
+
+<h2>API oficial vs. soluções não-oficiais: o risco que a maioria ignora</h2>
+
+<p>Existem dezenas de ferramentas que prometem "integração com WhatsApp" a baixo custo — WhatsApp Web automatizado, bibliotecas não-oficiais, soluções que usam números de celular pessoal via emulação. Todas funcionam até o momento em que o número é banido.</p>
+
+<p>O WhatsApp detecta padrões de uso automatizado e bane números com agressividade crescente desde 2023. Para uma empresa que usa WhatsApp como canal principal de atendimento ou vendas, um ban significa perda imediata de contato com toda a base de clientes cadastrada naquele número.</p>
+
+<p><strong>A solução correta é a API oficial da Meta (WhatsApp Business API)</strong>, acessível diretamente pela Meta ou via BSPs (Business Solution Providers) credenciados. É mais cara, tem políticas mais rígidas — e é a única opção estável para uso empresarial de longo prazo.</p>
+
+<h2>Como a API oficial funciona</h2>
+
+<p>A WhatsApp Business API opera em um modelo diferente do WhatsApp que você usa pessoalmente:</p>
+
+<ul>
+  <li><strong>Número dedicado:</strong> Você usa um número de telefone específico para a conta de negócios, não um celular pessoal.</li>
+  <li><strong>Templates para mensagens proativas:</strong> Para enviar mensagens a clientes que não iniciaram a conversa nas últimas 24 horas, você precisa usar templates pré-aprovados pela Meta.</li>
+  <li><strong>Janela de atendimento:</strong> Quando um cliente envia mensagem, você tem 24 horas para responder com qualquer conteúdo. Fora dessa janela, só via template.</li>
+  <li><strong>Cobrado por conversa:</strong> A Meta cobra por "conversa" (janela de 24h), não por mensagem individual. O custo varia por país e categoria.</li>
+</ul>
+
+<h2>Quanto custa na prática</h2>
+
+<p>Os preços da API são públicos e dependem de três variáveis: país do usuário, categoria da conversa (marketing, utilidade, autenticação, serviço) e quem inicia (empresa ou usuário).</p>
+
+<p>Para o Brasil em 2026 (valores aproximados em USD, convertidos pelo câmbio do momento):</p>
+<ul>
+  <li><strong>Conversa de serviço</strong> (iniciada pelo usuário): ~USD 0,03 por conversa</li>
+  <li><strong>Conversa de utilidade</strong> (confirmações, atualizações iniciadas pela empresa): ~USD 0,04</li>
+  <li><strong>Conversa de marketing</strong> (promoções iniciadas pela empresa): ~USD 0,06</li>
+  <li><strong>Autenticação</strong> (OTP, 2FA): ~USD 0,03</li>
+</ul>
+
+<p>Para referência: 10.000 confirmações de pedido por mês custam aproximadamente USD 400 (R$ 2.000). O mesmo volume via SMS custaria 3 a 5x mais, com taxa de abertura 4x menor.</p>
+
+<h2>Os casos de uso com melhor ROI</h2>
+
+<h3>Confirmações e lembretes automáticos</h3>
+<p>Confirmação de pedido, lembrete de consulta, aviso de entrega, notificação de vencimento de boleto — mensagens transacionais com template aprovado. Taxa de leitura acima de 90% garante impacto real. Redução de no-shows em saúde: 50 a 70%. Redução de inadimplência com notificação proativa: 20 a 40%.</p>
+
+<h3>Atendimento ao cliente com IA</h3>
+<p>Um agente de IA treinado na base de conhecimento da empresa (FAQs, políticas, catálogo) consegue resolver 40 a 60% das dúvidas sem intervenção humana. Para o restante, o sistema faz o handoff para um atendente humano de forma transparente.</p>
+
+<h3>Qualificação de leads</h3>
+<p>Quando um prospect preenche um formulário no site ou clica em um anúncio, um fluxo automático via WhatsApp pode qualificá-lo (fazer as perguntas de descoberta) e agendar uma demonstração — sem que um vendedor precise estar online.</p>
+
+<h3>Notificações operacionais internas</h3>
+<p>Alertas para a equipe: "Pedido de alto valor recebido", "Estoque de produto X crítico", "Servidor com latência alta". WhatsApp como canal de alerta interno tem taxa de resposta muito superior ao e-mail.</p>
+
+<h2>Arquitetura de implementação</h2>
+
+<p>Uma implementação robusta da API do WhatsApp Business tem cinco componentes:</p>
+
+<ol>
+  <li><strong>Conta Meta Business + número verificado:</strong> Setup inicial via Meta Business Suite. Requer verificação do negócio.</li>
+  <li><strong>Webhook para receber mensagens:</strong> Endpoint HTTPS no seu sistema que a Meta chama a cada mensagem recebida. Precisa responder em menos de 5 segundos.</li>
+  <li><strong>Sistema de roteamento:</strong> Lógica que decide se a mensagem vai para o bot, para um atendente humano ou para processamento automatizado.</li>
+  <li><strong>Engine de resposta:</strong> Bot com IA, árvore de decisão ou painel de atendimento humano (ou combinação dos três).</li>
+  <li><strong>Fila de mensagens:</strong> Para volumes altos, uma fila (RabbitMQ, SQS, ou similar) garante que nenhuma mensagem se perca em picos de tráfego.</li>
+</ol>
+
+<h2>Templates: como aprovação funciona na prática</h2>
+
+<p>Templates são mensagens com conteúdo fixo e variáveis dinâmicas. Precisam ser submetidos para aprovação da Meta antes do uso. Dicas para aprovação rápida:</p>
+
+<ul>
+  <li>Templates de utilidade (confirmações, atualizações) têm aprovação mais rápida que os de marketing.</li>
+  <li>Evite linguagem promocional em templates de utilidade — isso atrasa a aprovação.</li>
+  <li>Inclua opt-out em templates de marketing: "Para não receber mais mensagens, responda SAIR."</li>
+  <li>O tempo médio de aprovação é de 2 a 24 horas para templates bem formatados.</li>
+</ul>
+
+<h2>O que a maioria esquece: gestão de opt-in e LGPD</h2>
+
+<p>A API do WhatsApp exige opt-in explícito do usuário antes de receber mensagens proativas da empresa. Isso significa que o cliente precisa ter concordado — de forma clara e documentada — em receber comunicações via WhatsApp.</p>
+
+<p>Além do requisito da Meta, a LGPD estabelece que comunicações de marketing precisam de consentimento explícito com finalidade especificada. Uma implementação completa precisa incluir:</p>
+<ul>
+  <li>Mecanismo de opt-in (formulário, termos de uso, confirmação de compra)</li>
+  <li>Registro auditável do consentimento com timestamp</li>
+  <li>Mecanismo de opt-out com processamento em até 24h</li>
+</ul>
+
+<h2>Por onde começar</h2>
+
+<p>O processo completo de setup — desde a criação da conta Meta Business até o primeiro webhook funcionando — leva tipicamente 3 a 7 dias para empresas que não têm experiência prévia.</p>
+
+<p>A parte mais demorada não é técnica: é a verificação do negócio pela Meta (que pode levar 2 a 5 dias úteis) e a aprovação dos templates iniciais.</p>
+
+<p>Na NuPtechs, já implementamos a API do WhatsApp Business em mais de 30 projetos — de pequenas clínicas a plataformas com milhares de mensagens diárias. O diagnóstico gratuito pode ajudar a definir o escopo correto para o seu caso, identificar os templates necessários e estimar o custo mensal da API antes de qualquer investimento em desenvolvimento.</p>
+    `
+  },
   "software-sob-medida-vs-saas": {
     slug: "software-sob-medida-vs-saas",
     tag: "Desenvolvimento Ágil",
