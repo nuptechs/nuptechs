@@ -227,18 +227,47 @@ export default function ProductPage({ params }: ProductParams) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: `NuPtechs ${product.name}`,
-    applicationCategory: "BusinessApplication",
-    operatingSystem: "Web",
-    description: product.description,
-    offers: {
-      "@type": "Offer",
-      price: "Sob consulta",
-      priceCurrency: "BRL",
-      availability: product.status === "Em breve" ? "https://schema.org/PreOrder" : "https://schema.org/InStock"
-    },
-    provider: { "@type": "Organization", name: "NuPtechs", url: siteUrl }
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": `${siteUrl}/produtos/${product.slug}#product`,
+        name: `NuPtechs ${product.name}`,
+        applicationCategory: "BusinessApplication",
+        applicationSubCategory: product.tag,
+        operatingSystem: "Web, iOS, Android",
+        description: product.description,
+        url: `${siteUrl}/produtos/${product.slug}`,
+        keywords: product.keywords.join(", "),
+        featureList: product.features.map((f) => f.title).join(", "),
+        offers: {
+          "@type": "Offer",
+          description: "Contrate pelo modelo SaaS ou personalize com marca branca. Solicite proposta.",
+          availability:
+            product.status === "Em breve"
+              ? "https://schema.org/PreOrder"
+              : "https://schema.org/InStock",
+          seller: {
+            "@type": "Organization",
+            "@id": `${siteUrl}/#organization`,
+            name: "NuPtechs",
+          },
+        },
+        provider: {
+          "@type": "Organization",
+          "@id": `${siteUrl}/#organization`,
+          name: "NuPtechs",
+          url: siteUrl,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Início", item: siteUrl },
+          { "@type": "ListItem", position: 2, name: "Produtos", item: `${siteUrl}/produtos` },
+          { "@type": "ListItem", position: 3, name: product.name, item: `${siteUrl}/produtos/${product.slug}` },
+        ],
+      },
+    ],
   };
 
   return (

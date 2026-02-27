@@ -292,16 +292,51 @@ export default function ServicePage({ params }: ServiceParams) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    name: service.title,
-    description: service.description,
-    provider: {
-      "@type": "Organization",
-      name: "NuPtechs",
-      url: siteUrl
-    },
-    areaServed: "BR",
-    url: `${siteUrl}/servicos/${service.slug}`
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${siteUrl}/servicos/${service.slug}#service`,
+        name: service.title,
+        description: service.description,
+        url: `${siteUrl}/servicos/${service.slug}`,
+        provider: {
+          "@type": "Organization",
+          "@id": `${siteUrl}/#organization`,
+          name: "NuPtechs",
+          url: siteUrl,
+        },
+        areaServed: [
+          { "@type": "Country", name: "Brasil" },
+          { "@type": "AdministrativeArea", name: "América Latina" },
+        ],
+        serviceType: service.title,
+        keywords: service.keywords.join(", "),
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: service.title,
+          itemListElement: service.useCases.map((uc, i) => ({
+            "@type": "Offer",
+            position: i + 1,
+            itemOffered: { "@type": "Service", name: uc },
+          })),
+        },
+        offers: {
+          "@type": "Offer",
+          description: "Diagnóstico gratuito em 24h, proposta com escopo fixo e prazo claro.",
+          price: "0",
+          priceCurrency: "BRL",
+          availability: "https://schema.org/InStock",
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Início", item: siteUrl },
+          { "@type": "ListItem", position: 2, name: "Serviços", item: `${siteUrl}/servicos` },
+          { "@type": "ListItem", position: 3, name: service.title, item: `${siteUrl}/servicos/${service.slug}` },
+        ],
+      },
+    ],
   };
 
   return (

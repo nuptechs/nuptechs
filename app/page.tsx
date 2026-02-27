@@ -16,7 +16,7 @@ const jsonLd = {
       url: siteUrl,
       name: "NuPtechs",
       description: "Desenvolvimento de software sob medida, automação com IA e produtos prontos para empresas brasileiras.",
-      inLanguage: ["pt-BR", "en-US"],
+      inLanguage: ["pt-BR", "en-US", "es-419"],
       potentialAction: {
         "@type": "SearchAction",
         target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/?s={search_term_string}` },
