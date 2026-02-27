@@ -26,18 +26,72 @@ const blogSlugs = [
   "software-sob-medida-vs-saas"
 ];
 
+// EN service slugs (mirror of dictionaries.ts)
+const servicesEn = [
+  "intelligent-automation",
+  "bi-dashboards",
+  "mobile-apps",
+  "api-integrations",
+  "applied-ai",
+  "security-compliance"
+];
+
+// ES service slugs
+const servicesEs = [
+  "automatizacion-inteligente",
+  "dashboards-bi",
+  "aplicaciones-moviles",
+  "integraciones-api",
+  "ia-aplicada",
+  "seguridad-compliance"
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
-    // ── Home ─────────────────────────────────────────
+    // ── Home (PT) ──────────────────────────────────────
     {
       url: siteUrl,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1.0,
-      alternates: { languages: { "pt-BR": siteUrl, "en-US": `${siteUrl}/en` } }
+      alternates: {
+        languages: {
+          "pt-BR": siteUrl,
+          "en-US": `${siteUrl}/en`,
+          "es-419": `${siteUrl}/es`
+        }
+      }
     },
-    // ── Listagens ────────────────────────────────────
+    // ── Home EN ────────────────────────────────────────
+    {
+      url: `${siteUrl}/en`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.95,
+      alternates: {
+        languages: {
+          "pt-BR": siteUrl,
+          "en-US": `${siteUrl}/en`,
+          "es-419": `${siteUrl}/es`
+        }
+      }
+    },
+    // ── Home ES ────────────────────────────────────────
+    {
+      url: `${siteUrl}/es`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.95,
+      alternates: {
+        languages: {
+          "pt-BR": siteUrl,
+          "en-US": `${siteUrl}/en`,
+          "es-419": `${siteUrl}/es`
+        }
+      }
+    },
+    // ── Listagens PT ──────────────────────────────────
     {
       url: `${siteUrl}/servicos`,
       lastModified: now,
@@ -56,14 +110,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8
     },
-    // ── Páginas de serviço ────────────────────────────
+    // ── Serviços EN ────────────────────────────────────
+    {
+      url: `${siteUrl}/en/services`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.85
+    },
+    // ── Serviços ES ────────────────────────────────────
+    {
+      url: `${siteUrl}/es/servicios`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.85
+    },
+    // ── Páginas de serviço PT ─────────────────────────
     ...services.map((slug) => ({
       url: `${siteUrl}/servicos/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.85
     })),
-    // ── Páginas de produto ────────────────────────────
+    // ── Páginas de serviço EN ─────────────────────────
+    ...servicesEn.map((slug) => ({
+      url: `${siteUrl}/en/services/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.8
+    })),
+    // ── Páginas de serviço ES ─────────────────────────
+    ...servicesEs.map((slug) => ({
+      url: `${siteUrl}/es/servicios/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.8
+    })),
+    // ── Páginas de produto PT ─────────────────────────
     ...products.map((slug) => ({
       url: `${siteUrl}/produtos/${slug}`,
       lastModified: now,
@@ -77,7 +159,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly" as const,
       priority: 0.75
     })),
-    // ── Âncoras da home (para busca) ──────────────────
+    // ── Âncoras da home ───────────────────────────────
     {
       url: `${siteUrl}/#contato`,
       lastModified: now,
@@ -86,4 +168,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   ];
 }
-

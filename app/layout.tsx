@@ -102,7 +102,8 @@ export const metadata: Metadata = {
     canonical: "/",
     languages: {
       "pt-BR": "/",
-      "en-US": "/en"
+      "en-US": "/en",
+      "es-419": "/es"
     }
   },
   verification: {
