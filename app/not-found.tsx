@@ -57,11 +57,12 @@ export default function NotFound() {
           </a>
         </div>
 
-        <div className="mt-20 grid gap-4 sm:grid-cols-3 max-w-2xl">
+        <div className="mt-20 grid gap-4 sm:grid-cols-4 max-w-3xl">
           {[
-            { href: "/#servicos",     label: "Serviços",       desc: "Automação, BI, apps móveis e mais" },
-            { href: "/#produtos",     label: "Produtos",       desc: "Soluções prontas para implantar hoje" },
-            { href: "/#contato",      label: "Diagnóstico",    desc: "Grátis em 24h, sem compromisso" }
+            { href: "/#servicos",  label: "Serviços",   desc: "Automação, BI, apps e mais" },
+            { href: "/#produtos",  label: "Produtos",   desc: "Soluções prontas para implantar" },
+            { href: "/blog",       label: "Blog",       desc: "Artigos técnicos e guias práticos" },
+            { href: "/#contato",   label: "Diagnóstico",desc: "Grátis em 24h, sem compromisso" },
           ].map((link) => (
             <a
               key={link.href}

@@ -155,7 +155,7 @@ export default function AboutPage({ params }: Props) {
             <span className="nav-logo-dot" aria-hidden="true" />
             <span className="nav-logo-text">NuPtechs</span>
           </a>
-          <NavLinks />
+          <NavLinks lang={params.lang} />
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <a href="mailto:nuptechs@nuptechs.com" className="nav-cta hidden lg:inline-flex">

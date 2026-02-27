@@ -2,16 +2,40 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const links = [
-  { label: "Serviços", href: "/servicos" },
-  { label: "Como funciona", href: "/#como-funciona" },
-  { label: "Produtos", href: "/produtos" },
-  { label: "Blog", href: "/blog" },
-  { label: "Sobre", href: "/sobre" },
-  { label: "Contato", href: "/#contato" },
-];
+type Lang = "pt" | "en" | "es";
 
-export default function NavLinks() {
+interface NavItem { label: string; href: string }
+
+function getLinks(lang: Lang): NavItem[] {
+  if (lang === "en") return [
+    { label: "Services",    href: "/en#services" },
+    { label: "How it works",href: "/en#process" },
+    { label: "Products",    href: "/en#products" },
+    { label: "Blog",        href: "/blog" },
+    { label: "About",       href: "/en/about" },
+    { label: "Contact",     href: "/en#contact" },
+  ];
+  if (lang === "es") return [
+    { label: "Servicios",   href: "/es#services" },
+    { label: "Cómo funciona",href: "/es#process" },
+    { label: "Productos",   href: "/es#products" },
+    { label: "Blog",        href: "/blog" },
+    { label: "Nosotros",    href: "/es/about" },
+    { label: "Contacto",    href: "/es#contact" },
+  ];
+  // default PT
+  return [
+    { label: "Serviços",     href: "/servicos" },
+    { label: "Como funciona",href: "/#como-funciona" },
+    { label: "Produtos",     href: "/produtos" },
+    { label: "Blog",         href: "/blog" },
+    { label: "Sobre",        href: "/sobre" },
+    { label: "Contato",      href: "/#contato" },
+  ];
+}
+
+export default function NavLinks({ lang = "pt" }: { lang?: Lang }) {
+  const links = getLinks(lang);
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -108,10 +132,10 @@ export default function NavLinks() {
             className="btn btn-primary w-full justify-center"
             onClick={() => setOpen(false)}
           >
-            Falar com especialista
+            {lang === "en" ? "Talk to a specialist" : lang === "es" ? "Hablar con especialista" : "Falar com especialista"}
           </a>
           <p className="text-center text-xs text-[var(--subtle)] mt-2">
-            Resposta em até 24h · Sem compromisso
+            {lang === "en" ? "Response within 24h · No commitment" : lang === "es" ? "Respuesta en 24h · Sin compromiso" : "Resposta em até 24h · Sem compromisso"}
           </p>
         </div>
       </div>

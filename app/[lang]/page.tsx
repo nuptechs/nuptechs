@@ -68,7 +68,7 @@ export default function LangPage({ params }: { params: { lang: string } }) {
             <span className="nav-logo-dot" aria-hidden="true" />
             <span className="nav-logo-text">NuPtechs</span>
           </a>
-          <NavLinks />
+          <NavLinks lang={params.lang as "en" | "es"} />
           <div className="flex items-center gap-2">
             {/* Language switcher */}
             <div className="hidden lg:flex items-center gap-1 text-xs font-medium text-[var(--muted)]">
