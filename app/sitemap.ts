@@ -93,6 +93,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // ── Listagens PT ──────────────────────────────────
     {
+      url: `${siteUrl}/sobre`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/sobre`,
+          "en-US": `${siteUrl}/en`,
+          "es-419": `${siteUrl}/es`,
+        },
+      },
+    },
+    {
       url: `${siteUrl}/servicos`,
       lastModified: now,
       changeFrequency: "monthly",

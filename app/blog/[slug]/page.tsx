@@ -308,14 +308,36 @@ export async function generateMetadata({ params }: BlogParams): Promise<Metadata
     title: post.title,
     description: post.description,
     keywords: post.keywords,
-    alternates: { canonical: `/blog/${post.slug}` },
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+      languages: { "pt-BR": `${siteUrl}/blog/${post.slug}` },
+    },
     openGraph: {
       title: `${post.title} — NuPtechs Blog`,
       description: post.description,
       url: `${siteUrl}/blog/${post.slug}`,
       type: "article",
-      publishedTime: post.publishedAt
-    }
+      publishedTime: post.publishedAt,
+      modifiedTime: post.publishedAt,
+      authors: [siteUrl],
+      tags: post.keywords,
+      siteName: "NuPtechs",
+      locale: "pt_BR",
+      images: [
+        {
+          url: `${siteUrl}/og?title=${encodeURIComponent(post.title)}&sub=${encodeURIComponent(post.description)}&lang=pt`,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+      images: [`${siteUrl}/og?title=${encodeURIComponent(post.title)}&sub=${encodeURIComponent(post.description)}&lang=pt`],
+    },
   };
 }
 
@@ -323,15 +345,67 @@ export default function BlogPost({ params }: BlogParams) {
   const post = posts[params.slug as keyof typeof posts];
   if (!post) notFound();
 
+  const wordCount = post.content.replace(/<[^>]+>/g, "").split(/\s+/).filter(Boolean).length;
+
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post.title,
-    description: post.description,
-    author: { "@type": "Organization", name: "NuPtechs", url: siteUrl },
-    publisher: { "@type": "Organization", name: "NuPtechs", url: siteUrl },
-    datePublished: post.publishedAt,
-    url: `${siteUrl}/blog/${post.slug}`
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${siteUrl}/blog/${post.slug}#article`,
+        headline: post.title,
+        description: post.description,
+        url: `${siteUrl}/blog/${post.slug}`,
+        datePublished: post.publishedAt,
+        dateModified: post.publishedAt,
+        wordCount,
+        keywords: post.keywords.join(", "),
+        articleSection: post.tag,
+        inLanguage: "pt-BR",
+        image: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+        },
+        author: {
+          "@type": "Organization",
+          "@id": `${siteUrl}/#organization`,
+          name: "NuPtechs",
+          url: siteUrl,
+        },
+        publisher: {
+          "@type": "Organization",
+          "@id": `${siteUrl}/#organization`,
+          name: "NuPtechs",
+          url: siteUrl,
+          logo: {
+            "@type": "ImageObject",
+            url: `${siteUrl}/logo.svg`,
+            width: 200,
+            height: 60,
+          },
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `${siteUrl}/blog/${post.slug}`,
+        },
+        isPartOf: {
+          "@type": "Blog",
+          "@id": `${siteUrl}/blog#blog`,
+          name: "NuPtechs Blog",
+          url: `${siteUrl}/blog`,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Início", item: siteUrl },
+          { "@type": "ListItem", position: 2, name: "Blog", item: `${siteUrl}/blog` },
+          { "@type": "ListItem", position: 3, name: post.title, item: `${siteUrl}/blog/${post.slug}` },
+        ],
+      },
+    ],
   };
 
   return (
