@@ -6,12 +6,13 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
+        // Allow all crawlers — including /_next/static/ for JS rendering
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/admin/"]
+        disallow: ["/api/", "/admin/"]
       },
       {
-        // Block AI training crawlers per best practices
+        // Block AI training crawlers
         userAgent: ["GPTBot", "Google-Extended", "CCBot", "anthropic-ai"],
         disallow: "/"
       }
