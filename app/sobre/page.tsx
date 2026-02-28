@@ -19,8 +19,8 @@ export const metadata: Metadata = {
     canonical: "/sobre",
     languages: {
       "pt-BR": `${siteUrl}/sobre`,
-      "en-US": `${siteUrl}/en`,
-      "es-419": `${siteUrl}/es`,
+      "en-US": `${siteUrl}/en/about`,
+      "es-419": `${siteUrl}/es/about`,
     },
   },
   openGraph: {

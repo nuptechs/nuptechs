@@ -139,61 +139,121 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteUrl}/servicos`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.9
+      priority: 0.9,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/servicos`,
+          "en-US": `${siteUrl}/en/services`,
+          "es-419": `${siteUrl}/es/servicios`
+        }
+      }
     },
     {
       url: `${siteUrl}/produtos`,
       lastModified: now,
       changeFrequency: "weekly",
-      priority: 0.9
+      priority: 0.9,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/produtos`,
+          "x-default": `${siteUrl}/produtos`
+        }
+      }
     },
     {
       url: `${siteUrl}/blog`,
       lastModified: now,
       changeFrequency: "weekly",
-      priority: 0.8
+      priority: 0.8,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/blog`,
+          "x-default": `${siteUrl}/blog`
+        }
+      }
     },
     // ── Serviços EN ────────────────────────────────────
     {
       url: `${siteUrl}/en/services`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.85
+      priority: 0.85,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/servicos`,
+          "en-US": `${siteUrl}/en/services`,
+          "es-419": `${siteUrl}/es/servicios`
+        }
+      }
     },
     // ── Serviços ES ────────────────────────────────────
     {
       url: `${siteUrl}/es/servicios`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.85
+      priority: 0.85,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/servicos`,
+          "en-US": `${siteUrl}/en/services`,
+          "es-419": `${siteUrl}/es/servicios`
+        }
+      }
     },
     // ── Páginas de serviço PT ─────────────────────────
-    ...services.map((slug) => ({
+    ...services.map((slug, i) => ({
       url: `${siteUrl}/servicos/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
-      priority: 0.85
+      priority: 0.85,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/servicos/${slug}`,
+          "en-US": `${siteUrl}/en/services/${servicesEn[i]}`,
+          "es-419": `${siteUrl}/es/servicios/${servicesEs[i]}`
+        }
+      }
     })),
     // ── Páginas de serviço EN ─────────────────────────
-    ...servicesEn.map((slug) => ({
+    ...servicesEn.map((slug, i) => ({
       url: `${siteUrl}/en/services/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
-      priority: 0.8
+      priority: 0.8,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/servicos/${services[i]}`,
+          "en-US": `${siteUrl}/en/services/${slug}`,
+          "es-419": `${siteUrl}/es/servicios/${servicesEs[i]}`
+        }
+      }
     })),
     // ── Páginas de serviço ES ─────────────────────────
-    ...servicesEs.map((slug) => ({
+    ...servicesEs.map((slug, i) => ({
       url: `${siteUrl}/es/servicios/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
-      priority: 0.8
+      priority: 0.8,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/servicos/${services[i]}`,
+          "en-US": `${siteUrl}/en/services/${servicesEn[i]}`,
+          "es-419": `${siteUrl}/es/servicios/${slug}`
+        }
+      }
     })),
     // ── Páginas de produto PT ─────────────────────────
     ...products.map((slug) => ({
       url: `${siteUrl}/produtos/${slug}`,
       lastModified: now,
       changeFrequency: "weekly" as const,
-      priority: 0.85
+      priority: 0.85,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/produtos/${slug}`,
+          "x-default": `${siteUrl}/produtos/${slug}`
+        }
+      }
     })),
     // ── Artigos do blog ───────────────────────────────
     ...blogSlugs.map((slug) => ({
@@ -201,13 +261,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "yearly" as const,
       priority: 0.75
-    })),
-    // ── Âncoras da home ───────────────────────────────
-    {
-      url: `${siteUrl}/#contato`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7
-    }
+    }))
   ];
 }
