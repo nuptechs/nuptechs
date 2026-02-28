@@ -2,11 +2,54 @@ import type { Metadata } from "next";
 import NavLinks from "../components/NavLinks";
 import ThemeToggle from "../components/ThemeToggle";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
+
 export const metadata: Metadata = {
   title: "Produtos — Soluções SaaS Prontas para Implantar",
-  description: "FlowOps, DataPulse, BookFlow, ChatCore, StockSync e PeopleDesk. Produtos prontos desenvolvidos pela NuPtechs para empresas de todos os portes.",
-  keywords: ["produtos SaaS NuPtechs", "software pronto para empresa", "FlowOps", "DataPulse", "BookFlow"],
-  alternates: { canonical: "/produtos" }
+  description:
+    "FlowOps, DataPulse, BookFlow, ChatCore, StockSync e PeopleDesk. Produtos prontos desenvolvidos pela NuPtechs para empresas de todos os portes.",
+  keywords: [
+    "produtos SaaS NuPtechs",
+    "software pronto para empresa",
+    "FlowOps",
+    "DataPulse",
+    "BookFlow",
+    "ChatCore",
+    "StockSync",
+    "PeopleDesk",
+    "suite SaaS empresarial",
+  ],
+  alternates: {
+    canonical: "/produtos",
+    languages: {
+      "pt-BR": `${siteUrl}/produtos`,
+      "x-default": `${siteUrl}/produtos`,
+    },
+  },
+  openGraph: {
+    title: "Produtos NuPtechs — Suite SaaS Pronta para Implantar",
+    description:
+      "FlowOps, DataPulse, BookFlow, ChatCore, StockSync e PeopleDesk. Seis produtos prontos para configurar, escalar e integrar ao seu stack.",
+    url: `${siteUrl}/produtos`,
+    siteName: "NuPtechs",
+    type: "website",
+    locale: "pt_BR",
+    images: [
+      {
+        url: `${siteUrl}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "Produtos NuPtechs — Suite SaaS Pronta para Implantar",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Produtos NuPtechs — Suite SaaS Pronta para Implantar",
+    description:
+      "FlowOps, DataPulse, BookFlow e mais. Seis produtos prontos para implantar hoje na sua empresa.",
+    images: [`${siteUrl}/og-image.png`],
+  },
 };
 
 const ProductIcon = ({ id }: { id: string }) => {

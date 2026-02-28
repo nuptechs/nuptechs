@@ -281,8 +281,24 @@ export async function generateMetadata({ params }: ServiceParams): Promise<Metad
       title: `${service.title} — NuPtechs`,
       description: service.description,
       url: `${siteUrl}/servicos/${service.slug}`,
-      type: "website"
-    }
+      siteName: "NuPtechs",
+      type: "website",
+      locale: "pt_BR",
+      images: [
+        {
+          url: `${siteUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: `${service.title} — NuPtechs`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.title} — NuPtechs`,
+      description: service.description,
+      images: [`${siteUrl}/og-image.png`],
+    },
   };
 }
 

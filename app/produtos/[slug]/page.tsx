@@ -206,11 +206,27 @@ export async function generateMetadata({ params }: ProductParams): Promise<Metad
     keywords: product.keywords,
     alternates: { canonical: `/produtos/${product.slug}` },
     openGraph: {
-      title: `NuPtechs ${product.name} — ${product.tag}`,
+      title: `${product.name} — ${product.tag} | NuPtechs`,
       description: product.description,
       url: `${siteUrl}/produtos/${product.slug}`,
-      type: "website"
-    }
+      siteName: "NuPtechs",
+      type: "website",
+      locale: "pt_BR",
+      images: [
+        {
+          url: `${siteUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: `${product.name} — ${product.tag} | NuPtechs`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} — ${product.tag} | NuPtechs`,
+      description: product.description,
+      images: [`${siteUrl}/og-image.png`],
+    },
   };
 }
 

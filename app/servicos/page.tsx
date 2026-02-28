@@ -2,11 +2,52 @@ import type { Metadata } from "next";
 import NavLinks from "../components/NavLinks";
 import ThemeToggle from "../components/ThemeToggle";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
+
 export const metadata: Metadata = {
   title: "Serviços — Desenvolvimento de Software Sob Medida",
-  description: "Automação inteligente, dashboards de BI, apps móveis, integrações de API, IA aplicada e segurança. Conheça todos os serviços da NuPtechs.",
-  keywords: ["serviços de desenvolvimento software", "automação empresarial", "BI dashboards", "apps móveis"],
-  alternates: { canonical: "/servicos" }
+  description:
+    "Automação inteligente, dashboards de BI, apps móveis, integrações de API, IA aplicada e segurança. Conheça todos os serviços da NuPtechs.",
+  keywords: [
+    "serviços de desenvolvimento software",
+    "automação empresarial",
+    "BI dashboards",
+    "apps móveis",
+    "integração de API",
+    "IA aplicada a negócios",
+    "NuPtechs serviços",
+  ],
+  alternates: {
+    canonical: "/servicos",
+    languages: {
+      "pt-BR": `${siteUrl}/servicos`,
+      "x-default": `${siteUrl}/servicos`,
+    },
+  },
+  openGraph: {
+    title: "Serviços NuPtechs — Desenvolvimento de Software Sob Medida",
+    description:
+      "Automação com IA, dashboards de BI, apps móveis, integrações de API e segurança. Protótipo em 7 dias. Diagnóstico grátis.",
+    url: `${siteUrl}/servicos`,
+    siteName: "NuPtechs",
+    type: "website",
+    locale: "pt_BR",
+    images: [
+      {
+        url: `${siteUrl}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "Serviços NuPtechs — Desenvolvimento de Software Sob Medida",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Serviços NuPtechs — Desenvolvimento de Software Sob Medida",
+    description:
+      "Automação, BI, apps móveis e IA aplicada. Diagnóstico grátis em 24h, protótipo em 7 dias.",
+    images: [`${siteUrl}/og-image.png`],
+  },
 };
 
 const ServiceIcon = ({ id }: { id: string }) => {

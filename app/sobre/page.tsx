@@ -31,7 +31,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     siteName: "NuPtechs",
-    images: [{ url: `${siteUrl}/og-image.png`, width: 1200, height: 630 }],
+    images: [{ url: `${siteUrl}/og-image.png`, width: 1200, height: 630, alt: "Sobre a NuPtechs — Quem somos e como trabalhamos" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sobre a NuPtechs — Quem somos e como trabalhamos",
+    description:
+      "Equipe sênior, metodologia ágil e entrega em semanas. Conheça a empresa por trás de +200 projetos de software.",
+    images: [`${siteUrl}/og-image.png`],
   },
 };
 
