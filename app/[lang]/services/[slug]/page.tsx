@@ -596,7 +596,8 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
 
   const isEn = enSlugs.includes(params.slug);
   const langPrefix = isEn ? "en" : "es";
-  const serviceSection = isEn ? "services" : "servicios";
+  // A rota Next.js é sempre [lang]/services/[slug] — nunca "servicios"
+  const serviceSection = "services";
   const ptUrl = `${siteUrl}/servicos/${service.ptSlug}`;
   const enSlug = isEn ? params.slug : esSlugs.indexOf(params.slug) >= 0
     ? enSlugs[esSlugs.indexOf(params.slug)] : params.slug;

@@ -2,13 +2,13 @@ import type { MetadataRoute } from "next";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
-const services = [
+const servicesPt = [
   "automacao-inteligente",
   "dashboards-bi",
   "aplicativos-moveis",
   "integracoes-api",
   "ia-aplicada",
-  "seguranca-compliance"
+  "seguranca-compliance",
 ];
 
 const products = [
@@ -143,10 +143,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: {
         languages: {
           "pt-BR": `${siteUrl}/servicos`,
-          "en-US": `${siteUrl}/en/services`,
-          "es-419": `${siteUrl}/es/servicios`
-        }
-      }
+          "x-default": `${siteUrl}/servicos`,
+        },
+      },
     },
     {
       url: `${siteUrl}/produtos`,
@@ -173,35 +172,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       }
     },
     // ── Serviços EN ────────────────────────────────────
-    {
-      url: `${siteUrl}/en/services`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.85,
-      alternates: {
-        languages: {
-          "pt-BR": `${siteUrl}/servicos`,
-          "en-US": `${siteUrl}/en/services`,
-          "es-419": `${siteUrl}/es/servicios`
-        }
-      }
-    },
-    // ── Serviços ES ────────────────────────────────────
-    {
-      url: `${siteUrl}/es/servicios`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.85,
-      alternates: {
-        languages: {
-          "pt-BR": `${siteUrl}/servicos`,
-          "en-US": `${siteUrl}/en/services`,
-          "es-419": `${siteUrl}/es/servicios`
-        }
-      }
-    },
+    // Nota: não existe /en/services nem /es/servicios como listagem — apenas detail pages
     // ── Páginas de serviço PT ─────────────────────────
-    ...services.map((slug, i) => ({
+    ...servicesPt.map((slug, i) => ({
       url: `${siteUrl}/servicos/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
@@ -210,11 +183,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           "pt-BR": `${siteUrl}/servicos/${slug}`,
           "en-US": `${siteUrl}/en/services/${servicesEn[i]}`,
-          "es-419": `${siteUrl}/es/servicios/${servicesEs[i]}`
-        }
-      }
+          "es-419": `${siteUrl}/es/services/${servicesEs[i]}`,
+          "x-default": `${siteUrl}/servicos/${slug}`,
+        },
+      },
     })),
-    // ── Páginas de serviço EN ─────────────────────────
+    // ── Páginas de serviço EN — /en/services/[slug] ───
     ...servicesEn.map((slug, i) => ({
       url: `${siteUrl}/en/services/${slug}`,
       lastModified: now,
@@ -222,25 +196,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
       alternates: {
         languages: {
-          "pt-BR": `${siteUrl}/servicos/${services[i]}`,
+          "pt-BR": `${siteUrl}/servicos/${servicesPt[i]}`,
           "en-US": `${siteUrl}/en/services/${slug}`,
-          "es-419": `${siteUrl}/es/servicios/${servicesEs[i]}`
-        }
-      }
+          "es-419": `${siteUrl}/es/services/${servicesEs[i]}`,
+          "x-default": `${siteUrl}/servicos/${servicesPt[i]}`,
+        },
+      },
     })),
-    // ── Páginas de serviço ES ─────────────────────────
+    // ── Páginas de serviço ES — /es/services/[slug] ───
     ...servicesEs.map((slug, i) => ({
-      url: `${siteUrl}/es/servicios/${slug}`,
+      url: `${siteUrl}/es/services/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.8,
       alternates: {
         languages: {
-          "pt-BR": `${siteUrl}/servicos/${services[i]}`,
+          "pt-BR": `${siteUrl}/servicos/${servicesPt[i]}`,
           "en-US": `${siteUrl}/en/services/${servicesEn[i]}`,
-          "es-419": `${siteUrl}/es/servicios/${slug}`
-        }
-      }
+          "es-419": `${siteUrl}/es/services/${slug}`,
+          "x-default": `${siteUrl}/servicos/${servicesPt[i]}`,
+        },
+      },
     })),
     // ── Páginas de produto PT ─────────────────────────
     ...products.map((slug) => ({
