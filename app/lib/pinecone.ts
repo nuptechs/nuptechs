@@ -1,11 +1,13 @@
 import { Pinecone } from "@pinecone-database/pinecone";
-import { openai } from "@ai-sdk/openai";
-import { embed } from "ai";
 
 /* ═══════════════════════════════════════════════════════════
    Pinecone Client — Singleton + helpers
    Handles embedding generation, upsert, and semantic search
    ═══════════════════════════════════════════════════════════ */
+
+/* ── Embedding config (must match Pinecone index dimension) ── */
+const EMBEDDING_MODEL = "text-embedding-3-small";
+const EMBEDDING_DIMENSIONS = 1024;
 
 let _pinecone: Pinecone | null = null;
 
@@ -26,11 +28,23 @@ export function getIndex() {
 
 /* ── Generate embedding for text ───────────────────────────── */
 export async function generateEmbedding(text: string): Promise<number[]> {
-  const result = await embed({
-    model: openai.embedding("text-embedding-3-small"),
-    value: text,
+  const res = await fetch("https://api.openai.com/v1/embeddings", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: EMBEDDING_MODEL,
+      input: text,
+      dimensions: EMBEDDING_DIMENSIONS,
+    }),
   });
-  return result.embedding;
+  if (!res.ok) {
+    throw new Error(`OpenAI embedding failed: ${res.status} ${await res.text()}`);
+  }
+  const data = await res.json();
+  return data.data[0].embedding;
 }
 
 /* ── Generate embeddings in batch ──────────────────────────── */
