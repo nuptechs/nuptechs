@@ -85,6 +85,7 @@ export default function InteractiveMindMap({ data }: { data: MindMapNode; title?
   const [visible, setVisible] = useState(false);
   const [expanded, setExpanded] = useState<Set<number>>(() => new Set());
   const [focus, setFocus] = useState<number | null>(null);
+  const [fullscreen, setFullscreen] = useState(false);
 
   const branches = useMemo(() => data.children ?? [], [data]);
   const total = useMemo(() => countAll(data), [data]);
@@ -99,6 +100,26 @@ export default function InteractiveMindMap({ data }: { data: MindMapNode; title?
     io.observe(el);
     return () => io.disconnect();
   }, []);
+
+  /* Escape to close fullscreen */
+  useEffect(() => {
+    if (!fullscreen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setFullscreen(false); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [fullscreen]);
+
+  /* Lock body scroll in fullscreen */
+  useEffect(() => {
+    if (fullscreen) {
+      document.body.style.overflow = "hidden";
+      /* In fullscreen, auto-expand all branches for full visibility */
+      setExpanded(new Set(branches.map((_, i) => i)));
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [fullscreen, branches]);
 
   const toggle = useCallback((i: number) => {
     setExpanded(p => { const n = new Set(p); n.has(i) ? n.delete(i) : n.add(i); return n; });
@@ -182,11 +203,23 @@ export default function InteractiveMindMap({ data }: { data: MindMapNode; title?
     );
   };
 
-  return (
+  /* ── Fullscreen expand icon ── */
+  const ExpandIcon = () => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+    </svg>
+  );
+  const ShrinkIcon = () => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <path d="M4 14h6v6M14 4h-6v-6M14 10l7-7M4 20l7-7" />
+    </svg>
+  );
+
+  const mapContent = (
     <div
-      ref={ref}
-      className="mm6"
-      style={{
+      ref={fullscreen ? undefined : ref}
+      className={`mm6${fullscreen ? " mm6--fullscreen" : ""}`}
+      style={fullscreen ? undefined : {
         opacity: visible ? 1 : 0,
         transform: visible ? "none" : "translateY(16px)",
       }}
@@ -205,9 +238,20 @@ export default function InteractiveMindMap({ data }: { data: MindMapNode; title?
             <p className="mm6__header-meta">{branches.length} ramos · {total} conceitos · Ferramenta de revisão</p>
           </div>
         </div>
-        <button className="mm6__toggle-btn" onClick={toggleAll}>
-          {allOpen ? "Recolher" : "Expandir tudo"}
-        </button>
+        <div className="mm6__header-actions">
+          <button className="mm6__toggle-btn" onClick={toggleAll}>
+            {allOpen ? "Recolher" : "Expandir tudo"}
+          </button>
+          <button
+            className="mm6__toggle-btn mm6__fullscreen-btn"
+            onClick={() => setFullscreen(f => !f)}
+            aria-label={fullscreen ? "Fechar tela cheia" : "Abrir em tela cheia"}
+            title={fullscreen ? "Fechar (Esc)" : "Tela cheia"}
+          >
+            {fullscreen ? <ShrinkIcon /> : <ExpandIcon />}
+            <span>{fullscreen ? "Fechar" : "Tela cheia"}</span>
+          </button>
+        </div>
       </div>
 
       {/* ── Mind map canvas ────────────────── */}
@@ -221,8 +265,8 @@ export default function InteractiveMindMap({ data }: { data: MindMapNode; title?
         <div
           className="mm6__center"
           style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "scale(1)" : "scale(0.8)",
+            opacity: visible || fullscreen ? 1 : 0,
+            transform: visible || fullscreen ? "scale(1)" : "scale(0.8)",
             transitionDelay: "80ms",
           }}
         >
@@ -261,8 +305,28 @@ export default function InteractiveMindMap({ data }: { data: MindMapNode; title?
             );
           })}
         </div>
-        <p className="mm6__hint">Clique nos ramos para expandir · Tags para filtrar</p>
+        <p className="mm6__hint">
+          Clique nos ramos para expandir · Tags para filtrar
+          {!fullscreen && " · Tela cheia para ver tudo"}
+        </p>
       </div>
     </div>
+  );
+
+  return (
+    <>
+      {/* Inline version (always rendered for scroll-into-view ref) */}
+      {!fullscreen && mapContent}
+
+      {/* Fullscreen overlay */}
+      {fullscreen && (
+        <div className="mm6__overlay" onClick={(e) => { if (e.target === e.currentTarget) setFullscreen(false); }}>
+          {mapContent}
+        </div>
+      )}
+
+      {/* Hidden ref anchor when in fullscreen */}
+      {fullscreen && <div ref={ref} />}
+    </>
   );
 }
