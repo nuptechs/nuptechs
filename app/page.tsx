@@ -68,6 +68,7 @@ const services = [
     slug: "automacao-inteligente",
     title: "Automação Inteligente",
     body: "Eliminamos tarefas repetitivas com fluxos automatizados, integrações de API e agentes com IA.",
+    metric: "Até 30h/semana economizadas",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
@@ -78,6 +79,7 @@ const services = [
     slug: "dashboards-bi",
     title: "Dashboards Operacionais",
     body: "Dados em tempo real, KPIs visíveis e decisões mais rápidas. Tudo em uma única tela.",
+    metric: "+30 conectores nativos",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
@@ -89,6 +91,7 @@ const services = [
     slug: "aplicativos-moveis",
     title: "Aplicativos Móveis",
     body: "Apps escaláveis para iOS e Android, construídos com stack moderna e foco em performance.",
+    metric: "iOS + Android em uma codebase",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
@@ -99,6 +102,7 @@ const services = [
     slug: "integracoes-api",
     title: "Integrações & APIs",
     body: "Conectamos seus sistemas legados a ferramentas modernas sem reescrever tudo do zero.",
+    metric: "Zero downtime na migração",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
@@ -110,6 +114,7 @@ const services = [
     slug: "ia-aplicada",
     title: "IA Aplicada",
     body: "LLMs, análise preditiva e automação cognitiva integrados ao núcleo do seu negócio.",
+    metric: "ROI médio em 90 dias",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 2a4 4 0 0 1 4 4v1h1a3 3 0 0 1 0 6h-1v1a4 4 0 0 1-8 0v-1H7a3 3 0 0 1 0-6h1V6a4 4 0 0 1 4-4z"/>
@@ -121,6 +126,7 @@ const services = [
     slug: "seguranca-compliance",
     title: "Segurança & Compliance",
     body: "Arquitetura segura por design, auditável, com conformidade à LGPD e padrões corporativos.",
+    metric: "100% conforme à LGPD",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -317,13 +323,21 @@ export default function Home() {
               <article key={svc.slug} className="card card-sm group" data-reveal-item>
                 <div className="card-icon" aria-hidden="true">{svc.icon}</div>
                 <h3 className="card-title">{svc.title}</h3>
-                <p className="card-body mb-3">{svc.body}</p>
-                <a href={`/servicos/${svc.slug}`} className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--accent)] hover:underline" aria-label={`Ver detalhes: ${svc.title}`}>
-                  Saiba mais
-                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </a>
+                <p className="card-body mb-4">{svc.body}</p>
+                <div className="card-footer">
+                  <span className="card-metric">
+                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="flex-shrink-0">
+                      <path d="M2.5 7l3 3 6-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    {svc.metric}
+                  </span>
+                  <a href={`/servicos/${svc.slug}`} className="card-link" aria-label={`Ver detalhes: ${svc.title}`}>
+                    Saiba mais
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </a>
+                </div>
               </article>
             ))}
           </div>
@@ -387,8 +401,9 @@ export default function Home() {
             {products.map((p) => (
               <article key={p.name} className="product-card group" data-reveal-item>
                 <div className="product-card__header">
-                  <div className="product-card__icon text-[var(--accent)]">{p.icon}</div>
+                  <div className="product-card__icon">{p.icon}</div>
                   <span className={`product-card__badge ${p.status === "Disponível" ? "product-card__badge--green" : p.status === "Beta" ? "product-card__badge--amber" : "product-card__badge--neutral"}`}>
+                    <span className={`product-card__badge-dot ${p.status === "Disponível" ? "product-card__badge-dot--green" : p.status === "Beta" ? "product-card__badge-dot--amber" : "product-card__badge-dot--neutral"}`} />
                     {p.status}
                   </span>
                 </div>
@@ -481,21 +496,21 @@ export default function Home() {
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
             {blogPosts.map((post) => (
-              <article key={post.slug} className="card group flex flex-col gap-4" data-reveal-item>
-                <span className="badge badge-accent self-start">{post.tag}</span>
-                <h3 className="text-base font-bold leading-snug tracking-tight text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">
+              <article key={post.slug} className="blog-card group" data-reveal-item>
+                <div className="blog-card__top">
+                  <span className="badge badge-accent">{post.tag}</span>
+                  <span className="blog-card__read">{post.readTime}</span>
+                </div>
+                <h3 className="blog-card__title">
                   <a href={`/blog/${post.slug}`}>{post.title}</a>
                 </h3>
-                <p className="flex-1 text-sm leading-relaxed text-[var(--muted)]">{post.excerpt}</p>
-                <div className="flex items-center justify-between pt-2 border-t border-[var(--border)]">
-                  <span className="text-xs text-[var(--subtle)]">{post.readTime} de leitura</span>
-                  <a href={`/blog/${post.slug}`} className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--accent)]" aria-label={`Ler: ${post.title}`}>
-                    Ler artigo
-                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </a>
-                </div>
+                <p className="blog-card__excerpt">{post.excerpt}</p>
+                <a href={`/blog/${post.slug}`} className="card-link mt-auto" aria-label={`Ler: ${post.title}`}>
+                  Ler artigo
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
               </article>
             ))}
           </div>
