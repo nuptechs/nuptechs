@@ -138,78 +138,35 @@ const services = [
 
 const products = [
   {
-    tag: "Gestão", slug: "flowops", name: "FlowOps",
-    tagline: "Gestão de processos e tarefas",
-    highlights: ["Kanban + timeline", "Automações por regras", "Relatórios de produtividade"],
-    status: "Disponível",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
-        <rect x="3" y="14" width="7" height="7" rx="1"/><path d="M17 14v6M14 17h6"/>
-      </svg>
-    )
+    slug: "flowops", name: "FlowOps", tagline: "Gestão de processos e tarefas",
+    stat: "3x", statLabel: "mais produtividade",
+    status: "Disponível", statusColor: "green" as const,
   },
   {
-    tag: "BI", slug: "datapulse", name: "DataPulse",
-    tagline: "Dashboard de inteligência operacional",
-    highlights: ["+30 conectores nativos", "Alertas automáticos", "Exportação PDF/CSV"],
-    status: "Disponível",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
-        <line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/>
-      </svg>
-    )
+    slug: "datapulse", name: "DataPulse", tagline: "BI em tempo real, sem planilhas",
+    stat: "30+", statLabel: "conectores nativos",
+    status: "Disponível", statusColor: "green" as const,
   },
   {
-    tag: "Agendamento", slug: "bookflow", name: "BookFlow",
-    tagline: "Agendamento inteligente para equipes",
-    highlights: ["Confirmação por WhatsApp", "Anti-no-show automatizado", "Multi-agenda"],
-    status: "Disponível",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
-        <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-        <path d="M9 16l2 2 4-4"/>
-      </svg>
-    )
+    slug: "bookflow", name: "BookFlow", tagline: "Agendamento inteligente com anti-no-show",
+    stat: "40%", statLabel: "menos faltas",
+    status: "Disponível", statusColor: "green" as const,
   },
   {
-    tag: "IA", slug: "chatcore", name: "ChatCore",
-    tagline: "Atendimento automatizado com IA",
-    highlights: ["Treinamento com seus dados", "Integração WhatsApp + web", "Histórico completo"],
-    status: "Beta",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-        <line x1="9" y1="10" x2="9.01" y2="10"/><line x1="12" y1="10" x2="12.01" y2="10"/><line x1="15" y1="10" x2="15.01" y2="10"/>
-      </svg>
-    )
+    slug: "chatcore", name: "ChatCore", tagline: "Atendimento com IA treinada nos seus dados",
+    stat: "24/7", statLabel: "disponível",
+    status: "Beta", statusColor: "amber" as const,
   },
   {
-    tag: "Estoque", slug: "stocksync", name: "StockSync",
-    tagline: "Controle de estoque em tempo real",
-    highlights: ["Previsão de demanda com IA", "Multi-depósito", "Alertas de reposição"],
-    status: "Disponível",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
-      </svg>
-    )
+    slug: "stocksync", name: "StockSync", tagline: "Estoque preditivo com múltiplos depósitos",
+    stat: "95%", statLabel: "acurácia preditiva",
+    status: "Disponível", statusColor: "green" as const,
   },
   {
-    tag: "RH", slug: "peopledesk", name: "PeopleDesk",
-    tagline: "Gestão de pessoas simplificada",
-    highlights: ["Onboarding digital", "Ponto por app", "Avaliação 360°"],
-    status: "Em breve",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-      </svg>
-    )
-  }
+    slug: "peopledesk", name: "PeopleDesk", tagline: "RH digital — do onboarding à avaliação 360°",
+    stat: "0", statLabel: "papelada",
+    status: "Em breve", statusColor: "neutral" as const,
+  },
 ];
 
 const faqs = [
@@ -386,50 +343,56 @@ export default function Home() {
             <div className="max-w-lg">
               <span className="eyebrow mb-4 block">Produtos prontos</span>
               <h2 id="products-heading" className="section-heading mb-3">
-                Comece a usar hoje
+                Deploy hoje. Escale amanhã.
               </h2>
               <p className="lead">
-                Soluções testadas e prontas para implantação — construídas a partir dos problemas mais comuns que encontramos em centenas de projetos.
+                Soluções validadas em centenas de projetos — configure em horas, não em meses.
               </p>
             </div>
             <a href="/produtos" className="btn btn-secondary flex-shrink-0 self-start sm:self-auto">
-              Ver todos os produtos
+              Ver catálogo completo
             </a>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
-            {products.map((p) => (
-              <article key={p.name} className="product-card group" data-reveal-item>
-                <div className="product-card__header">
-                  <div className="product-card__icon">{p.icon}</div>
-                  <span className={`product-card__badge ${p.status === "Disponível" ? "product-card__badge--green" : p.status === "Beta" ? "product-card__badge--amber" : "product-card__badge--neutral"}`}>
-                    <span className={`product-card__badge-dot ${p.status === "Disponível" ? "product-card__badge-dot--green" : p.status === "Beta" ? "product-card__badge-dot--amber" : "product-card__badge-dot--neutral"}`} />
-                    {p.status}
-                  </span>
-                </div>
-                <div className="product-card__body">
-                  <p className="product-card__tag">{p.tag}</p>
-                  <h3 className="product-card__name">{p.name}</h3>
-                  <p className="product-card__tagline">{p.tagline}</p>
-                </div>
-                <ul className="product-card__highlights" aria-label={`Destaques de ${p.name}`}>
-                  {p.highlights.map((h) => (
-                    <li key={h} className="product-card__highlight">
-                      <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="flex-shrink-0 text-[var(--accent)]">
-                        <path d="M2.5 7l3 3 6-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          <div className="product-showcase" data-reveal-group>
+            {products.map((p, i) => {
+              const statusCls =
+                p.statusColor === "green"
+                  ? "product-pill product-pill--green"
+                  : p.statusColor === "amber"
+                  ? "product-pill product-pill--amber"
+                  : "product-pill product-pill--neutral";
+
+              return (
+                <a
+                  key={p.slug}
+                  href={`/produtos/${p.slug}`}
+                  className={`product-tile${i === 0 ? " product-tile--hero" : ""}`}
+                  data-reveal-item
+                  aria-label={`${p.name} — ${p.tagline}`}
+                >
+                  <div className="product-tile__inner">
+                    <div className="product-tile__top">
+                      <h3 className="product-tile__name">{p.name}</h3>
+                      <span className={statusCls}>{p.status}</span>
+                    </div>
+
+                    <p className="product-tile__tagline">{p.tagline}</p>
+
+                    <div className="product-tile__stat">
+                      <span className="product-tile__stat-value">{p.stat}</span>
+                      <span className="product-tile__stat-label">{p.statLabel}</span>
+                    </div>
+
+                    <span className="product-tile__arrow" aria-hidden="true">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-                <a href={`/produtos/${p.slug}`} className="product-card__cta" aria-label={`${p.status === "Em breve" ? "Lista de espera" : "Ver produto"}: ${p.name}`}>
-                  {p.status === "Em breve" ? "Lista de espera" : "Ver produto"}
-                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                    </span>
+                  </div>
                 </a>
-              </article>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
