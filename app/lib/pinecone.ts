@@ -6,8 +6,8 @@ import { Pinecone } from "@pinecone-database/pinecone";
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Embedding config (must match Pinecone index dimension) ── */
-const EMBEDDING_MODEL = "text-embedding-3-small";
-const EMBEDDING_DIMENSIONS = 1024;
+const EMBEDDING_MODEL = "text-embedding-3-large";
+const EMBEDDING_DIMENSIONS = 2048;
 
 let _pinecone: Pinecone | null = null;
 
