@@ -4,220 +4,252 @@ import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import type { MindMapNode } from "../blog/[slug]/page";
 
 /* ═══════════════════════════════════════════════════════════
-   InteractiveMindMap v4 — HTML/CSS card-based layout.
+   InteractiveMindMap v5 — Horizontal tree mind map
 
-   Design philosophy:
-   • NO SVG — pure HTML flexbox/grid for reliable rendering
-   • Dark gradient background with depth
-   • Animated cards with glassmorphism
-   • Progressive reveal with smooth transitions
-   • Fully responsive, touch-friendly
-   • Every node is large, readable, beautiful
+   Design philosophy (Miro / Whimsical / MindMeister):
+   • Center node DOMINATES — large, glowing, color-rich
+   • Branches split LEFT and RIGHT (balanced tree)
+   • Curved organic connectors via inline SVG paths
+   • Color-coded branches — each branch owns a color
+   • Leaves reveal on click with smooth animation
+   • Text is ALWAYS readable — never truncated
+   • Generous whitespace — breathes like Whimsical
+   • Works flawlessly in any browser (no SVG layout bugs)
+   
+   Layout: Left branches ← [CENTER] → Right branches
+   This is the "horizontal mind map" pattern used by 
+   Miro, XMind, and MindMeister.
    ═══════════════════════════════════════════════════════════ */
 
-const COLORS = [
-  { bg: "rgba(99,102,241,0.12)", border: "rgba(99,102,241,0.35)", text: "#818cf8", solid: "#6366f1" },
-  { bg: "rgba(16,185,129,0.12)", border: "rgba(16,185,129,0.35)", text: "#34d399", solid: "#10b981" },
-  { bg: "rgba(245,158,11,0.12)", border: "rgba(245,158,11,0.35)", text: "#fbbf24", solid: "#f59e0b" },
-  { bg: "rgba(236,72,153,0.12)", border: "rgba(236,72,153,0.35)", text: "#f472b6", solid: "#ec4899" },
-  { bg: "rgba(14,165,233,0.12)", border: "rgba(14,165,233,0.35)", text: "#38bdf8", solid: "#0ea5e9" },
-  { bg: "rgba(139,92,246,0.12)", border: "rgba(139,92,246,0.35)", text: "#a78bfa", solid: "#8b5cf6" },
-  { bg: "rgba(239,68,68,0.12)", border: "rgba(239,68,68,0.35)", text: "#f87171", solid: "#ef4444" },
-  { bg: "rgba(20,184,166,0.12)", border: "rgba(20,184,166,0.35)", text: "#2dd4bf", solid: "#14b8a6" },
+const PALETTE = [
+  { h: 239, s: 84, l: 67, hex: "#6366f1" },  // indigo
+  { h: 160, s: 84, l: 39, hex: "#10b981" },  // emerald
+  { h: 38,  s: 92, l: 50, hex: "#f59e0b" },  // amber
+  { h: 330, s: 81, l: 60, hex: "#ec4899" },  // pink
+  { h: 199, s: 89, l: 48, hex: "#0ea5e9" },  // sky
+  { h: 263, s: 70, l: 50, hex: "#8b5cf6" },  // violet
+  { h: 0,   s: 84, l: 60, hex: "#ef4444" },  // red
+  { h: 174, s: 77, l: 40, hex: "#14b8a6" },  // teal
 ];
 
-function countAll(node: MindMapNode): number {
-  if (!node.children) return 0;
-  return node.children.reduce((s, c) => s + 1 + countAll(c), 0);
+function countAll(n: MindMapNode): number {
+  return (n.children ?? []).reduce((s, c) => s + 1 + countAll(c), 0);
 }
 
-/* ═══ Branch Card ═════════════════════════════════════════ */
-function BranchCard({
-  branch,
-  index,
-  expanded,
-  focused,
-  dimmed,
-  onToggle,
-}: {
-  branch: MindMapNode;
-  index: number;
-  expanded: boolean;
-  focused: boolean;
-  dimmed: boolean;
-  onToggle: () => void;
-}) {
-  const c = COLORS[index % COLORS.length];
-  const leaves = branch.children ?? [];
-  const count = leaves.length;
-
+/* ── Curved connector (branch → center) ── */
+function BranchConnector({ color, side }: { color: string; side: "left" | "right" }) {
+  const w = 56, h = 6;
   return (
-    <div
-      className="mm4-branch"
-      style={{
-        opacity: dimmed ? 0.3 : 1,
-        transform: focused ? "scale(1.02)" : dimmed ? "scale(0.97)" : "scale(1)",
-      }}
-    >
-      {/* Branch header */}
-      <button
-        className="mm4-branch__header"
-        onClick={onToggle}
-        style={{ borderColor: c.border, background: c.bg }}
-        aria-expanded={expanded}
-      >
-        <span className="mm4-branch__dot" style={{ background: c.solid }} />
-        <span className="mm4-branch__label" style={{ color: c.text }}>{branch.label}</span>
-        <span className="mm4-branch__count" style={{ color: c.text, background: `${c.solid}22` }}>
-          {count}
-        </span>
-        <svg
-          className="mm4-branch__chevron"
-          style={{ transform: expanded ? "rotate(180deg)" : "rotate(0)", color: c.text }}
-          width="16" height="16" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-        >
-          <path d="M6 9l6 6 6-6" />
-        </svg>
-      </button>
-
-      {/* Leaves */}
-      <div className="mm4-branch__leaves" style={{ maxHeight: expanded ? `${count * 52 + 16}px` : "0" }}>
-        {leaves.map((leaf, li) => (
-          <div key={li} className="mm4-leaf" style={{
-            borderColor: c.border,
-            transitionDelay: expanded ? `${li * 40}ms` : "0ms",
-            opacity: expanded ? 1 : 0,
-            transform: expanded ? "translateX(0)" : "translateX(-8px)",
-          }}>
-            <span className="mm4-leaf__connector" style={{ background: c.border }} />
-            <span className="mm4-leaf__text">{leaf.label}</span>
-          </div>
-        ))}
-      </div>
-    </div>
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="mm5__curve" aria-hidden>
+      <path
+        d={`M0,${h/2} C${w*0.4},${h/2} ${w*0.6},${h/2} ${w},${h/2}`}
+        stroke={color} strokeWidth="2" fill="none" opacity="0.45" strokeLinecap="round"
+      />
+    </svg>
   );
 }
 
-/* ═══ Main Component ═════════════════════════════════════ */
-export default function InteractiveMindMap({ data, title }: { data: MindMapNode; title?: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [expandedSet, setExpandedSet] = useState<Set<number>>(() => new Set());
-  const [focusIdx, setFocusIdx] = useState<number | null>(null);
+/* ── Leaf connector (small horizontal line) ── */
+function LeafLine({ color }: { color: string }) {
+  return (
+    <svg width="24" height="2" viewBox="0 0 24 2" className="mm5__leaf-line" aria-hidden>
+      <line x1="0" y1="1" x2="24" y2="1" stroke={color} strokeWidth="1.5" opacity="0.3" strokeLinecap="round" />
+    </svg>
+  );
+}
 
-  const branches = data.children ?? [];
-  const totalNodes = useMemo(() => countAll(data), [data]);
+/* ═══════════════════════════════════════════════════════════ */
+export default function InteractiveMindMap({ data }: { data: MindMapNode; title?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [expanded, setExpanded] = useState<Set<number>>(() => new Set());
+  const [focus, setFocus] = useState<number | null>(null);
 
-  // Intersection observer
+  const branches = useMemo(() => data.children ?? [], [data]);
+  const total = useMemo(() => countAll(data), [data]);
+
   useEffect(() => {
-    const el = containerRef.current;
+    const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) setIsVisible(true); }, { threshold: 0.1 });
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setVisible(true); io.disconnect(); }
+    }, { threshold: 0.05 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
-  const toggleBranch = useCallback((idx: number) => {
-    setExpandedSet((prev) => {
-      const n = new Set(prev);
-      n.has(idx) ? n.delete(idx) : n.add(idx);
-      return n;
-    });
+  const toggle = useCallback((i: number) => {
+    setExpanded(p => { const n = new Set(p); n.has(i) ? n.delete(i) : n.add(i); return n; });
   }, []);
 
-  const allExpanded = branches.every((_, i) => expandedSet.has(i));
-
+  const allOpen = branches.every((_, i) => expanded.has(i));
   const toggleAll = useCallback(() => {
-    if (allExpanded) {
-      setExpandedSet(new Set());
-    } else {
-      setExpandedSet(new Set(branches.map((_, i) => i)));
-    }
-    setFocusIdx(null);
-  }, [allExpanded, branches]);
+    setExpanded(allOpen ? new Set() : new Set(branches.map((_, i) => i)));
+    setFocus(null);
+  }, [allOpen, branches]);
+
+  /* Split branches: left side and right side */
+  const mid = Math.ceil(branches.length / 2);
+  const leftIdxs = branches.map((_, i) => i).slice(0, mid);
+  const rightIdxs = branches.map((_, i) => i).slice(mid);
+
+  /* ── Render a single branch arm (for either side) ── */
+  const renderArm = (idx: number, side: "left" | "right") => {
+    const branch = branches[idx];
+    const p = PALETTE[idx % PALETTE.length];
+    const isOpen = expanded.has(idx);
+    const isDim = focus !== null && focus !== idx;
+    const leaves = branch.children ?? [];
+
+    const pill = (
+      <button
+        className={`mm5__pill${isOpen ? " mm5__pill--open" : ""}`}
+        style={{
+          borderColor: `${p.hex}55`,
+          background: `hsla(${p.h},${p.s}%,${p.l}%,0.08)`,
+        }}
+        onClick={() => toggle(idx)}
+        aria-expanded={isOpen}
+      >
+        {side === "left" && leaves.length > 0 && (
+          <span className="mm5__badge" style={{ background: `${p.hex}20`, color: p.hex }}>
+            {isOpen ? "−" : leaves.length}
+          </span>
+        )}
+        <span className="mm5__pill-dot" style={{ background: p.hex }} />
+        <span className="mm5__pill-label" style={{ color: p.hex }}>{branch.label}</span>
+        {side === "right" && leaves.length > 0 && (
+          <span className="mm5__badge" style={{ background: `${p.hex}20`, color: p.hex }}>
+            {isOpen ? "−" : leaves.length}
+          </span>
+        )}
+      </button>
+    );
+
+    const leafList = isOpen && leaves.length > 0 && (
+      <div className={`mm5__leaves mm5__leaves--${side}`}>
+        {leaves.map((leaf, li) => (
+          <div
+            key={li}
+            className="mm5__leaf"
+            style={{ animationDelay: `${li * 50}ms`, borderColor: `${p.hex}40` }}
+          >
+            {side === "right" && <LeafLine color={p.hex} />}
+            <span className="mm5__leaf-label">{leaf.label}</span>
+            {side === "left" && <LeafLine color={p.hex} />}
+          </div>
+        ))}
+      </div>
+    );
+
+    return (
+      <div
+        key={idx}
+        className={`mm5__arm${isDim ? " mm5__arm--dim" : ""}`}
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateX(0)" : (side === "left" ? "translateX(24px)" : "translateX(-24px)"),
+          transitionDelay: `${idx * 90 + 200}ms`,
+        }}
+      >
+        <div className={`mm5__arm-row mm5__arm-row--${side}`}>
+          {side === "left" && leafList}
+          {side === "left" && pill}
+          {side === "left" && <BranchConnector color={p.hex} side="left" />}
+
+          {side === "right" && <BranchConnector color={p.hex} side="right" />}
+          {side === "right" && pill}
+          {side === "right" && leafList}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div
-      ref={containerRef}
-      className="mm4"
+      ref={ref}
+      className="mm5"
       style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(24px)",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(20px)",
       }}
     >
-      {/* Header */}
-      <div className="mm4__header">
-        <div className="mm4__header-left">
-          <div className="mm4__icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.5" />
-              <circle cx="12" cy="3.5" r="2" stroke="currentColor" strokeWidth="1" opacity="0.5" />
-              <circle cx="20.5" cy="12" r="2" stroke="currentColor" strokeWidth="1" opacity="0.5" />
-              <circle cx="12" cy="20.5" r="2" stroke="currentColor" strokeWidth="1" opacity="0.5" />
-              <circle cx="3.5" cy="12" r="2" stroke="currentColor" strokeWidth="1" opacity="0.5" />
-              <path d="M12 8.5V5.5M15.5 12h3M12 15.5v3M8.5 12h-3" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+      {/* ── Header ─────────────────────────── */}
+      <div className="mm5__bar">
+        <div className="mm5__bar-left">
+          <div className="mm5__bar-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <circle cx="12" cy="12" r="3" />
+              <line x1="12" y1="3" x2="12" y2="9" opacity=".4" />
+              <line x1="12" y1="15" x2="12" y2="21" opacity=".4" />
+              <line x1="3" y1="12" x2="9" y2="12" opacity=".4" />
+              <line x1="15" y1="12" x2="21" y2="12" opacity=".4" />
+              <circle cx="12" cy="3" r="1.5" fill="currentColor" opacity=".3" />
+              <circle cx="12" cy="21" r="1.5" fill="currentColor" opacity=".3" />
+              <circle cx="3" cy="12" r="1.5" fill="currentColor" opacity=".3" />
+              <circle cx="21" cy="12" r="1.5" fill="currentColor" opacity=".3" />
             </svg>
           </div>
           <div>
-            <h3 className="mm4__title">{title ?? "Mapa Mental — Revisão"}</h3>
-            <p className="mm4__subtitle">
-              {branches.length} temas · {totalNodes} conceitos
-            </p>
+            <div className="mm5__bar-title">Mapa Mental</div>
+            <div className="mm5__bar-meta">{branches.length} ramos · {total} conceitos</div>
           </div>
         </div>
-        <button className="mm4__btn" onClick={toggleAll}>
-          {allExpanded ? "Recolher" : "Expandir tudo"}
+        <button className="mm5__bar-btn" onClick={toggleAll}>
+          {allOpen ? "Recolher" : "Expandir tudo"}
         </button>
       </div>
 
-      {/* Root node */}
-      <div className="mm4__root">
-        <div className="mm4__root-node">
-          <div className="mm4__root-glow" />
-          <span className="mm4__root-label">{data.label}</span>
+      {/* ── The mind map ───────────────────── */}
+      <div className="mm5__canvas">
+        {/* Left side */}
+        <div className="mm5__side mm5__side--left">
+          {leftIdxs.map(i => renderArm(i, "left"))}
         </div>
-        <div className="mm4__root-line" />
+
+        {/* Center node */}
+        <div className="mm5__center" style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "scale(1)" : "scale(0.6)",
+          transitionDelay: "100ms",
+        }}>
+          <div className="mm5__center-glow" />
+          <div className="mm5__center-ring" />
+          <div className="mm5__center-node">
+            <span className="mm5__center-label">{data.label}</span>
+          </div>
+        </div>
+
+        {/* Right side */}
+        <div className="mm5__side mm5__side--right">
+          {rightIdxs.map(i => renderArm(i, "right"))}
+        </div>
       </div>
 
-      {/* Branches grid */}
-      <div className="mm4__grid">
-        {branches.map((branch, i) => (
-          <BranchCard
-            key={i}
-            branch={branch}
-            index={i}
-            expanded={expandedSet.has(i)}
-            focused={focusIdx === i}
-            dimmed={focusIdx !== null && focusIdx !== i}
-            onToggle={() => toggleBranch(i)}
-          />
-        ))}
-      </div>
-
-      {/* Legend / quick filter */}
-      <div className="mm4__footer">
-        <div className="mm4__legend">
+      {/* ── Footer legend ──────────────────── */}
+      <div className="mm5__footer">
+        <div className="mm5__tags">
           {branches.map((b, i) => {
-            const c = COLORS[i % COLORS.length];
+            const p = PALETTE[i % PALETTE.length];
+            const active = focus === i;
             return (
               <button
                 key={i}
-                className={`mm4__tag${focusIdx === i ? " mm4__tag--active" : ""}`}
+                className={`mm5__tag${active ? " mm5__tag--on" : ""}`}
                 style={{
-                  borderColor: focusIdx === i ? c.solid : "var(--border)",
-                  background: focusIdx === i ? c.bg : "transparent",
-                  color: focusIdx === i ? c.text : "var(--muted)",
+                  borderColor: active ? p.hex : undefined,
+                  background: active ? `${p.hex}15` : undefined,
+                  color: active ? p.hex : undefined,
                 }}
-                onClick={() => setFocusIdx((p) => p === i ? null : i)}
+                onClick={() => setFocus(f => f === i ? null : i)}
               >
-                <span className="mm4__tag-dot" style={{ background: c.solid }} />
+                <span className="mm5__tag-dot" style={{ background: p.hex }} />
                 {b.label}
               </button>
             );
           })}
         </div>
-        <p className="mm4__hint">Clique nos temas para expandir · Tags filtram por ramo</p>
+        <p className="mm5__tip">Clique nos ramos para expandir · Tags filtram por tema</p>
       </div>
     </div>
   );
