@@ -139,31 +139,62 @@ function NodeCircle({
   const isBranch = node.depth === 1;
   const isLeaf = node.depth >= 2;
 
-  const radius = isRoot ? 36 : isBranch ? 26 : 22;
-  const fontSize = isRoot ? 10 : isBranch ? 9 : 7.5;
-  const fontWeight = isRoot || isBranch ? 700 : 600;
+  const radius = isRoot ? 38 : isBranch ? 28 : 24;
 
   const fillColor = isRoot ? color : isBranch ? color : "var(--surface-raised)";
   const textColor = isRoot || isBranch ? "#fff" : "var(--text)";
   const strokeColor = isLeaf ? color : "none";
 
-  // Word wrap for labels
-  const words = node.label.split(" ");
-  const lines: string[] = [];
-  let currentLine = "";
-  const maxCharsPerLine = isRoot ? 12 : isBranch ? 9 : 10;
+  // Smart word-wrap: fit text inside circle diameter
+  // Approximate char width ≈ fontSize * 0.55
+  const maxTextWidth = radius * 1.6; // usable width inside circle
+  const baseFontSize = isRoot ? 10.5 : isBranch ? 9 : 8;
+  const maxLines = isRoot ? 3 : isBranch ? 2 : 2;
 
-  for (const word of words) {
-    if ((currentLine + " " + word).trim().length > maxCharsPerLine && currentLine) {
-      lines.push(currentLine);
-      currentLine = word;
-    } else {
-      currentLine = currentLine ? currentLine + " " + word : word;
+  function wrapText(label: string, fs: number): string[] {
+    const charWidth = fs * 0.55;
+    const maxChars = Math.floor(maxTextWidth / charWidth);
+    const words = label.split(" ");
+    const result: string[] = [];
+    let cur = "";
+
+    for (const word of words) {
+      const test = cur ? cur + " " + word : word;
+      if (test.length > maxChars && cur) {
+        result.push(cur);
+        cur = word;
+      } else {
+        cur = test;
+      }
     }
-  }
-  if (currentLine) lines.push(currentLine);
+    if (cur) result.push(cur);
 
-  const lineHeight = fontSize * 1.25;
+    // Truncate lines that exceed maxLines
+    if (result.length > maxLines) {
+      result.length = maxLines;
+      result[maxLines - 1] = result[maxLines - 1].slice(0, -1) + "…";
+    }
+
+    // Truncate any single line that's still too wide
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].length > maxChars + 2) {
+        result[i] = result[i].slice(0, maxChars) + "…";
+      }
+    }
+
+    return result;
+  }
+
+  // Try base size first; shrink if too many lines
+  let fontSize = baseFontSize;
+  let lines = wrapText(node.label, fontSize);
+  if (lines.length > maxLines) {
+    fontSize = baseFontSize - 1;
+    lines = wrapText(node.label, fontSize);
+  }
+
+  const fontWeight = isRoot || isBranch ? 700 : 600;
+  const lineHeight = fontSize * 1.3;
   const textStartY = -(lines.length - 1) * lineHeight / 2;
 
   return (
