@@ -34,30 +34,36 @@ function layoutTree(root: MindMapNode, width: number, height: number): LayoutNod
   const cx = width / 2;
   const cy = height / 2;
 
+  const pad = 45; // keep nodes within bounds (accounts for node radius + text)
   const branches = root.children ?? [];
   const angleStep = (2 * Math.PI) / Math.max(branches.length, 1);
-  const r1 = Math.min(width, height) * 0.28;
-  const r2 = Math.min(width, height) * 0.44;
+  const r1 = Math.min(width, height) * 0.26;
+  const leafDist = Math.min(width, height) * 0.17; // distance from parent branch, NOT from center
 
-  function layoutChildren(children: MindMapNode[], parentX: number, parentY: number, startAngle: number, spread: number, depth: number, branchIdx: number): LayoutNode[] {
+  function clamp(val: number, min: number, max: number) {
+    return Math.max(min, Math.min(max, val));
+  }
+
+  function layoutLeaves(children: MindMapNode[], parentX: number, parentY: number, parentAngle: number, branchIdx: number): LayoutNode[] {
     if (!children || children.length === 0) return [];
-    const step = spread / Math.max(children.length - 1, 1);
-    const offset = children.length > 1 ? -spread / 2 : 0;
+    const count = children.length;
+    const totalSpread = Math.min(angleStep * 0.55, Math.PI * 0.5);
+    const step = count > 1 ? totalSpread / (count - 1) : 0;
+    const startAngle = parentAngle - totalSpread / 2;
 
     return children.map((child, i) => {
-      const angle = startAngle + offset + step * i;
-      const radius = depth === 1 ? r1 : r2;
-      const x = cx + Math.cos(angle) * radius;
-      const y = cy + Math.sin(angle) * radius;
+      const angle = count > 1 ? startAngle + step * i : parentAngle;
+      const rawX = parentX + Math.cos(angle) * leafDist;
+      const rawY = parentY + Math.sin(angle) * leafDist;
 
       return {
         label: child.label,
-        x,
-        y,
-        depth,
+        x: clamp(rawX, pad, width - pad),
+        y: clamp(rawY, pad, height - pad),
+        depth: 2,
         branchIndex: branchIdx,
         angle,
-        children: layoutChildren(child.children ?? [], x, y, angle, spread * 0.5, depth + 1, branchIdx),
+        children: [],
       };
     });
   }
@@ -71,18 +77,17 @@ function layoutTree(root: MindMapNode, width: number, height: number): LayoutNod
     angle: 0,
     children: branches.map((branch, i) => {
       const angle = -Math.PI / 2 + angleStep * i;
-      const x = cx + Math.cos(angle) * r1;
-      const y = cy + Math.sin(angle) * r1;
-      const leafSpread = angleStep * 0.6;
+      const bx = clamp(cx + Math.cos(angle) * r1, pad, width - pad);
+      const by = clamp(cy + Math.sin(angle) * r1, pad, height - pad);
 
       return {
         label: branch.label,
-        x,
-        y,
+        x: bx,
+        y: by,
         depth: 1,
         branchIndex: i,
         angle,
-        children: layoutChildren(branch.children ?? [], x, y, angle, leafSpread, 2, i),
+        children: layoutLeaves(branch.children ?? [], bx, by, angle, i),
       };
     }),
   };
@@ -134,9 +139,9 @@ function NodeCircle({
   const isBranch = node.depth === 1;
   const isLeaf = node.depth >= 2;
 
-  const radius = isRoot ? 38 : isBranch ? 28 : 20;
-  const fontSize = isRoot ? 11 : isBranch ? 9.5 : 8;
-  const fontWeight = isRoot || isBranch ? 700 : 500;
+  const radius = isRoot ? 36 : isBranch ? 26 : 22;
+  const fontSize = isRoot ? 10 : isBranch ? 9 : 7.5;
+  const fontWeight = isRoot || isBranch ? 700 : 600;
 
   const fillColor = isRoot ? color : isBranch ? color : "var(--surface-raised)";
   const textColor = isRoot || isBranch ? "#fff" : "var(--text)";
@@ -146,7 +151,7 @@ function NodeCircle({
   const words = node.label.split(" ");
   const lines: string[] = [];
   let currentLine = "";
-  const maxCharsPerLine = isRoot ? 14 : isBranch ? 10 : 12;
+  const maxCharsPerLine = isRoot ? 12 : isBranch ? 9 : 10;
 
   for (const word of words) {
     if ((currentLine + " " + word).trim().length > maxCharsPerLine && currentLine) {
@@ -245,7 +250,7 @@ export default function InteractiveMindMap({ data, title }: { data: MindMapNode;
     const ro = new ResizeObserver((entries) => {
       const { width } = entries[0].contentRect;
       const w = Math.max(320, Math.min(800, width));
-      const h = w < 500 ? w * 0.85 : w * 0.7;
+      const h = w < 480 ? w * 0.95 : w * 0.75;
       setDimensions({ width: w, height: h });
     });
     ro.observe(el);
@@ -354,7 +359,7 @@ export default function InteractiveMindMap({ data, title }: { data: MindMapNode;
                 key={`area-${i}`}
                 cx={branch.x}
                 cy={branch.y}
-                r={dimensions.width * 0.18}
+                r={dimensions.width * 0.13}
                 fill={`url(#mm-grad-${i % BRANCH_COLORS.length})`}
                 className="mindmap-svg__area"
               />
