@@ -103,7 +103,7 @@ const products = [
   {
     tag: "Gestão de Processos", slug: "flowops", name: "FlowOps",
     tagline: "Kanban, automações e relatórios de produtividade para times que precisam de visibilidade.",
-    status: "Disponível", highlight: true,
+    status: "Disponível", highlight: false,
   },
   {
     tag: "Business Intelligence", slug: "datapulse", name: "DataPulse",

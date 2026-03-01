@@ -112,7 +112,7 @@ export const dictionaries = {
       title: "Deploy today. Customize tomorrow.",
       lead: "Proven SaaS platforms ready to use — or white-labeled for your brand.",
       items: [
-        { slug: "flowops", tag: "Process Management", name: "FlowOps", tagline: "Task and workflow management your team will actually use.", status: "Available", highlight: true },
+        { slug: "flowops", tag: "Process Management", name: "FlowOps", tagline: "Task and workflow management your team will actually use.", status: "Available", highlight: false },
         { slug: "datapulse", tag: "Business Intelligence", name: "DataPulse", tagline: "Real-time operational intelligence dashboard.", status: "Available", highlight: false },
         { slug: "bookflow", tag: "Scheduling", name: "BookFlow", tagline: "Smart online booking with WhatsApp integration.", status: "Available", highlight: false },
         { slug: "chatcore", tag: "AI Customer Service", name: "ChatCore", tagline: "AI agent trained on your company's knowledge base.", status: "Beta", highlight: false },
@@ -321,7 +321,7 @@ export const dictionaries = {
       title: "Despliega hoy. Personaliza mañana.",
       lead: "Plataformas SaaS probadas listas para usar — o con marca blanca para tu empresa.",
       items: [
-        { slug: "flowops", tag: "Gestión de Procesos", name: "FlowOps", tagline: "Gestión de tareas y flujos de trabajo que tu equipo realmente usa.", status: "Disponible", highlight: true },
+        { slug: "flowops", tag: "Gestión de Procesos", name: "FlowOps", tagline: "Gestión de tareas y flujos de trabajo que tu equipo realmente usa.", status: "Disponible", highlight: false },
         { slug: "datapulse", tag: "Business Intelligence", name: "DataPulse", tagline: "Dashboard de inteligencia operacional en tiempo real.", status: "Disponible", highlight: false },
         { slug: "bookflow", tag: "Agendamiento", name: "BookFlow", tagline: "Reservas online inteligentes con integración a WhatsApp.", status: "Disponible", highlight: false },
         { slug: "chatcore", tag: "Atención al Cliente IA", name: "ChatCore", tagline: "Agente IA entrenado con la base de conocimiento de tu empresa.", status: "Beta", highlight: false },
