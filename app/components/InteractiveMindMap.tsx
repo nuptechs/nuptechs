@@ -50,31 +50,84 @@ function countAll(n: MindMapNode): number {
   return (n.children ?? []).reduce((s, c) => s + 1 + countAll(c), 0);
 }
 
+/* ── Slugify helper: converts label text to a potential section anchor ─ */
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+/* ── Find the best matching section on the page ────────────── */
+function findSectionId(label: string): string | null {
+  if (typeof document === "undefined") return null;
+  const sections = document.querySelectorAll<HTMLElement>(".article-section");
+  if (!sections.length) return null;
+
+  const needle = slugify(label);
+  /* 1. Exact slug match */
+  for (const el of sections) {
+    if (el.id && slugify(el.id).includes(needle)) return el.id;
+  }
+  /* 2. Heading text includes label */
+  const lowerLabel = label.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  for (const el of sections) {
+    const heading = el.querySelector("h2, h3");
+    if (!heading) continue;
+    const headingText = (heading.textContent ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    if (headingText.includes(lowerLabel) || lowerLabel.includes(headingText.slice(0, 12))) return el.id;
+  }
+  /* 3. Partial keyword match (first 2+ words) */
+  const keywords = needle.split("-").filter(w => w.length > 2);
+  if (keywords.length >= 1) {
+    for (const el of sections) {
+      const headText = slugify(el.querySelector("h2, h3")?.textContent ?? el.id);
+      if (keywords.some(k => headText.includes(k))) return el.id;
+    }
+  }
+  return null;
+}
+
+/* ── Scroll to section ─────────────────────────────────────── */
+function scrollToSection(label: string, closeFullscreen?: () => void) {
+  const sectionId = findSectionId(label);
+  if (!sectionId) return;
+  if (closeFullscreen) closeFullscreen();
+  /* Small delay so fullscreen closes before scrolling */
+  setTimeout(() => {
+    const el = document.getElementById(sectionId);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, closeFullscreen ? 350 : 0);
+}
+
 /* ── Organic curved connector ─────────────────────────────────
-   Coggle-style: gentle cubic Bézier, not a straight line.
-   The curve is subtle — thinner and lower opacity than text. */
+   Full-width horizontal Bézier that connects pill to center.
+   Start and end at vertical midpoint so lines are complete. */
 function Curve({ color, side }: { color: string; side: "left" | "right" }) {
-  const w = 48, h = 20;
-  /* Slight vertical offset makes the curve feel organic */
+  const w = 56, h = 16;
+  const mid = h / 2;
+  /* Gentle S-curve: starts horizontal, dips slightly, ends horizontal */
   const path = side === "right"
-    ? `M0,${h/2} C${w*0.35},${h/2} ${w*0.55},${h*0.25} ${w},${h*0.35}`
-    : `M${w},${h/2} C${w*0.65},${h/2} ${w*0.45},${h*0.25} 0,${h*0.35}`;
+    ? `M0,${mid} C${w * 0.4},${mid} ${w * 0.6},${mid + 2} ${w},${mid}`
+    : `M${w},${mid} C${w * 0.6},${mid} ${w * 0.4},${mid + 2} 0,${mid}`;
   return (
     <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="mm6__curve" aria-hidden>
-      <path d={path} stroke={color} strokeWidth="2" fill="none" opacity="0.3" strokeLinecap="round" />
+      <path d={path} stroke={color} strokeWidth="2" fill="none" opacity="0.35" strokeLinecap="round" />
     </svg>
   );
 }
 
 /* ── Small leaf connector ─── */
 function LeafCurve({ color, side }: { color: string; side: "left" | "right" }) {
-  const w = 20, h = 8;
+  const w = 28, h = 10;
+  const mid = h / 2;
   const path = side === "right"
-    ? `M0,${h/2} C${w*0.5},${h/2} ${w*0.5},${h*0.3} ${w},${h*0.3}`
-    : `M${w},${h/2} C${w*0.5},${h/2} ${w*0.5},${h*0.3} 0,${h*0.3}`;
+    ? `M0,${mid} C${w * 0.45},${mid} ${w * 0.55},${mid + 1} ${w},${mid}`
+    : `M${w},${mid} C${w * 0.55},${mid} ${w * 0.45},${mid + 1} 0,${mid}`;
   return (
     <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="mm6__leaf-curve" aria-hidden>
-      <path d={path} stroke={color} strokeWidth="1.5" fill="none" opacity="0.25" strokeLinecap="round" />
+      <path d={path} stroke={color} strokeWidth="1.5" fill="none" opacity="0.3" strokeLinecap="round" />
     </svg>
   );
 }
@@ -137,6 +190,8 @@ export default function InteractiveMindMap({ data }: { data: MindMapNode; title?
   const rightIdxs = useMemo(() => branches.map((_, i) => i).slice(mid), [branches, mid]);
 
   /* ── Render one branch arm ── */
+  const closeFs = fullscreen ? () => setFullscreen(false) : undefined;
+
   const renderArm = (idx: number, side: "left" | "right") => {
     const branch = branches[idx];
     const p = PALETTE[idx % PALETTE.length];
@@ -144,38 +199,50 @@ export default function InteractiveMindMap({ data }: { data: MindMapNode; title?
     const isDim = focus !== null && focus !== idx;
     const leaves = branch.children ?? [];
 
-    /* Pill button — the core interactive element */
+    /* Pill — click label to navigate, click count to expand */
     const pill = (
-      <button
+      <div
         className={`mm6__pill${isOpen ? " mm6__pill--open" : ""}`}
         style={{ borderColor: p.border, background: p.bg }}
-        onClick={() => toggle(idx)}
-        aria-expanded={isOpen}
-        aria-label={`${branch.label}: ${leaves.length} subtópicos`}
       >
         <span className="mm6__pill-dot" style={{ background: p.hex }} />
-        <span className="mm6__pill-text" style={{ color: p.hex }}>{branch.label}</span>
+        <button
+          className="mm6__pill-text mm6__pill-link"
+          style={{ color: p.hex }}
+          onClick={() => scrollToSection(branch.label, closeFs)}
+          title={`Ir para "${branch.label}"`}
+        >
+          {branch.label}
+        </button>
         {leaves.length > 0 && (
-          <span className="mm6__pill-count" style={{ color: p.hex, background: `${p.hex}12` }}>
+          <button
+            className="mm6__pill-count"
+            style={{ color: p.hex, background: `${p.hex}12` }}
+            onClick={() => toggle(idx)}
+            aria-expanded={isOpen}
+            aria-label={`${isOpen ? "Recolher" : "Expandir"} ${branch.label}`}
+          >
             {isOpen ? "−" : `${leaves.length}`}
-          </span>
+          </button>
         )}
-      </button>
+      </div>
     );
 
-    /* Leaves panel */
+    /* Leaves — each one is a clickable link */
     const leafPanel = isOpen && leaves.length > 0 && (
       <div className={`mm6__leaves mm6__leaves--${side}`}>
         {leaves.map((leaf, li) => (
-          <div
+          <button
             key={li}
-            className="mm6__leaf"
+            className="mm6__leaf mm6__leaf--clickable"
             style={{ animationDelay: `${li * 60}ms` }}
+            onClick={() => scrollToSection(leaf.label, closeFs)}
+            title={`Ir para "${leaf.label}"`}
           >
             {side === "right" && <LeafCurve color={p.hex} side="right" />}
             <span className="mm6__leaf-text">{leaf.label}</span>
             {side === "left" && <LeafCurve color={p.hex} side="left" />}
-          </div>
+          </button>
         ))}
       </div>
     );
@@ -306,7 +373,7 @@ export default function InteractiveMindMap({ data }: { data: MindMapNode; title?
           })}
         </div>
         <p className="mm6__hint">
-          Clique nos ramos para expandir · Tags para filtrar
+          Clique nos nomes para navegar ao texto · Números para expandir
           {!fullscreen && " · Tela cheia para ver tudo"}
         </p>
       </div>
