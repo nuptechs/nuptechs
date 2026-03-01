@@ -1565,14 +1565,11 @@ body {
 .callout__title { font-size: 0.8125rem; font-weight: 700; color: var(--text); }
 .callout__body { font-size: 0.875rem; line-height: 1.65; color: var(--text-secondary); margin: 0; }
 
-/* ─── Interactive Mind Map v3 (force-directed) ─────────── */
+/* ─── Interactive Mind Map v3 ──────────────────────────── */
 .mm3 {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 1.25rem; margin: 3rem 0; overflow: hidden;
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.mm3--visible { opacity: 1; transform: translateY(0); }
 
 .mm3__header {
   display: flex; align-items: center; gap: 0.5rem;
@@ -1593,38 +1590,7 @@ body {
 .mm3__btn--icon { padding: 0.375rem; display: flex; align-items: center; justify-content: center; }
 
 .mm3__canvas {
-  padding: 0.5rem; min-height: 340px; position: relative;
-  display: flex; align-items: center; justify-content: center;
-}
-
-/* SVG animations */
-.mm3-node {
-  cursor: pointer; opacity: 0;
-  animation: mm3NodeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-.mm3--visible .mm3-node { animation-play-state: running; }
-
-@keyframes mm3NodeIn {
-  from { opacity: 0; transform: scale(0.6); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.mm3-path {
-  stroke-dasharray: 600;
-  stroke-dashoffset: 600;
-  animation: mm3PathDraw 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-.mm3--visible .mm3-path { animation-play-state: running; }
-
-@keyframes mm3PathDraw {
-  to { stroke-dashoffset: 0; }
-}
-
-.mm3-glow {
-  animation: mm3Glow 1.8s ease-in-out infinite alternate;
-}
-@keyframes mm3Glow {
-  from { opacity: 0.08; } to { opacity: 0.18; }
+  padding: 0.5rem; min-height: 400px; position: relative;
 }
 
 /* Legend */
