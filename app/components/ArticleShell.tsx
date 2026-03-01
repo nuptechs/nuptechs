@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { Post, Callout, MindMapNode } from "../blog/[slug]/page";
+import type { Post, Callout } from "../blog/[slug]/page";
+import InteractiveMindMap from "./InteractiveMindMap";
+import MnemonicCards from "./MnemonicCards";
 
 /* ═══════════════════════════════════════════════════════════
    ArticleShell — Premium interactive article layout
@@ -23,22 +25,6 @@ const calloutConfig: Record<Callout["type"], { icon: string; label: string; clas
   insight: { icon: "📊", label: "Insight",  className: "callout--insight" },
   example: { icon: "🔍", label: "Exemplo",  className: "callout--example" },
 };
-
-/* ── Mind Map recursive node ──────────────────────────────── */
-function MindMapBranch({ node, depth = 0 }: { node: MindMapNode; depth?: number }) {
-  return (
-    <div className={`mindmap__node mindmap__node--d${Math.min(depth, 2)}`}>
-      <span className="mindmap__label">{node.label}</span>
-      {node.children && node.children.length > 0 && (
-        <div className="mindmap__children">
-          {node.children.map((child, i) => (
-            <MindMapBranch key={i} node={child} depth={depth + 1} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
 
 /* ── Main Component ───────────────────────────────────────── */
 export default function ArticleShell({ post, related }: { post: Post; related: Post[] }) {
@@ -238,42 +224,10 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
           ))}
 
           {/* ── Mind Map ─────────────────────────────────── */}
-          <div className="mindmap">
-            <div className="mindmap__header">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M12 2v4M12 18v4M2 12h4M18 12h4M5.6 5.6l2.85 2.85M15.55 15.55l2.85 2.85M5.6 18.4l2.85-2.85M15.55 8.45l2.85-2.85" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-              <span>Mapa mental — Resumo visual</span>
-            </div>
-            <div className="mindmap__tree">
-              <MindMapBranch node={post.mindMap} />
-            </div>
-          </div>
+          <InteractiveMindMap data={post.mindMap} />
 
           {/* ── Mnemonic ─────────────────────────────────── */}
-          {post.mnemonic && (
-            <div className="mnemonic">
-              <div className="mnemonic__header">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                  <path d="M9 21h6M10 17h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
-                <span>Mnemônico — <strong>{post.mnemonic.acronym}</strong></span>
-              </div>
-              <div className="mnemonic__grid">
-                {post.mnemonic.breakdown.map((b, i) => (
-                  <div key={i} className="mnemonic__item">
-                    <span className="mnemonic__letter">{b.letter}</span>
-                    <div>
-                      <p className="mnemonic__word">{b.word}</p>
-                      <p className="mnemonic__hint">{b.hint}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          {post.mnemonic && <MnemonicCards data={post.mnemonic} />}
         </article>
       </div>
 
