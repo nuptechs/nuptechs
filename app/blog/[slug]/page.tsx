@@ -731,13 +731,13 @@ export default function BlogPost({ params }: BlogParams) {
         {/* Header */}
         <section className="page-section pt-[calc(64px+5rem)]" aria-labelledby="post-heading">
           <div className="inner max-w-3xl">
-            <nav aria-label="Breadcrumb" className="mb-8">
-              <ol className="flex items-center gap-2 text-xs text-[var(--subtle)]">
-                <li><a href="/" className="hover:text-[var(--text)] transition-colors">Início</a></li>
-                <li aria-hidden="true">›</li>
-                <li><a href="/blog" className="hover:text-[var(--text)] transition-colors">Blog</a></li>
-                <li aria-hidden="true">›</li>
-                <li className="text-[var(--muted)] truncate max-w-[200px]">{post.title}</li>
+            <nav aria-label="Breadcrumb">
+              <ol className="breadcrumb">
+                <li><a href="/">Início</a></li>
+                <li aria-hidden="true" className="breadcrumb__sep">›</li>
+                <li><a href="/blog">Blog</a></li>
+                <li aria-hidden="true" className="breadcrumb__sep">›</li>
+                <li className="breadcrumb__current">{post.title}</li>
               </ol>
             </nav>
 

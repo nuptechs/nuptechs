@@ -378,13 +378,13 @@ export default function ServicePage({ params }: ServiceParams) {
       {/* Hero */}
       <section className="page-section pt-[calc(64px+5rem)]" aria-labelledby="service-heading">
         <div className="inner">
-          <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex items-center gap-2 text-xs text-[var(--subtle)]">
-              <li><a href="/" className="hover:text-[var(--text)] transition-colors">Início</a></li>
-              <li aria-hidden="true">›</li>
-              <li><a href="/#servicos" className="hover:text-[var(--text)] transition-colors">Serviços</a></li>
-              <li aria-hidden="true">›</li>
-              <li className="text-[var(--muted)]">{service.title}</li>
+          <nav aria-label="Breadcrumb">
+            <ol className="breadcrumb">
+              <li><a href="/">Início</a></li>
+              <li aria-hidden="true" className="breadcrumb__sep">›</li>
+              <li><a href="/servicos">Serviços</a></li>
+              <li aria-hidden="true" className="breadcrumb__sep">›</li>
+              <li className="breadcrumb__current">{service.title}</li>
             </ol>
           </nav>
 

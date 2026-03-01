@@ -114,11 +114,11 @@ export default function BlogIndex() {
         <section className="page-section pt-[calc(64px+5rem)]" aria-labelledby="blog-heading">
           <div className="inner">
             {/* Breadcrumb */}
-            <nav aria-label="Breadcrumb" className="mb-8">
-              <ol className="flex items-center gap-2 text-xs text-[var(--subtle)]">
-                <li><a href="/" className="hover:text-[var(--text)] transition-colors">Início</a></li>
-                <li aria-hidden="true">›</li>
-                <li className="text-[var(--muted)]">Blog</li>
+            <nav aria-label="Breadcrumb">
+              <ol className="breadcrumb">
+                <li><a href="/">Início</a></li>
+                <li aria-hidden="true" className="breadcrumb__sep">›</li>
+                <li className="breadcrumb__current">Blog</li>
               </ol>
             </nav>
 

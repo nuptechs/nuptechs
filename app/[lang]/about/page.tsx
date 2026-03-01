@@ -170,11 +170,11 @@ export default function AboutPage({ params }: Props) {
         {/* ── HERO ─────────────────────────────────────────── */}
         <section className="page-section pt-[calc(64px+5rem)]" aria-labelledby="about-heading">
           <div className="inner max-w-4xl">
-            <nav aria-label="Breadcrumb" className="mb-8">
-              <ol className="flex items-center gap-2 text-xs text-[var(--subtle)]">
-                <li><a href={`/${params.lang}`} className="hover:text-[var(--text)] transition-colors">{a.breadcrumbHome}</a></li>
-                <li aria-hidden="true">›</li>
-                <li className="text-[var(--muted)]">{a.breadcrumbAbout}</li>
+            <nav aria-label="Breadcrumb">
+              <ol className="breadcrumb">
+                <li><a href={`/${params.lang}`}>{a.breadcrumbHome}</a></li>
+                <li aria-hidden="true" className="breadcrumb__sep">›</li>
+                <li className="breadcrumb__current">{a.breadcrumbAbout}</li>
               </ol>
             </nav>
 

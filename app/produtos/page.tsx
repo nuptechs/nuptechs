@@ -153,10 +153,12 @@ export default function ProdutosIndex() {
         {/* Hero */}
         <section className="page-section pt-[calc(64px+5rem)]" aria-labelledby="products-heading">
           <div className="inner">
-            <nav className="breadcrumb" aria-label="Breadcrumb">
-              <a href="/">Início</a>
-              <span aria-hidden="true">/</span>
-              <span>Produtos</span>
+            <nav aria-label="Breadcrumb">
+              <ol className="breadcrumb">
+                <li><a href="/">Início</a></li>
+                <li aria-hidden="true" className="breadcrumb__sep">›</li>
+                <li className="breadcrumb__current">Produtos</li>
+              </ol>
             </nav>
             <div className="mb-16 max-w-2xl">
               <span className="eyebrow mb-4 block">Suite de produtos</span>

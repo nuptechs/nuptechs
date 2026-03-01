@@ -219,11 +219,11 @@ export default function SobrePage() {
         {/* ── Hero ── */}
         <section className="page-section pt-[calc(64px+5rem)]" aria-labelledby="sobre-heading">
           <div className="inner">
-            <nav aria-label="Breadcrumb" className="mb-8">
-              <ol className="flex items-center gap-2 text-xs text-[var(--subtle)]">
-                <li><a href="/" className="hover:text-[var(--text)] transition-colors">Início</a></li>
-                <li aria-hidden="true">›</li>
-                <li className="text-[var(--muted)]">Sobre</li>
+            <nav aria-label="Breadcrumb">
+              <ol className="breadcrumb">
+                <li><a href="/">Início</a></li>
+                <li aria-hidden="true" className="breadcrumb__sep">›</li>
+                <li className="breadcrumb__current">Sobre</li>
               </ol>
             </nav>
 

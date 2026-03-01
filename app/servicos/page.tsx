@@ -179,10 +179,12 @@ export default function ServicosIndex() {
         {/* Hero */}
         <section className="page-section pt-[calc(64px+5rem)]" aria-labelledby="services-heading">
           <div className="inner">
-            <nav className="breadcrumb" aria-label="Breadcrumb">
-              <a href="/">Início</a>
-              <span aria-hidden="true">/</span>
-              <span>Serviços</span>
+            <nav aria-label="Breadcrumb">
+              <ol className="breadcrumb">
+                <li><a href="/">Início</a></li>
+                <li aria-hidden="true" className="breadcrumb__sep">›</li>
+                <li className="breadcrumb__current">Serviços</li>
+              </ol>
             </nav>
 
             <div className="svc-hero">
