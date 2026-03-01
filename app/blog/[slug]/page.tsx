@@ -17,12 +17,16 @@ export interface PostSection {
   id: string;
   heading: string;
   content: string; // HTML
+  depth?: 0 | 1 | 2 | 3;
+  parentId?: string;
 }
 
 export interface Callout {
   type: "tip" | "warning" | "insight" | "example";
   title: string;
   body: string;
+  afterSectionId?: string;
+  depth?: 0 | 1 | 2 | 3;
 }
 
 export interface MindMapNode {
@@ -37,14 +41,17 @@ export interface Post {
   description: string;
   keywords: string[];
   readTime: string;
+  readTimeByDepth?: Record<number, string>;
   publishedAt: string;
   updatedAt?: string;
   author: { name: string; role: string };
+  executiveSummary?: string;
   keyTakeaways: string[];
   sections: PostSection[];
   callouts: Callout[];
   mindMap: MindMapNode;
   mnemonic?: { acronym: string; breakdown: { letter: string; word: string; hint: string }[] };
+  maxDepth?: 1 | 2 | 3;
   relatedSlugs: string[];
 }
 

@@ -1,15 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import type { Post, Callout } from "../blog/[slug]/page";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { Post, PostSection, Callout } from "../blog/[slug]/page";
 import InteractiveMindMap from "./InteractiveMindMap";
 import MnemonicCards from "./MnemonicCards";
+import DepthSelector from "./DepthSelector";
+import DepthExpander from "./DepthExpander";
 
 /* ═══════════════════════════════════════════════════════════
-   ArticleShell — Premium interactive article layout
+   ArticleShell v2 — Premium interactive article layout
    Features:
-   • Reading progress bar
-   • Sticky TOC sidebar (desktop)
+   • Progressive depth layers (0–3) with DepthSelector
+   • Inline DepthExpander cards for deeper content
+   • Reading progress bar (depth-aware)
+   • Sticky TOC sidebar (depth-filtered)
    • Collapsible mobile TOC
    • Key Takeaways box
    • Rich callout blocks (tip, warning, insight, example)
@@ -26,12 +30,65 @@ const calloutConfig: Record<Callout["type"], { icon: string; label: string; clas
   example: { icon: "🔍", label: "Exemplo",  className: "callout--example" },
 };
 
+/* ── Depth helpers ────────────────────────────────────────── */
+function hasDepthLayers(post: Post): boolean {
+  return (post.maxDepth ?? 0) > 0 && post.sections.some((s) => (s.depth ?? 0) > 0);
+}
+
+function getVisibleSections(sections: PostSection[], activeDepth: number, expandedIds: Set<string>) {
+  return sections.filter((s) => {
+    const d = s.depth ?? 0;
+    return d <= activeDepth || expandedIds.has(s.id);
+  });
+}
+
+function getDeeperChildren(sections: PostSection[], parentId: string, activeDepth: number, expandedIds: Set<string>) {
+  return sections.filter((s) => {
+    const d = s.depth ?? 0;
+    return s.parentId === parentId && d > activeDepth && !expandedIds.has(s.id);
+  });
+}
+
 /* ── Main Component ───────────────────────────────────────── */
 export default function ArticleShell({ post, related }: { post: Post; related: Post[] }) {
   const articleRef = useRef<HTMLElement>(null);
   const [progress, setProgress] = useState(0);
   const [activeSectionId, setActiveSectionId] = useState<string>("");
   const [tocOpen, setTocOpen] = useState(false);
+
+  /* ── Depth state ────────────────────────────────────────── */
+  const isLayered = hasDepthLayers(post);
+  const maxDepth = post.maxDepth ?? 0;
+
+  const [activeDepth, setActiveDepth] = useState(() => {
+    if (typeof window === "undefined") return 0;
+    const saved = localStorage.getItem("nuptechs-depth");
+    const parsed = saved ? parseInt(saved, 10) : 0;
+    return Math.min(parsed, maxDepth);
+  });
+
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
+
+  const handleDepthChange = useCallback((depth: number) => {
+    setActiveDepth(depth);
+    setExpandedSections(new Set());
+    localStorage.setItem("nuptechs-depth", String(depth));
+  }, []);
+
+  const toggleExpanded = useCallback((id: string) => {
+    setExpandedSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  /* ── Visible sections (depth-filtered or all) ───────────── */
+  const visibleSections = useMemo(() => {
+    if (!isLayered) return post.sections;
+    return getVisibleSections(post.sections, activeDepth, expandedSections);
+  }, [isLayered, post.sections, activeDepth, expandedSections]);
 
   /* Reading progress */
   useEffect(() => {
@@ -47,9 +104,9 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* Active section observer */
+  /* Active section observer — re-observe when visible sections change */
   useEffect(() => {
-    const targets = post.sections
+    const targets = visibleSections
       .map((s) => document.getElementById(s.id))
       .filter(Boolean) as HTMLElement[];
     if (targets.length === 0) return;
@@ -66,7 +123,7 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
     );
     targets.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [post.sections]);
+  }, [visibleSections]);
 
   return (
     <>
@@ -101,6 +158,16 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
           <h1 className="article-header__title">{post.title}</h1>
           <p className="article-header__desc">{post.description}</p>
 
+          {/* ── Depth Selector (only for layered posts) ── */}
+          {isLayered && (
+            <DepthSelector
+              maxDepth={maxDepth}
+              activeDepth={activeDepth}
+              onDepthChange={handleDepthChange}
+              readTimeByDepth={post.readTimeByDepth}
+            />
+          )}
+
           <div className="article-header__author">
             <div className="article-header__avatar" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="1.5"/></svg>
@@ -120,11 +187,11 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
           <div className="article-toc__sticky">
             <p className="article-toc__title">Neste artigo</p>
             <ul className="article-toc__list">
-              {post.sections.map((s) => (
+              {visibleSections.map((s) => (
                 <li key={s.id}>
                   <a
                     href={`#${s.id}`}
-                    className={`article-toc__link${activeSectionId === s.id ? " article-toc__link--active" : ""}`}
+                    className={`article-toc__link${(s.depth ?? 0) > 0 ? ` article-toc__link--depth-${s.depth}` : ""}${activeSectionId === s.id ? " article-toc__link--active" : ""}`}
                   >
                     {s.heading}
                   </a>
@@ -155,9 +222,9 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
           </button>
           {tocOpen && (
             <ul id="mobile-toc" className="article-toc-mobile__list">
-              {post.sections.map((s) => (
+              {visibleSections.map((s) => (
                 <li key={s.id}>
-                  <a href={`#${s.id}`} className="article-toc-mobile__link" onClick={() => setTocOpen(false)}>
+                  <a href={`#${s.id}`} className={`article-toc-mobile__link${(s.depth ?? 0) > 0 ? ` article-toc-mobile__link--depth-${s.depth}` : ""}`} onClick={() => setTocOpen(false)}>
                     {s.heading}
                   </a>
                 </li>
@@ -184,36 +251,68 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
             </ul>
           </div>
 
-          {/* Sections with interspersed callouts */}
-          {post.sections.map((section, sIdx) => {
-            const calloutsAfter = post.callouts.filter((_, i) => {
-              const interval = Math.ceil(post.callouts.length / post.sections.length);
-              return Math.floor(i / interval) === sIdx && i % interval === 0;
-            });
+          {/* Executive summary (layered posts only) */}
+          {isLayered && post.executiveSummary && (
+            <div className="executive-summary">
+              <div className="executive-summary__header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span>Resumo Executivo</span>
+              </div>
+              <p>{post.executiveSummary}</p>
+            </div>
+          )}
+
+          {/* Sections with interspersed callouts + depth expanders */}
+          {visibleSections.map((section, sIdx) => {
+            // Get callouts that belong after this section
+            const calloutsForSection = isLayered
+              ? post.callouts.filter((c) => c.afterSectionId === section.id && (c.depth ?? 0) <= activeDepth)
+              : sIdx < post.callouts.length && post.callouts[sIdx]
+                ? [post.callouts[sIdx]]
+                : [];
+
+            // Get deeper children that can be expanded
+            const deeperChildren = isLayered
+              ? getDeeperChildren(post.sections, section.id, activeDepth, expandedSections)
+              : [];
 
             return (
               <div key={section.id}>
-                <section id={section.id} className="article-section">
+                <section id={section.id} className={`article-section${(section.depth ?? 0) > 0 ? ` article-section--depth-${section.depth}` : ""}`}>
                   <h2>{section.heading}</h2>
                   <div dangerouslySetInnerHTML={{ __html: section.content }} />
                 </section>
 
-                {/* Callout after this section (distribute evenly) */}
-                {sIdx < post.callouts.length && post.callouts[sIdx] && (
-                  <div className={`callout ${calloutConfig[post.callouts[sIdx].type].className}`}>
+                {/* Depth expander cards for deeper children */}
+                {deeperChildren.map((child) => (
+                  <DepthExpander
+                    key={child.id}
+                    depth={child.depth ?? 1}
+                    heading={child.heading}
+                    content={child.content}
+                    isExpanded={expandedSections.has(child.id)}
+                    onToggle={() => toggleExpanded(child.id)}
+                  />
+                ))}
+
+                {/* Callouts after this section */}
+                {calloutsForSection.map((c, ci) => (
+                  <div key={`callout-${section.id}-${ci}`} className={`callout ${calloutConfig[c.type].className}`}>
                     <div className="callout__header">
-                      <span className="callout__icon" aria-hidden="true">{calloutConfig[post.callouts[sIdx].type].icon}</span>
-                      <span className="callout__title">{post.callouts[sIdx].title}</span>
+                      <span className="callout__icon" aria-hidden="true">{calloutConfig[c.type].icon}</span>
+                      <span className="callout__title">{c.title}</span>
                     </div>
-                    <p className="callout__body">{post.callouts[sIdx].body}</p>
+                    <p className="callout__body">{c.body}</p>
                   </div>
-                )}
+                ))}
               </div>
             );
           })}
 
-          {/* Remaining callouts not yet shown */}
-          {post.callouts.slice(post.sections.length).map((c, i) => (
+          {/* Remaining callouts not attached to sections (legacy compat) */}
+          {!isLayered && post.callouts.slice(post.sections.length).map((c, i) => (
             <div key={`extra-callout-${i}`} className={`callout ${calloutConfig[c.type].className}`}>
               <div className="callout__header">
                 <span className="callout__icon" aria-hidden="true">{calloutConfig[c.type].icon}</span>
