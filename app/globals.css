@@ -1565,93 +1565,93 @@ body {
 .callout__title { font-size: 0.8125rem; font-weight: 700; color: var(--text); }
 .callout__body { font-size: 0.875rem; line-height: 1.65; color: var(--text-secondary); margin: 0; }
 
-/* ─── Interactive Mind Map v2 ─────────────────────────────── */
-.mindmap-v2 {
+/* ─── Interactive Mind Map v3 (force-directed) ─────────── */
+.mm3 {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 1.25rem; margin: 3rem 0; overflow: hidden;
   opacity: 0; transform: translateY(20px);
   transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.mindmap-v2--visible { opacity: 1; transform: translateY(0); }
+.mm3--visible { opacity: 1; transform: translateY(0); }
 
-.mindmap-v2__header {
+.mm3__header {
   display: flex; align-items: center; gap: 0.5rem;
   padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
   font-size: 0.875rem; font-weight: 700; color: var(--text);
 }
-.mindmap-v2__expand-all {
-  margin-left: auto; font-size: 0.75rem; font-weight: 600;
+.mm3__actions {
+  margin-left: auto; display: flex; gap: 0.5rem; align-items: center;
+}
+.mm3__btn {
+  font-size: 0.75rem; font-weight: 600;
   padding: 0.375rem 0.75rem; border-radius: 0.5rem;
   background: var(--surface-raised); border: 1px solid var(--border);
   color: var(--muted); cursor: pointer;
   transition: color 150ms ease, border-color 150ms ease;
 }
-.mindmap-v2__expand-all:hover { color: var(--accent); border-color: var(--accent); }
+.mm3__btn:hover { color: var(--accent); border-color: var(--accent); }
+.mm3__btn--icon { padding: 0.375rem; display: flex; align-items: center; justify-content: center; }
 
-.mindmap-v2__canvas {
-  padding: 1rem; min-height: 280px;
+.mm3__canvas {
+  padding: 0.5rem; min-height: 340px; position: relative;
   display: flex; align-items: center; justify-content: center;
 }
 
-/* SVG node animations */
-.mindmap-svg__node {
+/* SVG animations */
+.mm3-node {
   cursor: pointer; opacity: 0;
-  animation: mmNodeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: mm3NodeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
-.mindmap-v2--visible .mindmap-svg__node { animation-play-state: running; }
+.mm3--visible .mm3-node { animation-play-state: running; }
 
-@keyframes mmNodeIn {
-  from { opacity: 0; transform: scale(0.5); }
+@keyframes mm3NodeIn {
+  from { opacity: 0; transform: scale(0.6); }
   to { opacity: 1; transform: scale(1); }
 }
 
-.mindmap-svg__path {
-  stroke-dasharray: 500;
-  stroke-dashoffset: 500;
-  animation: mmPathDraw 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.mm3-path {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: mm3PathDraw 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
-.mindmap-v2--visible .mindmap-svg__path { animation-play-state: running; }
+.mm3--visible .mm3-path { animation-play-state: running; }
 
-@keyframes mmPathDraw {
+@keyframes mm3PathDraw {
   to { stroke-dashoffset: 0; }
 }
 
-.mindmap-svg__glow {
-  animation: mmGlow 1.5s ease-in-out infinite alternate;
+.mm3-glow {
+  animation: mm3Glow 1.8s ease-in-out infinite alternate;
 }
-@keyframes mmGlow {
-  from { opacity: 0.1; }
-  to { opacity: 0.2; }
-}
-
-.mindmap-svg__area {
-  opacity: 0;
-  animation: mmAreaIn 0.6s ease forwards;
-}
-@keyframes mmAreaIn {
-  to { opacity: 1; }
+@keyframes mm3Glow {
+  from { opacity: 0.08; } to { opacity: 0.18; }
 }
 
 /* Legend */
-.mindmap-v2__legend {
+.mm3__legend {
   display: flex; flex-wrap: wrap; gap: 0.375rem;
   padding: 0.75rem 1.5rem; border-top: 1px solid var(--border);
 }
-.mindmap-v2__legend-item {
+.mm3__legend-item {
   display: inline-flex; align-items: center; gap: 0.375rem;
   font-size: 0.75rem; font-weight: 500; color: var(--muted);
   padding: 0.25rem 0.625rem; border-radius: 999px;
   background: transparent; border: 1px solid var(--border);
   cursor: pointer; transition: all 150ms ease;
 }
-.mindmap-v2__legend-item:hover { border-color: var(--accent); color: var(--text); }
-.mindmap-v2__legend-item--active { background: var(--surface-raised); color: var(--text); }
+.mm3__legend-item:hover { border-color: var(--accent); color: var(--text); }
+.mm3__legend-item--active { background: var(--surface-raised); color: var(--text); border-color: var(--accent); }
 
-.mindmap-v2__legend-dot {
+.mm3__legend-dot {
   width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
 }
+.mm3__legend-count {
+  font-size: 0.625rem; font-weight: 700; color: var(--subtle);
+  background: var(--border); padding: 0.1rem 0.35rem; border-radius: 999px;
+  margin-left: 0.125rem;
+}
 
-.mindmap-v2__hint {
+.mm3__hint {
   text-align: center; font-size: 0.6875rem; color: var(--subtle);
   padding: 0.5rem 1.5rem 1rem; margin: 0;
 }

@@ -1,12 +1,24 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import type { MindMapNode } from "../blog/[slug]/page";
 
 /* ═══════════════════════════════════════════════════════════
-   InteractiveMindMap — SVG radial mind map with animated
-   connections, colored branches, hover tooltips, and
-   expand/collapse. Zero dependencies.
+   InteractiveMindMap v3 — Force-directed, collision-free,
+   progressive-reveal mind map as a true study/revision tool.
+
+   Design decisions:
+   1. Progressive reveal → starts showing only root + branches,
+      user clicks to drill into each branch. This prevents
+      overwhelming the viewer and avoids text overlap.
+   2. Force simulation → nodes push each other apart.
+      Zero overlaps even with 20+ visible nodes.
+   3. Horizontal labels → leaf text is rendered horizontally
+      OUTSIDE the node circle, always fully readable.
+   4. Zoom & pan → mouse drag + scroll wheel + touch.
+   5. Focus mode → click legend to isolate a branch.
+   6. Smart sizing → viewBox auto-fits to visible nodes.
+   7. Branch badges → collapsed branches show "+N" count.
    ═══════════════════════════════════════════════════════════ */
 
 const BRANCH_COLORS = [
@@ -20,424 +32,480 @@ const BRANCH_COLORS = [
   "#14b8a6", // teal
 ];
 
-interface LayoutNode {
+/* ─── Layout Types ─────────────────────────────────────── */
+interface LNode {
+  id: string;
   label: string;
   x: number;
   y: number;
-  children: LayoutNode[];
+  radius: number;
+  children: LNode[];
   depth: number;
   branchIndex: number;
-  angle: number;
+  hiddenCount: number;
 }
 
-function layoutTree(root: MindMapNode, width: number, height: number): LayoutNode {
-  const cx = width / 2;
-  const cy = height / 2;
-
-  const pad = 45; // keep nodes within bounds (accounts for node radius + text)
-  const branches = root.children ?? [];
-  const angleStep = (2 * Math.PI) / Math.max(branches.length, 1);
-  const r1 = Math.min(width, height) * 0.26;
-  const leafDist = Math.min(width, height) * 0.17; // distance from parent branch, NOT from center
-
-  function clamp(val: number, min: number, max: number) {
-    return Math.max(min, Math.min(max, val));
+/* ─── Force Simulation ─────────────────────────────────── */
+function runForce(root: LNode, iterations = 60) {
+  const flat: LNode[] = [];
+  const edges: [LNode, LNode][] = [];
+  function collect(n: LNode, parent?: LNode) {
+    flat.push(n);
+    if (parent) edges.push([parent, n]);
+    n.children.forEach((c) => collect(c, n));
   }
+  collect(root);
 
-  function layoutLeaves(children: MindMapNode[], parentX: number, parentY: number, parentAngle: number, branchIdx: number): LayoutNode[] {
-    if (!children || children.length === 0) return [];
-    const count = children.length;
-    const totalSpread = Math.min(angleStep * 0.55, Math.PI * 0.5);
-    const step = count > 1 ? totalSpread / (count - 1) : 0;
-    const startAngle = parentAngle - totalSpread / 2;
+  if (flat.length <= 1) return;
 
-    return children.map((child, i) => {
-      const angle = count > 1 ? startAngle + step * i : parentAngle;
-      const rawX = parentX + Math.cos(angle) * leafDist;
-      const rawY = parentY + Math.sin(angle) * leafDist;
+  const vx = new Map<string, number>();
+  const vy = new Map<string, number>();
+  flat.forEach((n) => { vx.set(n.id, 0); vy.set(n.id, 0); });
 
-      return {
-        label: child.label,
-        x: clamp(rawX, pad, width - pad),
-        y: clamp(rawY, pad, height - pad),
-        depth: 2,
-        branchIndex: branchIdx,
-        angle,
-        children: [],
-      };
-    });
+  for (let it = 0; it < iterations; it++) {
+    // Repulsion
+    for (let i = 0; i < flat.length; i++) {
+      for (let j = i + 1; j < flat.length; j++) {
+        const a = flat[i], b = flat[j];
+        let dx = b.x - a.x, dy = b.y - a.y;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 0.1;
+        const minD = a.radius + b.radius + 50;
+        if (dist < minD * 4) {
+          const f = 3000 / (dist * dist);
+          const fx = (dx / dist) * f, fy = (dy / dist) * f;
+          vx.set(a.id, (vx.get(a.id) || 0) - fx);
+          vy.set(a.id, (vy.get(a.id) || 0) - fy);
+          vx.set(b.id, (vx.get(b.id) || 0) + fx);
+          vy.set(b.id, (vy.get(b.id) || 0) + fy);
+        }
+      }
+    }
+    // Spring along edges
+    for (const [a, b] of edges) {
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 0.1;
+      const ideal = a.depth === 0 ? 190 : 140;
+      const disp = dist - ideal;
+      const str = 0.06;
+      const fx = (dx / dist) * disp * str, fy = (dy / dist) * disp * str;
+      vx.set(a.id, (vx.get(a.id) || 0) + fx);
+      vy.set(a.id, (vy.get(a.id) || 0) + fy);
+      vx.set(b.id, (vx.get(b.id) || 0) - fx);
+      vy.set(b.id, (vy.get(b.id) || 0) - fy);
+    }
+    // Apply
+    for (const n of flat) {
+      if (n.depth === 0) continue;
+      n.x += (vx.get(n.id) || 0) * 0.9;
+      n.y += (vy.get(n.id) || 0) * 0.9;
+      vx.set(n.id, (vx.get(n.id) || 0) * 0.88);
+      vy.set(n.id, (vy.get(n.id) || 0) * 0.88);
+    }
   }
-
-  const rootNode: LayoutNode = {
-    label: root.label,
-    x: cx,
-    y: cy,
-    depth: 0,
-    branchIndex: 0,
-    angle: 0,
-    children: branches.map((branch, i) => {
-      const angle = -Math.PI / 2 + angleStep * i;
-      const bx = clamp(cx + Math.cos(angle) * r1, pad, width - pad);
-      const by = clamp(cy + Math.sin(angle) * r1, pad, height - pad);
-
-      return {
-        label: branch.label,
-        x: bx,
-        y: by,
-        depth: 1,
-        branchIndex: i,
-        angle,
-        children: layoutLeaves(branch.children ?? [], bx, by, angle, i),
-      };
-    }),
-  };
-
-  return rootNode;
 }
 
-function CurvedPath({ x1, y1, x2, y2, color, delay }: { x1: number; y1: number; x2: number; y2: number; color: string; delay: number }) {
-  const mx = (x1 + x2) / 2;
-  const my = (y1 + y2) / 2;
-  const dx = x2 - x1;
-  const dy = y2 - y1;
-  const cx1 = mx - dy * 0.15;
-  const cy1 = my + dx * 0.15;
-  const d = `M ${x1} ${y1} Q ${cx1} ${cy1} ${x2} ${y2}`;
+/* ─── Count total descendants ──────────────────────────── */
+function countDesc(node: MindMapNode): number {
+  if (!node.children) return 0;
+  return node.children.reduce((s, c) => s + 1 + countDesc(c), 0);
+}
+
+/* ─── Build layout tree ────────────────────────────────── */
+function buildLayout(
+  data: MindMapNode,
+  expandedIds: Set<string>
+): LNode {
+  function build(
+    node: MindMapNode, id: string, depth: number, branchIdx: number,
+    px: number, py: number, angle: number, dist: number
+  ): LNode {
+    const x = depth === 0 ? 0 : px + Math.cos(angle) * dist;
+    const y = depth === 0 ? 0 : py + Math.sin(angle) * dist;
+    const r = depth === 0 ? 44 : depth === 1 ? 32 : 22;
+    const expanded = depth === 0 || expandedIds.has(id);
+    const kids: LNode[] = [];
+
+    if (node.children && expanded) {
+      const n = node.children.length;
+      const spread = depth === 0
+        ? 2 * Math.PI
+        : Math.min(Math.PI * 0.85, n * 0.42);
+      const start = depth === 0
+        ? -Math.PI / 2
+        : angle - spread / 2;
+      const cDist = depth === 0 ? 200 : 150;
+
+      node.children.forEach((child, i) => {
+        const cAngle = n > 1 ? start + (spread / (n - 1)) * i : angle;
+        kids.push(build(child, `${id}-${i}`, depth + 1, depth === 0 ? i : branchIdx, x, y, cAngle, cDist));
+      });
+    }
+
+    const hidden = node.children && !expanded && depth > 0 ? countDesc(node) : 0;
+
+    return { id, label: node.label, x, y, radius: r, children: kids, depth, branchIndex: branchIdx, hiddenCount: hidden };
+  }
+
+  const tree = build(data, "n-0", 0, 0, 0, 0, 0, 0);
+  runForce(tree, 70);
+  return tree;
+}
+
+/* ─── Compute bounds ───────────────────────────────────── */
+function getBounds(tree: LNode) {
+  let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
+  function walk(n: LNode) {
+    const pad = n.depth >= 2 ? n.radius + 100 : n.radius + 60;
+    x1 = Math.min(x1, n.x - pad); y1 = Math.min(y1, n.y - pad);
+    x2 = Math.max(x2, n.x + pad); y2 = Math.max(y2, n.y + pad);
+    n.children.forEach(walk);
+  }
+  walk(tree);
+  return { x1, y1, x2, y2, w: x2 - x1, h: y2 - y1 };
+}
+
+/* ─── Curved Path ──────────────────────────────────────── */
+function CPath({ x1, y1, x2, y2, color, dim }: {
+  x1: number; y1: number; x2: number; y2: number; color: string; dim: boolean;
+}) {
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+  const dx = x2 - x1, dy = y2 - y1;
+  const d = Math.sqrt(dx * dx + dy * dy) || 1;
+  const curv = Math.min(d * 0.12, 25);
+  const cx = mx - (dy / d) * curv, cy = my + (dx / d) * curv;
 
   return (
     <path
-      d={d}
-      fill="none"
-      stroke={color}
-      strokeWidth={2}
-      strokeLinecap="round"
-      opacity={0.5}
-      className="mindmap-svg__path"
-      style={{ animationDelay: `${delay}ms` }}
+      d={`M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`}
+      fill="none" stroke={color} strokeWidth={1.5} strokeLinecap="round"
+      opacity={dim ? 0.12 : 0.4}
+      className="mm3-path"
     />
   );
 }
 
-function NodeCircle({
-  node,
-  color,
-  hovered,
-  onHover,
-  onLeave,
-  onClick,
-  expanded,
+/* ─── Node ─────────────────────────────────────────────── */
+function MNode({
+  node, color, hovered, dim, onHover, onLeave, onClick, showBadge,
 }: {
-  node: LayoutNode;
-  color: string;
-  hovered: boolean;
-  onHover: () => void;
-  onLeave: () => void;
-  onClick: () => void;
-  expanded: boolean;
+  node: LNode; color: string; hovered: boolean; dim: boolean;
+  onHover: () => void; onLeave: () => void; onClick: () => void; showBadge: boolean;
 }) {
   const isRoot = node.depth === 0;
   const isBranch = node.depth === 1;
   const isLeaf = node.depth >= 2;
+  const r = hovered ? node.radius + 3 : node.radius;
 
-  const radius = isRoot ? 38 : isBranch ? 28 : 24;
+  const fill = isRoot ? "var(--accent, #6366f1)" : isBranch ? color : "var(--surface-raised, #1e1e2e)";
+  const stroke = isLeaf ? color : "none";
+  const innerText = isRoot || isBranch ? "#fff" : "var(--text, #e0e0e0)";
 
-  const fillColor = isRoot ? color : isBranch ? color : "var(--surface-raised)";
-  const textColor = isRoot || isBranch ? "#fff" : "var(--text)";
-  const strokeColor = isLeaf ? color : "none";
+  const fs = isRoot ? 11 : isBranch ? 9.5 : 0; // leaves use external label
+  const fw = isRoot || isBranch ? 700 : 600;
+  const maxC = Math.floor((node.radius * 1.7) / (fs * 0.5 || 1));
 
-  // Smart word-wrap: fit text inside circle diameter
-  // Approximate char width ≈ fontSize * 0.55
-  const maxTextWidth = radius * 1.6; // usable width inside circle
-  const baseFontSize = isRoot ? 10.5 : isBranch ? 9 : 8;
-  const maxLines = isRoot ? 3 : isBranch ? 2 : 2;
-
-  function wrapText(label: string, fs: number): string[] {
-    const charWidth = fs * 0.55;
-    const maxChars = Math.floor(maxTextWidth / charWidth);
-    const words = label.split(" ");
-    const result: string[] = [];
+  function wrap(s: string): string[] {
+    if (!fs) return [];
+    const words = s.split(" ");
+    const lines: string[] = [];
     let cur = "";
-
-    for (const word of words) {
-      const test = cur ? cur + " " + word : word;
-      if (test.length > maxChars && cur) {
-        result.push(cur);
-        cur = word;
-      } else {
-        cur = test;
-      }
+    for (const w of words) {
+      const t = cur ? cur + " " + w : w;
+      if (t.length > maxC && cur) { lines.push(cur); cur = w; }
+      else cur = t;
     }
-    if (cur) result.push(cur);
-
-    // Truncate lines that exceed maxLines
-    if (result.length > maxLines) {
-      result.length = maxLines;
-      result[maxLines - 1] = result[maxLines - 1].slice(0, -1) + "…";
-    }
-
-    // Truncate any single line that's still too wide
-    for (let i = 0; i < result.length; i++) {
-      if (result[i].length > maxChars + 2) {
-        result[i] = result[i].slice(0, maxChars) + "…";
-      }
-    }
-
-    return result;
+    if (cur) lines.push(cur);
+    const mx = isRoot ? 3 : 2;
+    if (lines.length > mx) { lines.length = mx; lines[mx - 1] = lines[mx - 1].slice(0, -1) + "…"; }
+    return lines;
   }
 
-  // Try base size first; shrink if too many lines
-  let fontSize = baseFontSize;
-  let lines = wrapText(node.label, fontSize);
-  if (lines.length > maxLines) {
-    fontSize = baseFontSize - 1;
-    lines = wrapText(node.label, fontSize);
-  }
+  const lines = wrap(node.label);
+  const lh = fs * 1.3;
+  const startY = -(lines.length - 1) * lh / 2;
 
-  const fontWeight = isRoot || isBranch ? 700 : 600;
-  const lineHeight = fontSize * 1.3;
-  const textStartY = -(lines.length - 1) * lineHeight / 2;
+  // Leaf label — horizontal, outside circle
+  const leafFs = 9;
+  const leafOnLeft = isLeaf && node.x < 0;
+  const leafX = leafOnLeft ? node.x - node.radius - 8 : node.x + node.radius + 8;
+  const leafAnch = leafOnLeft ? "end" : "start";
 
   return (
     <g
-      className={`mindmap-svg__node mindmap-svg__node--d${node.depth}`}
-      style={{ animationDelay: `${node.depth * 150 + node.branchIndex * 80}ms` }}
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
-      onClick={onClick}
-      role="button"
-      tabIndex={0}
-      aria-label={node.label}
+      className="mm3-node" style={{ opacity: dim ? 0.25 : 1, transition: "opacity 300ms" }}
+      onMouseEnter={onHover} onMouseLeave={onLeave} onClick={onClick}
+      role="button" tabIndex={0} aria-label={node.label}
     >
-      {/* Glow on hover */}
       {hovered && (
-        <circle
-          cx={node.x}
-          cy={node.y}
-          r={radius + 8}
-          fill={color}
-          opacity={0.15}
-          className="mindmap-svg__glow"
-        />
+        <circle cx={node.x} cy={node.y} r={r + 10}
+          fill={isRoot ? "var(--accent, #6366f1)" : color} opacity={0.12} className="mm3-glow" />
       )}
+      <circle cx={node.x} cy={node.y} r={r}
+        fill={fill} stroke={stroke} strokeWidth={isLeaf ? 2 : 0}
+        style={{ transition: "r 200ms" }} />
 
-      {/* Main circle */}
-      <circle
-        cx={node.x}
-        cy={node.y}
-        r={hovered ? radius + 3 : radius}
-        fill={fillColor}
-        stroke={strokeColor}
-        strokeWidth={isLeaf ? 2 : 0}
-        style={{ transition: "r 200ms ease, fill 200ms ease" }}
-      />
-
-      {/* Label */}
-      {lines.map((line, li) => (
-        <text
-          key={li}
-          x={node.x}
-          y={node.y + textStartY + li * lineHeight + fontSize * 0.35}
-          textAnchor="middle"
-          fill={textColor}
-          fontSize={fontSize}
-          fontWeight={fontWeight}
+      {/* Inner text (root / branch) */}
+      {lines.map((l, i) => (
+        <text key={i} x={node.x} y={node.y + startY + i * lh + fs * 0.35}
+          textAnchor="middle" fill={innerText} fontSize={fs} fontWeight={fw}
           fontFamily="var(--font-body, 'Inter', sans-serif)"
-          style={{ pointerEvents: "none", userSelect: "none" }}
-        >
-          {line}
+          style={{ pointerEvents: "none", userSelect: "none" }}>
+          {l}
         </text>
       ))}
 
-      {/* Expand indicator for branches */}
-      {isBranch && node.children.length > 0 && (
-        <text
-          x={node.x + radius - 4}
-          y={node.y - radius + 8}
-          textAnchor="middle"
-          fill="#fff"
-          fontSize={9}
-          fontWeight={700}
-          opacity={0.8}
-          style={{ pointerEvents: "none" }}
-        >
-          {expanded ? "−" : `+${node.children.length}`}
+      {/* External label (leaf) */}
+      {isLeaf && (
+        <text x={leafX} y={node.y + leafFs * 0.35}
+          textAnchor={leafAnch} fill="var(--text, #e0e0e0)"
+          fontSize={leafFs} fontWeight={600}
+          fontFamily="var(--font-body, 'Inter', sans-serif)"
+          style={{ pointerEvents: "none", userSelect: "none" }}>
+          {node.label}
         </text>
+      )}
+
+      {/* Badge with hidden count */}
+      {showBadge && node.hiddenCount > 0 && (
+        <g>
+          <circle cx={node.x + node.radius * 0.7} cy={node.y - node.radius * 0.7} r={10}
+            fill={color} stroke="var(--surface, #0a0a0a)" strokeWidth={2} />
+          <text x={node.x + node.radius * 0.7} y={node.y - node.radius * 0.7 + 3.5}
+            textAnchor="middle" fill="#fff" fontSize={8} fontWeight={700}
+            style={{ pointerEvents: "none" }}>
+            +{node.hiddenCount}
+          </text>
+        </g>
       )}
     </g>
   );
 }
 
+/* ═══════════════════════════════════════════════════════════
+   Main Component
+   ═══════════════════════════════════════════════════════════ */
 export default function InteractiveMindMap({ data, title }: { data: MindMapNode; title?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [dimensions, setDimensions] = useState({ width: 700, height: 500 });
-  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
-  const [expandedBranches, setExpandedBranches] = useState<Set<number>>(() => new Set(Array.from({ length: 20 }, (_, i) => i)));
+  const svgRef = useRef<SVGSVGElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [hovered, setHovered] = useState<string | null>(null);
+  const [focusBranch, setFocusBranch] = useState<number | null>(null);
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set(["n-0"]));
+  const [vb, setVb] = useState({ x: -450, y: -350, w: 900, h: 700 });
+  const [panning, setPanning] = useState(false);
+  const panRef = useRef({ sx: 0, sy: 0, vx: 0, vy: 0 });
 
-  // Responsive sizing
+  // Build tree
+  const tree = useMemo(() => buildLayout(data, expandedIds), [data, expandedIds]);
+
+  // Auto-fit
+  const fitView = useCallback(() => {
+    const b = getBounds(tree);
+    const pad = 80;
+    setVb({ x: b.x1 - pad, y: b.y1 - pad, w: b.w + pad * 2, h: b.h + pad * 2 });
+  }, [tree]);
+
+  useEffect(() => { fitView(); }, [fitView]);
+
+  // Animate in
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const ro = new ResizeObserver((entries) => {
-      const { width } = entries[0].contentRect;
-      const w = Math.max(320, Math.min(800, width));
-      const h = w < 480 ? w * 0.95 : w * 0.75;
-      setDimensions({ width: w, height: h });
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  // Animate in on scroll
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setIsVisible(true);
-    }, { threshold: 0.2 });
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) setIsVisible(true); }, { threshold: 0.15 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
-  const tree = layoutTree(data, dimensions.width, dimensions.height);
-  const rootColor = BRANCH_COLORS[0];
-
-  const toggleBranch = useCallback((idx: number) => {
-    setExpandedBranches((prev) => {
-      const next = new Set(prev);
-      if (next.has(idx)) next.delete(idx);
-      else next.add(idx);
-      return next;
+  // Toggle expand
+  const toggle = useCallback((id: string) => {
+    setExpandedIds((prev) => {
+      const n = new Set(prev);
+      if (n.has(id)) {
+        // Collapse this and all descendants
+        for (const k of n) { if (k === id || k.startsWith(id + "-")) n.delete(k); }
+      } else {
+        n.add(id);
+      }
+      return n;
     });
   }, []);
 
+  // All IDs
+  const allIds = useMemo(() => {
+    const ids: string[] = [];
+    function collect(node: MindMapNode, prefix: string) {
+      ids.push(prefix);
+      node.children?.forEach((c, i) => collect(c, `${prefix}-${i}`));
+    }
+    collect(data, "n-0");
+    return ids;
+  }, [data]);
+
+  const allExpanded = allIds.every((id) => expandedIds.has(id));
+
+  const toggleAll = useCallback(() => {
+    if (allExpanded) {
+      setExpandedIds(new Set(["n-0"]));
+    } else {
+      setExpandedIds(new Set(allIds));
+    }
+    setFocusBranch(null);
+  }, [allExpanded, allIds]);
+
+  // Zoom
+  const handleWheel = useCallback((e: React.WheelEvent) => {
+    e.preventDefault();
+    const f = e.deltaY > 0 ? 1.12 : 0.89;
+    setVb((v) => {
+      const cx = v.x + v.w / 2, cy = v.y + v.h / 2;
+      const nw = v.w * f, nh = v.h * f;
+      return { x: cx - nw / 2, y: cy - nh / 2, w: nw, h: nh };
+    });
+  }, []);
+
+  // Pan (mouse)
+  const startPan = useCallback((cx: number, cy: number) => {
+    setPanning(true);
+    panRef.current = { sx: cx, sy: cy, vx: vb.x, vy: vb.y };
+  }, [vb]);
+
+  const movePan = useCallback((cx: number, cy: number) => {
+    if (!panning) return;
+    const svg = svgRef.current;
+    if (!svg) return;
+    const rect = svg.getBoundingClientRect();
+    const sx = vb.w / rect.width, sy = vb.h / rect.height;
+    setVb((v) => ({
+      ...v,
+      x: panRef.current.vx - (cx - panRef.current.sx) * sx,
+      y: panRef.current.vy - (cy - panRef.current.sy) * sy,
+    }));
+  }, [panning, vb.w, vb.h]);
+
+  const endPan = useCallback(() => setPanning(false), []);
+
   // Flatten for rendering
-  const edges: { x1: number; y1: number; x2: number; y2: number; color: string; delay: number }[] = [];
-  const nodes: { node: LayoutNode; color: string }[] = [];
+  const { edges, nodes } = useMemo(() => {
+    const eList: { x1: number; y1: number; x2: number; y2: number; color: string; bi: number }[] = [];
+    const nList: { node: LNode; color: string; badge: boolean }[] = [];
 
-  nodes.push({ node: tree, color: rootColor });
-
-  tree.children.forEach((branch, i) => {
-    const color = BRANCH_COLORS[i % BRANCH_COLORS.length];
-    edges.push({ x1: tree.x, y1: tree.y, x2: branch.x, y2: branch.y, color, delay: i * 100 });
-    nodes.push({ node: branch, color });
-
-    if (expandedBranches.has(i)) {
-      branch.children.forEach((leaf, j) => {
-        edges.push({ x1: branch.x, y1: branch.y, x2: leaf.x, y2: leaf.y, color, delay: i * 100 + j * 60 + 200 });
-        nodes.push({ node: leaf, color });
+    function walk(n: LNode) {
+      const c = n.depth === 0 ? "var(--accent, #6366f1)" : BRANCH_COLORS[n.branchIndex % BRANCH_COLORS.length];
+      nList.push({ node: n, color: c, badge: n.hiddenCount > 0 });
+      n.children.forEach((ch) => {
+        const cc = BRANCH_COLORS[ch.branchIndex % BRANCH_COLORS.length];
+        eList.push({ x1: n.x, y1: n.y, x2: ch.x, y2: ch.y, color: cc, bi: ch.branchIndex });
+        walk(ch);
       });
     }
-  });
+    walk(tree);
+    return { edges: eList, nodes: nList };
+  }, [tree]);
+
+  const branches = useMemo(() =>
+    (data.children ?? []).map((c, i) => ({
+      label: c.label, color: BRANCH_COLORS[i % BRANCH_COLORS.length], idx: i,
+      count: c.children?.length ?? 0,
+    })),
+  [data]);
 
   return (
-    <div ref={containerRef} className={`mindmap-v2${isVisible ? " mindmap-v2--visible" : ""}`}>
-      <div className="mindmap-v2__header">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <div ref={containerRef} className={`mm3${isVisible ? " mm3--visible" : ""}`}>
+      {/* Header */}
+      <div className="mm3__header">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5" />
           <circle cx="12" cy="3" r="1.5" fill="currentColor" opacity="0.4" />
           <circle cx="21" cy="12" r="1.5" fill="currentColor" opacity="0.4" />
           <circle cx="12" cy="21" r="1.5" fill="currentColor" opacity="0.4" />
           <circle cx="3" cy="12" r="1.5" fill="currentColor" opacity="0.4" />
-          <circle cx="19" cy="5" r="1.5" fill="currentColor" opacity="0.3" />
-          <circle cx="5" cy="5" r="1.5" fill="currentColor" opacity="0.3" />
-          <circle cx="19" cy="19" r="1.5" fill="currentColor" opacity="0.3" />
-          <circle cx="5" cy="19" r="1.5" fill="currentColor" opacity="0.3" />
-          <path d="M12 9V3M15 12h6M12 15v6M9 12H3M14.1 9.9l3.5-3.5M9.9 9.9l-3.5-3.5M14.1 14.1l3.5 3.5M9.9 14.1l-3.5 3.5" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+          <path d="M12 9V3M15 12h6M12 15v6M9 12H3" stroke="currentColor" strokeWidth="1" opacity="0.3" />
         </svg>
-        <span>{title ?? "Mapa Mental — Resumo visual"}</span>
-        <button
-          className="mindmap-v2__expand-all"
-          onClick={() => {
-            const allExpanded = tree.children.every((_, i) => expandedBranches.has(i));
-            if (allExpanded) setExpandedBranches(new Set());
-            else setExpandedBranches(new Set(tree.children.map((_, i) => i)));
-          }}
-          aria-label="Expandir/recolher todos os ramos"
-        >
-          {tree.children.every((_, i) => expandedBranches.has(i)) ? "Recolher" : "Expandir tudo"}
-        </button>
+        <span>{title ?? "Mapa Mental — Ferramenta de Revisão"}</span>
+        <div className="mm3__actions">
+          <button className="mm3__btn mm3__btn--icon" onClick={fitView} aria-label="Centralizar" title="Centralizar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
+          </button>
+          <button className="mm3__btn" onClick={toggleAll}>
+            {allExpanded ? "Recolher" : "Expandir tudo"}
+          </button>
+        </div>
       </div>
 
-      <div className="mindmap-v2__canvas">
+      {/* Canvas */}
+      <div
+        className="mm3__canvas"
+        onWheel={handleWheel}
+        onMouseDown={(e) => { if (e.button === 0) startPan(e.clientX, e.clientY); }}
+        onMouseMove={(e) => movePan(e.clientX, e.clientY)}
+        onMouseUp={endPan} onMouseLeave={endPan}
+        onTouchStart={(e) => { if (e.touches.length === 1) startPan(e.touches[0].clientX, e.touches[0].clientY); }}
+        onTouchMove={(e) => { if (e.touches.length === 1) movePan(e.touches[0].clientX, e.touches[0].clientY); }}
+        onTouchEnd={endPan}
+        style={{ cursor: panning ? "grabbing" : "grab" }}
+      >
         <svg
-          viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
-          width="100%"
-          height="100%"
-          aria-label={`Mapa mental: ${data.label}`}
-          role="img"
+          ref={svgRef}
+          viewBox={`${vb.x} ${vb.y} ${vb.w} ${vb.h}`}
+          width="100%" height="100%"
+          aria-label={`Mapa mental: ${data.label}`} role="img"
+          style={{ touchAction: "none" }}
         >
           <defs>
             {BRANCH_COLORS.map((c, i) => (
-              <radialGradient key={i} id={`mm-grad-${i}`} cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor={c} stopOpacity={0.15} />
+              <radialGradient key={i} id={`mm3g${i}`} cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor={c} stopOpacity={0.07} />
                 <stop offset="100%" stopColor={c} stopOpacity={0} />
               </radialGradient>
             ))}
-            <filter id="mm-glow">
-              <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-              <feMerge>
-                <feMergeNode in="coloredBlur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
           </defs>
 
-          {/* Branch area highlights */}
-          {tree.children.map((branch, i) =>
-            expandedBranches.has(i) ? (
-              <circle
-                key={`area-${i}`}
-                cx={branch.x}
-                cy={branch.y}
-                r={dimensions.width * 0.13}
-                fill={`url(#mm-grad-${i % BRANCH_COLORS.length})`}
-                className="mindmap-svg__area"
-              />
-            ) : null
-          )}
+          {/* Branch halos */}
+          {tree.children.map((b, i) => (
+            <circle key={`h${i}`} cx={b.x} cy={b.y}
+              r={expandedIds.has(b.id) ? 200 : 90}
+              fill={`url(#mm3g${i % BRANCH_COLORS.length})`}
+              style={{ opacity: focusBranch === null || focusBranch === i ? 0.7 : 0.08, transition: "all 400ms" }}
+            />
+          ))}
 
           {/* Edges */}
           {edges.map((e, i) => (
-            <CurvedPath key={`e-${i}`} {...e} />
+            <CPath key={`e${i}`} x1={e.x1} y1={e.y1} x2={e.x2} y2={e.y2} color={e.color}
+              dim={focusBranch !== null && e.bi !== focusBranch} />
           ))}
 
           {/* Nodes */}
-          {nodes.map(({ node, color }, i) => (
-            <NodeCircle
-              key={`n-${i}-${node.label}`}
-              node={node}
-              color={color}
-              hovered={hoveredNode === node.label}
-              onHover={() => setHoveredNode(node.label)}
-              onLeave={() => setHoveredNode(null)}
-              onClick={() => {
-                if (node.depth === 1) toggleBranch(node.branchIndex);
-              }}
-              expanded={node.depth === 1 && expandedBranches.has(node.branchIndex)}
+          {nodes.map(({ node, color, badge }) => (
+            <MNode key={node.id} node={node} color={color}
+              hovered={hovered === node.id}
+              dim={focusBranch !== null && node.depth > 0 && node.branchIndex !== focusBranch}
+              onHover={() => setHovered(node.id)}
+              onLeave={() => setHovered(null)}
+              onClick={() => { if (node.depth >= 1) toggle(node.id); }}
+              showBadge={badge}
             />
           ))}
         </svg>
       </div>
 
       {/* Legend */}
-      <div className="mindmap-v2__legend">
-        {tree.children.map((branch, i) => (
-          <button
-            key={i}
-            className={`mindmap-v2__legend-item${expandedBranches.has(i) ? " mindmap-v2__legend-item--active" : ""}`}
-            onClick={() => toggleBranch(i)}
+      <div className="mm3__legend">
+        {branches.map((b) => (
+          <button key={b.idx}
+            className={`mm3__legend-item${focusBranch === b.idx ? " mm3__legend-item--active" : ""}`}
+            onClick={() => setFocusBranch((p) => p === b.idx ? null : b.idx)}
           >
-            <span
-              className="mindmap-v2__legend-dot"
-              style={{ background: BRANCH_COLORS[i % BRANCH_COLORS.length] }}
-            />
-            {branch.label}
+            <span className="mm3__legend-dot" style={{ background: b.color }} />
+            {b.label}
+            {b.count > 0 && <span className="mm3__legend-count">{b.count}</span>}
           </button>
         ))}
       </div>
 
-      <p className="mindmap-v2__hint">Clique nos ramos para expandir/recolher · Passe o mouse para destacar</p>
+      <p className="mm3__hint">
+        Clique nos nós para expandir · Arraste para mover · Scroll para zoom · Legenda filtra ramos
+      </p>
     </div>
   );
 }
