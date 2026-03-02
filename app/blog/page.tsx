@@ -224,11 +224,11 @@ export default function BlogIndex() {
               <span className="nav-logo-dot" aria-hidden="true" />
               <span className="nav-logo-text">NuPtechs</span>
             </a>
-            <nav aria-label="Links do rodapé" className="flex flex-wrap gap-4 text-xs text-[var(--subtle)]">
-              <a href="/servicos"   className="hover:text-[var(--text)] transition-colors">Serviços</a>
-              <a href="/produtos"   className="hover:text-[var(--text)] transition-colors">Produtos</a>
-              <a href="/sobre"      className="hover:text-[var(--text)] transition-colors">Sobre</a>
-              <a href="/#contato"   className="hover:text-[var(--text)] transition-colors">Contato</a>
+            <nav aria-label="Links do rodapé" className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-[var(--muted)]">
+              <a href="/servicos"  className="hover:text-[var(--text)] transition-colors">Serviços</a>
+              <a href="/produtos"  className="hover:text-[var(--text)] transition-colors">Produtos</a>
+              <a href="/sobre"     className="hover:text-[var(--text)] transition-colors">Sobre</a>
+              <a href="/#contato"  className="hover:text-[var(--text)] transition-colors">Contato</a>
             </nav>
           </div>
           <div className="border-t border-[var(--border)] pt-4">

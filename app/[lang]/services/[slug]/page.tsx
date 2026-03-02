@@ -792,7 +792,7 @@ export default function LangServicePage({ params }: PageParams) {
             <span className="nav-logo-dot" aria-hidden="true" />
             <span className="nav-logo-text">NuPtechs</span>
           </a>
-          <div className="flex items-center gap-4 text-xs text-[var(--subtle)]">
+          <div className="flex items-center gap-6 text-sm text-[var(--muted)]">
             <a href={ptUrl} className="hover:text-[var(--text)] transition-colors">PT</a>
             <a href={enUrl} className="hover:text-[var(--text)] transition-colors">EN</a>
             <a href={esUrl} className="hover:text-[var(--text)] transition-colors">ES</a>

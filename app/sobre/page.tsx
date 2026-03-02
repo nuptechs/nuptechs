@@ -530,13 +530,13 @@ export default function SobrePage() {
             <span className="nav-logo-text">NuPtechs</span>
           </a>
           <nav aria-label="Rodapé">
-            <ul className="flex flex-wrap items-center gap-4 text-xs text-[var(--subtle)]">
-              <li><a href="/sobre" className="hover:text-[var(--text)] transition-colors">Sobre</a></li>
+            <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-[var(--muted)] list-none p-0 m-0">
+              <li><a href="/sobre"    className="hover:text-[var(--text)] transition-colors">Sobre</a></li>
               <li><a href="/servicos" className="hover:text-[var(--text)] transition-colors">Serviços</a></li>
               <li><a href="/produtos" className="hover:text-[var(--text)] transition-colors">Produtos</a></li>
-              <li><a href="/blog" className="hover:text-[var(--text)] transition-colors">Blog</a></li>
-              <li><a href="/en" className="hover:text-[var(--text)] transition-colors">EN</a></li>
-              <li><a href="/es" className="hover:text-[var(--text)] transition-colors">ES</a></li>
+              <li><a href="/blog"     className="hover:text-[var(--text)] transition-colors">Blog</a></li>
+              <li><a href="/en"       className="hover:text-[var(--text)] transition-colors">EN</a></li>
+              <li><a href="/es"       className="hover:text-[var(--text)] transition-colors">ES</a></li>
             </ul>
           </nav>
           <p className="text-xs text-[var(--subtle)]">© 2022&ndash;{new Date().getFullYear()} NuPtechs. Todos os direitos reservados.</p>
