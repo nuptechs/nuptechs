@@ -107,7 +107,7 @@ export default function Image() {
                 fontWeight: 400,
               }}
             >
-              Automação com IA, sistemas personalizados e protótipos em 7 dias para empresas de todo porte.
+              Automação com IA, sistemas personalizados e primeira versão em 7 dias para empresas de todo porte.
             </p>
           </div>
 

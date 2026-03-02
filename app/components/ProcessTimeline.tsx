@@ -31,11 +31,11 @@ const steps: Step[] = [
   },
   {
     num: "02",
-    tag: "Protótipo",
-    title: "Seu produto funcionando em 7 dias",
-    body: "Telas reais, fluxos navegáveis e validação com usuários. Nada de slides — você interage com o produto antes de investir em desenvolvimento.",
+    tag: "1ª Versão",
+    title: "Seu sistema funcionando em 7 dias",
+    body: "Telas reais, fluxos navegáveis e validação com usuários. Nada de slides — você interage com o produto antes de investir em desenvolvimento completo.",
     visual: {
-      headline: "protótipo.deploy",
+      headline: "v1.deploy",
       lines: [
         { label: "Telas criadas", value: "12" },
         { label: "Fluxos mapeados", value: "5" },

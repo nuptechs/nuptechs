@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     images: [
       {
-        url: `${siteUrl}/og-image.png`,
+        url: `${siteUrl}/og?title=Produtos+NuPtechs+%E2%80%94+Suite+SaaS&sub=FlowOps%2C+DataPulse%2C+BookFlow+e+mais&lang=pt`,
         width: 1200,
         height: 630,
         alt: "Produtos NuPtechs — Suite SaaS Pronta para Implantar",
@@ -45,10 +45,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@nuptechs",
     title: "Produtos NuPtechs — Suite SaaS Pronta para Implantar",
     description:
       "FlowOps, DataPulse, BookFlow e mais. Seis produtos prontos para implantar hoje na sua empresa.",
-    images: [`${siteUrl}/og-image.png`],
+    images: [`${siteUrl}/og?title=Produtos+NuPtechs+%E2%80%94+Suite+SaaS&sub=FlowOps%2C+DataPulse%2C+BookFlow+e+mais&lang=pt`],
   },
 };
 

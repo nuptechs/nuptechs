@@ -21,13 +21,15 @@ export const metadata: Metadata = {
     canonical: "/servicos",
     languages: {
       "pt-BR": `${siteUrl}/servicos`,
+      "en-US": `${siteUrl}/en/services`,
+      "es-419": `${siteUrl}/es/services`,
       "x-default": `${siteUrl}/servicos`,
     },
   },
   openGraph: {
     title: "Serviços NuPtechs — Desenvolvimento de Software Sob Medida",
     description:
-      "Automação com IA, dashboards de BI, apps móveis, integrações de API e segurança. Protótipo em 7 dias. Diagnóstico grátis.",
+      "Automação com IA, dashboards de BI, apps móveis, integrações de API e segurança. Primeira versão em 7 dias. Diagnóstico grátis.",
     url: `${siteUrl}/servicos`,
     siteName: "NuPtechs",
     type: "website",
@@ -43,10 +45,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@nuptechs",
     title: "Serviços NuPtechs — Desenvolvimento de Software Sob Medida",
     description:
-      "Automação, BI, apps móveis e IA aplicada. Diagnóstico grátis em 24h, protótipo em 7 dias.",
-    images: [`${siteUrl}/og-image.png`],
+      "Automação, BI, apps móveis e IA aplicada. Diagnóstico grátis em 24h, primeira versão em 7 dias.",
+    images: [`${siteUrl}/og?title=Serviços+NuPtechs+%E2%80%94+Software+Sob+Medida&lang=pt`],
   },
 };
 

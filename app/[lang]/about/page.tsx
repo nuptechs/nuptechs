@@ -75,7 +75,7 @@ export default function AboutPage({ params }: Props) {
         "@id": `${siteUrl}/#organization`,
         name: "NuPtechs",
         url: siteUrl,
-        foundingDate: "2023",
+        foundingDate: "2022",
         email: "nuptechs@nuptechs.com",
         telephone: "+55-61-99369-1692",
         logo: { "@type": "ImageObject", url: `${siteUrl}/logo.svg`, width: 200, height: 60 },

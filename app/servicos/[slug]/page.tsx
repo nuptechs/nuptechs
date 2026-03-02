@@ -286,7 +286,7 @@ export async function generateMetadata({ params }: ServiceParams): Promise<Metad
       locale: "pt_BR",
       images: [
         {
-          url: `${siteUrl}/og-image.png`,
+          url: `${siteUrl}/og?title=${encodeURIComponent(service.title + " — NuPtechs")}&sub=${encodeURIComponent(service.description)}&lang=pt`,
           width: 1200,
           height: 630,
           alt: `${service.title} — NuPtechs`,
@@ -295,9 +295,10 @@ export async function generateMetadata({ params }: ServiceParams): Promise<Metad
     },
     twitter: {
       card: "summary_large_image",
+      site: "@nuptechs",
       title: `${service.title} — NuPtechs`,
       description: service.description,
-      images: [`${siteUrl}/og-image.png`],
+      images: [`${siteUrl}/og?title=${encodeURIComponent(service.title + " — NuPtechs")}&sub=${encodeURIComponent(service.description)}&lang=pt`],
     },
   };
 }

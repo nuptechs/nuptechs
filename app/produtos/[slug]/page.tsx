@@ -214,7 +214,7 @@ export async function generateMetadata({ params }: ProductParams): Promise<Metad
       locale: "pt_BR",
       images: [
         {
-          url: `${siteUrl}/og-image.png`,
+          url: `${siteUrl}/og?title=${encodeURIComponent(product.name + " — " + product.tag + " | NuPtechs")}&sub=${encodeURIComponent(product.description)}&lang=pt`,
           width: 1200,
           height: 630,
           alt: `${product.name} — ${product.tag} | NuPtechs`,
@@ -223,9 +223,10 @@ export async function generateMetadata({ params }: ProductParams): Promise<Metad
     },
     twitter: {
       card: "summary_large_image",
+      site: "@nuptechs",
       title: `${product.name} — ${product.tag} | NuPtechs`,
       description: product.description,
-      images: [`${siteUrl}/og-image.png`],
+      images: [`${siteUrl}/og?title=${encodeURIComponent(product.name + " — " + product.tag + " | NuPtechs")}&sub=${encodeURIComponent(product.description)}&lang=pt`],
     },
   };
 }

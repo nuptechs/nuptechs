@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s | NuPtechs"
   },
   description:
-    "NuPtechs: desenvolvimento de software sob medida, automação inteligente com IA e produtos prontos para empresas de todos os portes. Diagnóstico grátis em 24h, protótipo em 7 dias. Atendemos todo o Brasil.",
+    "NuPtechs: desenvolvimento de software sob medida, automação inteligente com IA e produtos prontos para empresas de todos os portes. Diagnóstico grátis em 24h, primeira versão do sistema em 7 dias. Atendemos todo o Brasil.",
   keywords: [
     // Cauda curta — pilares
     "software sob medida",
@@ -77,14 +77,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "NuPtechs — Desenvolvimento de Software Sob Medida com IA",
     description:
-      "Sistemas personalizados, automação com IA e protótipos em 7 dias para empresas em todo o Brasil. Diagnóstico grátis.",
+      "Sistemas personalizados, automação com IA e primeira versão do sistema em 7 dias para empresas em todo o Brasil. Diagnóstico grátis.",
     url: siteUrl,
     siteName: "NuPtechs",
     type: "website",
     locale: "pt_BR",
     images: [
       {
-        url: `${siteUrl}/og-image.png`,
+        url: `${siteUrl}/og?title=NuPtechs+%E2%80%94+Software+Sob+Medida+com+IA&lang=pt`,
         width: 1200,
         height: 630,
         alt: "NuPtechs — Desenvolvimento de Software Sob Medida com IA"
@@ -93,10 +93,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@nuptechs",
+    creator: "@nuptechs",
     title: "NuPtechs — Desenvolvimento de Software Sob Medida com IA",
     description:
-      "Sistemas personalizados, automação com IA e protótipos em 7 dias. Diagnóstico grátis em 24h.",
-    images: [`${siteUrl}/og-image.png`]
+      "Sistemas personalizados, automação com IA e primeira versão do sistema em 7 dias. Diagnóstico grátis em 24h.",
+    images: [`${siteUrl}/og?title=NuPtechs+%E2%80%94+Software+Sob+Medida+com+IA&lang=pt`]
   },
   alternates: {
     canonical: "/",
@@ -107,7 +109,7 @@ export const metadata: Metadata = {
     }
   },
   verification: {
-    google: "google-site-verification-placeholder"
+    google: "v-wJOTc2eRYxf_Rz5fa-rB5BxLFBQ8HE-qlylCLUWkE"
   }
 };
 

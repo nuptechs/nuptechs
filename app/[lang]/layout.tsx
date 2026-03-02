@@ -19,7 +19,7 @@ export async function generateMetadata({
     ? "NuPtechs — Custom Software Development with AI | Brazil"
     : "NuPtechs — Desarrollo de Software a Medida con IA | Brasil";
   const description = isEn
-    ? "NuPtechs: custom software development, AI-driven automation and ready-made products for companies of all sizes. Free diagnosis in 24h, prototype in 7 days."
+    ? "NuPtechs: custom software development, AI-driven automation and ready-made products for companies of all sizes. Free diagnosis in 24h, first version in 7 days."
     : "NuPtechs: desarrollo de software a medida, automatización inteligente con IA y productos listos para empresas de todos los tamaños. Diagnóstico gratis en 24h.";
 
   return {

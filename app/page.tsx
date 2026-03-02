@@ -34,15 +34,21 @@ const jsonLd = {
       ]
     },
     {
-      "@type": "Organization",
+      "@type": ["Organization", "LocalBusiness"],
       "@id": `${siteUrl}/#organization`,
       name: "NuPtechs",
       url: siteUrl,
       logo: { "@type": "ImageObject", url: `${siteUrl}/logo.svg`, width: 200, height: 60 },
       email: "nuptechs@nuptechs.com",
       telephone: "+55-61-99369-1692",
-      foundingDate: "2023",
+      foundingDate: "2022",
       description: "Empresa brasileira de desenvolvimento de software sob medida com IA, automação empresarial e produtos SaaS prontos para implantação.",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Brasília",
+        addressRegion: "DF",
+        addressCountry: "BR"
+      },
       areaServed: [
         { "@type": "Country", name: "Brasil" },
         { "@type": "Country", name: "United States" }
@@ -50,12 +56,20 @@ const jsonLd = {
       sameAs: [
         "https://www.linkedin.com/company/nuptechs",
         "https://github.com/nuptechs"
+      ],
+      priceRange: "$$",
+      knowsAbout: [
+        "Desenvolvimento de Software Sob Medida",
+        "Automação Empresarial com IA",
+        "Dashboards de Business Intelligence",
+        "Aplicativos Móveis",
+        "Integrações de API"
       ]
     },
     {
       "@type": "FAQPage",
       mainEntity: [
-        { "@type": "Question", name: "Quanto tempo leva para ter um protótipo de software funcionando?", acceptedAnswer: { "@type": "Answer", text: "Em até 7 dias úteis entregamos um protótipo navegável com as principais telas e fluxos do seu produto digital." } },
+        { "@type": "Question", name: "Quanto tempo leva para ter a primeira versão do sistema funcionando?", acceptedAnswer: { "@type": "Answer", text: "Em até 7 dias úteis entregamos a primeira versão navegável com as principais telas e fluxos do seu produto digital." } },
         { "@type": "Question", name: "A NuPtechs atende empresas fora de Brasília?", acceptedAnswer: { "@type": "Answer", text: "Sim. Atendemos todo o Brasil — e internacionalmente — com reuniões remotas, times dedicados e horários flexíveis." } },
         { "@type": "Question", name: "Como funciona o diagnóstico gratuito?", acceptedAnswer: { "@type": "Answer", text: "Você descreve seu desafio por e-mail ou em uma reunião de 30 minutos. Nossa equipe analisa e devolve um plano técnico objetivo em até 24 horas — sem compromisso." } }
       ]
@@ -170,7 +184,7 @@ const products = [
 ];
 
 const faqs = [
-  { q: "Quanto tempo leva para ter um protótipo funcionando?", a: "Em até 7 dias úteis entregamos um protótipo navegável com as principais telas e fluxos do seu produto digital." },
+  { q: "Quanto tempo leva para ter a primeira versão do sistema funcionando?", a: "Em até 7 dias úteis entregamos a primeira versão navegável com as principais telas e fluxos do seu produto digital." },
   { q: "A NuPtechs atende empresas fora de Brasília?", a: "Sim. Atendemos todo o Brasil — e internacionalmente — com reuniões remotas, times dedicados e horários flexíveis." },
   { q: "Qual o investimento mínimo para um projeto?", a: "Trabalhamos desde MVPs para startups até sistemas corporativos complexos. O investimento é definido pelo escopo após o diagnóstico gratuito." },
   { q: "Quais tecnologias vocês utilizam?", a: "React, Next.js, Node.js, Python, React Native, PostgreSQL, Redis, AWS/GCP e integrações com LLMs como GPT e Gemini." },
@@ -179,7 +193,7 @@ const faqs = [
 
 const trustStats = [
   { value: "+200", label: "projetos entregues", sublabel: "startups a multinacionais", counter: 200, prefix: "+", suffix: "" },
-  { value: "7", label: "dias para protótipo", sublabel: "telas reais, não slides", counter: 7, prefix: "", suffix: "" },
+  { value: "7", label: "dias para 1ª versão", sublabel: "telas reais, não slides", counter: 7, prefix: "", suffix: "" },
   { value: "98%", label: "de satisfação", sublabel: "NPS acima da média do setor", counter: 98, prefix: "", suffix: "%" },
   { value: "24h", label: "diagnóstico gratuito", sublabel: "plano técnico objetivo", counter: 24, prefix: "", suffix: "h" }
 ];
@@ -235,7 +249,7 @@ export default function Home() {
               </h1>
 
               <p className="lead">
-                Sistemas sob medida, automação com IA e dashboards operacionais — do protótipo ao deploy em semanas, não meses.
+                Sistemas sob medida, automação com IA e dashboards operacionais — da primeira versão ao deploy em produção em semanas, não meses.
               </p>
 
               <div className="flex flex-wrap gap-3">
@@ -251,7 +265,7 @@ export default function Home() {
               </div>
 
               <p className="hero-microcopy">
-                Resposta em até 24h &nbsp;·&nbsp; Sem compromisso &nbsp;·&nbsp; Protótipo em 7 dias
+                Resposta em até 24h &nbsp;·&nbsp; Sem compromisso &nbsp;·&nbsp; 1ª versão em 7 dias
               </p>
             </div>
 
@@ -493,7 +507,7 @@ export default function Home() {
                 Descreva seu desafio em uma reunião de 30 minutos ou por e-mail. Nossa equipe devolve um plano técnico concreto em até 24 horas — sem compromisso.
               </p>
               <ul className="flex flex-col gap-3">
-                {["Reunião gratuita de 30 minutos ou análise por e-mail", "Avaliação técnica personalizada do seu cenário", "Plano com prazo, escopo e investimento estimado", "Protótipo navegável em até 7 dias úteis"].map((item) => (
+                {["Reunião gratuita de 30 minutos ou análise por e-mail", "Avaliação técnica personalizada do seu cenário", "Plano com prazo, escopo e investimento estimado", "Primeira versão navegável em até 7 dias úteis"].map((item) => (
                   <li key={item} className="flex items-start gap-3 text-sm text-[var(--muted)]">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="mt-0.5 flex-shrink-0 text-[var(--accent)]">
                       <path d="M3 8.5l3.5 3.5 6.5-7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>

@@ -7,7 +7,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 export const metadata: Metadata = {
   title: "Sobre a NuPtechs — Quem somos e como trabalhamos",
   description:
-    "Conheça a NuPtechs: equipe de desenvolvimento de software sob medida com IA, nossa missão, valores e a metodologia que entrega protótipos em 7 dias.",
+    "Conheça a NuPtechs: equipe de desenvolvimento de software sob medida com IA, nossa missão, valores e a metodologia que entrega a primeira versão do sistema em 7 dias.",
   keywords: [
     "sobre NuPtechs",
     "empresa desenvolvimento software Brasil",
@@ -35,10 +35,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@nuptechs",
     title: "Sobre a NuPtechs — Quem somos e como trabalhamos",
     description:
       "Equipe sênior, metodologia ágil e entrega em semanas. Conheça a empresa por trás de +200 projetos de software.",
-    images: [`${siteUrl}/og-image.png`],
+    images: [`${siteUrl}/og?title=Sobre+a+NuPtechs&sub=Equipe+sênior%2C+metodologia+ágil&lang=pt`],
   },
 };
 
@@ -59,7 +60,7 @@ const jsonLd = {
       "@id": `${siteUrl}/#organization`,
       name: "NuPtechs",
       url: siteUrl,
-      foundingDate: "2023",
+      foundingDate: "2022",
       email: "nuptechs@nuptechs.com",
       telephone: "+55-61-99369-1692",
       logo: {
@@ -115,7 +116,7 @@ const values = [
       </svg>
     ),
     title: "Velocidade com qualidade",
-    body: "Protótipo em 7 dias não é slogan de marketing — é a consequência de um processo bem definido, stack testada e equipe que já resolveu o mesmo problema antes.",
+    body: "Primeira versão do sistema em 7 dias não é slogan de marketing — é a consequência de um processo bem definido, stack testada e equipe que já resolveu o mesmo problema antes.",
   },
   {
     icon: (
@@ -162,10 +163,10 @@ const values = [
 ];
 
 const milestones = [
-  { year: "2023", event: "Fundação da NuPtechs em Brasília com foco em automação e sistemas sob medida." },
-  { year: "2024", event: "Primeiros 100 projetos entregues. Lançamento dos produtos FlowOps e DataPulse em beta." },
-  { year: "2025", event: "Expansão para clientes em toda a América Latina. Linha de produtos SaaS: 6 produtos lançados." },
-  { year: "2026", event: "Internacionalização: site, atendimento e contratos em PT, EN e ES. +200 projetos entregues." },
+  { year: "2022", event: "Fundação da NuPtechs em Brasília com foco em automação e sistemas sob medida." },
+  { year: "2023", event: "Primeiros 100 projetos entregues. Lançamento dos produtos FlowOps e DataPulse em beta." },
+  { year: "2024", event: "Expansão para clientes em toda a América Latina. Linha de produtos SaaS: 6 produtos lançados." },
+  { year: "2025", event: "Internacionalização: site, atendimento e contratos em PT, EN e ES. +200 projetos entregues." },
 ];
 
 const team = [
@@ -186,7 +187,7 @@ const team = [
 const stats = [
   { value: "+200", label: "Projetos entregues" },
   { value: "98%", label: "Taxa de satisfação" },
-  { value: "7 dias", label: "Do contrato ao protótipo" },
+  { value: "7 dias", label: "Da contratação à 1ª versão" },
   { value: "24h", label: "Diagnóstico grátis" },
 ];
 

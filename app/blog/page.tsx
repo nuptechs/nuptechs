@@ -21,7 +21,10 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: `${siteUrl}/blog`,
-    languages: { "pt-BR": `${siteUrl}/blog` },
+    languages: {
+      "pt-BR": `${siteUrl}/blog`,
+      "x-default": `${siteUrl}/blog`
+    },
   },
   openGraph: {
     title: "Blog NuPtechs — Desenvolvimento de Software, IA e Automação",
@@ -31,13 +34,14 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "NuPtechs",
     locale: "pt_BR",
-    images: [{ url: `${siteUrl}/og-image.png`, width: 1200, height: 630, alt: "NuPtechs Blog" }],
+    images: [{ url: `${siteUrl}/og?title=NuPtechs+Blog+%E2%80%94+IA+%26+Automação&lang=pt`, width: 1200, height: 630, alt: "NuPtechs Blog — Desenvolvimento de Software, IA e Automação" }],
   },
   twitter: {
     card: "summary_large_image",
+    site: "@nuptechs",
     title: "Blog NuPtechs — Desenvolvimento de Software, IA e Automação",
-    description: "Artigos técnicos sobre automação, BI, IA e desenvolvimento ágil.",
-    images: [`${siteUrl}/og-image.png`],
+    description: "Artigos técnicos sobre automação, BI, IA e desenvolvimento ágil — escritos por quem constrói sistemas reais.",
+    images: [`${siteUrl}/og?title=NuPtechs+Blog+%E2%80%94+IA+%26+Automação&lang=pt`],
   },
 };
 
