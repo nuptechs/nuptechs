@@ -151,7 +151,7 @@ export default function BlogIndex() {
               {postList.map((post, index) => (
                 <article
                   key={post.slug}
-                  className={`card group flex flex-col gap-4 relative${index === 0 ? " sm:col-span-2 lg:col-span-1" : ""}`}
+                  className={`card group flex flex-col gap-4 relative`}
                 >
                   <div className="flex items-center justify-between">
                     <span className={`badge ${tagColors[post.tag] ?? "badge-accent"} self-start text-xs`}>

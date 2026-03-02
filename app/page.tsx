@@ -279,7 +279,7 @@ export default function Home() {
       {/* ── Services ────────────────────────────────────── */}
       <section id="servicos" className="page-section bg-[var(--surface)]" aria-labelledby="services-heading">
         <div className="inner">
-          <div className="mb-16 max-w-xl" data-reveal>
+          <div className="mb-16 max-w-2xl" data-reveal>
             <span className="eyebrow mb-4 block">Serviços</span>
             <h2 id="services-heading" className="section-heading mb-4">
               Soluções sob medida para o seu negócio
@@ -354,7 +354,7 @@ export default function Home() {
       <section id="produtos" className="page-section" aria-labelledby="products-heading">
         <div className="inner">
           <div className="mb-16 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between" data-reveal>
-            <div className="max-w-lg">
+            <div className="max-w-xl">
               <span className="eyebrow mb-4 block">Produtos prontos</span>
               <h2 id="products-heading" className="section-heading mb-3">
                 Deploy hoje. Escale amanhã.
@@ -457,7 +457,7 @@ export default function Home() {
       <section id="blog" className="page-section" aria-labelledby="blog-heading">
         <div className="inner">
           <div className="mb-16 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between" data-reveal>
-            <div className="max-w-lg">
+            <div className="max-w-xl">
               <span className="eyebrow mb-4 block">Blog &amp; Conteúdo</span>
               <h2 id="blog-heading" className="section-heading mb-3">
                 Insights para decisões melhores
