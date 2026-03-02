@@ -233,7 +233,7 @@ export default function BlogIndex() {
           </div>
           <div className="border-t border-[var(--border)] pt-4">
             <p className="text-xs text-[var(--subtle)]">
-              © {new Date().getFullYear()} NuPtechs. Todos os direitos reservados.
+              © 2022&ndash;{new Date().getFullYear()} NuPtechs. Todos os direitos reservados.
             </p>
           </div>
         </div>

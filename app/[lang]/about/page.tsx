@@ -360,7 +360,7 @@ export default function AboutPage({ params }: Props) {
             </div>
           </div>
           <div className="border-t border-[var(--border)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-[var(--subtle)]">© {new Date().getFullYear()} NuPtechs. {d.footer.rights}</p>
+            <p className="text-xs text-[var(--subtle)]">© 2022&ndash;{new Date().getFullYear()} NuPtechs. {d.footer.rights}</p>
             <nav aria-label="Footer navigation" className="flex flex-wrap gap-4 text-xs text-[var(--subtle)]">
               <a href={`/${params.lang}#services`} className="hover:text-[var(--text)] transition-colors">{d.nav.services}</a>
               <a href={`/${params.lang}#products`} className="hover:text-[var(--text)] transition-colors">{d.nav.products}</a>

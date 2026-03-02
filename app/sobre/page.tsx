@@ -539,7 +539,7 @@ export default function SobrePage() {
               <li><a href="/es" className="hover:text-[var(--text)] transition-colors">ES</a></li>
             </ul>
           </nav>
-          <p className="text-xs text-[var(--subtle)]">© {new Date().getFullYear()} NuPtechs. Todos os direitos reservados.</p>
+          <p className="text-xs text-[var(--subtle)]">© 2022&ndash;{new Date().getFullYear()} NuPtechs. Todos os direitos reservados.</p>
         </div>
       </footer>
     </>

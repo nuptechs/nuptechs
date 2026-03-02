@@ -564,7 +564,7 @@ export default function Home() {
           </div>
 
           <div className="footer-bottom">
-            <p>© {new Date().getFullYear()} NuPtechs. Todos os direitos reservados.</p>
+            <p>© 2022&ndash;{new Date().getFullYear()} NuPtechs. Todos os direitos reservados.</p>
             <div className="flex items-center gap-4">
               <a href="https://www.linkedin.com/company/nuptechs" className="text-[var(--subtle)] hover:text-[var(--text)] transition-colors" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

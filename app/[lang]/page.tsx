@@ -367,7 +367,7 @@ export default function LangPage({ params }: { params: { lang: string } }) {
             <a href={enUrl} className="hover:text-[var(--text)] transition-colors">EN</a>
             <a href={esUrl} className="hover:text-[var(--text)] transition-colors">ES</a>
           </div>
-          <p className="text-xs text-[var(--subtle)]">© {new Date().getFullYear()} NuPtechs. {d.footer.rights}</p>
+          <p className="text-xs text-[var(--subtle)]">© 2022&ndash;{new Date().getFullYear()} NuPtechs. {d.footer.rights}</p>
         </div>
       </footer>
     </>

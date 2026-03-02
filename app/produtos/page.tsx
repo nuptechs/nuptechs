@@ -241,7 +241,7 @@ export default function ProdutosIndex() {
             <span className="nav-logo-dot" aria-hidden="true" />
             <span className="nav-logo-text">NuPtechs</span>
           </a>
-          <p className="text-xs text-[var(--subtle)]">© {new Date().getFullYear()} NuPtechs. Todos os direitos reservados.</p>
+          <p className="text-xs text-[var(--subtle)]">© 2022&ndash;{new Date().getFullYear()} NuPtechs. Todos os direitos reservados.</p>
         </div>
       </footer>
     </>

@@ -797,7 +797,7 @@ export default function LangServicePage({ params }: PageParams) {
             <a href={enUrl} className="hover:text-[var(--text)] transition-colors">EN</a>
             <a href={esUrl} className="hover:text-[var(--text)] transition-colors">ES</a>
           </div>
-          <p className="text-xs text-[var(--subtle)]">© {new Date().getFullYear()} NuPtechs. {isEn ? "All rights reserved." : "Todos los derechos reservados."}</p>
+          <p className="text-xs text-[var(--subtle)]">© 2022&ndash;{new Date().getFullYear()} NuPtechs. {isEn ? "All rights reserved." : "Todos los derechos reservados."}</p>
         </div>
       </footer>
     </>
