@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import NavLinks from "../../components/NavLinks";
 import ThemeToggle from "../../components/ThemeToggle";
+import SiteFooter from "../../components/SiteFooter";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -402,15 +403,7 @@ export default function ProductPage({ params }: ProductParams) {
         </div>
       </section>
 
-      <footer className="site-footer" role="contentinfo">
-        <div className="inner flex flex-col items-center justify-between gap-6 sm:flex-row">
-          <a href="/" className="nav-logo" aria-label="NuPtechs — voltar ao topo">
-            <span className="nav-logo-dot" aria-hidden="true" />
-            <span className="nav-logo-text">NuPtechs</span>
-          </a>
-          <p className="text-xs text-[var(--subtle)]">© 2022&ndash;{new Date().getFullYear()} NuPtechs. Todos os direitos reservados.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

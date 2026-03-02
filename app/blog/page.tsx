@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { posts } from "./[slug]/page";
 import NavLinks from "../components/NavLinks";
 import ThemeToggle from "../components/ThemeToggle";
+import SiteFooter from "../components/SiteFooter";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -217,27 +218,7 @@ export default function BlogIndex() {
         </section>
       </main>
 
-      <footer className="site-footer" role="contentinfo">
-        <div className="inner flex flex-col gap-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <a href="/" className="nav-logo" aria-label="NuPtechs — voltar ao início">
-              <span className="nav-logo-dot" aria-hidden="true" />
-              <span className="nav-logo-text">NuPtechs</span>
-            </a>
-            <nav aria-label="Links do rodapé" className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-[var(--muted)]">
-              <a href="/servicos"  className="hover:text-[var(--text)] transition-colors">Serviços</a>
-              <a href="/produtos"  className="hover:text-[var(--text)] transition-colors">Produtos</a>
-              <a href="/sobre"     className="hover:text-[var(--text)] transition-colors">Sobre</a>
-              <a href="/#contato"  className="hover:text-[var(--text)] transition-colors">Contato</a>
-            </nav>
-          </div>
-          <div className="border-t border-[var(--border)] pt-4">
-            <p className="text-xs text-[var(--subtle)]">
-              © 2022&ndash;{new Date().getFullYear()} NuPtechs. Todos os direitos reservados.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }
