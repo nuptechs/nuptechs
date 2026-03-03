@@ -162,7 +162,7 @@ export default function ProdutosIndex() {
                 <li className="breadcrumb__current">Produtos</li>
               </ol>
             </nav>
-            <div className="mb-16 max-w-2xl">
+            <div className="mb-10 max-w-3xl">
               <span className="eyebrow mb-4 block">Suite de produtos</span>
               <h1 id="products-heading" className="display-title mb-5">
                 Software pronto.<br />Implante hoje.

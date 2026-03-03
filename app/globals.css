@@ -276,7 +276,7 @@ body {
 /* ─── Typography ─────────────────────────────────────────── */
 .display-title {
   font-family: var(--font-display, "Fraunces", Georgia, serif);
-  font-size: clamp(2.75rem, 6vw, 5rem);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700; line-height: 1.05;
   letter-spacing: -0.04em; color: var(--text);
 }
@@ -2081,7 +2081,7 @@ body {
 
 /* ─── Services listing ──────────────────────────────────── */
 .svc-hero { display: grid; gap: 3rem 4rem; align-items: start; }
-@media (min-width: 1024px) { .svc-hero { grid-template-columns: 1fr auto; align-items: center; } }
+@media (min-width: 1024px) { .svc-hero { grid-template-columns: 1fr minmax(200px, 260px); align-items: center; } }
 
 .svc-stats {
   display: flex; flex-direction: row; gap: 2rem;
