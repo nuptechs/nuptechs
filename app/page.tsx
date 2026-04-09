@@ -3,11 +3,14 @@ import NavLinks from "./components/NavLinks";
 import ContactForm from "./components/ContactForm";
 import FaqAccordion from "./components/FaqAccordion";
 import Animations from "./components/Animations";
-import ProcessTimeline from "./components/ProcessTimeline";
 import CursorGlow from "./components/CursorGlow";
 import ScrollProgress from "./components/ScrollProgress";
 import TextReveal from "./components/TextReveal";
-import LogoMarquee from "./components/LogoMarquee";
+import ParticleField from "./components/ParticleField";
+import TypewriterCode from "./components/TypewriterCode";
+import ProductShowcase from "./components/ProductShowcase";
+import GovLogos from "./components/GovLogos";
+import EngineeringStats from "./components/EngineeringStats";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -19,7 +22,7 @@ const jsonLd = {
       "@id": `${siteUrl}/#website`,
       url: siteUrl,
       name: "NuPtechs",
-      description: "Desenvolvimento de software sob medida, automação com IA e produtos prontos para empresas brasileiras.",
+      description: "Engenharia de software para infraestrutura empresarial. 14 produtos em produção, 490k+ linhas de código, 7.050+ testes automatizados.",
       inLanguage: ["pt-BR", "en-US", "es-419"],
       potentialAction: {
         "@type": "SearchAction",
@@ -31,9 +34,8 @@ const jsonLd = {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Início", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Serviços", item: `${siteUrl}/#servicos` },
-        { "@type": "ListItem", position: 3, name: "Produtos", item: `${siteUrl}/#produtos` },
-        { "@type": "ListItem", position: 4, name: "Contato", item: `${siteUrl}/#contato` }
+        { "@type": "ListItem", position: 2, name: "Produtos", item: `${siteUrl}/#produtos` },
+        { "@type": "ListItem", position: 3, name: "Contato", item: `${siteUrl}/#contato` }
       ]
     },
     {
@@ -45,7 +47,7 @@ const jsonLd = {
       email: "nuptechs@nuptechs.com",
       telephone: "+55-61-99369-1692",
       foundingDate: "2022",
-      description: "Empresa brasileira de desenvolvimento de software sob medida com IA, automação empresarial e produtos SaaS prontos para implantação.",
+      description: "Empresa de engenharia de software com 14 produtos em produção, incluindo plataformas de gestão de contratos, identidade e acesso, debugging e IA. 18+ anos de experiência em TI governamental.",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Brasília",
@@ -60,151 +62,38 @@ const jsonLd = {
         "https://www.linkedin.com/company/nuptechs",
         "https://github.com/nuptechs"
       ],
-      priceRange: "$$",
       knowsAbout: [
-        "Desenvolvimento de Software Sob Medida",
-        "Automação Empresarial com IA",
-        "Dashboards de Business Intelligence",
-        "Aplicativos Móveis",
-        "Integrações de API"
+        "Enterprise Contract Management",
+        "Identity & Access Management (IAM)",
+        "AI-Powered Code Analysis",
+        "Document Processing & Semantic Search",
+        "Runtime Debugging & Observability",
+        "Government IT Infrastructure"
       ]
     },
     {
       "@type": "FAQPage",
       mainEntity: [
-        { "@type": "Question", name: "Quanto tempo leva para ter a primeira versão do sistema funcionando?", acceptedAnswer: { "@type": "Answer", text: "Em até 7 dias úteis entregamos a primeira versão navegável com as principais telas e fluxos do seu produto digital." } },
-        { "@type": "Question", name: "A NuPtechs atende empresas fora de Brasília?", acceptedAnswer: { "@type": "Answer", text: "Sim. Atendemos todo o Brasil — e internacionalmente — com reuniões remotas, times dedicados e horários flexíveis." } },
-        { "@type": "Question", name: "Como funciona o diagnóstico gratuito?", acceptedAnswer: { "@type": "Answer", text: "Você descreve seu desafio por e-mail ou em uma reunião de 30 minutos. Nossa equipe analisa e devolve um plano técnico objetivo em até 24 horas — sem compromisso." } }
+        { "@type": "Question", name: "Qual é o stack tecnológico da NuPtechs?", acceptedAnswer: { "@type": "Answer", text: "Java 21 + Spring Boot para backends de domínio, Node.js + Express para gateways, Vue 3 e React para frontends, Python + FastAPI para pipelines de IA, PostgreSQL como banco primário e Turborepo para monorepos." } },
+        { "@type": "Question", name: "A NuPtechs trabalha com o setor público?", acceptedAnswer: { "@type": "Answer", text: "Sim. Nosso fundador acumula 18+ anos de experiência em TI governamental, com projetos para Caixa Econômica Federal, Serpro, TRF, ANVISA, Anatel e mais de 12 outros órgãos federais." } },
+        { "@type": "Question", name: "Quantos produtos a NuPtechs tem em produção?", acceptedAnswer: { "@type": "Answer", text: "14 produtos, totalizando 490k+ linhas de código e 7.050+ testes automatizados. De gestão de contratos (EasyNuP) a IAM (NuPIdentify) e debugging com IA (Sentinel)." } }
       ]
     }
   ]
 };
 
-const services = [
-  {
-    slug: "automacao-inteligente",
-    title: "Automação Inteligente",
-    body: "Eliminamos tarefas repetitivas com fluxos automatizados, integrações de API e agentes com IA.",
-    metric: "Até 30h/semana economizadas",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-      </svg>
-    )
-  },
-  {
-    slug: "dashboards-bi",
-    title: "Dashboards Operacionais",
-    body: "Dados em tempo real, KPIs visíveis e decisões mais rápidas. Tudo em uma única tela.",
-    metric: "+30 conectores nativos",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
-        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
-      </svg>
-    )
-  },
-  {
-    slug: "aplicativos-moveis",
-    title: "Aplicativos Móveis",
-    body: "Apps escaláveis para iOS e Android, construídos com stack moderna e foco em performance.",
-    metric: "iOS + Android em uma codebase",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
-      </svg>
-    )
-  },
-  {
-    slug: "integracoes-api",
-    title: "Integrações & APIs",
-    body: "Conectamos seus sistemas legados a ferramentas modernas sem reescrever tudo do zero.",
-    metric: "Zero downtime na migração",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-      </svg>
-    )
-  },
-  {
-    slug: "ia-aplicada",
-    title: "IA Aplicada",
-    body: "LLMs, análise preditiva e automação cognitiva integrados ao núcleo do seu negócio.",
-    metric: "ROI médio em 90 dias",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M12 2a4 4 0 0 1 4 4v1h1a3 3 0 0 1 0 6h-1v1a4 4 0 0 1-8 0v-1H7a3 3 0 0 1 0-6h1V6a4 4 0 0 1 4-4z"/>
-        <circle cx="9" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1" fill="currentColor" stroke="none"/>
-      </svg>
-    )
-  },
-  {
-    slug: "seguranca-compliance",
-    title: "Segurança & Compliance",
-    body: "Arquitetura segura por design, auditável, com conformidade à LGPD e padrões corporativos.",
-    metric: "100% conforme à LGPD",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        <path d="M9 12l2 2 4-4"/>
-      </svg>
-    )
-  }
-];
-
-const products = [
-  {
-    slug: "flowops", name: "FlowOps", tagline: "Gestão de processos e tarefas",
-    stat: "3x", statLabel: "mais produtividade",
-    status: "Disponível", statusColor: "green" as const,
-  },
-  {
-    slug: "datapulse", name: "DataPulse", tagline: "BI em tempo real, sem planilhas",
-    stat: "30+", statLabel: "conectores nativos",
-    status: "Disponível", statusColor: "green" as const,
-  },
-  {
-    slug: "bookflow", name: "BookFlow", tagline: "Agendamento inteligente com anti-no-show",
-    stat: "40%", statLabel: "menos faltas",
-    status: "Disponível", statusColor: "green" as const,
-  },
-  {
-    slug: "chatcore", name: "ChatCore", tagline: "Atendimento com IA treinada nos seus dados",
-    stat: "24/7", statLabel: "disponível",
-    status: "Beta", statusColor: "amber" as const,
-  },
-  {
-    slug: "stocksync", name: "StockSync", tagline: "Estoque preditivo com múltiplos depósitos",
-    stat: "95%", statLabel: "acurácia preditiva",
-    status: "Disponível", statusColor: "green" as const,
-  },
-  {
-    slug: "peopledesk", name: "PeopleDesk", tagline: "RH digital — do onboarding à avaliação 360°",
-    stat: "0", statLabel: "papelada",
-    status: "Em breve", statusColor: "neutral" as const,
-  },
-];
-
 const faqs = [
-  { q: "Quanto tempo leva para ter a primeira versão do sistema funcionando?", a: "Em até 7 dias úteis entregamos a primeira versão navegável com as principais telas e fluxos do seu produto digital." },
-  { q: "A NuPtechs atende empresas fora de Brasília?", a: "Sim. Atendemos todo o Brasil — e internacionalmente — com reuniões remotas, times dedicados e horários flexíveis." },
-  { q: "Qual o investimento mínimo para um projeto?", a: "Trabalhamos desde MVPs para startups até sistemas corporativos complexos. O investimento é definido pelo escopo após o diagnóstico gratuito." },
-  { q: "Quais tecnologias vocês utilizam?", a: "React, Next.js, Node.js, Python, React Native, PostgreSQL, Redis, AWS/GCP e integrações com LLMs como GPT e Gemini." },
-  { q: "Como funciona o diagnóstico gratuito?", a: "Descreva seu desafio por e-mail ou em uma reunião de 30 minutos. Nossa equipe analisa e devolve um plano técnico objetivo em até 24 horas — sem compromisso." }
-];
-
-const trustStats = [
-  { value: "+200", label: "projetos entregues", sublabel: "startups a multinacionais", counter: 200, prefix: "+", suffix: "" },
-  { value: "7", label: "dias para 1ª versão", sublabel: "telas reais, não slides", counter: 7, prefix: "", suffix: "" },
-  { value: "98%", label: "de satisfação", sublabel: "NPS acima da média do setor", counter: 98, prefix: "", suffix: "%" },
-  { value: "24h", label: "diagnóstico gratuito", sublabel: "plano técnico objetivo", counter: 24, prefix: "", suffix: "h" }
+  { q: "Qual é o stack tecnológico da NuPtechs?", a: "Java 21 + Spring Boot para backends de domínio, Node.js + Express para gateways e integrações, Vue 3 e React para frontends, Python + FastAPI para pipelines de IA, e PostgreSQL como banco primário. Monorepos gerenciados com Turborepo." },
+  { q: "A NuPtechs trabalha com o setor público?", a: "Sim. Nosso fundador acumula 18+ anos de experiência em projetos de TI para órgãos como Caixa Econômica Federal, Serpro, TRF, ANVISA, Anatel, ANA e outros 12+ órgãos federais, estaduais e distritais." },
+  { q: "Os produtos podem ser integrados a sistemas existentes?", a: "Toda a nossa arquitetura segue o padrão Port/Adapter — cada integração externa é abstraída por interfaces e adapters plugáveis. APIs REST, webhooks e event-driven architecture garantem integração com ERPs, CRMs e sistemas legados." },
+  { q: "Como a NuPtechs garante qualidade do código?", a: "7.050+ testes automatizados (unit, integration, e2e), CI/CD com pipelines de lint, build e teste, code review estruturado e análise de segurança automatizada com o Manifest. Nenhum código vai para produção sem passar por toda a pipeline." },
+  { q: "Quais tipos de projeto a NuPtechs realiza?", a: "Construímos plataformas empresariais, ferramentas de infraestrutura e soluções de IA. Desde sistemas de gestão de contratos com 150+ entidades de domínio até pipelines de processamento de documentos com embeddings semânticos." }
 ];
 
 const blogPosts = [
   { slug: "como-automatizar-processos-manuais", tag: "Automação", title: "Como automatizar processos manuais e liberar 30h/semana da sua equipe", excerpt: "Descubra as 5 tarefas que mais consomem tempo em operações e como eliminá-las com fluxos inteligentes.", readTime: "6 min" },
   { slug: "llms-no-mundo-corporativo", tag: "IA Aplicada", title: "LLMs no mundo corporativo: onde a IA realmente entrega ROI", excerpt: "Análise de casos reais de empresas brasileiras que implementaram IA e os resultados obtidos nos primeiros 90 dias.", readTime: "8 min" },
-  { slug: "software-sob-medida-vs-saas", tag: "Desenvolvimento Ágil", title: "Software sob medida vs. SaaS pronto: qual escolher para sua empresa?", excerpt: "Um guia prático para gestores avaliarem custo, tempo e risco antes de contratar desenvolvimento personalizado.", readTime: "5 min" }
+  { slug: "software-sob-medida-vs-saas", tag: "Engenharia", title: "Software sob medida vs. SaaS pronto: qual escolher para sua empresa?", excerpt: "Um guia prático para gestores avaliarem custo, tempo e risco antes de contratar desenvolvimento personalizado.", readTime: "5 min" }
 ];
 
 export default function Home() {
@@ -226,7 +115,7 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <a href="mailto:nuptechs@nuptechs.com" className="nav-cta hidden lg:inline-flex">
-              Falar com especialista
+              Contato
             </a>
           </div>
         </div>
@@ -234,241 +123,80 @@ export default function Home() {
 
       {/* ── Hero ────────────────────────────────────────── */}
       <section id="inicio" className="hero-section" aria-label="Seção principal">
-        {/* Background effects */}
-        <div className="hero-grid-bg" aria-hidden="true" />
+        <ParticleField />
         <div className="hero-glow" aria-hidden="true" />
-        <div className="hero-orb hero-orb--primary" aria-hidden="true" />
-        <div className="hero-orb hero-orb--secondary" aria-hidden="true" />
 
-        <div className="inner">
-          <div className="hero-layout">
-            <div className="hero-copy">
-              <div className="hero-proof" data-reveal>
-                <span className="hero-proof__dot" aria-hidden="true" />
-                <span>+200 projetos entregues</span>
-                <span className="hero-proof__sep" aria-hidden="true">·</span>
-                <span>Brasil &amp; América Latina</span>
-              </div>
-
+        <div className="inner relative z-[1]">
+          <div className="hero-eng-layout">
+            <div className="hero-copy hero-copy--left">
               <TextReveal as="h1" className="display-title" delay={100}>
-                Arquitetamos software que transforma operações
+                Construímos infraestrutura para software empresarial
               </TextReveal>
 
-              <p className="lead" data-reveal style={{ transitionDelay: '400ms' }}>
-                Engenharia de software sob medida, automação inteligente e produtos prontos para escalar — entregamos a primeira versão em 7 dias, não em meses.
+              <p className="lead" data-reveal style={{ transitionDelay: '300ms' }}>
+                14 produtos em produção. 490 mil linhas de código. Da gestão de identidade ao debugging com IA — engenharia que opera nos maiores órgãos do governo federal.
               </p>
 
-              <div className="flex flex-wrap justify-center gap-3" data-reveal style={{ transitionDelay: '600ms' }}>
-                <a href="mailto:nuptechs@nuptechs.com" className="btn btn-primary btn-lg" data-magnetic>
-                  Diagnóstico gratuito
+              <div className="flex flex-wrap gap-3 mt-2" data-reveal style={{ transitionDelay: '500ms' }}>
+                <a href="#produtos" className="btn btn-primary btn-lg" data-magnetic>
+                  Explorar produtos
                   <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </a>
-                <a href="#servicos" className="btn btn-secondary btn-lg">
-                  Ver serviços
+                <a href="https://github.com/nuptechs" target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-lg">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  GitHub
                 </a>
               </div>
+            </div>
 
-              <p className="hero-microcopy" data-reveal style={{ transitionDelay: '800ms' }}>
-                Resposta em até 24h &nbsp;·&nbsp; Sem compromisso &nbsp;·&nbsp; 1ª versão em 7 dias
-              </p>
+            <div className="hero-demo" data-reveal style={{ transitionDelay: '600ms' }}>
+              <TypewriterCode />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Tech Marquee ────────────────────────────────── */}
-      <LogoMarquee />
-
-      {/* ── Services ────────────────────────────────────── */}
-      <section id="servicos" className="page-section bg-[var(--surface)]" aria-label="Serviços">
+      {/* ── Engineering Stats ───────────────────────────── */}
+      <section className="eng-band" aria-label="Números de engenharia">
         <div className="inner">
-          <div className="mb-16 max-w-2xl" data-reveal>
-            <span className="eyebrow mb-4 block">Serviços</span>
-            <TextReveal as="h2" className="section-heading mb-4">
-              Engenharia de ponta, resultado tangível
-            </TextReveal>
-            <p className="lead">
-              Do diagnóstico ao deploy — um time sênior, método comprovado e tecnologia que escala com o seu negócio.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
-            {services.map((svc) => (
-              <article key={svc.slug} className="card card-sm group" data-reveal-item>
-                <div className="card-icon" aria-hidden="true">{svc.icon}</div>
-                <h3 className="card-title">{svc.title}</h3>
-                <p className="card-body mb-4">{svc.body}</p>
-                <div className="card-footer">
-                  <span className="card-metric">
-                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="flex-shrink-0">
-                      <path d="M2.5 7l3 3 6-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    {svc.metric}
-                  </span>
-                  <a href={`/servicos/${svc.slug}`} className="card-link" aria-label={`Ver detalhes: ${svc.title}`}>
-                    Saiba mais
-                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <hr className="section-divider" />
-
-      {/* ── Process ─────────────────────────────────────── */}
-      <section id="como-funciona" className="page-section" aria-label="Processo">
-        <div className="inner">
-          <div className="mb-14 max-w-2xl mx-auto text-center" data-reveal>
-            <span className="eyebrow mb-4 block justify-center">Processo</span>
-            <TextReveal as="h2" className="section-heading mb-4">
-              Do diagnóstico ao lançamento
-            </TextReveal>
-            <p className="lead mx-auto">
-              Método claro em 4 etapas. Sem enrolação, sem surpresas — você acompanha tudo desde o primeiro dia.
-            </p>
-          </div>
-          <ProcessTimeline />
-        </div>
-      </section>
-
-      {/* ── Social Proof ────────────────────────────────── */}
-      <section className="trust-band" aria-label="Números e credenciais NuPtechs">
-        <div className="inner relative z-[1]">
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4" data-reveal-group>
-            {trustStats.map((s) => (
-              <div key={s.label} className="flex flex-col items-center gap-1.5 text-center" data-reveal-item>
-                <span className="stat-number" data-counter={s.counter} data-prefix={s.prefix} data-suffix={s.suffix}>
-                  {s.value}
-                </span>
-                <span className="text-sm font-semibold text-[var(--text)]">{s.label}</span>
-                <span className="text-xs text-[var(--subtle)]">{s.sublabel}</span>
-              </div>
-            ))}
-          </div>
+          <EngineeringStats />
         </div>
       </section>
 
       {/* ── Products ────────────────────────────────────── */}
       <section id="produtos" className="page-section" aria-label="Produtos">
         <div className="inner">
-          <div className="mb-16 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between" data-reveal>
-            <div className="max-w-xl">
-              <span className="eyebrow mb-4 block">Produtos prontos</span>
-              <TextReveal as="h2" className="section-heading mb-3">
-                Deploy hoje. Escale amanhã.
-              </TextReveal>
-              <p className="lead">
-                Soluções validadas em centenas de projetos — configure em horas, não em meses.
-              </p>
-            </div>
-            <a href="/produtos" className="btn btn-secondary flex-shrink-0 self-start sm:self-auto">
-              Ver catálogo completo
-            </a>
+          <div className="mb-16 max-w-2xl" data-reveal>
+            <span className="eyebrow mb-4 block">Produtos</span>
+            <TextReveal as="h2" className="section-heading mb-4">
+              14 produtos. Código real em produção.
+            </TextReveal>
+            <p className="lead">
+              Cada produto nasceu de necessidades reais em projetos de governo e enterprise. Sem protótipos — código que roda em produção com milhares de usuários.
+            </p>
           </div>
-
-          <div className="product-showcase" data-reveal-group>
-            {products.map((p) => {
-              const statusCls =
-                p.statusColor === "green"
-                  ? "product-pill product-pill--green"
-                  : p.statusColor === "amber"
-                  ? "product-pill product-pill--amber"
-                  : "product-pill product-pill--neutral";
-
-              return (
-                <a
-                  key={p.slug}
-                  href={`/produtos/${p.slug}`}
-                  className="product-tile"
-                  data-reveal-item
-                  aria-label={`${p.name} — ${p.tagline}`}
-                >
-                  <div className="product-tile__inner">
-                    <div className="product-tile__top">
-                      <h3 className="product-tile__name">{p.name}</h3>
-                      <span className={statusCls}>{p.status}</span>
-                    </div>
-
-                    <p className="product-tile__tagline">{p.tagline}</p>
-
-                    <div className="product-tile__stat">
-                      <span className="product-tile__stat-value">{p.stat}</span>
-                      <span className="product-tile__stat-label">{p.statLabel}</span>
-                    </div>
-
-                    <span className="product-tile__arrow" aria-hidden="true">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </span>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
+          <ProductShowcase />
         </div>
       </section>
 
-      {/* ── CTA Band ─────────────────────────────────────── */}
-      <section className="cta-band" aria-label="Chamada para ação">
-        <div className="cta-band__bg" aria-hidden="true" />
-        <div className="cta-band__content" data-reveal="scale">
-          <span className="eyebrow mb-5 block justify-center">Próximo passo</span>
-          <TextReveal as="h2" className="section-heading mb-6">
-            Sua operação merece software de verdade
-          </TextReveal>
-          <p className="lead mx-auto mb-8 text-center" style={{ maxWidth: "48ch" }}>
-            Receba um diagnóstico técnico gratuito em até 24 horas — sem compromisso, sem slides genéricos.
-          </p>
-          <a href="mailto:nuptechs@nuptechs.com" className="btn btn-primary btn-lg" data-magnetic>
-            Solicitar diagnóstico
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
-        </div>
-      </section>
-
-      {/* ── FAQ ─────────────────────────────────────────── */}
-      <section id="faq" className="page-section bg-[var(--surface)]" aria-labelledby="faq-heading">
-        <div className="inner">
-          <div className="grid gap-16 lg:grid-cols-[1fr_1.5fr] lg:items-start">
-            <div className="lg:sticky lg:top-24" data-reveal="left">
-              <span className="eyebrow mb-4 block">FAQ</span>
-              <h2 id="faq-heading" className="section-heading mb-4">
-                Perguntas frequentes
-              </h2>
-              <p className="lead">
-                Tudo o que você precisa saber antes de começar um projeto conosco.
-              </p>
-            </div>
-            <div data-reveal="right">
-              <FaqAccordion items={faqs} />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <hr className="section-divider" />
+      {/* ── Government Expertise ────────────────────────── */}
+      <GovLogos />
 
       {/* ── Blog Preview ────────────────────────────────── */}
       <section id="blog" className="page-section" aria-labelledby="blog-heading">
         <div className="inner">
           <div className="mb-16 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between" data-reveal>
             <div className="max-w-xl">
-              <span className="eyebrow mb-4 block">Blog &amp; Conteúdo</span>
+              <span className="eyebrow mb-4 block">Engenharia &amp; Ideias</span>
               <h2 id="blog-heading" className="section-heading mb-3">
-                Insights para decisões melhores
+                Direto do código-fonte
               </h2>
               <p className="lead">
-                Artigos práticos sobre desenvolvimento ágil, IA aplicada e gestão de software — escritos por quem constrói sistemas reais.
+                Artigos técnicos sobre arquitetura, IA aplicada e decisões de engenharia — escritos por quem constrói sistemas reais.
               </p>
             </div>
             <a href="/blog" className="btn btn-secondary flex-shrink-0 self-start sm:self-auto">
@@ -499,28 +227,63 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Lead Capture ────────────────────────────────── */}
-      <section id="contato" className="page-section bg-[var(--surface)]" aria-labelledby="lead-heading">
+      <hr className="section-divider" />
+
+      {/* ── FAQ ─────────────────────────────────────────── */}
+      <section id="faq" className="page-section bg-[var(--surface)]" aria-labelledby="faq-heading">
+        <div className="inner">
+          <div className="grid gap-16 lg:grid-cols-[1fr_1.5fr] lg:items-start">
+            <div className="lg:sticky lg:top-24" data-reveal="left">
+              <span className="eyebrow mb-4 block">FAQ</span>
+              <h2 id="faq-heading" className="section-heading mb-4">
+                Perguntas frequentes
+              </h2>
+              <p className="lead">
+                Stack, metodologia, escala e integrações.
+              </p>
+            </div>
+            <div data-reveal="right">
+              <FaqAccordion items={faqs} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr className="section-divider" />
+
+      {/* ── Contact ─────────────────────────────────────── */}
+      <section id="contato" className="page-section" aria-labelledby="contact-heading">
         <div className="inner">
           <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
             <div data-reveal="left">
-              <span className="eyebrow mb-4 block">Diagnóstico gratuito</span>
-              <h2 id="lead-heading" className="section-heading mb-4">
-                Pronto para elevar o nível da sua operação?
+              <span className="eyebrow mb-4 block">Contato</span>
+              <h2 id="contact-heading" className="section-heading mb-4">
+                Vamos construir algo juntos
               </h2>
               <p className="lead mb-8">
-                Agende uma conversa de 30 minutos ou envie seu desafio por e-mail. Devolvemos um plano técnico concreto em até 24 horas — sem compromisso.
+                Tem um desafio de engenharia? Precisa de uma plataforma enterprise? Fale conosco — adoramos problemas complexos.
               </p>
-              <ul className="flex flex-col gap-3">
-                {["Reunião gratuita de 30 minutos ou análise por e-mail", "Avaliação técnica personalizada do seu cenário", "Plano com prazo, escopo e investimento estimado", "Primeira versão navegável em até 7 dias úteis"].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-[var(--muted)]">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="mt-0.5 flex-shrink-0 text-[var(--accent)]">
-                      <path d="M3 8.5l3.5 3.5 6.5-7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <div className="flex flex-col gap-4 text-sm text-[var(--muted)]">
+                <a href="mailto:nuptechs@nuptechs.com" className="flex items-center gap-3 hover:text-[var(--text)] transition-colors">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="flex-shrink-0 text-[var(--accent)]">
+                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                    <path d="M22 7l-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/>
+                  </svg>
+                  nuptechs@nuptechs.com
+                </a>
+                <a href="https://github.com/nuptechs" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-[var(--text)] transition-colors">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="flex-shrink-0 text-[var(--accent)]">
+                    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  github.com/nuptechs
+                </a>
+                <span className="flex items-center gap-3">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="flex-shrink-0 text-[var(--accent)]">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  Brasília, DF — Brasil
+                </span>
+              </div>
             </div>
             <div data-reveal="right">
               <ContactForm />
@@ -539,7 +302,7 @@ export default function Home() {
                 <span className="nav-logo-text">NuPtechs</span>
               </a>
               <p>
-                Desenvolvimento de software sob medida, automação com IA e produtos prontos para empresas brasileiras.
+                Engenharia de software para infraestrutura empresarial. 14 produtos em produção.
               </p>
             </div>
 
@@ -552,19 +315,18 @@ export default function Home() {
             </div>
 
             <div className="footer-col">
-              <h4>Serviços</h4>
-              <a href="/servicos/automacao-inteligente">Automação com IA</a>
-              <a href="/servicos/dashboards-bi">Dashboards BI</a>
-              <a href="/servicos/aplicativos-moveis">Apps Móveis</a>
-              <a href="/servicos/integracoes-api">Integrações</a>
+              <h4>Plataformas</h4>
+              <a href="#produtos">EasyNuP</a>
+              <a href="#produtos">NuPIdentify</a>
+              <a href="#produtos">Debug Probe</a>
+              <a href="#produtos">Sentinel</a>
             </div>
 
             <div className="footer-col">
-              <h4>Produtos</h4>
-              <a href="/produtos/flowops">FlowOps</a>
-              <a href="/produtos/datapulse">DataPulse</a>
-              <a href="/produtos/bookflow">BookFlow</a>
-              <a href="/produtos/chatcore">ChatCore</a>
+              <h4>AI &amp; Tools</h4>
+              <a href="#produtos">Manifest</a>
+              <a href="#produtos">NuP-Chunks</a>
+              <a href="https://github.com/nuptechs" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
           </div>
 
