@@ -5,6 +5,8 @@ import FaqAccordion from "./components/FaqAccordion";
 import HeroVisual from "./components/HeroVisual";
 import Animations from "./components/Animations";
 import ProcessTimeline from "./components/ProcessTimeline";
+import CursorGlow from "./components/CursorGlow";
+import ScrollProgress from "./components/ScrollProgress";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -209,6 +211,8 @@ export default function Home() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Animations />
+      <CursorGlow />
+      <ScrollProgress />
 
       {/* ── Navigation ──────────────────────────────────── */}
       <nav className="nav-bar" aria-label="Navegação principal">
@@ -244,12 +248,12 @@ export default function Home() {
               </div>
 
               <h1 id="hero-heading" className="display-title">
-                Transformamos ideias em<br />
-                <em>software real</em>.
+                Arquitetamos software que<br />
+                <em>transforma operações</em>.
               </h1>
 
               <p className="lead">
-                Sistemas sob medida, automação com IA e dashboards operacionais — da primeira versão ao deploy em produção em semanas, não meses.
+                Engenharia de software sob medida, automação inteligente e produtos prontos para escalar — entregamos a primeira versão em 7 dias, não em meses.
               </p>
 
               <div className="flex flex-wrap gap-3">
@@ -282,10 +286,10 @@ export default function Home() {
           <div className="mb-16 max-w-2xl" data-reveal>
             <span className="eyebrow mb-4 block">Serviços</span>
             <h2 id="services-heading" className="section-heading mb-4">
-              Soluções sob medida para o seu negócio
+              Engenharia de ponta, resultado tangível
             </h2>
             <p className="lead">
-              Da ideia ao deploy — cobrimos todas as camadas técnicas do seu produto com um time sênior e método comprovado.
+              Do diagnóstico ao deploy — um time sênior, método comprovado e tecnologia que escala com o seu negócio.
             </p>
           </div>
 
@@ -417,10 +421,10 @@ export default function Home() {
         <div className="cta-band__content" data-reveal="scale">
           <span className="eyebrow mb-5 block justify-center">Próximo passo</span>
           <h2 className="section-heading mb-6">
-            Diagnóstico gratuito em 24 horas
+            Sua operação merece software de verdade
           </h2>
           <p className="lead mx-auto mb-8 text-center" style={{ maxWidth: "48ch" }}>
-            Conte seu desafio e receba um plano técnico objetivo — sem compromisso.
+            Receba um diagnóstico técnico gratuito em até 24 horas — sem compromisso, sem slides genéricos.
           </p>
           <a href="mailto:nuptechs@nuptechs.com" className="btn btn-primary btn-lg" data-magnetic>
             Solicitar diagnóstico
@@ -501,10 +505,10 @@ export default function Home() {
             <div data-reveal="left">
               <span className="eyebrow mb-4 block">Diagnóstico gratuito</span>
               <h2 id="lead-heading" className="section-heading mb-4">
-                Vamos conversar sobre o seu projeto?
+                Pronto para elevar o nível da sua operação?
               </h2>
               <p className="lead mb-8">
-                Descreva seu desafio em uma reunião de 30 minutos ou por e-mail. Nossa equipe devolve um plano técnico concreto em até 24 horas — sem compromisso.
+                Agende uma conversa de 30 minutos ou envie seu desafio por e-mail. Devolvemos um plano técnico concreto em até 24 horas — sem compromisso.
               </p>
               <ul className="flex flex-col gap-3">
                 {["Reunião gratuita de 30 minutos ou análise por e-mail", "Avaliação técnica personalizada do seu cenário", "Plano com prazo, escopo e investimento estimado", "Primeira versão navegável em até 7 dias úteis"].map((item) => (

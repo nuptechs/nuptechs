@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
     // Send notification to NuPtechs team
     await resend.emails.send({
-      from: "NuPtechs Site <noreply@nuptechs.com.br>",
+      from: "NuPtechs Site <noreply@nuptechs.com>",
       to: "nuptechs@nuptechs.com",
       replyTo: email,
       subject: `[Diagnóstico] ${name}${company ? ` — ${company}` : ""}`,
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
 
     // Send confirmation to the prospect
     await resend.emails.send({
-      from: "NuPtechs <noreply@nuptechs.com.br>",
+      from: "NuPtechs <noreply@nuptechs.com>",
       to: email,
       subject: "Recebemos seu pedido de diagnóstico — NuPtechs",
       html: `

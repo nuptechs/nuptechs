@@ -71,5 +71,5 @@
 
   <!-- URL tag -->
   <rect x="820" y="415" width="300" height="30" rx="15" fill="#ffffff" fill-opacity="0.06"/>
-  <text x="970" y="434" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9ca3af" text-anchor="middle" letter-spacing="0.04em">nuptechs.com.br</text>
+  <text x="970" y="434" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#9ca3af" text-anchor="middle" letter-spacing="0.04em">nuptechs.com</text>
 </svg>
