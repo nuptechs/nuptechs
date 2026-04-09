@@ -147,30 +147,66 @@ export default function BlogIndex() {
               ))}
             </div>
 
+            {/* Featured post */}
+            {postList.length > 0 && (
+              <article className="blog-featured" data-reveal>
+                <div className="blog-featured__accent" aria-hidden="true" />
+                <div className="blog-featured__content">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className={`badge ${tagColors[postList[0].tag] ?? "badge-accent"} text-xs`}>
+                      {postList[0].tag}
+                    </span>
+                    <span className="text-xs text-[var(--subtle)]">{postList[0].readTime} leitura</span>
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-bold leading-tight tracking-tight text-[var(--text)] mb-3">
+                    <a href={`/blog/${postList[0].slug}`} className="hover:text-[var(--accent)] transition-colors">
+                      {postList[0].title}
+                    </a>
+                  </h2>
+                  <p className="text-base leading-relaxed text-[var(--muted)] mb-6 max-w-prose">
+                    {postList[0].description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <time dateTime={postList[0].publishedAt} className="text-xs text-[var(--subtle)]">
+                      {new Date(postList[0].publishedAt).toLocaleDateString("pt-BR", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </time>
+                    <a href={`/blog/${postList[0].slug}`} className="btn btn-primary btn-sm">
+                      Ler artigo
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            )}
+
             {/* Article grid */}
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {postList.map((post, index) => (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+              {postList.slice(1).map((post) => (
                 <article
                   key={post.slug}
-                  className={`card group flex flex-col gap-4 relative`}
+                  className="blog-card group"
+                  data-reveal-item
                 >
-                  <div className="flex items-center justify-between">
-                    <span className={`badge ${tagColors[post.tag] ?? "badge-accent"} self-start text-xs`}>
+                  <div className="blog-card__top">
+                    <span className={`badge ${tagColors[post.tag] ?? "badge-accent"} text-xs`}>
                       {post.tag}
                     </span>
                     <span className="text-xs text-[var(--subtle)]">{post.readTime} leitura</span>
                   </div>
 
-                  <h2 className="text-base font-bold leading-snug tracking-tight text-[var(--text)] group-hover:text-[var(--accent)] transition-colors flex-1">
-                    <a
-                      href={`/blog/${post.slug}`}
-                      className="after:absolute after:inset-0"
-                    >
+                  <h2 className="blog-card__title">
+                    <a href={`/blog/${post.slug}`}>
                       {post.title}
                     </a>
                   </h2>
 
-                  <p className="text-sm leading-relaxed text-[var(--muted)]">
+                  <p className="blog-card__excerpt">
                     {post.description}
                   </p>
 
@@ -182,12 +218,12 @@ export default function BlogIndex() {
                         year: "numeric",
                       })}
                     </time>
-                    <span className="text-xs font-medium text-[var(--accent)] flex items-center gap-1">
+                    <a href={`/blog/${post.slug}`} className="card-link">
                       Ler artigo
                       <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                         <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                    </span>
+                    </a>
                   </div>
                 </article>
               ))}

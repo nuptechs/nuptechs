@@ -374,7 +374,7 @@ export default function Home() {
           </div>
 
           <div className="product-showcase" data-reveal-group>
-            {products.map((p, i) => {
+            {products.map((p) => {
               const statusCls =
                 p.statusColor === "green"
                   ? "product-pill product-pill--green"
@@ -386,7 +386,7 @@ export default function Home() {
                 <a
                   key={p.slug}
                   href={`/produtos/${p.slug}`}
-                  className={`product-tile${i === 0 ? " product-tile--hero" : ""}`}
+                  className="product-tile"
                   data-reveal-item
                   aria-label={`${p.name} — ${p.tagline}`}
                 >
