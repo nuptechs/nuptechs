@@ -2,11 +2,12 @@ import ThemeToggle from "./components/ThemeToggle";
 import NavLinks from "./components/NavLinks";
 import ContactForm from "./components/ContactForm";
 import FaqAccordion from "./components/FaqAccordion";
-import HeroVisual from "./components/HeroVisual";
 import Animations from "./components/Animations";
 import ProcessTimeline from "./components/ProcessTimeline";
 import CursorGlow from "./components/CursorGlow";
 import ScrollProgress from "./components/ScrollProgress";
+import TextReveal from "./components/TextReveal";
+import LogoMarquee from "./components/LogoMarquee";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -232,31 +233,32 @@ export default function Home() {
       </nav>
 
       {/* ── Hero ────────────────────────────────────────── */}
-      <section id="inicio" className="hero-section" aria-labelledby="hero-heading">
+      <section id="inicio" className="hero-section" aria-label="Seção principal">
         {/* Background effects */}
         <div className="hero-grid-bg" aria-hidden="true" />
         <div className="hero-glow" aria-hidden="true" />
+        <div className="hero-orb hero-orb--primary" aria-hidden="true" />
+        <div className="hero-orb hero-orb--secondary" aria-hidden="true" />
 
         <div className="inner">
           <div className="hero-layout">
-            <div className="hero-copy" data-reveal="left">
-              <div className="hero-proof">
+            <div className="hero-copy">
+              <div className="hero-proof" data-reveal>
                 <span className="hero-proof__dot" aria-hidden="true" />
                 <span>+200 projetos entregues</span>
                 <span className="hero-proof__sep" aria-hidden="true">·</span>
                 <span>Brasil &amp; América Latina</span>
               </div>
 
-              <h1 id="hero-heading" className="display-title">
-                Arquitetamos software que<br />
-                <em>transforma operações</em>.
-              </h1>
+              <TextReveal as="h1" className="display-title" delay={100}>
+                Arquitetamos software que transforma operações
+              </TextReveal>
 
-              <p className="lead">
+              <p className="lead" data-reveal style={{ transitionDelay: '400ms' }}>
                 Engenharia de software sob medida, automação inteligente e produtos prontos para escalar — entregamos a primeira versão em 7 dias, não em meses.
               </p>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap justify-center gap-3" data-reveal style={{ transitionDelay: '600ms' }}>
                 <a href="mailto:nuptechs@nuptechs.com" className="btn btn-primary btn-lg" data-magnetic>
                   Diagnóstico gratuito
                   <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -268,26 +270,25 @@ export default function Home() {
                 </a>
               </div>
 
-              <p className="hero-microcopy">
+              <p className="hero-microcopy" data-reveal style={{ transitionDelay: '800ms' }}>
                 Resposta em até 24h &nbsp;·&nbsp; Sem compromisso &nbsp;·&nbsp; 1ª versão em 7 dias
               </p>
-            </div>
-
-            <div className="hero-visual-wrapper" data-reveal="right">
-              <HeroVisual />
             </div>
           </div>
         </div>
       </section>
 
+      {/* ── Tech Marquee ────────────────────────────────── */}
+      <LogoMarquee />
+
       {/* ── Services ────────────────────────────────────── */}
-      <section id="servicos" className="page-section bg-[var(--surface)]" aria-labelledby="services-heading">
+      <section id="servicos" className="page-section bg-[var(--surface)]" aria-label="Serviços">
         <div className="inner">
           <div className="mb-16 max-w-2xl" data-reveal>
             <span className="eyebrow mb-4 block">Serviços</span>
-            <h2 id="services-heading" className="section-heading mb-4">
+            <TextReveal as="h2" className="section-heading mb-4">
               Engenharia de ponta, resultado tangível
-            </h2>
+            </TextReveal>
             <p className="lead">
               Do diagnóstico ao deploy — um time sênior, método comprovado e tecnologia que escala com o seu negócio.
             </p>
@@ -322,13 +323,13 @@ export default function Home() {
       <hr className="section-divider" />
 
       {/* ── Process ─────────────────────────────────────── */}
-      <section id="como-funciona" className="page-section" aria-labelledby="process-heading">
+      <section id="como-funciona" className="page-section" aria-label="Processo">
         <div className="inner">
           <div className="mb-14 max-w-2xl mx-auto text-center" data-reveal>
             <span className="eyebrow mb-4 block justify-center">Processo</span>
-            <h2 id="process-heading" className="section-heading mb-4">
+            <TextReveal as="h2" className="section-heading mb-4">
               Do diagnóstico ao lançamento
-            </h2>
+            </TextReveal>
             <p className="lead mx-auto">
               Método claro em 4 etapas. Sem enrolação, sem surpresas — você acompanha tudo desde o primeiro dia.
             </p>
@@ -355,14 +356,14 @@ export default function Home() {
       </section>
 
       {/* ── Products ────────────────────────────────────── */}
-      <section id="produtos" className="page-section" aria-labelledby="products-heading">
+      <section id="produtos" className="page-section" aria-label="Produtos">
         <div className="inner">
           <div className="mb-16 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between" data-reveal>
             <div className="max-w-xl">
               <span className="eyebrow mb-4 block">Produtos prontos</span>
-              <h2 id="products-heading" className="section-heading mb-3">
+              <TextReveal as="h2" className="section-heading mb-3">
                 Deploy hoje. Escale amanhã.
-              </h2>
+              </TextReveal>
               <p className="lead">
                 Soluções validadas em centenas de projetos — configure em horas, não em meses.
               </p>
@@ -420,9 +421,9 @@ export default function Home() {
         <div className="cta-band__bg" aria-hidden="true" />
         <div className="cta-band__content" data-reveal="scale">
           <span className="eyebrow mb-5 block justify-center">Próximo passo</span>
-          <h2 className="section-heading mb-6">
+          <TextReveal as="h2" className="section-heading mb-6">
             Sua operação merece software de verdade
-          </h2>
+          </TextReveal>
           <p className="lead mx-auto mb-8 text-center" style={{ maxWidth: "48ch" }}>
             Receba um diagnóstico técnico gratuito em até 24 horas — sem compromisso, sem slides genéricos.
           </p>
