@@ -73,9 +73,11 @@ export default function EngineeringStats({ lang = "pt" }: { lang?: Lang }) {
   }, []);
 
   return (
-    <div ref={ref} className="eng-stats-grid">
+    <div ref={ref} className="eng-stats-grid" data-reveal-group>
       {stats.map((s, i) => (
-        <StatItem key={s.label[lang]} stat={s} active={active} delay={i * 150} lang={lang} />
+        <div key={s.label[lang]} data-reveal-item>
+          <StatItem stat={s} active={active} delay={i * 150} lang={lang} />
+        </div>
       ))}
     </div>
   );

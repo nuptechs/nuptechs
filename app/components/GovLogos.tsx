@@ -109,26 +109,32 @@ const i18nAria: Record<Lang, string> = {
 };
 
 export default function GovLogos({ lang = "pt" }: { lang?: Lang }) {
+  const marqueeClients = [...govClients, ...govClients];
+
   return (
     <section className="gov-section" aria-label={i18nAria[lang]}>
       <div className="inner">
         <p className="gov-section__label">
           {i18nLabel[lang]}
         </p>
-        <div className="gov-grid">
-          {govClients.map((c) => (
-            <div
-              key={c.abbr}
-              className="gov-chip"
-              title={c.name}
-              style={{ borderColor: `${c.color}40`, ["--gov-accent" as string]: c.color }}
-            >
-              <span className="gov-chip__icon" aria-hidden="true" style={{ color: c.color }}>
-                {c.icon}
-              </span>
-              <span className="gov-chip__name">{c.abbr}</span>
-            </div>
-          ))}
+
+        <div className="logo-marquee gov-marquee" data-reveal>
+          <div className="logo-marquee__track">
+            {marqueeClients.map((c, index) => (
+              <div
+                key={`${c.abbr}-${index}`}
+                className="gov-chip gov-chip--marquee"
+                title={c.name}
+                aria-hidden={index >= govClients.length ? true : undefined}
+                style={{ borderColor: `${c.color}40`, ["--gov-accent" as string]: c.color }}
+              >
+                <span className="gov-chip__icon" aria-hidden="true" style={{ color: c.color }}>
+                  {c.icon}
+                </span>
+                <span className="gov-chip__name">{c.abbr}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

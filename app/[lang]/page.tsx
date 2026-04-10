@@ -113,9 +113,9 @@ export default function LangPage({ params }: { params: { lang: string } }) {
                 </a>
               </div>
 
-              <div className="hero-proof-row" data-reveal style={{ transitionDelay: '650ms' }}>
+              <div className="hero-proof-row" data-reveal data-reveal-group style={{ transitionDelay: '650ms' }}>
                 {heroProof.map((item) => (
-                  <div key={item.label} className="hero-proof-card">
+                  <div key={item.label} className="hero-proof-card" data-reveal-item>
                     <span className="hero-proof__kpi">{item.kpi}</span>
                     <span className="hero-proof__label">{item.label}</span>
                   </div>
@@ -176,7 +176,7 @@ export default function LangPage({ params }: { params: { lang: string } }) {
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
             {d.blog.posts.map((post) => (
-              <article key={post.slug} className="blog-card group" data-reveal-item data-quantum>
+              <article key={post.slug} className="blog-card group" data-reveal-item>
                 <div className="blog-card__top">
                   <span className="badge badge-accent">{post.tag}</span>
                   <span className="blog-card__read">{post.readTime}</span>
@@ -222,7 +222,7 @@ export default function LangPage({ params }: { params: { lang: string } }) {
       <hr className="section-divider" />
 
       {/* ── Contact ─────────────────────────────────────── */}
-      <section id="contact" className="page-section" aria-labelledby="contact-heading">
+      <section id="contact" className="page-section contact-section" aria-labelledby="contact-heading">
         <div className="inner">
           <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
             <div data-reveal="left">
@@ -267,9 +267,9 @@ export default function LangPage({ params }: { params: { lang: string } }) {
                 </span>
               </div>
 
-              <div className="contact-proof-grid" data-reveal>
+              <div className="contact-proof-grid" data-reveal data-reveal-group>
                 {contactProof.map((item) => (
-                  <div key={item.label} className="contact-proof"><strong>{item.kpi}</strong><span>{item.label}</span></div>
+                  <div key={item.label} className="contact-proof" data-reveal-item><strong>{item.kpi}</strong><span>{item.label}</span></div>
                 ))}
               </div>
             </div>

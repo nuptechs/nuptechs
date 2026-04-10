@@ -4179,6 +4179,211 @@ a, button {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   PREMIUM DESIGN UPGRADES — 10 World-class effects
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. Gradient text on titles ─────────────────────────── */
+.gradient-text,
+.display-title em,
+.section-heading em {
+  background: linear-gradient(
+    135deg,
+    var(--text) 0%,
+    var(--accent) 50%,
+    color-mix(in srgb, var(--accent) 80%, #a5f3fc) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: normal;
+}
+
+/* ── 2. Gov marquee items inside marquee ─────────────────── */
+.gov-chip--marquee {
+  flex-shrink: 0;
+}
+
+/* ── 3. Stagger — already defined above via --stagger var ── */
+/* transition-delay: calc(var(--stagger, 0) * 90ms) ✓ */
+
+/* ── 4. Gradient section divider ─────────────────────────── */
+/* Override the two previous .section-divider definitions */
+/* (cannot override in place without duplication, so we re-declare at bottom) */
+.section-divider {
+  border: none !important;
+  height: 1px !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent) 30%, var(--border)) 30%,
+    color-mix(in srgb, var(--accent) 60%, transparent) 50%,
+    color-mix(in srgb, var(--accent) 30%, var(--border)) 70%,
+    transparent 100%
+  ) !important;
+  margin: 0 !important;
+}
+
+/* ── 5. Hero grid background — already exists via .hero-grid-bg ── */
+
+/* ── 6. Cursor-aware card glow via --mx / --my ───────────── */
+.psc__card,
+.hero-proof-card,
+.contact-proof,
+.contact-form-card,
+.gov-chip,
+.eng-stat {
+  --mx: 50%;
+  --my: 50%;
+}
+
+.psc__card::after,
+.hero-proof-card::after,
+.contact-form-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle 120px at var(--mx) var(--my),
+    color-mix(in srgb, var(--accent) 12%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+  transition: background 0.1s ease;
+  z-index: 0;
+}
+
+/* Ensure content stays above glow overlay */
+.psc__card > *,
+.hero-proof-card > *,
+.contact-form-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtle glow ring on gov-chip hover */
+.gov-chip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle 60px at var(--mx) var(--my),
+    color-mix(in srgb, var(--gov-accent, var(--accent)) 15%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gov-chip {
+  position: relative;
+}
+
+.gov-chip:hover::before {
+  opacity: 1;
+}
+
+/* ── 7. Number shimmer — fires once on .eng-stat__value.is-active ── */
+@keyframes stat-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.eng-stat__value.is-active {
+  background: linear-gradient(
+    90deg,
+    var(--text) 0%,
+    var(--accent) 30%,
+    color-mix(in srgb, var(--accent) 70%, #ffffff) 50%,
+    var(--accent) 70%,
+    var(--text) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: stat-shimmer 1.6s ease forwards;
+  animation-delay: 0.1s;
+}
+
+/* ── 8. Contact / CTA gradient backdrop ──────────────────── */
+.contact-section {
+  position: relative;
+}
+
+.contact-section::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 100%, color-mix(in srgb, var(--accent) 5%, transparent), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contact-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 9. Smooth page entrance via [data-page-ready] ─────────── */
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+body[data-page-ready="false"] {
+  opacity: 0;
+}
+
+body[data-page-ready="true"] {
+  animation: page-fade-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── 10. Better button hover with glow spread ──────────────── */
+.btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 1px 4px var(--accent-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 120%, rgba(255,255,255,0.35), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.btn-primary:hover::after {
+  opacity: 1;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 24px var(--accent-glow),
+    0 0 0 1px color-mix(in srgb, var(--accent) 50%, transparent),
+    0 0 40px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-raised);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* ═══════════════════════════════════════════════════════════
    REDUCED MOTION — Respect accessibility for all new effects
    ═══════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
@@ -4201,10 +4406,16 @@ a, button {
   }
 
   .portal-enter { animation: none !important; }
+  body[data-page-ready="false"] { opacity: 1 !important; }
+  body[data-page-ready="true"] { animation: none !important; }
+  .eng-stat__value.is-active { animation: none !important; }
 }
 
 /* Touch devices — no cursor-dependent effects */
 @media (hover: none) {
   .quantum-lines { display: none; }
   [data-quantum] { filter: none; opacity: 1; transform: none; }
+  .psc__card::after,
+  .hero-proof-card::after,
+  .contact-form-card::after { display: none; }
 }

@@ -15,6 +15,18 @@ import { useEffect } from "react";
 
 export default function Animations() {
   useEffect(() => {
+    const body = document.body;
+    body.dataset.pageReady = "false";
+
+    let pageReadyFrame = 0;
+    let pageReadyFrame2 = 0;
+
+    pageReadyFrame = requestAnimationFrame(() => {
+      pageReadyFrame2 = requestAnimationFrame(() => {
+        body.dataset.pageReady = "true";
+      });
+    });
+
     /* ── 1. Scroll-reveal ─────────────────────────────────────
        Adds `.revealed` to elements with [data-reveal] once they
        enter the viewport. CSS handles the actual transition.
@@ -43,10 +55,22 @@ export default function Animations() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const children = entry.target.querySelectorAll("[data-reveal-item]");
+            const explicitChildren = Array.from(
+              entry.target.querySelectorAll<HTMLElement>("[data-reveal-item]")
+            );
+
+            const children = explicitChildren.length > 0
+              ? explicitChildren
+              : Array.from(entry.target.children).filter(
+                  (child): child is HTMLElement => child instanceof HTMLElement
+                );
+
             children.forEach((child, i) => {
-              (child as HTMLElement).style.setProperty("--stagger", String(i));
-              (child as HTMLElement).classList.add("revealed");
+              if (!child.hasAttribute("data-reveal-item")) {
+                child.setAttribute("data-reveal-item", "");
+              }
+              child.style.setProperty("--stagger", String(i));
+              child.classList.add("revealed");
             });
             staggerObserver.unobserve(entry.target);
           }
@@ -187,8 +211,42 @@ export default function Animations() {
       magneticHandlers.push({ el, enter: handleEnter, move: handleMove, leave: handleLeave });
     });
 
+    /* ── 7. Cursor-aware card glow ───────────────────────────
+       Updates CSS variables so cards can render a soft glow
+       exactly where the cursor is hovering.
+    ─────────────────────────────────────────────────────────── */
+    const glowEls = document.querySelectorAll<HTMLElement>(
+      ".psc__card, .hero-proof-card, .contact-proof, .contact-form-card, .gov-chip, .eng-stat"
+    );
+
+    const glowHandlers: Array<{
+      el: HTMLElement;
+      move: (e: MouseEvent) => void;
+      leave: () => void;
+    }> = [];
+
+    glowEls.forEach((el) => {
+      const handleMove = (e: MouseEvent) => {
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+        el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+      };
+
+      const handleLeave = () => {
+        el.style.setProperty("--mx", `${el.clientWidth / 2}px`);
+        el.style.setProperty("--my", `${el.clientHeight / 2}px`);
+      };
+
+      handleLeave();
+      el.addEventListener("mousemove", handleMove);
+      el.addEventListener("mouseleave", handleLeave);
+      glowHandlers.push({ el, move: handleMove, leave: handleLeave });
+    });
+
     /* ── Cleanup ──────────────────────────────────────────── */
     return () => {
+      cancelAnimationFrame(pageReadyFrame);
+      cancelAnimationFrame(pageReadyFrame2);
       revealObserver.disconnect();
       staggerObserver.disconnect();
       counterObserver.disconnect();
@@ -199,6 +257,11 @@ export default function Animations() {
         el.removeEventListener("mousemove", move);
         el.removeEventListener("mouseleave", leave);
       });
+      glowHandlers.forEach(({ el, move, leave }) => {
+        el.removeEventListener("mousemove", move);
+        el.removeEventListener("mouseleave", leave);
+      });
+      delete body.dataset.pageReady;
     };
   }, []);
 

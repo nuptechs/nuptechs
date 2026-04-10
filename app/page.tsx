@@ -158,16 +158,16 @@ export default function Home() {
                 </a>
               </div>
 
-              <div className="hero-proof-row" data-reveal style={{ transitionDelay: '650ms' }}>
-                <div className="hero-proof-card">
+              <div className="hero-proof-row" data-reveal data-reveal-group style={{ transitionDelay: '650ms' }}>
+                <div className="hero-proof-card" data-reveal-item>
                   <span className="hero-proof__kpi">14</span>
                   <span className="hero-proof__label">produtos em produção</span>
                 </div>
-                <div className="hero-proof-card">
+                <div className="hero-proof-card" data-reveal-item>
                   <span className="hero-proof__kpi">490k+</span>
                   <span className="hero-proof__label">linhas de código reais</span>
                 </div>
-                <div className="hero-proof-card">
+                <div className="hero-proof-card" data-reveal-item>
                   <span className="hero-proof__kpi">Gov</span>
                   <span className="hero-proof__label">expertise federal crítica</span>
                 </div>
@@ -273,7 +273,7 @@ export default function Home() {
       <hr className="section-divider" />
 
       {/* ── Contact ─────────────────────────────────────── */}
-      <section id="contato" className="page-section" aria-labelledby="contact-heading">
+      <section id="contato" className="page-section contact-section" aria-labelledby="contact-heading">
         <div className="inner">
           <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
             <div data-reveal="left">
@@ -318,10 +318,10 @@ export default function Home() {
                 </span>
               </div>
 
-              <div className="contact-proof-grid" data-reveal>
-                <div className="contact-proof"><strong>24h</strong><span>retorno inicial</span></div>
-                <div className="contact-proof"><strong>NDA</strong><span>conversa segura</span></div>
-                <div className="contact-proof"><strong>BR + Global</strong><span>atendimento internacional</span></div>
+              <div className="contact-proof-grid" data-reveal data-reveal-group>
+                <div className="contact-proof" data-reveal-item><strong>24h</strong><span>retorno inicial</span></div>
+                <div className="contact-proof" data-reveal-item><strong>NDA</strong><span>conversa segura</span></div>
+                <div className="contact-proof" data-reveal-item><strong>BR + Global</strong><span>atendimento internacional</span></div>
               </div>
             </div>
             <div className="contact-shell" data-reveal="right">
