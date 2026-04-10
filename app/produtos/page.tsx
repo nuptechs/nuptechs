@@ -166,8 +166,8 @@ export default function ProdutosIndex() {
               </ol>
             </nav>
             <div className="mb-10 max-w-3xl">
-              <span className="eyebrow mb-4 block" data-genesis="fast">Suite de produtos</span>
-              <h1 id="products-heading" className="display-title mb-5" data-genesis>
+              <span className="eyebrow mb-4 block" data-genesis="default">Suite de produtos</span>
+              <h1 id="products-heading" className="display-title mb-5" data-genesis="slow">
                 Software pronto.<br />Implante hoje.
               </h1>
               <p className="lead">
