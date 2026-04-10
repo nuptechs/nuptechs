@@ -345,79 +345,106 @@ export default function SobrePage() {
         {/* ── Team ── */}
         <section className="page-section" aria-labelledby="time-heading">
           <div className="inner">
-            <div className="mb-12 max-w-xl">
+            <div className="mb-16 text-center max-w-2xl mx-auto">
               <span className="eyebrow mb-3 block">Time</span>
               <h2 id="time-heading" className="section-heading">
                 Engenheiros que entregam, não apenas planejam.
               </h2>
             </div>
-            <div className="grid gap-5 sm:grid-cols-2 max-w-3xl">
+
+            <div className="sobre-team-grid">
               {team.map((member) => (
-                <div key={member.name} className="card flex flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[var(--accent-soft)] text-sm font-bold text-[var(--accent)]"
-                      aria-hidden="true"
-                    >
-                      {member.initials}
-                    </div>
-                    <div>
-                      <p className="font-semibold text-[var(--text)]">{member.name}</p>
-                      <p className="text-xs text-[var(--subtle)]">{member.role}</p>
-                    </div>
+                <div key={member.name} className="sobre-team-card">
+                  <div className="sobre-team-card__avatar">
+                    {member.initials}
                   </div>
-                  <p className="text-sm leading-relaxed text-[var(--muted)]">{member.bio}</p>
+                  <div className="sobre-team-card__info">
+                    <h3 className="sobre-team-card__name">{member.name}</h3>
+                    <p className="sobre-team-card__role">{member.role}</p>
+                    <p className="sobre-team-card__bio">{member.bio}</p>
+                  </div>
                 </div>
               ))}
             </div>
 
-            <div className="mt-10 max-w-3xl rounded-2xl border border-[var(--border-strong)] bg-[var(--surface)] p-6">
-              <p className="text-sm leading-relaxed text-[var(--muted)]">
-                <strong className="text-[var(--text)]">Trabalhamos com um modelo de equipe enxuta e especializada.</strong>{" "}
-                Cada projeto é alocado com os perfis certos — Analistas de Requisitos, Scrum Masters, Product Owners, Analistas de QA, Desenvolvedores e Gerentes de Projetos — sem o overhead de equipes grandes. Isso mantém a qualidade alta e o custo previsível.
-              </p>
-            </div>
+            <p className="sobre-team-note">
+              <strong>Equipe enxuta e especializada.</strong> Cada projeto é alocado com os perfis certos — sem o overhead de equipes grandes. Isso mantém a qualidade alta e o custo previsível.
+            </p>
           </div>
         </section>
 
         {/* ── Process ── */}
         <section className="page-section bg-[var(--surface)]" aria-labelledby="metodologia-heading">
           <div className="inner">
-            <div className="mb-12 max-w-xl">
+            <div className="mb-16 text-center max-w-2xl mx-auto">
               <span className="eyebrow mb-3 block">Metodologia</span>
               <h2 id="metodologia-heading" className="section-heading">
                 Da ideia à produção em semanas.
               </h2>
             </div>
-            <div className="grid gap-0 md:grid-cols-4">
+            <div className="sobre-process-grid">
               {[
                 {
                   num: "01",
                   title: "Diagnóstico gratuito",
                   body: "Chamada de 30 minutos. Mapeamos o desafio e devolvemos um plano técnico em até 24h.",
+                  icon: (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"/>
+                    </svg>
+                  ),
                 },
                 {
                   num: "02",
                   title: "Proposta com escopo fixo",
                   body: "Prazo claro, preço transparente, NDA disponível. Sem surpresas no contrato.",
+                  icon: (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                  ),
                 },
                 {
                   num: "03",
                   title: "Sprints semanais",
                   body: "O cliente acompanha o progresso em tempo real. Demo toda semana. Sem relatórios vazios.",
+                  icon: (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                  ),
                 },
                 {
                   num: "04",
                   title: "Deploy + 30 dias de suporte",
                   body: "Vamos à produção juntos e ficamos disponíveis por 30 dias para garantir a estabilidade.",
+                  icon: (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                  ),
                 },
-              ].map((step) => (
-                <div key={step.num} className="step-item">
-                  <div className="step-num">{step.num}</div>
-                  <div>
-                    <h3 className="card-title">{step.title}</h3>
-                    <p className="card-body">{step.body}</p>
+              ].map((step, i) => (
+                <div
+                  key={step.num}
+                  className="sobre-process-card"
+                  style={{ animationDelay: `${i * 120}ms` }}
+                >
+                  <div className="sobre-process-card__header">
+                    <div className="sobre-process-card__icon">
+                      {step.icon}
+                    </div>
+                    <span className="sobre-process-card__num">{step.num}</span>
                   </div>
+                  <h3 className="sobre-process-card__title">{step.title}</h3>
+                  <p className="sobre-process-card__body">{step.body}</p>
+                  {i < 3 && (
+                    <div className="sobre-process-card__connector" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.3"/>
+                      </svg>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -426,82 +453,108 @@ export default function SobrePage() {
 
         {/* ── Location ── */}
         <section className="page-section" aria-labelledby="localizacao-heading">
-          <div className="inner grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div>
-              <span className="eyebrow mb-4 block">Localização</span>
-              <h2 id="localizacao-heading" className="section-heading mb-4">
-                Baseados em Brasília. Atendemos em todo o Brasil e América Latina.
-              </h2>
-              <p className="lead mb-6">
-                Nossa sede é em Brasília — DF, mas trabalhamos com clientes em São Paulo, Rio de Janeiro, Minas Gerais, e em países como Portugal, EUA, México e Colômbia.
-              </p>
-              <p className="text-[var(--muted)] leading-relaxed mb-8">
-                Projetos são conduzidos de forma totalmente remota e assíncrona, com reuniões síncronas semanais de alinhamento. Contratos em BRL, USD ou EUR, com NDA padrão disponível desde o primeiro contato.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <a href="mailto:nuptechs@nuptechs.com" className="btn btn-primary">
-                  Enviar mensagem
-                </a>
-                <a href="tel:+5561993691692" className="btn btn-secondary">
-                  +55 (61) 99369-1692
-                </a>
+          <div className="inner">
+            <div className="sobre-location-layout">
+              <div className="sobre-location-copy">
+                <span className="eyebrow mb-4 block">Localização</span>
+                <h2 id="localizacao-heading" className="section-heading mb-4">
+                  Baseados em Brasília. Atendemos em todo o Brasil e América Latina.
+                </h2>
+                <p className="lead mb-6">
+                  Nossa sede é em Brasília — DF, mas trabalhamos com clientes em São Paulo, Rio de Janeiro, Minas Gerais, e em países como Portugal, EUA, México e Colômbia.
+                </p>
+                <p className="text-[var(--muted)] leading-relaxed mb-8">
+                  Projetos são conduzidos de forma totalmente remota e assíncrona, com reuniões síncronas semanais de alinhamento. Contratos em BRL, USD ou EUR, com NDA padrão disponível desde o primeiro contato.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <a href="mailto:nuptechs@nuptechs.com" className="btn btn-primary">
+                    Enviar mensagem
+                  </a>
+                  <a href="tel:+5561993691692" className="btn btn-secondary">
+                    +55 (61) 99369-1692
+                  </a>
+                </div>
               </div>
-            </div>
 
-            {/* Contact card */}
-            <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-8 flex flex-col gap-6">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-[var(--subtle)] mb-1">Email</p>
-                <a
-                  href="mailto:nuptechs@nuptechs.com"
-                  className="text-[var(--accent)] font-medium hover:underline"
-                >
-                  nuptechs@nuptechs.com
-                </a>
-              </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-[var(--subtle)] mb-1">Telefone</p>
-                <a
-                  href="tel:+5561993691692"
-                  className="text-[var(--text)] font-medium hover:text-[var(--accent)] transition-colors"
-                >
-                  +55 (61) 99369-1692
-                </a>
-              </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-[var(--subtle)] mb-1">Sede</p>
-                <p className="text-[var(--muted)]">Brasília, DF — Brasil</p>
-              </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-[var(--subtle)] mb-1">Atendimento</p>
-                <p className="text-[var(--muted)]">Segunda a sexta, 9h – 18h BRT<br />Resposta em até 24h</p>
-              </div>
-              <div className="border-t border-[var(--border)] pt-6 flex gap-4">
-                <a
-                  href="https://www.linkedin.com/company/nuptechs"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm font-medium text-[var(--muted)] hover:text-[var(--accent)] transition-colors"
-                  aria-label="NuPtechs no LinkedIn"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
-                    <circle cx="4" cy="4" r="2"/>
-                  </svg>
-                  LinkedIn
-                </a>
-                <a
-                  href="https://github.com/nuptechs"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm font-medium text-[var(--muted)] hover:text-[var(--accent)] transition-colors"
-                  aria-label="NuPtechs no GitHub"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.104-.253-.447-1.27.098-2.646 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.547 1.376.203 2.393.1 2.646.641.698 1.028 1.591 1.028 2.682 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-                  </svg>
-                  GitHub
-                </a>
+              <div className="sobre-contact-card">
+                <div className="sobre-contact-card__grid">
+                  <div className="sobre-contact-item">
+                    <div className="sobre-contact-item__icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="sobre-contact-item__label">Email</p>
+                      <a href="mailto:nuptechs@nuptechs.com" className="sobre-contact-item__value sobre-contact-item__value--link">
+                        nuptechs@nuptechs.com
+                      </a>
+                    </div>
+                  </div>
+                  <div className="sobre-contact-item">
+                    <div className="sobre-contact-item__icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="sobre-contact-item__label">Telefone</p>
+                      <a href="tel:+5561993691692" className="sobre-contact-item__value sobre-contact-item__value--link">
+                        +55 (61) 99369-1692
+                      </a>
+                    </div>
+                  </div>
+                  <div className="sobre-contact-item">
+                    <div className="sobre-contact-item__icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="sobre-contact-item__label">Sede</p>
+                      <p className="sobre-contact-item__value">Brasília, DF — Brasil</p>
+                    </div>
+                  </div>
+                  <div className="sobre-contact-item">
+                    <div className="sobre-contact-item__icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="sobre-contact-item__label">Atendimento</p>
+                      <p className="sobre-contact-item__value">Seg–Sex, 9h – 18h BRT</p>
+                      <p className="sobre-contact-item__sub">Resposta em até 24h</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="sobre-contact-card__footer">
+                  <a
+                    href="https://www.linkedin.com/company/nuptechs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="sobre-social-link"
+                    aria-label="NuPtechs no LinkedIn"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+                      <circle cx="4" cy="4" r="2"/>
+                    </svg>
+                    LinkedIn
+                  </a>
+                  <a
+                    href="https://github.com/nuptechs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="sobre-social-link"
+                    aria-label="NuPtechs no GitHub"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.104-.253-.447-1.27.098-2.646 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.547 1.376.203 2.393.1 2.646.641.698 1.028 1.591 1.028 2.682 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                    GitHub
+                  </a>
+                </div>
               </div>
             </div>
           </div>
