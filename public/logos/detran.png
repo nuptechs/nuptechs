@@ -1,0 +1,2788 @@
+<!doctype html>
+<html class="ltr" dir="ltr" lang="pt-BR">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+			Departamento de Trânsito
+		</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&amp;family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&amp;family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&amp;display=swap">
+  </noscript>
+  <link rel="preload" href="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/css/1.3.0/css/line-awesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+   <link rel="stylesheet" href="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/css/1.3.0/css/line-awesome.min.css">
+  </noscript>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <script type="importmap">{"imports":{"react-dom":"/o/frontend-js-react-web/__liferay__/exports/react-dom.js","@clayui/breadcrumb":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$breadcrumb.js","@clayui/form":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$form.js","@clayui/popover":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$popover.js","@clayui/charts":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$charts.js","@clayui/shared":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$shared.js","@clayui/localized-input":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$localized-input.js","@clayui/modal":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$modal.js","@clayui/empty-state":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$empty-state.js","react":"/o/frontend-js-react-web/__liferay__/exports/react.js","@clayui/color-picker":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$color-picker.js","@clayui/navigation-bar":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$navigation-bar.js","@clayui/pagination":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$pagination.js","@clayui/icon":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$icon.js","@clayui/table":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$table.js","@clayui/autocomplete":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$autocomplete.js","@clayui/slider":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$slider.js","@clayui/management-toolbar":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$management-toolbar.js","@clayui/multi-select":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$multi-select.js","@clayui/nav":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$nav.js","@clayui/time-picker":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$time-picker.js","@clayui/provider":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$provider.js","@clayui/upper-toolbar":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$upper-toolbar.js","@clayui/loading-indicator":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$loading-indicator.js","@clayui/panel":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$panel.js","@clayui/drop-down":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$drop-down.js","@clayui/list":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$list.js","@clayui/date-picker":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$date-picker.js","@clayui/label":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$label.js","@clayui/data-provider":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$data-provider.js","@liferay/frontend-js-api/data-set":"/o/frontend-js-dependencies-web/__liferay__/exports/@liferay$js-api$data-set.js","@clayui/core":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$core.js","@liferay/language/":"/o/js/language/","@clayui/pagination-bar":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$pagination-bar.js","@clayui/layout":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$layout.js","@clayui/multi-step-nav":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$multi-step-nav.js","@liferay/frontend-js-api":"/o/frontend-js-dependencies-web/__liferay__/exports/@liferay$js-api.js","@clayui/css":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$css.js","@clayui/toolbar":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$toolbar.js","@clayui/alert":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$alert.js","@clayui/badge":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$badge.js","@clayui/link":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$link.js","@clayui/card":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$card.js","@clayui/progress-bar":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$progress-bar.js","@clayui/tooltip":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$tooltip.js","@clayui/button":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$button.js","@clayui/tabs":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$tabs.js","@clayui/sticker":"/o/frontend-taglib-clay/__liferay__/exports/@clayui$sticker.js"},"scopes":{}}</script>
+  <script data-senna-track="temporary">var Liferay = window.Liferay || {};Liferay.Icons = Liferay.Icons || {};Liferay.Icons.controlPanelSpritemap = 'https://www.detran.df.gov.br/o/admin-theme/images/clay/icons.svg'; Liferay.Icons.spritemap = 'https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/images/clay/icons.svg';</script>
+  <script data-senna-track="permanent" src="/combo?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1775614289463&amp;/o/frontend-js-jquery-web/jquery/jquery.min.js&amp;/o/frontend-js-jquery-web/jquery/init.js&amp;/o/frontend-js-jquery-web/jquery/ajax.js&amp;/o/frontend-js-jquery-web/jquery/bootstrap.bundle.min.js&amp;/o/frontend-js-jquery-web/jquery/collapsible_search.js&amp;/o/frontend-js-jquery-web/jquery/fm.js&amp;/o/frontend-js-jquery-web/jquery/form.js&amp;/o/frontend-js-jquery-web/jquery/popper.min.js&amp;/o/frontend-js-jquery-web/jquery/side_navigation.js" type="text/javascript"></script>
+  <script data-senna-track="permanent" type="text/javascript">window.Liferay = window.Liferay || {}; window.Liferay.CSP = {nonce: ''};</script>
+  <link href="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/images/favicon.ico" rel="apple-touch-icon">
+  <link href="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/images/favicon.ico" rel="icon">
+  <link class="lfr-css-file" data-senna-track="temporary" href="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/css/clay.css?browserId=other&amp;themeId=gdfsecretariaslf7_4ce_WAR_gdfsecretariaslf7_4cetheme&amp;minifierType=css&amp;languageId=pt_BR&amp;t=1775747702000" id="liferayAUICSS" rel="stylesheet" type="text/css">
+  <link href="/combo?browserId=other&amp;minifierType=css&amp;themeId=gdfsecretariaslf7_4ce_WAR_gdfsecretariaslf7_4cetheme&amp;languageId=pt_BR&amp;com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_CniDKpzlMSLk:%2Fo%2Fasset-publisher-web%2Fcss%2Fmain.css&amp;com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_BkvmZG10MKCt:%2Fo%2Fjournal-content-web%2Fcss%2Fmain.css&amp;com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch:%2Fo%2Fportal-search-web%2Fcss%2Fmain.css&amp;com_liferay_product_navigation_product_menu_web_portlet_ProductMenuPortlet:%2Fo%2Fproduct-navigation-product-menu-web%2Fcss%2Fmain.css&amp;com_liferay_site_navigation_menu_web_portlet_SiteNavigationMenuPortlet_INSTANCE_navigationFooter:%2Fo%2Fsite-navigation-menu-web%2Fcss%2Fmain.css&amp;t=1775747702000" rel="stylesheet" type="text/css" data-senna-track="temporary" id="baef196d">
+  <script type="text/javascript" data-senna-track="temporary">
+	// <![CDATA[
+		var Liferay = Liferay || {};
+
+		Liferay.Browser = {
+			acceptsGzip: function () {
+				return false;
+			},
+
+			
+
+			getMajorVersion: function () {
+				return 0;
+			},
+
+			getRevision: function () {
+				return '';
+			},
+			getVersion: function () {
+				return '';
+			},
+
+			
+
+			isAir: function () {
+				return false;
+			},
+			isChrome: function () {
+				return false;
+			},
+			isEdge: function () {
+				return false;
+			},
+			isFirefox: function () {
+				return false;
+			},
+			isGecko: function () {
+				return false;
+			},
+			isIe: function () {
+				return false;
+			},
+			isIphone: function () {
+				return false;
+			},
+			isLinux: function () {
+				return false;
+			},
+			isMac: function () {
+				return false;
+			},
+			isMobile: function () {
+				return false;
+			},
+			isMozilla: function () {
+				return false;
+			},
+			isOpera: function () {
+				return false;
+			},
+			isRtf: function () {
+				return false;
+			},
+			isSafari: function () {
+				return false;
+			},
+			isSun: function () {
+				return false;
+			},
+			isWebKit: function () {
+				return false;
+			},
+			isWindows: function () {
+				return false;
+			}
+		};
+
+		Liferay.Data = Liferay.Data || {};
+
+		Liferay.Data.ICONS_INLINE_SVG = true;
+
+		Liferay.Data.NAV_SELECTOR = '#navigation';
+
+		Liferay.Data.NAV_SELECTOR_MOBILE = '#navigationCollapse';
+
+		Liferay.Data.isCustomizationView = function () {
+			return false;
+		};
+
+		Liferay.Data.notices = [
+			
+		];
+
+		(function () {
+			var available = {};
+
+			var direction = {};
+
+			
+
+				available['en_US'] = 'inglês\x20\x28Estados\x20Unidos\x29';
+				direction['en_US'] = 'ltr';
+
+			
+
+				available['ar_SA'] = 'árabe\x20\x28Arábia\x20Saudita\x29';
+				direction['ar_SA'] = 'rtl';
+
+			
+
+				available['bg_BG'] = 'búlgaro\x20\x28Bulgária\x29';
+				direction['bg_BG'] = 'ltr';
+
+			
+
+				available['ca_AD'] = 'catalão\x20\x28Andorra\x29';
+				direction['ca_AD'] = 'ltr';
+
+			
+
+				available['ca_ES'] = 'catalão\x20\x28Espanha\x29';
+				direction['ca_ES'] = 'ltr';
+
+			
+
+				available['ca_ES_VALENCIA'] = 'catalão\x20\x28Espanha\x2c\x20valenciano\x29';
+				direction['ca_ES_VALENCIA'] = 'ltr';
+
+			
+
+				available['cs_CZ'] = 'tcheco\x20\x28Tchéquia\x29';
+				direction['cs_CZ'] = 'ltr';
+
+			
+
+				available['da_DK'] = 'dinamarquês\x20\x28Dinamarca\x29';
+				direction['da_DK'] = 'ltr';
+
+			
+
+				available['de_DE'] = 'alemão\x20\x28Alemanha\x29';
+				direction['de_DE'] = 'ltr';
+
+			
+
+				available['el_GR'] = 'grego\x20\x28Grécia\x29';
+				direction['el_GR'] = 'ltr';
+
+			
+
+				available['en_AU'] = 'inglês\x20\x28Austrália\x29';
+				direction['en_AU'] = 'ltr';
+
+			
+
+				available['en_CA'] = 'inglês\x20\x28Canadá\x29';
+				direction['en_CA'] = 'ltr';
+
+			
+
+				available['en_GB'] = 'inglês\x20\x28Reino\x20Unido\x29';
+				direction['en_GB'] = 'ltr';
+
+			
+
+				available['es_AR'] = 'espanhol\x20\x28Argentina\x29';
+				direction['es_AR'] = 'ltr';
+
+			
+
+				available['es_CO'] = 'espanhol\x20\x28Colômbia\x29';
+				direction['es_CO'] = 'ltr';
+
+			
+
+				available['es_ES'] = 'espanhol\x20\x28Espanha\x29';
+				direction['es_ES'] = 'ltr';
+
+			
+
+				available['es_MX'] = 'espanhol\x20\x28México\x29';
+				direction['es_MX'] = 'ltr';
+
+			
+
+				available['et_EE'] = 'estoniano\x20\x28Estônia\x29';
+				direction['et_EE'] = 'ltr';
+
+			
+
+				available['eu_ES'] = 'basco\x20\x28Espanha\x29';
+				direction['eu_ES'] = 'ltr';
+
+			
+
+				available['fa_IR'] = 'persa\x20\x28Irã\x29';
+				direction['fa_IR'] = 'rtl';
+
+			
+
+				available['fi_FI'] = 'finlandês\x20\x28Finlândia\x29';
+				direction['fi_FI'] = 'ltr';
+
+			
+
+				available['fr_CA'] = 'francês\x20\x28Canadá\x29';
+				direction['fr_CA'] = 'ltr';
+
+			
+
+				available['fr_FR'] = 'francês\x20\x28França\x29';
+				direction['fr_FR'] = 'ltr';
+
+			
+
+				available['gl_ES'] = 'galego\x20\x28Espanha\x29';
+				direction['gl_ES'] = 'ltr';
+
+			
+
+				available['hi_IN'] = 'híndi\x20\x28Índia\x29';
+				direction['hi_IN'] = 'ltr';
+
+			
+
+				available['hr_HR'] = 'croata\x20\x28Croácia\x29';
+				direction['hr_HR'] = 'ltr';
+
+			
+
+				available['hu_HU'] = 'húngaro\x20\x28Hungria\x29';
+				direction['hu_HU'] = 'ltr';
+
+			
+
+				available['id_ID'] = 'indonésio\x20\x28Indonésia\x29';
+				direction['id_ID'] = 'ltr';
+
+			
+
+				available['it_IT'] = 'italiano\x20\x28Itália\x29';
+				direction['it_IT'] = 'ltr';
+
+			
+
+				available['he_IL'] = 'hebraico\x20\x28Israel\x29';
+				direction['he_IL'] = 'ltr';
+
+			
+
+				available['ja_JP'] = 'japonês\x20\x28Japão\x29';
+				direction['ja_JP'] = 'ltr';
+
+			
+
+				available['kk_KZ'] = 'cazaque\x20\x28Cazaquistão\x29';
+				direction['kk_KZ'] = 'ltr';
+
+			
+
+				available['km_KH'] = 'khmer\x20\x28Camboja\x29';
+				direction['km_KH'] = 'ltr';
+
+			
+
+				available['ko_KR'] = 'coreano\x20\x28Coreia\x20do\x20Sul\x29';
+				direction['ko_KR'] = 'ltr';
+
+			
+
+				available['lo_LA'] = 'laosiano\x20\x28Laos\x29';
+				direction['lo_LA'] = 'ltr';
+
+			
+
+				available['lt_LT'] = 'lituano\x20\x28Lituânia\x29';
+				direction['lt_LT'] = 'ltr';
+
+			
+
+				available['ms_MY'] = 'malaio\x20\x28Malásia\x29';
+				direction['ms_MY'] = 'ltr';
+
+			
+
+				available['nb_NO'] = 'bokmål\x20norueguês\x20\x28Noruega\x29';
+				direction['nb_NO'] = 'ltr';
+
+			
+
+				available['nl_BE'] = 'holandês\x20\x28Bélgica\x29';
+				direction['nl_BE'] = 'ltr';
+
+			
+
+				available['nl_NL'] = 'holandês\x20\x28Países\x20Baixos\x29';
+				direction['nl_NL'] = 'ltr';
+
+			
+
+				available['pl_PL'] = 'polonês\x20\x28Polônia\x29';
+				direction['pl_PL'] = 'ltr';
+
+			
+
+				available['pt_BR'] = 'português\x20\x28Brasil\x29';
+				direction['pt_BR'] = 'ltr';
+
+			
+
+				available['pt_PT'] = 'português\x20\x28Portugal\x29';
+				direction['pt_PT'] = 'ltr';
+
+			
+
+				available['ro_RO'] = 'romeno\x20\x28Romênia\x29';
+				direction['ro_RO'] = 'ltr';
+
+			
+
+				available['ru_RU'] = 'russo\x20\x28Rússia\x29';
+				direction['ru_RU'] = 'ltr';
+
+			
+
+				available['sk_SK'] = 'eslovaco\x20\x28Eslováquia\x29';
+				direction['sk_SK'] = 'ltr';
+
+			
+
+				available['sl_SI'] = 'esloveno\x20\x28Eslovênia\x29';
+				direction['sl_SI'] = 'ltr';
+
+			
+
+				available['sr_RS'] = 'sérvio\x20\x28Sérvia\x29';
+				direction['sr_RS'] = 'ltr';
+
+			
+
+				available['sr_RS_latin'] = 'sérvio\x20\x28Sérvia\x2c\x20latin\x29';
+				direction['sr_RS_latin'] = 'ltr';
+
+			
+
+				available['sv_SE'] = 'sueco\x20\x28Suécia\x29';
+				direction['sv_SE'] = 'ltr';
+
+			
+
+				available['ta_IN'] = 'tâmil\x20\x28Índia\x29';
+				direction['ta_IN'] = 'ltr';
+
+			
+
+				available['th_TH'] = 'tailandês\x20\x28Tailândia\x29';
+				direction['th_TH'] = 'ltr';
+
+			
+
+				available['tr_TR'] = 'turco\x20\x28Turquia\x29';
+				direction['tr_TR'] = 'ltr';
+
+			
+
+				available['uk_UA'] = 'ucraniano\x20\x28Ucrânia\x29';
+				direction['uk_UA'] = 'ltr';
+
+			
+
+				available['vi_VN'] = 'vietnamita\x20\x28Vietnã\x29';
+				direction['vi_VN'] = 'ltr';
+
+			
+
+				available['zh_CN'] = 'chinês\x20\x28China\x29';
+				direction['zh_CN'] = 'ltr';
+
+			
+
+				available['zh_TW'] = 'chinês\x20\x28Taiwan\x29';
+				direction['zh_TW'] = 'ltr';
+
+			
+
+			let _cache = {};
+
+			if (Liferay && Liferay.Language && Liferay.Language._cache) {
+				_cache = Liferay.Language._cache;
+			}
+
+			Liferay.Language = {
+				_cache,
+				available,
+				direction,
+				get: function(key) {
+					let value = Liferay.Language._cache[key];
+
+					if (value === undefined) {
+						value = key;
+					}
+
+					return value;
+				}
+			};
+		})();
+
+		var featureFlags = {"LPD-10964":false,"LPS-193884":false,"LPD-30371":false,"LPS-178642":false,"LPS-193005":false,"LPD-31789":false,"LPD-10562":false,"LPD-11212":false,"LPS-114786":false,"COMMERCE-8087":false,"LPD-13311":false,"LRAC-10757":false,"LPS-180090":false,"LPS-178052":false,"LPS-189856":false,"LPD-21414":false,"LPS-185892":false,"LPS-186620":false,"LPD-10727":false,"LPS-184404":false,"LPS-198183":false,"LPD-35678":false,"LPD-6378":false,"LPS-153714":false,"LPS-96845":false,"LPD-11848":false,"LPS-170670":false,"LPD-7822":false,"LPS-169981":false,"LPS-177027":false,"LPD-11003":false,"LPD-32247":false,"LPS-135430":false,"LPD-20556":false,"LPS-134060":false,"LPS-164563":false,"LPD-28830":false,"LPD-27222":false,"LPS-122920":false,"LPS-199086":false,"LPD-35128":false,"LPD-10588":false,"LPD-13778":false,"LPD-11313":false,"LPD-6368":false,"LPS-202104":false,"LPD-19955":false,"LPS-187142":false,"LPD-35443":false,"LPD-15596":false,"LPD-11232":false,"LPS-196935":false,"LPS-176691":false,"LPS-197909":false,"LPD-29516":false,"COMMERCE-8949":false,"LPD-11228":false,"LPS-153813":false,"LPD-17809":false,"COMMERCE-13024":false,"LPS-165482":false,"LPS-193551":false,"LPS-197477":false,"LPS-174816":false,"LPS-186360":false,"LPD-32867":false,"LPS-153332":false,"LPD-35013":false,"LPS-179669":false,"LPS-174417":false,"LPD-11147":false,"LPD-31212":false,"LPD-18221":false,"LPS-155284":false,"LRAC-15017":false,"LPD-19870":false,"LPS-200108":false,"LPD-20131":false,"LPS-159643":false,"LPS-129412":false,"LPD-21265":false,"LPS-169837":false,"LPD-20379":false};
+
+		Liferay.FeatureFlags = Object.keys(featureFlags).reduce(
+			(acc, key) => ({
+				...acc, [key]: featureFlags[key] === 'true' || featureFlags[key] === true
+			}), {}
+		);
+
+		Liferay.PortletKeys = {
+			DOCUMENT_LIBRARY: 'com_liferay_document_library_web_portlet_DLPortlet',
+			DYNAMIC_DATA_MAPPING: 'com_liferay_dynamic_data_mapping_web_portlet_DDMPortlet',
+			ITEM_SELECTOR: 'com_liferay_item_selector_web_portlet_ItemSelectorPortlet'
+		};
+
+		Liferay.PropsValues = {
+			JAVASCRIPT_SINGLE_PAGE_APPLICATION_TIMEOUT: 0,
+			UPLOAD_SERVLET_REQUEST_IMPL_MAX_SIZE: 10485760000
+		};
+
+		Liferay.ThemeDisplay = {
+
+			
+
+			
+				getLayoutId: function () {
+					return '5';
+				},
+
+				
+
+				getLayoutRelativeControlPanelURL: function () {
+					return '/group/departamento-de-tr%C3%A2nsito/~/control_panel/manage';
+				},
+
+				getLayoutRelativeURL: function () {
+					return '/home';
+				},
+				getLayoutURL: function () {
+					return 'https://www.detran.df.gov.br/home';
+				},
+				getParentLayoutId: function () {
+					return '0';
+				},
+				isControlPanel: function () {
+					return false;
+				},
+				isPrivateLayout: function () {
+					return 'false';
+				},
+				isVirtualLayout: function () {
+					return false;
+				},
+			
+
+			getBCP47LanguageId: function () {
+				return 'pt-BR';
+			},
+			getCanonicalURL: function () {
+
+				
+
+				return 'https\x3a\x2f\x2fwww\x2edetran\x2edf\x2egov\x2ebr';
+			},
+			getCDNBaseURL: function () {
+				return 'https://www.detran.df.gov.br';
+			},
+			getCDNDynamicResourcesHost: function () {
+				return '';
+			},
+			getCDNHost: function () {
+				return '';
+			},
+			getCompanyGroupId: function () {
+				return '20120';
+			},
+			getCompanyId: function () {
+				return '40777138935285';
+			},
+			getDefaultLanguageId: function () {
+				return 'pt_BR';
+			},
+			getDoAsUserIdEncoded: function () {
+				return '';
+			},
+			getLanguageId: function () {
+				return 'pt_BR';
+			},
+			getParentGroupId: function () {
+				return '25750161';
+			},
+			getPathContext: function () {
+				return '';
+			},
+			getPathImage: function () {
+				return '/image';
+			},
+			getPathJavaScript: function () {
+				return '/o/frontend-js-web';
+			},
+			getPathMain: function () {
+				return '/c';
+			},
+			getPathThemeImages: function () {
+				return 'https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/images';
+			},
+			getPathThemeRoot: function () {
+				return '/o/gdf-secretarias-lf7_4-ce-theme';
+			},
+			getPlid: function () {
+				return '756';
+			},
+			getPortalURL: function () {
+				return 'https://www.detran.df.gov.br';
+			},
+			getRealUserId: function () {
+				return '20096';
+			},
+			getRemoteAddr: function () {
+				return '10.230.70.16';
+			},
+			getRemoteHost: function () {
+				return '10.230.70.16';
+			},
+			getScopeGroupId: function () {
+				return '25750161';
+			},
+			getScopeGroupIdOrLiveGroupId: function () {
+				return '25750161';
+			},
+			getSessionId: function () {
+				return '';
+			},
+			getSiteAdminURL: function () {
+				return 'https://www.detran.df.gov.br/group/departamento-de-tr%C3%A2nsito/~/control_panel/manage?p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view';
+			},
+			getSiteGroupId: function () {
+				return '25750161';
+			},
+			getURLControlPanel: function () {
+				return '/group/control_panel?refererPlid=756';
+			},
+			getURLHome: function () {
+				return 'https\x3a\x2f\x2fwww\x2edetran\x2edf\x2egov\x2ebr\x2f';
+			},
+			getUserEmailAddress: function () {
+				return '';
+			},
+			getUserId: function () {
+				return '20096';
+			},
+			getUserName: function () {
+				return '';
+			},
+			isAddSessionIdToURL: function () {
+				return false;
+			},
+			isImpersonated: function () {
+				return false;
+			},
+			isSignedIn: function () {
+				return false;
+			},
+
+			isStagedPortlet: function () {
+				
+					
+						return false;
+					
+				
+			},
+
+			isStateExclusive: function () {
+				return false;
+			},
+			isStateMaximized: function () {
+				return false;
+			},
+			isStatePopUp: function () {
+				return false;
+			}
+		};
+
+		var themeDisplay = Liferay.ThemeDisplay;
+
+		Liferay.AUI = {
+
+			
+
+			getCombine: function () {
+				return true;
+			},
+			getComboPath: function () {
+				return '/combo/?browserId=other&minifierType=&languageId=pt_BR&t=1745669159989&';
+			},
+			getDateFormat: function () {
+				return '%d/%m/%Y';
+			},
+			getEditorCKEditorPath: function () {
+				return '/o/frontend-editor-ckeditor-web';
+			},
+			getFilter: function () {
+				var filter = 'raw';
+
+				
+					
+						filter = 'min';
+					
+					
+
+				return filter;
+			},
+			getFilterConfig: function () {
+				var instance = this;
+
+				var filterConfig = null;
+
+				if (!instance.getCombine()) {
+					filterConfig = {
+						replaceStr: '.js' + instance.getStaticResourceURLParams(),
+						searchExp: '\\.js$'
+					};
+				}
+
+				return filterConfig;
+			},
+			getJavaScriptRootPath: function () {
+				return '/o/frontend-js-web';
+			},
+			getPortletRootPath: function () {
+				return '/html/portlet';
+			},
+			getStaticResourceURLParams: function () {
+				return '?browserId=other&minifierType=&languageId=pt_BR&t=1745669159989';
+			}
+		};
+
+		Liferay.authToken = 'ewAeISYA';
+
+		
+
+		Liferay.currentURL = '\x2fapple-touch-icon\x2epng';
+		Liferay.currentURLEncoded = '\x252Fapple-touch-icon\x2epng';
+	// ]]>
+</script>
+  <script data-senna-track="temporary" type="text/javascript">window.__CONFIG__= {basePath: '',combine: true, defaultURLParams: null, explainResolutions: false, exposeGlobal: false, logLevel: 'warn', moduleType: 'module', namespace:'Liferay', nonce: '', reportMismatchedAnonymousModules: 'warn', resolvePath: '/o/js_resolve_modules', url: '/combo/?browserId=other&minifierType=js&languageId=pt_BR&t=1745669159989&', waitTimeout: 60000};</script>
+  <script data-senna-track="permanent" src="/o/frontend-js-loader-modules-extender/loader.js?&amp;mac=9WaMmhziBCkScHZwrrVcOR7VZF4=&amp;browserId=other&amp;languageId=pt_BR&amp;minifierType=js" type="text/javascript"></script>
+  <script data-senna-track="permanent" src="/combo?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1745669159989&amp;/o/frontend-js-aui-web/aui/aui/aui-min.js&amp;/o/frontend-js-aui-web/liferay/modules.js&amp;/o/frontend-js-aui-web/liferay/aui_sandbox.js&amp;/o/frontend-js-aui-web/aui/attribute-base/attribute-base-min.js&amp;/o/frontend-js-aui-web/aui/attribute-complex/attribute-complex-min.js&amp;/o/frontend-js-aui-web/aui/attribute-core/attribute-core-min.js&amp;/o/frontend-js-aui-web/aui/attribute-observable/attribute-observable-min.js&amp;/o/frontend-js-aui-web/aui/attribute-extras/attribute-extras-min.js&amp;/o/frontend-js-aui-web/aui/event-custom-base/event-custom-base-min.js&amp;/o/frontend-js-aui-web/aui/event-custom-complex/event-custom-complex-min.js&amp;/o/frontend-js-aui-web/aui/oop/oop-min.js&amp;/o/frontend-js-aui-web/aui/aui-base-lang/aui-base-lang-min.js&amp;/o/frontend-js-aui-web/liferay/dependency.js&amp;/o/frontend-js-aui-web/liferay/util.js&amp;/o/frontend-js-aui-web/aui/aui-base-html5-shiv/aui-base-html5-shiv-min.js&amp;/o/frontend-js-aui-web/aui/arraylist-add/arraylist-add-min.js&amp;/o/frontend-js-aui-web/aui/arraylist-filter/arraylist-filter-min.js&amp;/o/frontend-js-aui-web/aui/arraylist/arraylist-min.js&amp;/o/frontend-js-aui-web/aui/array-extras/array-extras-min.js&amp;/o/frontend-js-aui-web/aui/array-invoke/array-invoke-min.js&amp;/o/frontend-js-aui-web/aui/base-base/base-base-min.js&amp;/o/frontend-js-aui-web/aui/base-pluginhost/base-pluginhost-min.js&amp;/o/frontend-js-aui-web/aui/classnamemanager/classnamemanager-min.js&amp;/o/frontend-js-aui-web/aui/datatype-xml-format/datatype-xml-format-min.js&amp;/o/frontend-js-aui-web/aui/datatype-xml-parse/datatype-xml-parse-min.js&amp;/o/frontend-js-aui-web/aui/dom-base/dom-base-min.js&amp;/o/frontend-js-aui-web/aui/dom-core/dom-core-min.js&amp;/o/frontend-js-aui-web/aui/dom-screen/dom-screen-min.js&amp;/o/frontend-js-aui-web/aui/dom-style/dom-style-min.js&amp;/o/frontend-js-aui-web/aui/event-base/event-base-min.js&amp;/o/frontend-js-aui-web/aui/event-delegate/event-delegate-min.js&amp;/o/frontend-js-aui-web/aui/event-focus/event-focus-min.js" type="text/javascript"></script>
+  <script data-senna-track="permanent" src="/combo?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1745669159989&amp;/o/frontend-js-aui-web/aui/event-hover/event-hover-min.js&amp;/o/frontend-js-aui-web/aui/event-key/event-key-min.js&amp;/o/frontend-js-aui-web/aui/event-mouseenter/event-mouseenter-min.js&amp;/o/frontend-js-aui-web/aui/event-mousewheel/event-mousewheel-min.js&amp;/o/frontend-js-aui-web/aui/event-outside/event-outside-min.js&amp;/o/frontend-js-aui-web/aui/event-resize/event-resize-min.js&amp;/o/frontend-js-aui-web/aui/event-simulate/event-simulate-min.js&amp;/o/frontend-js-aui-web/aui/event-synthetic/event-synthetic-min.js&amp;/o/frontend-js-aui-web/aui/intl/intl-min.js&amp;/o/frontend-js-aui-web/aui/io-base/io-base-min.js&amp;/o/frontend-js-aui-web/aui/io-form/io-form-min.js&amp;/o/frontend-js-aui-web/aui/io-queue/io-queue-min.js&amp;/o/frontend-js-aui-web/aui/io-upload-iframe/io-upload-iframe-min.js&amp;/o/frontend-js-aui-web/aui/io-xdr/io-xdr-min.js&amp;/o/frontend-js-aui-web/aui/json-parse/json-parse-min.js&amp;/o/frontend-js-aui-web/aui/json-stringify/json-stringify-min.js&amp;/o/frontend-js-aui-web/aui/node-base/node-base-min.js&amp;/o/frontend-js-aui-web/aui/node-core/node-core-min.js&amp;/o/frontend-js-aui-web/aui/node-event-delegate/node-event-delegate-min.js&amp;/o/frontend-js-aui-web/aui/node-event-simulate/node-event-simulate-min.js&amp;/o/frontend-js-aui-web/aui/node-focusmanager/node-focusmanager-min.js&amp;/o/frontend-js-aui-web/aui/node-pluginhost/node-pluginhost-min.js&amp;/o/frontend-js-aui-web/aui/node-screen/node-screen-min.js&amp;/o/frontend-js-aui-web/aui/node-style/node-style-min.js&amp;/o/frontend-js-aui-web/aui/plugin/plugin-min.js&amp;/o/frontend-js-aui-web/aui/pluginhost-base/pluginhost-base-min.js&amp;/o/frontend-js-aui-web/aui/pluginhost-config/pluginhost-config-min.js&amp;/o/frontend-js-aui-web/aui/querystring-stringify-simple/querystring-stringify-simple-min.js&amp;/o/frontend-js-aui-web/aui/queue-promote/queue-promote-min.js&amp;/o/frontend-js-aui-web/aui/selector-css2/selector-css2-min.js&amp;/o/frontend-js-aui-web/aui/selector-css3/selector-css3-min.js" type="text/javascript"></script>
+  <script data-senna-track="permanent" src="/combo?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1745669159989&amp;/o/frontend-js-aui-web/aui/selector-native/selector-native-min.js&amp;/o/frontend-js-aui-web/aui/selector/selector-min.js&amp;/o/frontend-js-aui-web/aui/widget-base/widget-base-min.js&amp;/o/frontend-js-aui-web/aui/widget-htmlparser/widget-htmlparser-min.js&amp;/o/frontend-js-aui-web/aui/widget-skin/widget-skin-min.js&amp;/o/frontend-js-aui-web/aui/widget-uievents/widget-uievents-min.js&amp;/o/frontend-js-aui-web/aui/yui-throttle/yui-throttle-min.js&amp;/o/frontend-js-aui-web/aui/aui-base-core/aui-base-core-min.js&amp;/o/frontend-js-aui-web/aui/aui-classnamemanager/aui-classnamemanager-min.js&amp;/o/frontend-js-aui-web/aui/aui-component/aui-component-min.js&amp;/o/frontend-js-aui-web/aui/aui-debounce/aui-debounce-min.js&amp;/o/frontend-js-aui-web/aui/aui-delayed-task-deprecated/aui-delayed-task-deprecated-min.js&amp;/o/frontend-js-aui-web/aui/aui-event-base/aui-event-base-min.js&amp;/o/frontend-js-aui-web/aui/aui-event-input/aui-event-input-min.js&amp;/o/frontend-js-aui-web/aui/aui-form-validator/aui-form-validator-min.js&amp;/o/frontend-js-aui-web/aui/aui-node-base/aui-node-base-min.js&amp;/o/frontend-js-aui-web/aui/aui-node-html5/aui-node-html5-min.js&amp;/o/frontend-js-aui-web/aui/aui-selector/aui-selector-min.js&amp;/o/frontend-js-aui-web/aui/aui-timer/aui-timer-min.js&amp;/o/frontend-js-aui-web/liferay/form.js&amp;/o/frontend-js-aui-web/liferay/icon.js&amp;/o/frontend-js-aui-web/liferay/menu.js&amp;/o/frontend-js-aui-web/aui/async-queue/async-queue-min.js&amp;/o/frontend-js-aui-web/aui/base-build/base-build-min.js&amp;/o/frontend-js-aui-web/aui/cookie/cookie-min.js&amp;/o/frontend-js-aui-web/aui/event-touch/event-touch-min.js&amp;/o/frontend-js-aui-web/aui/overlay/overlay-min.js&amp;/o/frontend-js-aui-web/aui/querystring-stringify/querystring-stringify-min.js&amp;/o/frontend-js-aui-web/aui/widget-child/widget-child-min.js&amp;/o/frontend-js-aui-web/aui/widget-position-align/widget-position-align-min.js&amp;/o/frontend-js-aui-web/aui/widget-position-constrain/widget-position-constrain-min.js" type="text/javascript"></script>
+  <script data-senna-track="permanent" src="/combo?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1745669159989&amp;/o/frontend-js-aui-web/aui/widget-position/widget-position-min.js&amp;/o/frontend-js-aui-web/aui/widget-stack/widget-stack-min.js&amp;/o/frontend-js-aui-web/aui/widget-stdmod/widget-stdmod-min.js&amp;/o/frontend-js-aui-web/aui/aui-aria/aui-aria-min.js&amp;/o/frontend-js-aui-web/aui/aui-io-plugin-deprecated/aui-io-plugin-deprecated-min.js&amp;/o/frontend-js-aui-web/aui/aui-io-request/aui-io-request-min.js&amp;/o/frontend-js-aui-web/aui/aui-loading-mask-deprecated/aui-loading-mask-deprecated-min.js&amp;/o/frontend-js-aui-web/aui/aui-overlay-base-deprecated/aui-overlay-base-deprecated-min.js&amp;/o/frontend-js-aui-web/aui/aui-overlay-context-deprecated/aui-overlay-context-deprecated-min.js&amp;/o/frontend-js-aui-web/aui/aui-overlay-manager-deprecated/aui-overlay-manager-deprecated-min.js&amp;/o/frontend-js-aui-web/aui/aui-overlay-mask-deprecated/aui-overlay-mask-deprecated-min.js&amp;/o/frontend-js-aui-web/aui/aui-parse-content/aui-parse-content-min.js&amp;/o/frontend-js-aui-web/liferay/session.js&amp;/o/frontend-js-aui-web/liferay/deprecated.js&amp;/o/frontend-js-web/liferay/dom_task_runner.js&amp;/o/frontend-js-web/liferay/events.js&amp;/o/frontend-js-web/liferay/lazy_load.js&amp;/o/frontend-js-web/liferay/liferay.js&amp;/o/frontend-js-web/liferay/global.bundle.js&amp;/o/frontend-js-web/liferay/portlet.js&amp;/o/frontend-js-web/liferay/workflow.js&amp;/o/oauth2-provider-web/js/liferay.js" type="text/javascript"></script>
+  <script data-senna-track="temporary" type="text/javascript">window.Liferay = Liferay || {}; window.Liferay.OAuth2 = {getAuthorizeURL: function() {return 'https://www.detran.df.gov.br/o/oauth2/authorize';}, getBuiltInRedirectURL: function() {return 'https://www.detran.df.gov.br/o/oauth2/redirect';}, getIntrospectURL: function() { return 'https://www.detran.df.gov.br/o/oauth2/introspect';}, getTokenURL: function() {return 'https://www.detran.df.gov.br/o/oauth2/token';}, getUserAgentApplication: function(externalReferenceCode) {return Liferay.OAuth2._userAgentApplications[externalReferenceCode];}, _userAgentApplications: {}}</script>
+  <script data-senna-track="temporary" type="text/javascript">try {var MODULE_MAIN='@liferay/frontend-js-state-web@1.0.28/index';var MODULE_PATH='/o/frontend-js-state-web';/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+(function () {
+	AUI().applyConfig({
+		groups: {
+			state: {
+
+				// eslint-disable-next-line
+				mainModule: MODULE_MAIN,
+			},
+		},
+	});
+})();
+} catch(error) {console.error(error);}try {var MODULE_MAIN='@liferay/frontend-js-react-web@5.0.50/index';var MODULE_PATH='/o/frontend-js-react-web';/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+(function () {
+	AUI().applyConfig({
+		groups: {
+			react: {
+
+				// eslint-disable-next-line
+				mainModule: MODULE_MAIN,
+			},
+		},
+	});
+})();
+} catch(error) {console.error(error);}try {var MODULE_MAIN='exportimport-web@5.0.96/index';var MODULE_PATH='/o/exportimport-web';/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+(function () {
+	AUI().applyConfig({
+		groups: {
+			exportimportweb: {
+				base: MODULE_PATH + '/js/legacy/',
+				combine: Liferay.AUI.getCombine(),
+				filter: Liferay.AUI.getFilterConfig(),
+				modules: {
+					'liferay-export-import-export-import': {
+						path: 'main.js',
+						requires: [
+							'aui-datatype',
+							'aui-dialog-iframe-deprecated',
+							'aui-modal',
+							'aui-parse-content',
+							'aui-toggler',
+							'liferay-portlet-base',
+							'liferay-util-window',
+						],
+					},
+				},
+				root: MODULE_PATH + '/js/legacy/',
+			},
+		},
+	});
+})();
+} catch(error) {console.error(error);}try {var MODULE_MAIN='@liferay/document-library-web@6.0.193/index';var MODULE_PATH='/o/document-library-web';/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+(function () {
+	AUI().applyConfig({
+		groups: {
+			dl: {
+				base: MODULE_PATH + '/js/legacy/',
+				combine: Liferay.AUI.getCombine(),
+				filter: Liferay.AUI.getFilterConfig(),
+				modules: {
+					'document-library-upload-component': {
+						path: 'DocumentLibraryUpload.js',
+						requires: [
+							'aui-component',
+							'aui-data-set-deprecated',
+							'aui-overlay-manager-deprecated',
+							'aui-overlay-mask-deprecated',
+							'aui-parse-content',
+							'aui-progressbar',
+							'aui-template-deprecated',
+							'liferay-search-container',
+							'querystring-parse-simple',
+							'uploader',
+						],
+					},
+				},
+				root: MODULE_PATH + '/js/legacy/',
+			},
+		},
+	});
+})();
+} catch(error) {console.error(error);}try {var MODULE_MAIN='staging-processes-web@5.0.63/index';var MODULE_PATH='/o/staging-processes-web';/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+(function () {
+	AUI().applyConfig({
+		groups: {
+			stagingprocessesweb: {
+				base: MODULE_PATH + '/js/legacy/',
+				combine: Liferay.AUI.getCombine(),
+				filter: Liferay.AUI.getFilterConfig(),
+				modules: {
+					'liferay-staging-processes-export-import': {
+						path: 'main.js',
+						requires: [
+							'aui-datatype',
+							'aui-dialog-iframe-deprecated',
+							'aui-modal',
+							'aui-parse-content',
+							'aui-toggler',
+							'liferay-portlet-base',
+							'liferay-util-window',
+						],
+					},
+				},
+				root: MODULE_PATH + '/js/legacy/',
+			},
+		},
+	});
+})();
+} catch(error) {console.error(error);}try {var MODULE_MAIN='contacts-web@5.0.63/index';var MODULE_PATH='/o/contacts-web';/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+(function () {
+	AUI().applyConfig({
+		groups: {
+			contactscenter: {
+				base: MODULE_PATH + '/js/legacy/',
+				combine: Liferay.AUI.getCombine(),
+				filter: Liferay.AUI.getFilterConfig(),
+				modules: {
+					'liferay-contacts-center': {
+						path: 'main.js',
+						requires: [
+							'aui-io-plugin-deprecated',
+							'aui-toolbar',
+							'autocomplete-base',
+							'datasource-io',
+							'json-parse',
+							'liferay-portlet-base',
+							'liferay-util-window',
+						],
+					},
+				},
+				root: MODULE_PATH + '/js/legacy/',
+			},
+		},
+	});
+})();
+} catch(error) {console.error(error);}try {var MODULE_MAIN='frontend-js-components-web@2.0.77/index';var MODULE_PATH='/o/frontend-js-components-web';/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+(function () {
+	AUI().applyConfig({
+		groups: {
+			components: {
+
+				// eslint-disable-next-line
+				mainModule: MODULE_MAIN,
+			},
+		},
+	});
+})();
+} catch(error) {console.error(error);}try {var MODULE_MAIN='portal-search-web@6.0.144/index';var MODULE_PATH='/o/portal-search-web';/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+(function () {
+	AUI().applyConfig({
+		groups: {
+			search: {
+				base: MODULE_PATH + '/js/',
+				combine: Liferay.AUI.getCombine(),
+				filter: Liferay.AUI.getFilterConfig(),
+				modules: {
+					'liferay-search-custom-range-facet': {
+						path: 'custom_range_facet.js',
+						requires: ['aui-form-validator'],
+					},
+				},
+				root: MODULE_PATH + '/js/',
+			},
+		},
+	});
+})();
+} catch(error) {console.error(error);}try {var MODULE_MAIN='frontend-editor-alloyeditor-web@5.0.54/index';var MODULE_PATH='/o/frontend-editor-alloyeditor-web';/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+(function () {
+	AUI().applyConfig({
+		groups: {
+			alloyeditor: {
+				base: MODULE_PATH + '/js/legacy/',
+				combine: Liferay.AUI.getCombine(),
+				filter: Liferay.AUI.getFilterConfig(),
+				modules: {
+					'liferay-alloy-editor': {
+						path: 'alloyeditor.js',
+						requires: [
+							'aui-component',
+							'liferay-portlet-base',
+							'timers',
+						],
+					},
+					'liferay-alloy-editor-source': {
+						path: 'alloyeditor_source.js',
+						requires: [
+							'aui-debounce',
+							'liferay-fullscreen-source-editor',
+							'liferay-source-editor',
+							'plugin',
+						],
+					},
+				},
+				root: MODULE_PATH + '/js/legacy/',
+			},
+		},
+	});
+})();
+} catch(error) {console.error(error);}try {var MODULE_MAIN='dynamic-data-mapping-web@5.0.113/index';var MODULE_PATH='/o/dynamic-data-mapping-web';/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+(function () {
+	const LiferayAUI = Liferay.AUI;
+
+	AUI().applyConfig({
+		groups: {
+			ddm: {
+				base: MODULE_PATH + '/js/legacy/',
+				combine: Liferay.AUI.getCombine(),
+				filter: LiferayAUI.getFilterConfig(),
+				modules: {
+					'liferay-ddm-form': {
+						path: 'ddm_form.js',
+						requires: [
+							'aui-base',
+							'aui-datatable',
+							'aui-datatype',
+							'aui-image-viewer',
+							'aui-parse-content',
+							'aui-set',
+							'aui-sortable-list',
+							'json',
+							'liferay-form',
+							'liferay-map-base',
+							'liferay-translation-manager',
+							'liferay-util-window',
+						],
+					},
+					'liferay-portlet-dynamic-data-mapping': {
+						condition: {
+							trigger: 'liferay-document-library',
+						},
+						path: 'main.js',
+						requires: [
+							'arraysort',
+							'aui-form-builder-deprecated',
+							'aui-form-validator',
+							'aui-map',
+							'aui-text-unicode',
+							'json',
+							'liferay-menu',
+							'liferay-translation-manager',
+							'liferay-util-window',
+							'text',
+						],
+					},
+					'liferay-portlet-dynamic-data-mapping-custom-fields': {
+						condition: {
+							trigger: 'liferay-document-library',
+						},
+						path: 'custom_fields.js',
+						requires: ['liferay-portlet-dynamic-data-mapping'],
+					},
+				},
+				root: MODULE_PATH + '/js/legacy/',
+			},
+		},
+	});
+})();
+} catch(error) {console.error(error);}try {var MODULE_MAIN='calendar-web@5.0.102/index';var MODULE_PATH='/o/calendar-web';/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+(function () {
+	AUI().applyConfig({
+		groups: {
+			calendar: {
+				base: MODULE_PATH + '/js/legacy/',
+				combine: Liferay.AUI.getCombine(),
+				filter: Liferay.AUI.getFilterConfig(),
+				modules: {
+					'liferay-calendar-a11y': {
+						path: 'calendar_a11y.js',
+						requires: ['calendar'],
+					},
+					'liferay-calendar-container': {
+						path: 'calendar_container.js',
+						requires: [
+							'aui-alert',
+							'aui-base',
+							'aui-component',
+							'liferay-portlet-base',
+						],
+					},
+					'liferay-calendar-date-picker-sanitizer': {
+						path: 'date_picker_sanitizer.js',
+						requires: ['aui-base'],
+					},
+					'liferay-calendar-interval-selector': {
+						path: 'interval_selector.js',
+						requires: ['aui-base', 'liferay-portlet-base'],
+					},
+					'liferay-calendar-interval-selector-scheduler-event-link': {
+						path: 'interval_selector_scheduler_event_link.js',
+						requires: ['aui-base', 'liferay-portlet-base'],
+					},
+					'liferay-calendar-list': {
+						path: 'calendar_list.js',
+						requires: [
+							'aui-template-deprecated',
+							'liferay-scheduler',
+						],
+					},
+					'liferay-calendar-message-util': {
+						path: 'message_util.js',
+						requires: ['liferay-util-window'],
+					},
+					'liferay-calendar-recurrence-converter': {
+						path: 'recurrence_converter.js',
+						requires: [],
+					},
+					'liferay-calendar-recurrence-dialog': {
+						path: 'recurrence.js',
+						requires: [
+							'aui-base',
+							'liferay-calendar-recurrence-util',
+						],
+					},
+					'liferay-calendar-recurrence-util': {
+						path: 'recurrence_util.js',
+						requires: ['aui-base', 'liferay-util-window'],
+					},
+					'liferay-calendar-reminders': {
+						path: 'calendar_reminders.js',
+						requires: ['aui-base'],
+					},
+					'liferay-calendar-remote-services': {
+						path: 'remote_services.js',
+						requires: [
+							'aui-base',
+							'aui-component',
+							'liferay-calendar-util',
+							'liferay-portlet-base',
+						],
+					},
+					'liferay-calendar-session-listener': {
+						path: 'session_listener.js',
+						requires: ['aui-base', 'liferay-scheduler'],
+					},
+					'liferay-calendar-simple-color-picker': {
+						path: 'simple_color_picker.js',
+						requires: ['aui-base', 'aui-template-deprecated'],
+					},
+					'liferay-calendar-simple-menu': {
+						path: 'simple_menu.js',
+						requires: [
+							'aui-base',
+							'aui-template-deprecated',
+							'event-outside',
+							'event-touch',
+							'widget-modality',
+							'widget-position',
+							'widget-position-align',
+							'widget-position-constrain',
+							'widget-stack',
+							'widget-stdmod',
+						],
+					},
+					'liferay-calendar-util': {
+						path: 'calendar_util.js',
+						requires: [
+							'aui-datatype',
+							'aui-io',
+							'aui-scheduler',
+							'aui-toolbar',
+							'autocomplete',
+							'autocomplete-highlighters',
+						],
+					},
+					'liferay-scheduler': {
+						path: 'scheduler.js',
+						requires: [
+							'async-queue',
+							'aui-datatype',
+							'aui-scheduler',
+							'dd-plugin',
+							'liferay-calendar-a11y',
+							'liferay-calendar-message-util',
+							'liferay-calendar-recurrence-converter',
+							'liferay-calendar-recurrence-util',
+							'liferay-calendar-util',
+							'liferay-scheduler-event-recorder',
+							'liferay-scheduler-models',
+							'promise',
+							'resize-plugin',
+						],
+					},
+					'liferay-scheduler-event-recorder': {
+						path: 'scheduler_event_recorder.js',
+						requires: [
+							'dd-plugin',
+							'liferay-calendar-util',
+							'resize-plugin',
+						],
+					},
+					'liferay-scheduler-models': {
+						path: 'scheduler_models.js',
+						requires: [
+							'aui-datatype',
+							'dd-plugin',
+							'liferay-calendar-util',
+						],
+					},
+				},
+				root: MODULE_PATH + '/js/legacy/',
+			},
+		},
+	});
+})();
+} catch(error) {console.error(error);}</script>
+  <script type="text/javascript" data-senna-track="temporary">
+	// <![CDATA[
+		
+			
+				
+		
+
+		
+	// ]]>
+</script>
+  <link class="lfr-css-file" data-senna-track="temporary" href="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/css/main.css?browserId=other&amp;themeId=gdfsecretariaslf7_4ce_WAR_gdfsecretariaslf7_4cetheme&amp;minifierType=css&amp;languageId=pt_BR&amp;t=1775747702000" id="liferayThemeCSS" rel="stylesheet" type="text/css">
+  <style data-senna-track="senna" type="text/css">
+		#p_p_id_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_Y6D2F3N93fcl_ {
+           padding-bottom: 0 !important;
+           padding-top: 1.875rem;
+}
+
+#p_p_id_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_zoMQHD9e8fvH_ {
+          margin-top: 1.875rem;
+}
+	</style>
+  <style data-senna-track="senna" type="text/css">
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_CniDKpzlMSLk_ .portlet-content {
+
+}
+#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_CniDKpzlMSLk .btn-green {
+	background-color: #00a858;
+}
+#portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_CniDKpzlMSLk .btn-green:hover {
+	background-color: #1a804b;
+}
+
+
+
+				
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_LLLlVsXIpWCi_ .portlet-content {
+
+}
+
+
+
+
+				
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_uPMpZoIZJ7kh_ .portlet-content {
+
+}
+
+
+
+
+				
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_veZUUNCX8ONb_ .portlet-content {
+
+}
+
+
+
+
+				
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_BkvmZG10MKCt_ .portlet-content {
+
+}
+
+
+
+
+				
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_Y6D2F3N93fcl_ .portlet-content {
+
+}
+
+
+
+
+				
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_ZebIeuCPmwJo_ .portlet-content {
+
+}
+
+
+
+
+				
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_dk797M2gpOja_ .portlet-content {
+
+}
+
+
+
+
+				
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_laaj9yuE4bA1_ .portlet-content {
+
+}
+#portlet_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_laaj9yuE4bA1 .lista-de-links-nuvem .btn-secondary{
+	border: 1px solid green !important;
+        color: green !important;
+}
+#portlet_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_laaj9yuE4bA1 .lista-de-links-nuvem .btn-secondary:hover{
+	border: 1px solid green !important;
+        background-color: #00a858;
+        color: white !important;
+}
+
+
+
+				
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_zHnn3DQrftjK_ .portlet-content {
+
+}
+
+
+
+
+				
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_zoMQHD9e8fvH_ .portlet-content {
+
+}
+#portlet_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_zoMQHD9e8fvH {
+	color: #fff;
+}
+
+
+
+				
+
+			
+
+		
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_nested_portlets_web_portlet_NestedPortletsPortlet_INSTANCE_hXWc8QdUesMN_ .portlet-content {
+
+}
+
+
+
+
+				
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_nested_portlets_web_portlet_NestedPortletsPortlet_INSTANCE_oCpMS9ovQeiq_ .portlet-content {
+
+}
+
+
+
+
+				
+
+			
+
+		
+
+			
+
+		
+
+			
+
+		
+
+			
+
+				
+
+					
+
+#p_p_id_com_liferay_site_navigation_menu_web_portlet_SiteNavigationMenuPortlet_INSTANCE_navigationFooter_ .portlet-content {
+
+}
+
+
+
+
+				
+
+			
+
+		
+
+	</style>
+  <style data-senna-track="temporary" type="text/css">
+</style>
+  <link data-senna-track="permanent" href="/o/frontend-js-aui-web/alloy_ui.css?&amp;mac=favIEq7hPo8AEd6k+N5OVADEEls=&amp;browserId=other&amp;languageId=pt_BR&amp;minifierType=css&amp;themeId=gdfsecretariaslf7_4ce_WAR_gdfsecretariaslf7_4cetheme" rel="stylesheet">
+  <link data-senna-track="permanent" href="https://www.detran.df.gov.br/combo?browserId=other&amp;minifierType=css&amp;languageId=pt_BR&amp;t=1753502633079&amp;/o/gdf-theme-contributor/css/gdf-contributor.css" rel="stylesheet" type="text/css">
+  <script data-senna-track="permanent" src="https://www.detran.df.gov.br/combo?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1753502633079&amp;/o/gdf-theme-contributor/js/gdf-contributor.js" type="text/javascript"></script>
+  <script type="module">
+import {init} from '/o/frontend-js-spa-web/__liferay__/index.js';
+{
+init({"navigationExceptionSelectors":":not([target=\"_blank\"]):not([data-senna-off]):not([data-resource-href]):not([data-cke-saved-href]):not([data-cke-saved-href])","cacheExpirationTime":-1,"clearScreensCache":false,"portletsBlacklist":["com_liferay_login_web_portlet_CreateAccountPortlet","com_liferay_nested_portlets_web_portlet_NestedPortletsPortlet","com_liferay_site_navigation_directory_web_portlet_SitesDirectoryPortlet","com_liferay_questions_web_internal_portlet_QuestionsPortlet","com_liferay_account_admin_web_internal_portlet_AccountUsersRegistrationPortlet","com_liferay_login_web_portlet_ForgotPasswordPortlet","com_liferay_portal_language_override_web_internal_portlet_PLOPortlet","com_liferay_login_web_portlet_LoginPortlet","com_liferay_login_web_portlet_FastLoginPortlet"],"excludedTargetPortlets":["com_liferay_users_admin_web_portlet_UsersAdminPortlet","com_liferay_server_admin_web_portlet_ServerAdminPortlet"],"validStatusCodes":[221,490,494,499,491,492,493,495,220],"debugEnabled":false,"loginRedirect":"","excludedPaths":["/c/document_library","/documents","/image"],"preloadCSS":false,"userNotification":{"message":"Parece que isso está demorando mais do que o esperado.","title":"Opa","timeout":30000},"requestTimeout":0});
+}
+
+</script>
+  <script type="text/javascript">
+Liferay.on(
+	'ddmFieldBlur', function(event) {
+		if (window.Analytics) {
+			Analytics.send(
+				'fieldBlurred',
+				'Form',
+				{
+					fieldName: event.fieldName,
+					focusDuration: event.focusDuration,
+					formId: event.formId,
+					formPageTitle: event.formPageTitle,
+					page: event.page,
+					title: event.title
+				}
+			);
+		}
+	}
+);
+
+Liferay.on(
+	'ddmFieldFocus', function(event) {
+		if (window.Analytics) {
+			Analytics.send(
+				'fieldFocused',
+				'Form',
+				{
+					fieldName: event.fieldName,
+					formId: event.formId,
+					formPageTitle: event.formPageTitle,
+					page: event.page,
+					title:event.title
+				}
+			);
+		}
+	}
+);
+
+Liferay.on(
+	'ddmFormPageShow', function(event) {
+		if (window.Analytics) {
+			Analytics.send(
+				'pageViewed',
+				'Form',
+				{
+					formId: event.formId,
+					formPageTitle: event.formPageTitle,
+					page: event.page,
+					title: event.title
+				}
+			);
+		}
+	}
+);
+
+Liferay.on(
+	'ddmFormSubmit', function(event) {
+		if (window.Analytics) {
+			Analytics.send(
+				'formSubmitted',
+				'Form',
+				{
+					formId: event.formId,
+					title: event.title
+				}
+			);
+		}
+	}
+);
+
+Liferay.on(
+	'ddmFormView', function(event) {
+		if (window.Analytics) {
+			Analytics.send(
+				'formViewed',
+				'Form',
+				{
+					formId: event.formId,
+					title: event.title
+				}
+			);
+		}
+	}
+);
+
+</script>
+  <script>
+
+</script>
+  <script type="text/javascript" data-senna-track="temporary">
+	if (window.Analytics) {
+		window._com_liferay_document_library_analytics_isViewFileEntry = false;
+	}
+</script>
+ </head>
+ <body class="other controls-visible default-theme yui3-skin-sam signed-out public-page site pagina-inicial " itemscope itemtype="http://schema.org/WebPage">
+  <nav aria-label="Links rápidos" class="bg-dark cadmin quick-access-nav text-center text-white" id="tpri_quickAccessNav"><a class="d-block p-2 sr-only sr-only-focusable text-reset" href="#main-content"> Pular para o Conteúdo principal </a>
+  </nav>
+  <div class="d-flex flex-column min-vh-100">
+   <div class="d-flex flex-column flex-fill" id="wrapper">
+    <header id="banner" role="banner">
+     <div class="barra-gdf bg-black">
+      <div class="px-3 d-flex justify-content-between w-100 align-items-center">
+       <ul class="nav nav-pills ul-gdf-center">
+        <li class="nav-item"><a class="nav-link" href="http://www.transparencia.df.gov.br/" target="_blank"> Transparência </a></li>
+        <li class="nav-item"><a class="nav-link" href="http://www.ouvidoria.df.gov.br/" target="_blank"> Ouvidoria </a></li>
+        <li class="nav-item"><a class="nav-link" href="http://www.df.gov.br/acessoainformacao" target="_blank"> Acesso à Informação </a></li>
+        <li class="nav-item"><a class="nav-link" href="https://www.dodf.df.gov.br/" target="_blank"> Diário Oficial </a></li>
+        <li class="nav-item"><a class="nav-link" href="https://www.agenciabrasilia.df.gov.br/" target="_blank"> Agência Brasília </a></li>
+        <li class="nav-item"><a class="nav-link" href="http://www.brasilia.df.gov.br" target="_blank"> Portal do Governo de Brasília </a></li>
+        <li class="nav-item"><a class="nav-link" href="http://www.dados.df.gov.br/" target="_blank"> Dados Abertos </a></li>
+        <li class="nav-item"><a class="nav-link" href="http://www.lgpd.df.gov.br/" target="_blank"> LGPD </a></li>
+       </ul>
+       <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link" href="http://brasilia.df.gov.br/index.php/acessibilidade/" target="_blank"> Acessibilidade </a></li> <span>|</span>
+        <li class="nav-item">
+         <div class="dropdown"><button class="nav-link btn" type="button" data-toggle="dropdown" aria-expanded="false" data-placement="bottom"> Aa </button>
+          <div class="dropdown-menu dropdown-menu-center" id="dropdown-acessibilidade">
+           <div class="cntAcessibilidade">
+            <div class="titulo">
+             Tamanho de fonte
+            </div>
+            <div class="aMenor">
+             A
+            </div>
+            <div class="ranger">
+             <input type="range" id="sizeFont" min="1" max="8" value="4" step="1">
+            </div>
+            <div class="aMaior">
+             A
+            </div>
+            <div class="clearfix"></div>
+            <div class="bg-verde">
+             <div class="areacheckbox">
+              <div class="checkboxCampoInterno"><input type="checkbox" value="1" id="checkboxAcessibilidade" name> <label for="checkboxAcessibilidade"></label>
+              </div>
+             </div>
+             <div class="info-contraste">
+              Alto contraste desligado
+             </div>
+            </div>
+           </div>
+          </div>
+         </div></li> <span>|</span>
+        <li class="nav-item px-2"><a href="http://www.vlibras.gov.br/" target="_blank">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewbox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve"><rect fill="#00529B" width="16" height="16" /> <path fill="#FFFFFF" d="M4.804,13.962c-0.285-0.071-0.557-0.178-0.726-0.311c-0.291-0.229-0.435-1.027-1.651-1.977
+	c0,0-0.461-0.731,0.131-1.898C3.151,8.611,3.893,7.742,4.154,7.4c0.262-0.343,0.498-0.862,0.777-2.165
+	c0.28-1.303,0.578-2.196,0.702-2.525c0.063-0.167,0.271-0.24,0.453-0.195C6.258,2.558,6.406,2.708,6.38,2.982
+	C6.33,3.546,6.001,5.685,5.989,5.967C5.983,6.133,6.056,6.425,6.208,6.463c0.108,0.026,0.255-0.077,0.441-0.45
+	c0.447-0.894,1.313-3.002,1.546-3.477C8.42,2.08,8.637,2.05,8.754,2.08C8.811,2.094,8.843,2.12,8.843,2.12s0.005,0.002,0.013,0.003
+	C8.927,2.141,9.27,2.249,9.146,2.662C9.01,3.125,7.844,6.134,7.776,6.44c-0.042,0.183-0.031,0.341,0.06,0.364
+	c0.061,0.016,0.158-0.03,0.301-0.168c0.356-0.348,2.403-2.492,3.04-3.234c0.131-0.151,0.31-0.166,0.462-0.128
+	c0.115,0.029,0.216,0.087,0.27,0.139c0.124,0.119,0.161,0.461,0.05,0.654C11.846,4.26,9.531,7.174,9.233,7.53
+	C9.032,7.766,9.015,8.048,9.197,8.093C9.29,8.116,9.434,8.08,9.631,7.948c0.591-0.394,3.081-1.875,3.385-2.079
+	c0.138-0.093,0.258-0.114,0.36-0.089c0.123,0.031,0.219,0.126,0.288,0.241c0.13,0.216,0.121,0.472-0.099,0.656
+	c-0.22,0.183-3.467,2.694-4.058,3.386c-0.559,0.654-1.5,1.652-0.272,1.955c0.069,0.018,0.145,0.033,0.228,0.046
+	c0.496,0.074,0.847,0.142,1.104,0.205c0.55,0.137,0.656,0.251,0.812,0.357c0.228,0.158,0.51,0.496,0.329,0.696
+	s-0.768-0.057-1.041-0.026c-0.273,0.029-0.273,0.029-0.273,0.029s-1.181,0.017-1.986,0.241" />
+          </svg> </a></li> <span>|</span>
+        <li class="nav-item"><a href="#" class="nav-link" data-toggle="modal" data-target="#loginPortlet" title="
+                    Entrar
+            "> Entrar </a></li>
+        <div aria-labelledby="loginPortletLabel" class="fade modal" id="loginPortlet" role="dialog" tabindex="-1" aria-hidden="true" style="display: none;">
+         <div class="modal-dialog modal-md modal-dialog-centered">
+          <div class="modal-content">
+           <div class="modal-header">
+            <div class="modal-title" id="loginPortletLabel">
+             Entrar
+            </div> <button aria-labelledby="Close" class="close" data-dismiss="modal" role="button" type="button"> <i class="las la-times"></i> </button>
+           </div>
+           <div class="modal-body ">
+            <div class="portlet-boundary portlet-boundary_com_liferay_login_web_portlet_LoginPortlet_  portlet-static portlet-static-end portlet-decorate portlet-login " id="p_p_id_com_liferay_login_web_portlet_LoginPortlet_"><span id="p_com_liferay_login_web_portlet_LoginPortlet"></span>
+             <section class="portlet" id="portlet_com_liferay_login_web_portlet_LoginPortlet">
+              <div class="portlet-content">
+               <div class="autofit-float autofit-row portlet-header">
+                <div class="autofit-col autofit-col-expand">
+                 <h2 class="portlet-title-text">Autenticação</h2>
+                </div>
+               </div>
+               <div class=" portlet-content-container">
+                <div class="portlet-body">
+                 <div class="login-container">
+                  <form action="https://www.detran.df.gov.br/home?p_p_id=com_liferay_login_web_portlet_LoginPortlet&amp;p_p_lifecycle=1&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_login_web_portlet_LoginPortlet_javax.portlet.action=%2Flogin%2Flogin&amp;_com_liferay_login_web_portlet_LoginPortlet_mvcRenderCommandName=%2Flogin%2Flogin&amp;p_auth=ewAeISYA" class="form sign-in-form " data-fm-namespace="_com_liferay_login_web_portlet_LoginPortlet_" id="_com_liferay_login_web_portlet_LoginPortlet_loginForm" method="post" name="_com_liferay_login_web_portlet_LoginPortlet_loginForm" autocomplete="on">
+                   <div aria-label="Autenticação" class="input-container" role="group"><input class="field form-control" id="_com_liferay_login_web_portlet_LoginPortlet_formDate" name="_com_liferay_login_web_portlet_LoginPortlet_formDate" type="hidden" value="1775778100601"> <input class="field form-control" id="_com_liferay_login_web_portlet_LoginPortlet_saveLastPath" name="_com_liferay_login_web_portlet_LoginPortlet_saveLastPath" type="hidden" value="false"> <input class="field form-control" id="_com_liferay_login_web_portlet_LoginPortlet_redirect" name="_com_liferay_login_web_portlet_LoginPortlet_redirect" type="hidden" value=""> <input class="field form-control" id="_com_liferay_login_web_portlet_LoginPortlet_doActionAfterLogin" name="_com_liferay_login_web_portlet_LoginPortlet_doActionAfterLogin" type="hidden" value="false">
+                    <div class="inline-alert-container lfr-alert-container"></div>
+                    <div class="alert alert-danger" id="_com_liferay_login_web_portlet_LoginPortlet_cookieDisabled" style="display: none;">
+                     Falha na autenticação. Por favor, habilite os cookies no navegador e tente novamente.
+                    </div>
+                    <fieldset class=""><legend class="sr-only"> Autenticação </legend>
+                     <div class="show  " id="Content" role="presentation">
+                      <div class="panel-body">
+                       <div class="form-group input-text-wrapper"><label class=" control-label" for="_com_liferay_login_web_portlet_LoginPortlet_login"> Endereço de e-mail </label> <input class="field clearable form-control" id="_com_liferay_login_web_portlet_LoginPortlet_login" name="_com_liferay_login_web_portlet_LoginPortlet_login" type="text" value="@df.gov.br">
+                       </div>
+                       <div class="form-group input-text-wrapper"><label class=" control-label" for="_com_liferay_login_web_portlet_LoginPortlet_password"> Senha </label> <input class="field form-control" id="_com_liferay_login_web_portlet_LoginPortlet_password" name="_com_liferay_login_web_portlet_LoginPortlet_password" type="password" value="">
+                       </div> <span id="_com_liferay_login_web_portlet_LoginPortlet_passwordCapsLockSpan" style="display: none;">Caps Lock está ativado.</span>
+                       <div class="form-group form-inline input-checkbox-wrapper"><label class="" for="_com_liferay_login_web_portlet_LoginPortlet_rememberMe"> <input class="field" id="_com_liferay_login_web_portlet_LoginPortlet_rememberMe" name="_com_liferay_login_web_portlet_LoginPortlet_rememberMe" onclick="" type="checkbox"> Lembre de mim </label>
+                       </div>
+                      </div>
+                     </div>
+                    </fieldset>
+                    <div class="button-holder "><button class="btn  btn-primary" id="_com_liferay_login_web_portlet_LoginPortlet_jidl" type="submit"> <span class="lfr-btn-label">Entrar</span> </button>
+                    </div> <input class="field form-control" id="_com_liferay_login_web_portlet_LoginPortlet_checkboxNames" name="_com_liferay_login_web_portlet_LoginPortlet_checkboxNames" type="hidden" value="rememberMe">
+                   </div>
+                  </form>
+                  <script>
+AUI().use(
+  'liferay-form',
+function(A) {
+(function() {
+var $ = AUI.$;var _ = AUI._;
+	Liferay.Form.register(
+		{
+			id: '_com_liferay_login_web_portlet_LoginPortlet_loginForm'
+
+			
+				, fieldRules: [
+
+					
+
+							
+
+							{
+								body: '',
+								custom: false,
+								errorMessage: '\u004f\u0020\u0063\u0061\u006d\u0070\u006f\u0020\u0053\u0065\u006e\u0068\u0061\u0020\u00e9\u0020\u006f\u0062\u0072\u0069\u0067\u0061\u0074\u00f3\u0072\u0069\u006f\u002e',
+								fieldName: '_com_liferay_login_web_portlet_LoginPortlet_password',
+								validatorName: 'required'
+							}
+
+					
+
+							,
+
+							{
+								body: '',
+								custom: false,
+								errorMessage: '\u004f\u0020\u0063\u0061\u006d\u0070\u006f\u0020\u0045\u006e\u0064\u0065\u0072\u0065\u00e7\u006f\u0020\u0064\u0065\u0020\u0065\u002d\u006d\u0061\u0069\u006c\u0020\u00e9\u0020\u006f\u0062\u0072\u0069\u0067\u0061\u0074\u00f3\u0072\u0069\u006f\u002e',
+								fieldName: '_com_liferay_login_web_portlet_LoginPortlet_login',
+								validatorName: 'required'
+							}
+
+					
+
+							,
+
+							{
+								body: '',
+								custom: false,
+								errorMessage: '',
+								fieldName: '_com_liferay_login_web_portlet_LoginPortlet_login',
+								validatorName: 'email'
+							}
+
+					
+
+				]
+			
+
+			
+				, onSubmit: function(event) {
+					event.preventDefault();
+				}
+			
+
+			, validateOnBlur: false
+		}
+	);
+
+	var onDestroyPortlet = function(event) {
+		if (event.portletId === 'com_liferay_login_web_portlet_LoginPortlet') {
+			delete Liferay.Form._INSTANCES['_com_liferay_login_web_portlet_LoginPortlet_loginForm'];
+		}
+	};
+
+	Liferay.on('destroyPortlet', onDestroyPortlet);
+
+	
+		A.all('#_com_liferay_login_web_portlet_LoginPortlet_loginForm .input-container').removeAttribute('disabled');
+	
+
+	Liferay.fire(
+		'_com_liferay_login_web_portlet_LoginPortlet_formReady',
+		{
+			formName: '_com_liferay_login_web_portlet_LoginPortlet_loginForm'
+		}
+	);
+})();
+});
+
+</script>
+                  <div class="c-mt-3 navigation"><span class="text-4"> <a href="https://www.detran.df.gov.br/home?p_p_id=com_liferay_login_web_portlet_LoginPortlet&amp;p_p_lifecycle=0&amp;p_p_state=maximized&amp;p_p_mode=view&amp;_com_liferay_login_web_portlet_LoginPortlet_mvcRenderCommandName=%2Flogin%2Fforgot_password&amp;saveLastPath=false" target="_self" class=" lfr-icon-item taglib-icon" id="_com_liferay_login_web_portlet_LoginPortlet_ctvk____"> <span class="taglib-text ">Esqueci a senha</span> </a> </span>
+                  </div>
+                 </div>
+                 <script type="text/javascript">
+(function() {var $ = AUI.$;var _ = AUI._;
+			var form = document.getElementById('_com_liferay_login_web_portlet_LoginPortlet_loginForm');
+
+			if (form) {
+				form.addEventListener('submit', (event) => {
+					
+						if (!navigator.cookieEnabled) {
+							document.getElementById(
+								'_com_liferay_login_web_portlet_LoginPortlet_cookieDisabled'
+							).style.display = '';
+
+							return;
+						}
+					
+
+					
+
+					submitForm(form);
+				});
+
+				var password = form.querySelector('#_com_liferay_login_web_portlet_LoginPortlet_password');
+
+				if (password) {
+					password.addEventListener('keypress', (event) => {
+						Liferay.Util.showCapsLock(
+							event,
+							'_com_liferay_login_web_portlet_LoginPortlet_passwordCapsLockSpan'
+						);
+					});
+				}
+			}
+		})();
+
+</script>
+                 <script>
+
+</script>
+                </div>
+               </div>
+              </div>
+             </section>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </ul>
+      </div>
+     </div>
+     <div class="topo-titulo-site">
+      <div class="container">
+       <div class="row d-flex align-items-center justify-content-between navbar-expand-lg navbar-light">
+        <div class="col d-flex"><a> </a><a aria-level="1" class="site-title d-block" id="heading" role="heading" href="/" title="Ir para Departamento de Trânsito"> <h1 class="site-name">Departamento de Trânsito</h1> <p class="sigla">DETRAN-DF</p> </a>
+        </div> <button aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navigationCollapse" data-toggle="liferay-collapse" type="button"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        <div class="col-auto social-networks">
+         <div class="d-flex flex-column">
+          <div aria-label="Redes Sociais" class="btn-group justify-content-end" role="group"><a class="btn btn-monospaced btn-primary" href="https://www.facebook.com/detrandf/" target="_blank"> <i class="lab la-facebook-f"></i> </a> <a class="btn btn-monospaced btn-primary" href="https://x.com/detrandfoficial" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" fill="transparent" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewbox="0 0 512 509.64">
+             <rect width="512" height="509.64" rx="115.61" ry="115.61" /><path fill="#fff" fill-rule="nonzero" d="M323.74 148.35h36.12l-78.91 90.2 92.83 122.73h-72.69l-56.93-74.43-65.15 74.43h-36.14l84.4-96.47-89.05-116.46h74.53l51.46 68.04 59.53-68.04zm-12.68 191.31h20.02l-129.2-170.82H180.4l130.66 170.82z" />
+            </svg> </a> <a class="btn btn-monospaced btn-primary" href="https://www.youtube.com/c/DetranDFoficial" target="_blank"> <i class="lab la-youtube"></i> </a> <a class="btn btn-monospaced btn-primary" href="https://www.instagram.com/detrandfoficial/" target="_blank"> <i class="lab la-instagram"></i> </a> <a class="btn btn-monospaced btn-primary" href="https://www.flickr.com/photos/158241275@N08/" target="_blank"> <i class="lab la-flickr"></i> </a>
+          </div> <a class="btn btn-primary fale-com-a-autarquia align-self-end" href="/fale-com-o-detran-df/" target="_blank"> Fale com a Autarquia </a>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="menubar">
+      <div class="mobile">
+       <nav class="main-navigation collapse" id="navigationCollapse" role="navigation">
+        <ul class="nav nav-pills justify-content-between w-100" aria-label="Páginas do site" role="menubar">
+         <li class="fale-com-a-secretaria-mobile d-block d-md-none"><a data-target="#loginPortlet" data-toggle="modal" type="button" title="Entrar"> Entrar </a></li>
+         <li class="nav-item dropdown d-none d-md-block" data-dropdown-action="hover"><a class="nav-link dropdown-toggle " data-toggle="dropdown" href="https://www.detran.df.gov.br/category/sobre-o-detran" role="button" aria-haspopup="true" aria-expanded="false"> Sobre o Detran </a>
+          <ul class="dropdown-menu dropdown-black">
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_397" href="https://www.detran.df.gov.br/estrutura" role="menuitem"> Estrutura </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_8" href="https://www.detran.df.gov.br/fale-com-o-detran-df" role="menuitem"> Fale com o Detran-DF </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_9" href="https://www.detran.df.gov.br/o-detran-postos-de-atendimento-html" role="menuitem"> Postos de Atendimento </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_10" href="https://www.detran.df.gov.br/base-juridica" role="menuitem"> Base Jurídica </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_11" href="https://www.detran.df.gov.br/quem-e-quem" role="menuitem"> Quem é Quem </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_12" href="https://www.detran.df.gov.br/o-diretor-geral" role="menuitem"> O Diretor-geral do Departamento de Trânsito do Distrito Federal </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_13" href="https://www.detran.df.gov.br/galeria-de-diretores" role="menuitem"> Relação de Diretores </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_14" href="https://www.detran.df.gov.br/category/sobre-o-detran/politica-institucional" role="menuitem"> Política Institucional </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_856" href="https://www.detran.df.gov.br/contatos" role="menuitem"> Contatos </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class=" has-children" href="https://www.detran.df.gov.br/agendas" data-senna-off="true" aria-labelledby="layout_564" role="menuitem"> Agendas </a> <!-- Renderiza subitens se houver --> <button type="button" class="btn-dropchild"><span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-black">
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_23" href="https://www.detran.df.gov.br/agendas/agenda-dos-diretores" role="menuitem"> Agenda do Diretor Geral </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_563" href="https://www.detran.df.gov.br/agendas/diretor-geral-adjunto" role="menuitem"> Agenda do Direto Adjunto </a> <!-- Renderiza subitens se houver --></li>
+            </ul></li>
+          </ul></li>
+         <li class="responsive-nav-item-with-child d-md-none d-block"><a class="responsive-menu-item" href="https://www.detran.df.gov.br/category/sobre-o-detran" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="navCollapse-539" data-nav-toggle="submenu" data-nav-target="#navCollapse-539"> Sobre o Detran </a>
+          <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-539" aria-expanded="false">
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_397" href="https://www.detran.df.gov.br/estrutura" role="menuitem"> Estrutura </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_8" href="https://www.detran.df.gov.br/fale-com-o-detran-df" role="menuitem"> Fale com o Detran-DF </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_9" href="https://www.detran.df.gov.br/o-detran-postos-de-atendimento-html" role="menuitem"> Postos de Atendimento </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_10" href="https://www.detran.df.gov.br/base-juridica" role="menuitem"> Base Jurídica </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_11" href="https://www.detran.df.gov.br/quem-e-quem" role="menuitem"> Quem é Quem </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_12" href="https://www.detran.df.gov.br/o-diretor-geral" role="menuitem"> O Diretor-geral do Departamento de Trânsito do Distrito Federal </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_13" href="https://www.detran.df.gov.br/galeria-de-diretores" role="menuitem"> Relação de Diretores </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_14" href="https://www.detran.df.gov.br/category/sobre-o-detran/politica-institucional" role="menuitem"> Política Institucional </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_856" href="https://www.detran.df.gov.br/contatos" role="menuitem"> Contatos </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex has-children">
+            <div class=" has-children px-2" aria-labelledby="layout_564" role="button" aria-expanded="false" aria-controls="navCollapse-564" data-nav-toggle="submenu" data-nav-target="#navCollapse-564" tabindex="0">
+             Agendas
+            </div>
+            <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-564">
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_23" href="https://www.detran.df.gov.br/agendas/agenda-dos-diretores" role="menuitem"> Agenda do Diretor Geral </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_563" href="https://www.detran.df.gov.br/agendas/diretor-geral-adjunto" role="menuitem"> Agenda do Direto Adjunto </a></li>
+            </ul></li>
+          </ul></li>
+         <li class="nav-item dropdown d-none d-md-block" data-dropdown-action="hover"><a class="nav-link dropdown-toggle " data-toggle="dropdown" href="https://www.detran.df.gov.br/servicos-1" role="button" aria-haspopup="true" aria-expanded="false"> Serviços </a>
+          <ul class="dropdown-menu dropdown-black">
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_675" href="https://www.detran.df.gov.br/sisman-carta-servicos" role="menuitem"> Carta de Serviços </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class=" has-children" href="https://www.detran.df.gov.br/category/informacoes" data-senna-off="true" aria-labelledby="layout_430" role="menuitem"> Informações </a> <!-- Renderiza subitens se houver --> <button type="button" class="btn-dropchild"><span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-black">
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_42" href="https://www.detran.df.gov.br/tabela-de-precos" role="menuitem"> Tabela de Preços </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_43" href="https://www.detran.df.gov.br/saiba-quais-os-valores-de-multa" role="menuitem"> Valores de multa </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_49" href="https://www.detran.df.gov.br/servicos-servicos-formularios-html" role="menuitem"> Requerimentos </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_44" href="https://www.detran.df.gov.br/site-divida-ativa-filtro-consulta-parcelamento-htm-jsp" role="menuitem"> Dívida ativa </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_45" href="https://www.detran.df.gov.br/protocolo" role="menuitem"> Protocolo </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_48" href="https://www.detran.df.gov.br/faixas-exclusivas-para-onibus-nas-vias-w3" role="menuitem"> Faixas exclusivas para ônibus nas vias W3 </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_911" href="https://www.detran.df.gov.br/bancas-examinadoras-transito" role="menuitem"> Bancas Examinadoras de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_916" href="https://www.detran.df.gov.br/interdi%C3%A7%C3%B5es-de-tr%C3%A2nsito" role="menuitem"> Interdições de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+            </ul></li>
+          </ul></li>
+         <li class="responsive-nav-item-with-child d-md-none d-block"><a class="responsive-menu-item" href="https://www.detran.df.gov.br/servicos-1" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="navCollapse-38" data-nav-toggle="submenu" data-nav-target="#navCollapse-38"> Serviços </a>
+          <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-38" aria-expanded="false">
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_675" href="https://www.detran.df.gov.br/sisman-carta-servicos" role="menuitem"> Carta de Serviços </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex has-children">
+            <div class=" has-children px-2" aria-labelledby="layout_430" role="button" aria-expanded="false" aria-controls="navCollapse-430" data-nav-toggle="submenu" data-nav-target="#navCollapse-430" tabindex="0">
+             Informações
+            </div>
+            <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-430">
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_42" href="https://www.detran.df.gov.br/tabela-de-precos" role="menuitem"> Tabela de Preços </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_43" href="https://www.detran.df.gov.br/saiba-quais-os-valores-de-multa" role="menuitem"> Valores de multa </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_49" href="https://www.detran.df.gov.br/servicos-servicos-formularios-html" role="menuitem"> Requerimentos </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_44" href="https://www.detran.df.gov.br/site-divida-ativa-filtro-consulta-parcelamento-htm-jsp" role="menuitem"> Dívida ativa </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_45" href="https://www.detran.df.gov.br/protocolo" role="menuitem"> Protocolo </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_48" href="https://www.detran.df.gov.br/faixas-exclusivas-para-onibus-nas-vias-w3" role="menuitem"> Faixas exclusivas para ônibus nas vias W3 </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_911" href="https://www.detran.df.gov.br/bancas-examinadoras-transito" role="menuitem"> Bancas Examinadoras de Trânsito </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_916" href="https://www.detran.df.gov.br/interdi%C3%A7%C3%B5es-de-tr%C3%A2nsito" role="menuitem"> Interdições de Trânsito </a></li>
+            </ul></li>
+          </ul></li>
+         <li class="nav-item dropdown d-none d-md-block" data-dropdown-action="hover"><a class="nav-link dropdown-toggle " data-toggle="dropdown" href="https://www.detran.df.gov.br/educacao-1" role="button" aria-haspopup="true" aria-expanded="false"> Educação </a>
+          <ul class="dropdown-menu dropdown-black">
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_54" href="https://www.detran.df.gov.br/educacao-de-transito" role="menuitem"> Educação de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_58" href="https://www.detran.df.gov.br/acoes-educativas-de-transito" role="menuitem"> Ações Educativas de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_59" href="https://www.detran.df.gov.br/atualizacoes-do-codigo-de-transito-brasileiro" role="menuitem"> Atualizações do Código de Trânsito Brasileiro </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class=" has-children" href="https://www.detran.df.gov.br/category/cursos-de-transito" data-senna-off="true" aria-labelledby="layout_425" role="menuitem"> Cursos de Trânsito </a> <!-- Renderiza subitens se houver --> <button type="button" class="btn-dropchild"><span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-black">
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_556" href="https://www.detran.df.gov.br/cursos-de-transito" role="menuitem"> Cursos de Trânsito Presenciais </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_62" href="https://www.detran.df.gov.br/instituicao-ou-entidade-publica-ou-privada-especializada-ieppe" role="menuitem"> Cursos de Trânsito EaD </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_63" href="https://www.detran.df.gov.br/programacao-de-cursos" role="menuitem"> Programação de Cursos e Provas </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_872" href="https://www.detran.df.gov.br/curso-de-atualiza%C3%A7%C3%A3o-para-diretor-de-cfc" role="menuitem"> Curso de Atualização para Diretor de CFC </a> <!-- Renderiza subitens se houver --></li>
+            </ul></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_64" href="https://www.detran.df.gov.br/manual-de-obtencao-da-carteira-nacional-de-habilitacao-cnh" role="menuitem"> Manual de obtenção da Carteira Nacional de Habilitação – CNH </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_65" href="https://www.detran.df.gov.br/palestras-educativas-de-transito" role="menuitem"> Palestras Educativas de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_66" href="https://www.detran.df.gov.br/2o-premio-detran-df-de-educacao-de-transito" role="menuitem"> 2º Prêmio Detran-DF de Educação de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_67" href="https://www.detran.df.gov.br/3o-premio-detran-df-de-educacao-de-transito" role="menuitem"> Detran-DF divulga resultado preliminar do 3º Prêmio de Educação de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_68" href="https://www.detran.df.gov.br/programa-detran-nas-escolas" role="menuitem"> Programa Detran nas Escolas </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_69" href="https://www.detran.df.gov.br/reformulacao-pedagogica-cfc" role="menuitem"> Projeto de Reformulação pedagógica para os Centros de Formação de Condutores </a> <!-- Renderiza subitens se houver --></li>
+          </ul></li>
+         <li class="responsive-nav-item-with-child d-md-none d-block"><a class="responsive-menu-item" href="https://www.detran.df.gov.br/educacao-1" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="navCollapse-53" data-nav-toggle="submenu" data-nav-target="#navCollapse-53"> Educação </a>
+          <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-53" aria-expanded="false">
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_54" href="https://www.detran.df.gov.br/educacao-de-transito" role="menuitem"> Educação de Trânsito </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_58" href="https://www.detran.df.gov.br/acoes-educativas-de-transito" role="menuitem"> Ações Educativas de Trânsito </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_59" href="https://www.detran.df.gov.br/atualizacoes-do-codigo-de-transito-brasileiro" role="menuitem"> Atualizações do Código de Trânsito Brasileiro </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex has-children">
+            <div class=" has-children px-2" aria-labelledby="layout_425" role="button" aria-expanded="false" aria-controls="navCollapse-425" data-nav-toggle="submenu" data-nav-target="#navCollapse-425" tabindex="0">
+             Cursos de Trânsito
+            </div>
+            <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-425">
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_556" href="https://www.detran.df.gov.br/cursos-de-transito" role="menuitem"> Cursos de Trânsito Presenciais </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_62" href="https://www.detran.df.gov.br/instituicao-ou-entidade-publica-ou-privada-especializada-ieppe" role="menuitem"> Cursos de Trânsito EaD </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_63" href="https://www.detran.df.gov.br/programacao-de-cursos" role="menuitem"> Programação de Cursos e Provas </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_872" href="https://www.detran.df.gov.br/curso-de-atualiza%C3%A7%C3%A3o-para-diretor-de-cfc" role="menuitem"> Curso de Atualização para Diretor de CFC </a></li>
+            </ul></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_64" href="https://www.detran.df.gov.br/manual-de-obtencao-da-carteira-nacional-de-habilitacao-cnh" role="menuitem"> Manual de obtenção da Carteira Nacional de Habilitação – CNH </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_65" href="https://www.detran.df.gov.br/palestras-educativas-de-transito" role="menuitem"> Palestras Educativas de Trânsito </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_66" href="https://www.detran.df.gov.br/2o-premio-detran-df-de-educacao-de-transito" role="menuitem"> 2º Prêmio Detran-DF de Educação de Trânsito </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_67" href="https://www.detran.df.gov.br/3o-premio-detran-df-de-educacao-de-transito" role="menuitem"> Detran-DF divulga resultado preliminar do 3º Prêmio de Educação de Trânsito </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_68" href="https://www.detran.df.gov.br/programa-detran-nas-escolas" role="menuitem"> Programa Detran nas Escolas </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_69" href="https://www.detran.df.gov.br/reformulacao-pedagogica-cfc" role="menuitem"> Projeto de Reformulação pedagógica para os Centros de Formação de Condutores </a></li>
+          </ul></li>
+         <li class="nav-item dropdown d-none d-md-block" data-dropdown-action="hover"><a class="nav-link dropdown-toggle " data-toggle="dropdown" href="https://www.detran.df.gov.br/transparencia-publica-1" role="button" aria-haspopup="true" aria-expanded="false"> Transparência Pública </a>
+          <ul class="dropdown-menu dropdown-black">
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_71" href="https://www.detran.df.gov.br/aviso-de-sessao-publica" role="menuitem"> Aviso de Sessão Pública </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class=" has-children" href="https://www.detran.df.gov.br/concursos" data-senna-off="true" aria-labelledby="layout_72" role="menuitem"> Concursos </a> <!-- Renderiza subitens se houver --> <button type="button" class="btn-dropchild"><span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-black">
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_558" href="https://www.detran.df.gov.br/2-premio-detran-1" role="menuitem"> 2º Prêmio Detran-DF de Educação de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_74" href="https://www.detran.df.gov.br/processo-seletivo-no-01-2021-dirtec" role="menuitem"> Processo Seletivo nº 01/2021 – Dirtec </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_76" href="https://www.detran.df.gov.br/processo-seletivo-no-2-2021-numap" role="menuitem"> Processo seletivo nº 2/2021 – Numap </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_393" href="https://www.detran.df.gov.br/processo-seletivo-no-2-2021-dirtec" role="menuitem"> Processo seletivo nº 3 – 2021/Dirtec </a> <!-- Renderiza subitens se houver --></li>
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_77" href="https://www.detran.df.gov.br/concurso-publico-para-provimento-de-vagas-e-formacao-de-cadastro-reserva-para-os-cargos-de-analista-em-atividades-de-transito-e-tecnico-em-atividades-de-transito-da-carreira-atividades-de-transito" role="menuitem"> Confira os editais do último Concurso Público para provimento de vagas e formação de cadastro reserva para o Detran-DF </a> <!-- Renderiza subitens se houver --></li>
+            </ul></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_78" href="https://www.detran.df.gov.br/prestacao-de-contas-anual" role="menuitem"> Contas Anuais </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_79" href="https://www.detran.df.gov.br/texto-credenciados" role="menuitem"> Credenciados </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class=" has-children" href="https://www.detran.df.gov.br/category/leilao" data-senna-off="true" aria-labelledby="layout_536" role="menuitem"> Leilão </a> <!-- Renderiza subitens se houver --> <button type="button" class="btn-dropchild"><span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-black">
+             <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_94" href="https://www.detran.df.gov.br/leiloes-realizados" role="menuitem"> Leilões Realizados ou em Andamento </a> <!-- Renderiza subitens se houver --></li>
+            </ul></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_98" href="https://www.detran.df.gov.br/plano-de-dados-abertos" role="menuitem"> Dados abertos </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_904" href="https://www.detran.df.gov.br/mrosc" role="menuitem"> MROSC </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_99" href="https://www.detran.df.gov.br/fundos-publicos" role="menuitem"> Fundos Públicos </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_428" href="https://www.detran.df.gov.br/politica-institucional-1" role="menuitem"> Política Institucional </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_561" href="https://www.detran.df.gov.br/category/acesso-a-informacao" role="menuitem"> Lei de Acesso à informação </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_114" href="https://www.detran.df.gov.br/lgpd-detran" role="menuitem"> Lei Geral de Proteção de Dados – LGPD </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_115" href="https://www.detran.df.gov.br/contratos2" role="menuitem"> Contratos </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_117" href="https://www.detran.df.gov.br/servidores" role="menuitem"> Servidores </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_426" href="https://www.detran.df.gov.br/documents/d/departamento-de-tr%C3%A2nsito/pdti_detran_df" role="menuitem"> Plano Diretor de TI – PDTI </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_119" href="https://www.detran.df.gov.br/licitacoes" role="menuitem"> Licitações </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_120" href="https://www.detran.df.gov.br/atas-e-agendas-do-comite-interno-de-governanca-publica-do-detran-df" role="menuitem"> Comitê Interno de Governança Pública </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_121" href="https://www.detran.df.gov.br/equipamentos-eletronicos" role="menuitem"> Equipamentos Eletrônicos </a> <!-- Renderiza subitens se houver --></li>
+          </ul></li>
+         <li class="responsive-nav-item-with-child d-md-none d-block"><a class="responsive-menu-item" href="https://www.detran.df.gov.br/transparencia-publica-1" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="navCollapse-70" data-nav-toggle="submenu" data-nav-target="#navCollapse-70"> Transparência Pública </a>
+          <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-70" aria-expanded="false">
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_71" href="https://www.detran.df.gov.br/aviso-de-sessao-publica" role="menuitem"> Aviso de Sessão Pública </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex has-children">
+            <div class=" has-children px-2" aria-labelledby="layout_72" role="button" aria-expanded="false" aria-controls="navCollapse-72" data-nav-toggle="submenu" data-nav-target="#navCollapse-72" tabindex="0">
+             Concursos
+            </div>
+            <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-72">
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_558" href="https://www.detran.df.gov.br/2-premio-detran-1" role="menuitem"> 2º Prêmio Detran-DF de Educação de Trânsito </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_74" href="https://www.detran.df.gov.br/processo-seletivo-no-01-2021-dirtec" role="menuitem"> Processo Seletivo nº 01/2021 – Dirtec </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_76" href="https://www.detran.df.gov.br/processo-seletivo-no-2-2021-numap" role="menuitem"> Processo seletivo nº 2/2021 – Numap </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_393" href="https://www.detran.df.gov.br/processo-seletivo-no-2-2021-dirtec" role="menuitem"> Processo seletivo nº 3 – 2021/Dirtec </a></li>
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_77" href="https://www.detran.df.gov.br/concurso-publico-para-provimento-de-vagas-e-formacao-de-cadastro-reserva-para-os-cargos-de-analista-em-atividades-de-transito-e-tecnico-em-atividades-de-transito-da-carreira-atividades-de-transito" role="menuitem"> Confira os editais do último Concurso Público para provimento de vagas e formação de cadastro reserva para o Detran-DF </a></li>
+            </ul></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_78" href="https://www.detran.df.gov.br/prestacao-de-contas-anual" role="menuitem"> Contas Anuais </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_79" href="https://www.detran.df.gov.br/texto-credenciados" role="menuitem"> Credenciados </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex has-children">
+            <div class=" has-children px-2" aria-labelledby="layout_536" role="button" aria-expanded="false" aria-controls="navCollapse-536" data-nav-toggle="submenu" data-nav-target="#navCollapse-536" tabindex="0">
+             Leilão
+            </div>
+            <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-536">
+             <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_94" href="https://www.detran.df.gov.br/leiloes-realizados" role="menuitem"> Leilões Realizados ou em Andamento </a></li>
+            </ul></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_98" href="https://www.detran.df.gov.br/plano-de-dados-abertos" role="menuitem"> Dados abertos </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_904" href="https://www.detran.df.gov.br/mrosc" role="menuitem"> MROSC </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_99" href="https://www.detran.df.gov.br/fundos-publicos" role="menuitem"> Fundos Públicos </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_428" href="https://www.detran.df.gov.br/politica-institucional-1" role="menuitem"> Política Institucional </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_561" href="https://www.detran.df.gov.br/category/acesso-a-informacao" role="menuitem"> Lei de Acesso à informação </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_114" href="https://www.detran.df.gov.br/lgpd-detran" role="menuitem"> Lei Geral de Proteção de Dados – LGPD </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_115" href="https://www.detran.df.gov.br/contratos2" role="menuitem"> Contratos </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_117" href="https://www.detran.df.gov.br/servidores" role="menuitem"> Servidores </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_426" href="https://www.detran.df.gov.br/documents/d/departamento-de-tr%C3%A2nsito/pdti_detran_df" role="menuitem"> Plano Diretor de TI – PDTI </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_119" href="https://www.detran.df.gov.br/licitacoes" role="menuitem"> Licitações </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_120" href="https://www.detran.df.gov.br/atas-e-agendas-do-comite-interno-de-governanca-publica-do-detran-df" role="menuitem"> Comitê Interno de Governança Pública </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_121" href="https://www.detran.df.gov.br/equipamentos-eletronicos" role="menuitem"> Equipamentos Eletrônicos </a></li>
+          </ul></li>
+         <li class="nav-item dropdown d-none d-md-block" data-dropdown-action="hover"><a class="nav-link dropdown-toggle " data-toggle="dropdown" href="https://www.detran.df.gov.br/estatisticas-1" role="button" aria-haspopup="true" aria-expanded="false"> Estatísticas </a>
+          <ul class="dropdown-menu dropdown-black">
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_716" href="https://www.detran.df.gov.br/infovidas" role="menuitem"> Infovidas </a> <!-- Renderiza subitens se houver --></li>
+           <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_139" href="https://www.detran.df.gov.br/dados-anuais" role="menuitem"> Dados Anuais </a> <!-- Renderiza subitens se houver --></li>
+          </ul></li>
+         <li class="responsive-nav-item-with-child d-md-none d-block"><a class="responsive-menu-item" href="https://www.detran.df.gov.br/estatisticas-1" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="navCollapse-137" data-nav-toggle="submenu" data-nav-target="#navCollapse-137"> Estatísticas </a>
+          <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-137" aria-expanded="false">
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_716" href="https://www.detran.df.gov.br/infovidas" role="menuitem"> Infovidas </a></li>
+           <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_139" href="https://www.detran.df.gov.br/dados-anuais" role="menuitem"> Dados Anuais </a></li>
+          </ul></li>
+         <li class="nav-item d-none d-md-block"><a class="nav-link " href="https://www.detran.df.gov.br/sala-de-imprensa-1" role="menuitem"> Sala de imprensa </a></li>
+         <li class="responsive-nav-item d-block d-md-none"><a href="https://www.detran.df.gov.br/sala-de-imprensa-1" role="menuitem"> Sala de imprensa </a></li>
+         <li class="nav-item d-none d-md-block"><a class="nav-link " href="https://www.detran.df.gov.br/passo-a-passo-para-os-servicos-do-detran" role="menuitem"> Detran Digital </a></li>
+         <li class="responsive-nav-item d-block d-md-none"><a href="https://www.detran.df.gov.br/passo-a-passo-para-os-servicos-do-detran" role="menuitem"> Detran Digital </a></li>
+         <li class="nav-item d-none d-md-block"><a class="nav-link " href="https://www.detran.df.gov.br/tutoriais" role="menuitem"> Tutoriais </a></li>
+         <li class="responsive-nav-item d-block d-md-none"><a href="https://www.detran.df.gov.br/tutoriais" role="menuitem"> Tutoriais </a></li>
+        </ul>
+       </nav>
+      </div>
+     </div>
+     <div class="gdf-e-busca container ">
+      <div class="row d-flex align-items-center justify-content-between">
+       <div class="gdf col-auto"><a href="https://www.df.gov.br/" target="_blank" title="Ir para Site do Governo"> <img class="logo" alt="Governo do Distrito Federal" src="/documents/d/departamento-de-tr%C3%A2nsito/ico-logo-gdf-1-"> </a>
+       </div>
+       <div class="busca col-right">
+        <div class="portlet-boundary portlet-boundary_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_  portlet-static portlet-static-end portlet-decorate portlet-search-bar " id="p_p_id_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch_"><span id="p_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch"></span>
+         <section class="portlet" id="portlet_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch">
+          <div class="portlet-content">
+           <div class="autofit-float autofit-row portlet-header">
+            <div class="autofit-col autofit-col-expand">
+             <h2 class="portlet-title-text">Barra de busca</h2>
+            </div>
+           </div>
+           <div class=" portlet-content-container">
+            <div class="portlet-body">
+             <form action="https://www.detran.df.gov.br/busca" id="dkrk___fm" method="get" name="dkrk___fm">
+              <fieldset class="search-bar"><legend class="sr-only"> Barra de busca </legend>
+               <div class="show  " id="Content" role="presentation">
+                <div class="panel-body"><input class="field search-bar-empty-search-input form-control" id="_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch_emptySearchEnabled" name="_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch_emptySearchEnabled" type="hidden" value="false">
+                 <div class="input-group search-bar-simple">
+                  <div class="input-group-item search-bar-keywords-input-wrapper"><input autocomplete="off" class="form-control input-group-inset input-group-inset-before search-bar-keywords-input" data-qa-id="searchInput" id="_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch_sgwi" name="q" placeholder="Digite aqui o que você procura" title="Buscar" type="text" value="">
+                   <div class="input-group-inset-item input-group-inset-item-before"><button class="btn btn-monospaced btn-unstyled" type="submit" aria-label="Buscar"><span class="inline-item">
+                      <svg class="lexicon-icon lexicon-icon-search" role="presentation">
+                       <use xlink:href="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/images/clay/icons.svg#search" />
+                      </svg></span></button>
+                   </div> <input class="field form-control" id="_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch_scope" name="_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch_scope" type="hidden" value="">
+                  </div>
+                 </div>
+                </div>
+               </div>
+              </fieldset>
+              <style>
+
+#p_p_id_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch_ .portlet-content {
+all: unset;
+}
+</style>
+             </form>
+             <script type="module">
+import {SearchBar as ComponentModule} from '/o/portal-search-web/__liferay__/index.js';
+{
+Liferay.component('__UNNAMED_COMPONENT__a6b6f37b-0139-7cdb-722f-c0c85aa53ea1', new ComponentModule({"formId":"dkrk___fm","namespace":"_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch_","spritemap":"https:\/\/www.detran.df.gov.br\/o\/gdf-secretarias-lf7_4-ce-theme\/images\/clay\/icons.svg","initialKeywords":"","retainFacetSelections":false}), { destroyOnNavigate: true, portletId: 'com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch'});
+}
+
+</script>
+            </div>
+           </div>
+          </div>
+         </section>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="menubar">
+      <div class="desktop">
+       <div class="container">
+        <nav class="main-navigation collapse" id="navigationCollapse" role="navigation">
+         <ul class="nav nav-pills justify-content-between w-100" aria-label="Páginas do site" role="menubar">
+          <li class="fale-com-a-secretaria-mobile d-block d-md-none"><a data-target="#loginPortlet" data-toggle="modal" type="button" title="Entrar"> Entrar </a></li>
+          <li class="nav-item dropdown d-none d-md-block" data-dropdown-action="hover"><a class="nav-link dropdown-toggle " data-toggle="dropdown" href="https://www.detran.df.gov.br/category/sobre-o-detran" role="button" aria-haspopup="true" aria-expanded="false"> Sobre o Detran </a>
+           <ul class="dropdown-menu dropdown-black">
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_397" href="https://www.detran.df.gov.br/estrutura" role="menuitem"> Estrutura </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_8" href="https://www.detran.df.gov.br/fale-com-o-detran-df" role="menuitem"> Fale com o Detran-DF </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_9" href="https://www.detran.df.gov.br/o-detran-postos-de-atendimento-html" role="menuitem"> Postos de Atendimento </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_10" href="https://www.detran.df.gov.br/base-juridica" role="menuitem"> Base Jurídica </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_11" href="https://www.detran.df.gov.br/quem-e-quem" role="menuitem"> Quem é Quem </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_12" href="https://www.detran.df.gov.br/o-diretor-geral" role="menuitem"> O Diretor-geral do Departamento de Trânsito do Distrito Federal </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_13" href="https://www.detran.df.gov.br/galeria-de-diretores" role="menuitem"> Relação de Diretores </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_14" href="https://www.detran.df.gov.br/category/sobre-o-detran/politica-institucional" role="menuitem"> Política Institucional </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_856" href="https://www.detran.df.gov.br/contatos" role="menuitem"> Contatos </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class=" has-children" href="https://www.detran.df.gov.br/agendas" data-senna-off="true" aria-labelledby="layout_564" role="menuitem"> Agendas </a> <!-- Renderiza subitens se houver --> <button type="button" class="btn-dropchild"><span class="caret"></span></button>
+             <ul class="dropdown-menu dropdown-black">
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_23" href="https://www.detran.df.gov.br/agendas/agenda-dos-diretores" role="menuitem"> Agenda do Diretor Geral </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_563" href="https://www.detran.df.gov.br/agendas/diretor-geral-adjunto" role="menuitem"> Agenda do Direto Adjunto </a> <!-- Renderiza subitens se houver --></li>
+             </ul></li>
+           </ul></li>
+          <li class="responsive-nav-item-with-child d-md-none d-block"><a class="responsive-menu-item" href="https://www.detran.df.gov.br/category/sobre-o-detran" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="navCollapse-539" data-nav-toggle="submenu" data-nav-target="#navCollapse-539"> Sobre o Detran </a>
+           <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-539" aria-expanded="false">
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_397" href="https://www.detran.df.gov.br/estrutura" role="menuitem"> Estrutura </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_8" href="https://www.detran.df.gov.br/fale-com-o-detran-df" role="menuitem"> Fale com o Detran-DF </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_9" href="https://www.detran.df.gov.br/o-detran-postos-de-atendimento-html" role="menuitem"> Postos de Atendimento </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_10" href="https://www.detran.df.gov.br/base-juridica" role="menuitem"> Base Jurídica </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_11" href="https://www.detran.df.gov.br/quem-e-quem" role="menuitem"> Quem é Quem </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_12" href="https://www.detran.df.gov.br/o-diretor-geral" role="menuitem"> O Diretor-geral do Departamento de Trânsito do Distrito Federal </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_13" href="https://www.detran.df.gov.br/galeria-de-diretores" role="menuitem"> Relação de Diretores </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_14" href="https://www.detran.df.gov.br/category/sobre-o-detran/politica-institucional" role="menuitem"> Política Institucional </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_856" href="https://www.detran.df.gov.br/contatos" role="menuitem"> Contatos </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex has-children">
+             <div class=" has-children px-2" aria-labelledby="layout_564" role="button" aria-expanded="false" aria-controls="navCollapse-564" data-nav-toggle="submenu" data-nav-target="#navCollapse-564" tabindex="0">
+              Agendas
+             </div>
+             <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-564">
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_23" href="https://www.detran.df.gov.br/agendas/agenda-dos-diretores" role="menuitem"> Agenda do Diretor Geral </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_563" href="https://www.detran.df.gov.br/agendas/diretor-geral-adjunto" role="menuitem"> Agenda do Direto Adjunto </a></li>
+             </ul></li>
+           </ul></li>
+          <li class="nav-item dropdown d-none d-md-block" data-dropdown-action="hover"><a class="nav-link dropdown-toggle " data-toggle="dropdown" href="https://www.detran.df.gov.br/servicos-1" role="button" aria-haspopup="true" aria-expanded="false"> Serviços </a>
+           <ul class="dropdown-menu dropdown-black">
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_675" href="https://www.detran.df.gov.br/sisman-carta-servicos" role="menuitem"> Carta de Serviços </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class=" has-children" href="https://www.detran.df.gov.br/category/informacoes" data-senna-off="true" aria-labelledby="layout_430" role="menuitem"> Informações </a> <!-- Renderiza subitens se houver --> <button type="button" class="btn-dropchild"><span class="caret"></span></button>
+             <ul class="dropdown-menu dropdown-black">
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_42" href="https://www.detran.df.gov.br/tabela-de-precos" role="menuitem"> Tabela de Preços </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_43" href="https://www.detran.df.gov.br/saiba-quais-os-valores-de-multa" role="menuitem"> Valores de multa </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_49" href="https://www.detran.df.gov.br/servicos-servicos-formularios-html" role="menuitem"> Requerimentos </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_44" href="https://www.detran.df.gov.br/site-divida-ativa-filtro-consulta-parcelamento-htm-jsp" role="menuitem"> Dívida ativa </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_45" href="https://www.detran.df.gov.br/protocolo" role="menuitem"> Protocolo </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_48" href="https://www.detran.df.gov.br/faixas-exclusivas-para-onibus-nas-vias-w3" role="menuitem"> Faixas exclusivas para ônibus nas vias W3 </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_911" href="https://www.detran.df.gov.br/bancas-examinadoras-transito" role="menuitem"> Bancas Examinadoras de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_916" href="https://www.detran.df.gov.br/interdi%C3%A7%C3%B5es-de-tr%C3%A2nsito" role="menuitem"> Interdições de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+             </ul></li>
+           </ul></li>
+          <li class="responsive-nav-item-with-child d-md-none d-block"><a class="responsive-menu-item" href="https://www.detran.df.gov.br/servicos-1" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="navCollapse-38" data-nav-toggle="submenu" data-nav-target="#navCollapse-38"> Serviços </a>
+           <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-38" aria-expanded="false">
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_675" href="https://www.detran.df.gov.br/sisman-carta-servicos" role="menuitem"> Carta de Serviços </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex has-children">
+             <div class=" has-children px-2" aria-labelledby="layout_430" role="button" aria-expanded="false" aria-controls="navCollapse-430" data-nav-toggle="submenu" data-nav-target="#navCollapse-430" tabindex="0">
+              Informações
+             </div>
+             <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-430">
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_42" href="https://www.detran.df.gov.br/tabela-de-precos" role="menuitem"> Tabela de Preços </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_43" href="https://www.detran.df.gov.br/saiba-quais-os-valores-de-multa" role="menuitem"> Valores de multa </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_49" href="https://www.detran.df.gov.br/servicos-servicos-formularios-html" role="menuitem"> Requerimentos </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_44" href="https://www.detran.df.gov.br/site-divida-ativa-filtro-consulta-parcelamento-htm-jsp" role="menuitem"> Dívida ativa </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_45" href="https://www.detran.df.gov.br/protocolo" role="menuitem"> Protocolo </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_48" href="https://www.detran.df.gov.br/faixas-exclusivas-para-onibus-nas-vias-w3" role="menuitem"> Faixas exclusivas para ônibus nas vias W3 </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_911" href="https://www.detran.df.gov.br/bancas-examinadoras-transito" role="menuitem"> Bancas Examinadoras de Trânsito </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_916" href="https://www.detran.df.gov.br/interdi%C3%A7%C3%B5es-de-tr%C3%A2nsito" role="menuitem"> Interdições de Trânsito </a></li>
+             </ul></li>
+           </ul></li>
+          <li class="nav-item dropdown d-none d-md-block" data-dropdown-action="hover"><a class="nav-link dropdown-toggle " data-toggle="dropdown" href="https://www.detran.df.gov.br/educacao-1" role="button" aria-haspopup="true" aria-expanded="false"> Educação </a>
+           <ul class="dropdown-menu dropdown-black">
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_54" href="https://www.detran.df.gov.br/educacao-de-transito" role="menuitem"> Educação de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_58" href="https://www.detran.df.gov.br/acoes-educativas-de-transito" role="menuitem"> Ações Educativas de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_59" href="https://www.detran.df.gov.br/atualizacoes-do-codigo-de-transito-brasileiro" role="menuitem"> Atualizações do Código de Trânsito Brasileiro </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class=" has-children" href="https://www.detran.df.gov.br/category/cursos-de-transito" data-senna-off="true" aria-labelledby="layout_425" role="menuitem"> Cursos de Trânsito </a> <!-- Renderiza subitens se houver --> <button type="button" class="btn-dropchild"><span class="caret"></span></button>
+             <ul class="dropdown-menu dropdown-black">
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_556" href="https://www.detran.df.gov.br/cursos-de-transito" role="menuitem"> Cursos de Trânsito Presenciais </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_62" href="https://www.detran.df.gov.br/instituicao-ou-entidade-publica-ou-privada-especializada-ieppe" role="menuitem"> Cursos de Trânsito EaD </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_63" href="https://www.detran.df.gov.br/programacao-de-cursos" role="menuitem"> Programação de Cursos e Provas </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_872" href="https://www.detran.df.gov.br/curso-de-atualiza%C3%A7%C3%A3o-para-diretor-de-cfc" role="menuitem"> Curso de Atualização para Diretor de CFC </a> <!-- Renderiza subitens se houver --></li>
+             </ul></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_64" href="https://www.detran.df.gov.br/manual-de-obtencao-da-carteira-nacional-de-habilitacao-cnh" role="menuitem"> Manual de obtenção da Carteira Nacional de Habilitação – CNH </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_65" href="https://www.detran.df.gov.br/palestras-educativas-de-transito" role="menuitem"> Palestras Educativas de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_66" href="https://www.detran.df.gov.br/2o-premio-detran-df-de-educacao-de-transito" role="menuitem"> 2º Prêmio Detran-DF de Educação de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_67" href="https://www.detran.df.gov.br/3o-premio-detran-df-de-educacao-de-transito" role="menuitem"> Detran-DF divulga resultado preliminar do 3º Prêmio de Educação de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_68" href="https://www.detran.df.gov.br/programa-detran-nas-escolas" role="menuitem"> Programa Detran nas Escolas </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_69" href="https://www.detran.df.gov.br/reformulacao-pedagogica-cfc" role="menuitem"> Projeto de Reformulação pedagógica para os Centros de Formação de Condutores </a> <!-- Renderiza subitens se houver --></li>
+           </ul></li>
+          <li class="responsive-nav-item-with-child d-md-none d-block"><a class="responsive-menu-item" href="https://www.detran.df.gov.br/educacao-1" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="navCollapse-53" data-nav-toggle="submenu" data-nav-target="#navCollapse-53"> Educação </a>
+           <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-53" aria-expanded="false">
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_54" href="https://www.detran.df.gov.br/educacao-de-transito" role="menuitem"> Educação de Trânsito </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_58" href="https://www.detran.df.gov.br/acoes-educativas-de-transito" role="menuitem"> Ações Educativas de Trânsito </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_59" href="https://www.detran.df.gov.br/atualizacoes-do-codigo-de-transito-brasileiro" role="menuitem"> Atualizações do Código de Trânsito Brasileiro </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex has-children">
+             <div class=" has-children px-2" aria-labelledby="layout_425" role="button" aria-expanded="false" aria-controls="navCollapse-425" data-nav-toggle="submenu" data-nav-target="#navCollapse-425" tabindex="0">
+              Cursos de Trânsito
+             </div>
+             <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-425">
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_556" href="https://www.detran.df.gov.br/cursos-de-transito" role="menuitem"> Cursos de Trânsito Presenciais </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_62" href="https://www.detran.df.gov.br/instituicao-ou-entidade-publica-ou-privada-especializada-ieppe" role="menuitem"> Cursos de Trânsito EaD </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_63" href="https://www.detran.df.gov.br/programacao-de-cursos" role="menuitem"> Programação de Cursos e Provas </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_872" href="https://www.detran.df.gov.br/curso-de-atualiza%C3%A7%C3%A3o-para-diretor-de-cfc" role="menuitem"> Curso de Atualização para Diretor de CFC </a></li>
+             </ul></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_64" href="https://www.detran.df.gov.br/manual-de-obtencao-da-carteira-nacional-de-habilitacao-cnh" role="menuitem"> Manual de obtenção da Carteira Nacional de Habilitação – CNH </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_65" href="https://www.detran.df.gov.br/palestras-educativas-de-transito" role="menuitem"> Palestras Educativas de Trânsito </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_66" href="https://www.detran.df.gov.br/2o-premio-detran-df-de-educacao-de-transito" role="menuitem"> 2º Prêmio Detran-DF de Educação de Trânsito </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_67" href="https://www.detran.df.gov.br/3o-premio-detran-df-de-educacao-de-transito" role="menuitem"> Detran-DF divulga resultado preliminar do 3º Prêmio de Educação de Trânsito </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_68" href="https://www.detran.df.gov.br/programa-detran-nas-escolas" role="menuitem"> Programa Detran nas Escolas </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_69" href="https://www.detran.df.gov.br/reformulacao-pedagogica-cfc" role="menuitem"> Projeto de Reformulação pedagógica para os Centros de Formação de Condutores </a></li>
+           </ul></li>
+          <li class="nav-item dropdown d-none d-md-block" data-dropdown-action="hover"><a class="nav-link dropdown-toggle " data-toggle="dropdown" href="https://www.detran.df.gov.br/transparencia-publica-1" role="button" aria-haspopup="true" aria-expanded="false"> Transparência Pública </a>
+           <ul class="dropdown-menu dropdown-black">
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_71" href="https://www.detran.df.gov.br/aviso-de-sessao-publica" role="menuitem"> Aviso de Sessão Pública </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class=" has-children" href="https://www.detran.df.gov.br/concursos" data-senna-off="true" aria-labelledby="layout_72" role="menuitem"> Concursos </a> <!-- Renderiza subitens se houver --> <button type="button" class="btn-dropchild"><span class="caret"></span></button>
+             <ul class="dropdown-menu dropdown-black">
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_558" href="https://www.detran.df.gov.br/2-premio-detran-1" role="menuitem"> 2º Prêmio Detran-DF de Educação de Trânsito </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_74" href="https://www.detran.df.gov.br/processo-seletivo-no-01-2021-dirtec" role="menuitem"> Processo Seletivo nº 01/2021 – Dirtec </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_76" href="https://www.detran.df.gov.br/processo-seletivo-no-2-2021-numap" role="menuitem"> Processo seletivo nº 2/2021 – Numap </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_393" href="https://www.detran.df.gov.br/processo-seletivo-no-2-2021-dirtec" role="menuitem"> Processo seletivo nº 3 – 2021/Dirtec </a> <!-- Renderiza subitens se houver --></li>
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_77" href="https://www.detran.df.gov.br/concurso-publico-para-provimento-de-vagas-e-formacao-de-cadastro-reserva-para-os-cargos-de-analista-em-atividades-de-transito-e-tecnico-em-atividades-de-transito-da-carreira-atividades-de-transito" role="menuitem"> Confira os editais do último Concurso Público para provimento de vagas e formação de cadastro reserva para o Detran-DF </a> <!-- Renderiza subitens se houver --></li>
+             </ul></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_78" href="https://www.detran.df.gov.br/prestacao-de-contas-anual" role="menuitem"> Contas Anuais </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_79" href="https://www.detran.df.gov.br/texto-credenciados" role="menuitem"> Credenciados </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class=" has-children" href="https://www.detran.df.gov.br/category/leilao" data-senna-off="true" aria-labelledby="layout_536" role="menuitem"> Leilão </a> <!-- Renderiza subitens se houver --> <button type="button" class="btn-dropchild"><span class="caret"></span></button>
+             <ul class="dropdown-menu dropdown-black">
+              <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_94" href="https://www.detran.df.gov.br/leiloes-realizados" role="menuitem"> Leilões Realizados ou em Andamento </a> <!-- Renderiza subitens se houver --></li>
+             </ul></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_98" href="https://www.detran.df.gov.br/plano-de-dados-abertos" role="menuitem"> Dados abertos </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_904" href="https://www.detran.df.gov.br/mrosc" role="menuitem"> MROSC </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_99" href="https://www.detran.df.gov.br/fundos-publicos" role="menuitem"> Fundos Públicos </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_428" href="https://www.detran.df.gov.br/politica-institucional-1" role="menuitem"> Política Institucional </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_561" href="https://www.detran.df.gov.br/category/acesso-a-informacao" role="menuitem"> Lei de Acesso à informação </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_114" href="https://www.detran.df.gov.br/lgpd-detran" role="menuitem"> Lei Geral de Proteção de Dados – LGPD </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_115" href="https://www.detran.df.gov.br/contratos2" role="menuitem"> Contratos </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_117" href="https://www.detran.df.gov.br/servidores" role="menuitem"> Servidores </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_426" href="https://www.detran.df.gov.br/documents/d/departamento-de-tr%C3%A2nsito/pdti_detran_df" role="menuitem"> Plano Diretor de TI – PDTI </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_119" href="https://www.detran.df.gov.br/licitacoes" role="menuitem"> Licitações </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_120" href="https://www.detran.df.gov.br/atas-e-agendas-do-comite-interno-de-governanca-publica-do-detran-df" role="menuitem"> Comitê Interno de Governança Pública </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_121" href="https://www.detran.df.gov.br/equipamentos-eletronicos" role="menuitem"> Equipamentos Eletrônicos </a> <!-- Renderiza subitens se houver --></li>
+           </ul></li>
+          <li class="responsive-nav-item-with-child d-md-none d-block"><a class="responsive-menu-item" href="https://www.detran.df.gov.br/transparencia-publica-1" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="navCollapse-70" data-nav-toggle="submenu" data-nav-target="#navCollapse-70"> Transparência Pública </a>
+           <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-70" aria-expanded="false">
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_71" href="https://www.detran.df.gov.br/aviso-de-sessao-publica" role="menuitem"> Aviso de Sessão Pública </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex has-children">
+             <div class=" has-children px-2" aria-labelledby="layout_72" role="button" aria-expanded="false" aria-controls="navCollapse-72" data-nav-toggle="submenu" data-nav-target="#navCollapse-72" tabindex="0">
+              Concursos
+             </div>
+             <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-72">
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_558" href="https://www.detran.df.gov.br/2-premio-detran-1" role="menuitem"> 2º Prêmio Detran-DF de Educação de Trânsito </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_74" href="https://www.detran.df.gov.br/processo-seletivo-no-01-2021-dirtec" role="menuitem"> Processo Seletivo nº 01/2021 – Dirtec </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_76" href="https://www.detran.df.gov.br/processo-seletivo-no-2-2021-numap" role="menuitem"> Processo seletivo nº 2/2021 – Numap </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_393" href="https://www.detran.df.gov.br/processo-seletivo-no-2-2021-dirtec" role="menuitem"> Processo seletivo nº 3 – 2021/Dirtec </a></li>
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_77" href="https://www.detran.df.gov.br/concurso-publico-para-provimento-de-vagas-e-formacao-de-cadastro-reserva-para-os-cargos-de-analista-em-atividades-de-transito-e-tecnico-em-atividades-de-transito-da-carreira-atividades-de-transito" role="menuitem"> Confira os editais do último Concurso Público para provimento de vagas e formação de cadastro reserva para o Detran-DF </a></li>
+             </ul></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_78" href="https://www.detran.df.gov.br/prestacao-de-contas-anual" role="menuitem"> Contas Anuais </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_79" href="https://www.detran.df.gov.br/texto-credenciados" role="menuitem"> Credenciados </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex has-children">
+             <div class=" has-children px-2" aria-labelledby="layout_536" role="button" aria-expanded="false" aria-controls="navCollapse-536" data-nav-toggle="submenu" data-nav-target="#navCollapse-536" tabindex="0">
+              Leilão
+             </div>
+             <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-536">
+              <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_94" href="https://www.detran.df.gov.br/leiloes-realizados" role="menuitem"> Leilões Realizados ou em Andamento </a></li>
+             </ul></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_98" href="https://www.detran.df.gov.br/plano-de-dados-abertos" role="menuitem"> Dados abertos </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_904" href="https://www.detran.df.gov.br/mrosc" role="menuitem"> MROSC </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_99" href="https://www.detran.df.gov.br/fundos-publicos" role="menuitem"> Fundos Públicos </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_428" href="https://www.detran.df.gov.br/politica-institucional-1" role="menuitem"> Política Institucional </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_561" href="https://www.detran.df.gov.br/category/acesso-a-informacao" role="menuitem"> Lei de Acesso à informação </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_114" href="https://www.detran.df.gov.br/lgpd-detran" role="menuitem"> Lei Geral de Proteção de Dados – LGPD </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_115" href="https://www.detran.df.gov.br/contratos2" role="menuitem"> Contratos </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_117" href="https://www.detran.df.gov.br/servidores" role="menuitem"> Servidores </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_426" href="https://www.detran.df.gov.br/documents/d/departamento-de-tr%C3%A2nsito/pdti_detran_df" role="menuitem"> Plano Diretor de TI – PDTI </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_119" href="https://www.detran.df.gov.br/licitacoes" role="menuitem"> Licitações </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_120" href="https://www.detran.df.gov.br/atas-e-agendas-do-comite-interno-de-governanca-publica-do-detran-df" role="menuitem"> Comitê Interno de Governança Pública </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_121" href="https://www.detran.df.gov.br/equipamentos-eletronicos" role="menuitem"> Equipamentos Eletrônicos </a></li>
+           </ul></li>
+          <li class="nav-item dropdown d-none d-md-block" data-dropdown-action="hover"><a class="nav-link dropdown-toggle " data-toggle="dropdown" href="https://www.detran.df.gov.br/estatisticas-1" role="button" aria-haspopup="true" aria-expanded="false"> Estatísticas </a>
+           <ul class="dropdown-menu dropdown-black">
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_716" href="https://www.detran.df.gov.br/infovidas" role="menuitem"> Infovidas </a> <!-- Renderiza subitens se houver --></li>
+            <li class="dropdown-menu-item d-none d-md-block"><!-- Verifica se tem filhos --> <a class="" aria-labelledby="layout_139" href="https://www.detran.df.gov.br/dados-anuais" role="menuitem"> Dados Anuais </a> <!-- Renderiza subitens se houver --></li>
+           </ul></li>
+          <li class="responsive-nav-item-with-child d-md-none d-block"><a class="responsive-menu-item" href="https://www.detran.df.gov.br/estatisticas-1" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="navCollapse-137" data-nav-toggle="submenu" data-nav-target="#navCollapse-137"> Estatísticas </a>
+           <ul class="collapse responsive-dropdown-menu p-0" id="navCollapse-137" aria-expanded="false">
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_716" href="https://www.detran.df.gov.br/infovidas" role="menuitem"> Infovidas </a></li>
+            <li class="responsive-dropdown-menu-item d-md-none d-flex"><a class=" px-2" aria-labelledby="layout_139" href="https://www.detran.df.gov.br/dados-anuais" role="menuitem"> Dados Anuais </a></li>
+           </ul></li>
+          <li class="nav-item d-none d-md-block"><a class="nav-link " href="https://www.detran.df.gov.br/sala-de-imprensa-1" role="menuitem"> Sala de imprensa </a></li>
+          <li class="responsive-nav-item d-block d-md-none"><a href="https://www.detran.df.gov.br/sala-de-imprensa-1" role="menuitem"> Sala de imprensa </a></li>
+          <li class="nav-item d-none d-md-block"><a class="nav-link " href="https://www.detran.df.gov.br/passo-a-passo-para-os-servicos-do-detran" role="menuitem"> Detran Digital </a></li>
+          <li class="responsive-nav-item d-block d-md-none"><a href="https://www.detran.df.gov.br/passo-a-passo-para-os-servicos-do-detran" role="menuitem"> Detran Digital </a></li>
+          <li class="nav-item d-none d-md-block"><a class="nav-link " href="https://www.detran.df.gov.br/tutoriais" role="menuitem"> Tutoriais </a></li>
+          <li class="responsive-nav-item d-block d-md-none"><a href="https://www.detran.df.gov.br/tutoriais" role="menuitem"> Tutoriais </a></li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="flex-fill" id="content">
+     <link data-senna-track="temporary" href="/o/layout-common-styles/main.css?plid=752&amp;segmentsExperienceId=25750165&amp;t=1754681074434" rel="stylesheet" type="text/css">
+     <div class="lfr-layout-structure-item-619cad48-574f-8d20-774f-759d7b060221 lfr-layout-structure-item-container  d-flex flex-column align-items-center" style="">
+      <div class="master-layout-fragment">
+       <div class="lfr-layout-structure-item-basic-component-heading lfr-layout-structure-item-ab8e4373-1a5f-61a9-5aa3-9c38c1637045 " style="">
+        <div id="fragment-036c222f-08dd-57cd-c5ed-d9f1e7940c73">
+         <h1 class="component-heading mb-0 text-break" data-lfr-editable-id="element-text" data-lfr-editable-type="text">Página não encontrada</h1>
+        </div>
+        <style>.fragment-heading-text-colored a {
+	color: inherit;
+}</style>
+       </div>
+      </div>
+      <div class="master-layout-fragment">
+       <div class="lfr-layout-structure-item-basic-component-paragraph lfr-layout-structure-item-c2035334-c37f-d566-baa7-6bf1e111ca5c " style="">
+        <div id="fragment-eafd737e-9ab0-4624-185e-5b3597f521d2">
+         <div class="clearfix component-paragraph text-break" data-lfr-editable-id="element-text" data-lfr-editable-type="rich-text">
+          Código de erro: 404
+         </div>
+        </div>
+        <style>.component-paragraph img {
+	max-width: 100%;
+}</style>
+       </div>
+      </div>
+      <div class="master-layout-fragment">
+       <div class="lfr-layout-structure-item-basic-component-paragraph lfr-layout-structure-item-1e57cd43-ae6d-a708-03b7-ab845be9d61f " style="">
+        <div id="fragment-48690954-efe6-ab94-c8ab-4bdc7436d917">
+         <div class="clearfix component-paragraph text-break" data-lfr-editable-id="element-text" data-lfr-editable-type="rich-text">
+          O endereço solicitado não foi encontrado no sistema.
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="lfr-layout-structure-item-cf023668-7e2d-1cf9-8f23-f7b1da965ece lfr-layout-structure-item-container  d-flex flex-column align-items-start" style="">
+       <div class="master-layout-fragment">
+        <div class="lfr-layout-structure-item-basic-component-paragraph lfr-layout-structure-item-7e5e0c65-1e0f-41c3-9105-5ae73ef29660 " style="">
+         <div id="fragment-de161b7f-f58b-1302-de3e-42166f62486e">
+          <div class="clearfix component-paragraph text-break" data-lfr-editable-id="element-text" data-lfr-editable-type="rich-text">
+           Instruções
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="master-layout-fragment">
+        <div class="lfr-layout-structure-item-basic-component-paragraph lfr-layout-structure-item-d1648ed1-eb1c-2a9d-fd73-c5acbdb316a9 " style="">
+         <div id="fragment-b69c7c36-d14b-bfa5-a5cc-6a277726dcac">
+          <div class="clearfix component-paragraph text-break" data-lfr-editable-id="element-text" data-lfr-editable-type="rich-text">
+           Revise o endereço de URL digitado e tente atualizar a página. O problema pode ser temporário.
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <footer class="footer-second-model" id="footer" role="contentinfo">
+     <div class="container">
+      <div class="row">
+       <div class="col-md-8">
+        <h5 class="mb-0">Departamento de Trânsito - Governo do Distrito Federal</h5>
+        <p class="iprev-sigla">DETRAN-DF</p>
+        <p class="iprev-sigla"></p>
+       </div>
+       <div class="col-md-4">
+        <p class="endereco">SEPS 713/913, bloco D, Asa Sul, Brasília-DF. CEP: 70.390-135 Central de Atendimento ao Cidadão: 154 (para quem está no DF) ou 0800 644 0154 (para quem está fora do DF) <br></p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <div vw class="enabled">
+   <div vw-access-button class="active"></div>
+   <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+   </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script type="text/javascript">
+
+	
+		
+
+			
+
+			
+		
+	
+
+
+</script>
+  <script>
+
+</script>
+  <script type="text/javascript">
+(function() {var $ = AUI.$;var _ = AUI._;
+	var onDestroyPortlet = function () {
+		Liferay.detach('messagePosted', onMessagePosted);
+		Liferay.detach('destroyPortlet', onDestroyPortlet);
+	};
+
+	Liferay.on('destroyPortlet', onDestroyPortlet);
+
+	var onMessagePosted = function (event) {
+		if (window.Analytics) {
+			const eventProperties = {
+				className: event.className,
+				classPK: event.classPK,
+				commentId: event.commentId,
+				text: event.text,
+			};
+
+			const blogNode = document.querySelector(
+				'[data-analytics-asset-id="' + event.classPK + '"]'
+			);
+
+			const dmNode = document.querySelector(
+				'[data-analytics-file-entry-id="' + event.classPK + '"]'
+			);
+
+			if (blogNode) {
+				eventProperties.title = blogNode.dataset.analyticsAssetTitle;
+			}
+			else if (dmNode) {
+				eventProperties.title = dmNode.dataset.analyticsFileEntryTitle;
+			}
+
+			Analytics.send('posted', 'Comment', eventProperties);
+		}
+	};
+
+	Liferay.on('messagePosted', onMessagePosted);
+})();
+(function() {var $ = AUI.$;var _ = AUI._;
+	var onVote = function (event) {
+		if (window.Analytics) {
+			let title = event.contentTitle;
+
+			if (!title) {
+				const dmNode = document.querySelector(
+					'[data-analytics-file-entry-id="' + event.classPK + '"]'
+				);
+
+				if (dmNode) {
+					title = dmNode.dataset.analyticsFileEntryTitle;
+				}
+			}
+
+			Analytics.send('VOTE', 'Ratings', {
+				className: event.className,
+				classPK: event.classPK,
+				ratingType: event.ratingType,
+				score: event.score,
+				title,
+			});
+		}
+	};
+
+	var onDestroyPortlet = function () {
+		Liferay.detach('ratings:vote', onVote);
+		Liferay.detach('destroyPortlet', onDestroyPortlet);
+	};
+
+	Liferay.on('ratings:vote', onVote);
+	Liferay.on('destroyPortlet', onDestroyPortlet);
+})();
+
+	function getValueByAttribute(node, attr) {
+		return (
+			node.dataset[attr] ||
+			(node.parentElement && node.parentElement.dataset[attr])
+		);
+	}
+
+	function sendDocumentDownloadedAnalyticsEvent(anchor) {
+		var fileEntryId = getValueByAttribute(
+			anchor,
+			'analyticsFileEntryId'
+		);
+		var title = getValueByAttribute(
+			anchor,
+			'analyticsFileEntryTitle'
+		);
+		var version = getValueByAttribute(
+			anchor,
+			'analyticsFileEntryVersion'
+		);
+
+		if (fileEntryId) {
+			Analytics.send('documentDownloaded', 'Document', {
+				groupId: themeDisplay.getScopeGroupId(),
+				fileEntryId,
+				preview:
+					!!window._com_liferay_document_library_analytics_isViewFileEntry,
+				title,
+				version,
+			});
+		}
+	}
+
+	function handleDownloadClick(event) {
+		if (window.Analytics) {
+			if (event.target.nodeName.toLowerCase() === 'a') {
+				sendDocumentDownloadedAnalyticsEvent(
+					event.target
+				);
+			}
+			else if (
+				event.target.parentNode &&
+				event.target.parentNode.nodeName.toLowerCase() === 'a'
+			) {
+				sendDocumentDownloadedAnalyticsEvent(
+					event.target.parentNode
+				);
+			}
+			else {
+				var target = event.target;
+				var matchTextContent =
+					target.textContent &&
+					target.textContent.toLowerCase() ===
+						'baixar';
+				var matchTitle =
+					target.title && target.title.toLowerCase() === 'download';
+				var matchAction = target.action === 'download';
+				var matchLexiconIcon = !!target.querySelector(
+					'.lexicon-icon-download'
+				);
+				var matchLexiconClassName = target.classList.contains(
+					'lexicon-icon-download'
+				);
+				var matchParentTitle =
+					target.parentNode &&
+					target.parentNode.title &&
+					target.parentNode.title.toLowerCase() === 'download';
+				var matchParentLexiconClassName =
+					target.parentNode &&
+					target.parentNode.classList.contains('lexicon-icon-download');
+
+				if (
+					matchTextContent ||
+					matchTitle ||
+					matchParentTitle ||
+					matchAction ||
+					matchLexiconIcon ||
+					matchLexiconClassName ||
+					matchParentLexiconClassName
+				) {
+					var selectedFiles = document.querySelectorAll(
+						'.form .custom-control-input:checked'
+					);
+
+					selectedFiles.forEach(({value}) => {
+						var selectedFile = document.querySelector(
+							'[data-analytics-file-entry-id="' + value + '"]'
+						);
+
+						sendDocumentDownloadedAnalyticsEvent(
+							selectedFile
+						);
+					});
+				}
+			}
+		}
+	}
+
+	Liferay.once('destroyPortlet', () => {
+		document.body.removeEventListener(
+			'click',
+			handleDownloadClick
+		);
+	});
+
+	Liferay.once('portletReady', () => {
+		document.body.addEventListener(
+			'click',
+			handleDownloadClick
+		);
+	});
+
+(function() {var $ = AUI.$;var _ = AUI._;
+	var onShare = function (data) {
+		if (window.Analytics) {
+			Analytics.send('shared', 'SocialBookmarks', {
+				className: data.className,
+				classPK: data.classPK,
+				type: data.type,
+				url: data.url,
+			});
+		}
+	};
+
+	var onDestroyPortlet = function () {
+		Liferay.detach('socialBookmarks:share', onShare);
+		Liferay.detach('destroyPortlet', onDestroyPortlet);
+	};
+
+	Liferay.on('socialBookmarks:share', onShare);
+	Liferay.on('destroyPortlet', onDestroyPortlet);
+})();
+
+	if (window.svg4everybody && Liferay.Data.ICONS_INLINE_SVG) {
+		svg4everybody(
+			{
+				polyfill: true,
+				validate: function (src, svg, use) {
+					return !src || !src.startsWith('#');
+				}
+			}
+		);
+	}
+
+(function() {var $ = AUI.$;var _ = AUI._;
+	Liferay.Util.delegate(
+		document,
+		'focusin',
+		'.portlet',
+		function(event) {
+			event.delegateTarget.closest('.portlet').classList.add('open');
+		}
+	);
+
+	Liferay.Util.delegate(
+		document,
+		'focusout',
+		'.portlet',
+		function(event) {
+			event.delegateTarget.closest('.portlet').classList.remove('open');
+		}
+	);
+})();
+
+	// <![CDATA[
+
+		
+
+		Liferay.currentURL = '\x2fapple-touch-icon\x2epng';
+		Liferay.currentURLEncoded = '\x252Fapple-touch-icon\x2epng';
+
+	// ]]>
+
+
+		// <![CDATA[
+			
+				document.querySelectorAll('iframe').forEach(iframe => {
+    let sandboxValue = iframe.getAttribute('sandbox') || "";
+    ["allow-scripts", "allow-same-origin"].forEach(flag => {
+        if (!sandboxValue.includes(flag)) {
+            sandboxValue += " " + flag;
+        }
+    });
+    iframe.setAttribute('sandbox', sandboxValue.trim());
+});
+
+				
+
+				
+			
+		// ]]>
+	
+(function() {var $ = AUI.$;var _ = AUI._;
+		import(Liferay.ThemeDisplay.getPathContext() + '/o/frontend-js-web/__liferay__/index.js').then(
+			({openToast}) => {
+				AUI().use(
+					'liferay-session',
+					function () {
+						Liferay.Session = new Liferay.SessionBase(
+							{
+								autoExtend: true,
+								redirectOnExpire: false,
+								redirectUrl: 'https\x3a\x2f\x2fwww\x2edetran\x2edf\x2egov\x2ebr\x2f',
+								sessionLength: 21600,
+								sessionTimeoutOffset: 70,
+								warningLength: 0
+							}
+						);
+
+						
+					}
+				);
+			}
+		)
+	})();
+
+	
+		Liferay.Portlet.register('com_liferay_login_web_portlet_LoginPortlet');
+	
+
+	Liferay.Portlet.onLoad(
+		{
+			canEditTitle: false,
+			columnPos: 0,
+			isStatic: 'end',
+			namespacedId: 'p_p_id_com_liferay_login_web_portlet_LoginPortlet_',
+			portletId: 'com_liferay_login_web_portlet_LoginPortlet',
+			refreshURL: '\x2fc\x2fportal\x2frender_portlet\x3fp_l_id\x3d756\x26p_p_id\x3dcom_liferay_login_web_portlet_LoginPortlet\x26p_p_lifecycle\x3d0\x26p_t_lifecycle\x3d0\x26p_p_state\x3dnormal\x26p_p_mode\x3dview\x26p_p_col_id\x3dnull\x26p_p_col_pos\x3dnull\x26p_p_col_count\x3dnull\x26p_p_static\x3d1\x26p_p_isolated\x3d1\x26currentURL\x3d\x252Fapple-touch-icon\x2epng',
+			refreshURLData: {}
+		}
+	);
+
+
+	
+		Liferay.Portlet.register('com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch');
+	
+
+	Liferay.Portlet.onLoad(
+		{
+			canEditTitle: false,
+			columnPos: 0,
+			isStatic: 'end',
+			namespacedId: 'p_p_id_com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch_',
+			portletId: 'com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch',
+			refreshURL: '\x2fc\x2fportal\x2frender_portlet\x3fp_l_id\x3d756\x26p_p_id\x3dcom_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet_INSTANCE_templateSearch\x26p_p_lifecycle\x3d0\x26p_t_lifecycle\x3d0\x26p_p_state\x3dnormal\x26p_p_mode\x3dview\x26p_p_col_id\x3dnull\x26p_p_col_pos\x3dnull\x26p_p_col_count\x3dnull\x26p_p_static\x3d1\x26p_p_isolated\x3d1\x26currentURL\x3d\x252Fapple-touch-icon\x2epng',
+			refreshURLData: {}
+		}
+	);
+
+
+</script>
+  <script type="module">
+import {InfoItemActionHandler as ComponentModule} from '/o/layout-taglib/__liferay__/index.js';
+AUI().use(
+  'liferay-menu',
+function(A) {
+{
+Liferay.component('infoItemActionComponent', new ComponentModule({"executeInfoItemActionURL":"https:\/\/www.detran.df.gov.br\/c\/portal\/execute_info_item_action?p_l_mode=view&plid=756","namespace":"","spritemap":"https:\/\/www.detran.df.gov.br\/o\/gdf-secretarias-lf7_4-ce-theme\/images\/clay\/icons.svg"}), { destroyOnNavigate: true, portletId: ''});
+}
+(function() {
+var $ = AUI.$;var _ = AUI._;
+	new Liferay.Menu();
+
+	var liferayNotices = Liferay.Data.notices;
+
+	for (var i = 0; i < liferayNotices.length; i++) {
+		Liferay.Util.openToast(liferayNotices[i]);
+	}
+
+})();
+});
+
+</script>
+  <script src="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/js/main.js?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1775747702000" type="text/javascript"></script>
+  <script type="module">
+import {main} from '/o/frontend-js-tabs-support-web/__liferay__/index.js';
+{
+main();
+}
+
+</script>
+  <script type="module">
+import {main} from '/o/frontend-js-collapse-support-web/__liferay__/index.js';
+{
+main();
+}
+
+</script>
+  <script type="module">
+import {main} from '/o/frontend-js-tooltip-support-web/__liferay__/index.js';
+{
+main();
+}
+
+</script>
+  <script type="module">
+import {main} from '/o/frontend-js-alert-support-web/__liferay__/index.js';
+{
+main();
+}
+
+</script>
+  <script type="module">
+import {main} from '/o/frontend-js-dropdown-support-web/__liferay__/index.js';
+{
+main();
+}
+
+</script>
+  <script type="module">
+import {runThirdPartyCookiesInterval} from '/o/cookies-banner-web/__liferay__/index.js';
+{
+runThirdPartyCookiesInterval();
+}
+
+</script>
+  <script type="text/javascript">
+Liferay.CustomDialogs = {enabled: false};
+
+</script>
+  <script>
+
+</script>
+  <script src="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/js/doudf.js?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1775747702000"></script>
+  <script src="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/js/full-calendar.js?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1775747702000"></script>
+  <script src="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/js/pagination.js?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1775747702000"></script>
+  <script src="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/js/agenda.js?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1775747702000"></script>
+  <script src="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/js/translate.js?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1775747702000"></script>
+  <script src="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/js/jquery-ui.js?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1775747702000"></script>
+  <script src="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/js/jquery-ui-pt_BR.js?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1775747702000"></script>
+  <script src="https://www.detran.df.gov.br/o/gdf-secretarias-lf7_4-ce-theme/js/jquery.maskedinput.min.js?browserId=other&amp;minifierType=js&amp;languageId=pt_BR&amp;t=1775747702000"></script>
+ </body>
+</html>

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import NavLinks from "../components/NavLinks";
 import ThemeToggle from "../components/ThemeToggle";
 import SiteFooter from "../components/SiteFooter";
+import { DimensionalWrapper } from "../components/DimensionalDepth";
+import CodeGenesis from "../components/CodeGenesis";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -137,6 +139,7 @@ const products = [
 export default function ProdutosIndex() {
   return (
     <>
+      <CodeGenesis />
       <nav className="nav-bar" aria-label="Navegação principal">
         <div className="nav-inner">
           <a href="/" className="nav-logo" aria-label="NuPtechs — início">
@@ -163,8 +166,8 @@ export default function ProdutosIndex() {
               </ol>
             </nav>
             <div className="mb-10 max-w-3xl">
-              <span className="eyebrow mb-4 block">Suite de produtos</span>
-              <h1 id="products-heading" className="display-title mb-5">
+              <span className="eyebrow mb-4 block" data-genesis="fast">Suite de produtos</span>
+              <h1 id="products-heading" className="display-title mb-5" data-genesis>
                 Software pronto.<br />Implante hoje.
               </h1>
               <p className="lead">
@@ -173,6 +176,7 @@ export default function ProdutosIndex() {
             </div>
 
             {/* Grid de produtos */}
+            <DimensionalWrapper>
             <div className="products-grid">
               {products.map((p) => {
                 const statusCls =
@@ -188,6 +192,7 @@ export default function ProdutosIndex() {
                     href={`/produtos/${p.slug}`}
                     className={`product-listing-card${p.highlight ? " product-listing-card--featured" : ""}`}
                     aria-label={`${p.name} — ${p.tagline}`}
+                    data-depth={String(1 + (products.indexOf(p) % 3))}
                   >
                     <div className="product-listing-card__top">
                       <div className="product-listing-card__icon">
@@ -214,6 +219,7 @@ export default function ProdutosIndex() {
                 );
               })}
             </div>
+            </DimensionalWrapper>
           </div>
         </section>
 

@@ -3670,8 +3670,8 @@ a, button {
 .gov-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.85rem;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
   border-radius: 999px;
   background: var(--bg);
   border: 1px solid var(--border);
@@ -3679,22 +3679,195 @@ a, button {
   font-weight: 600;
   color: var(--muted);
   letter-spacing: 0.04em;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
   white-space: nowrap;
 }
 
 .gov-chip:hover {
-  border-color: var(--accent);
+  border-color: var(--gov-accent, var(--accent));
   color: var(--text);
+  background: color-mix(in srgb, var(--gov-accent, var(--accent)) 8%, var(--bg));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--gov-accent, var(--accent)) 15%, transparent);
 }
 
 .gov-chip__icon {
   display: flex;
-  color: var(--accent);
-  opacity: 0.7;
+  opacity: 0.85;
+  transition: opacity 0.25s ease;
+}
+
+.gov-chip:hover .gov-chip__icon {
+  opacity: 1;
 }
 
 .gov-chip__name {
   text-transform: uppercase;
   letter-spacing: 0.06em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   AURORA BACKGROUND — Generative canvas layer
+   ═══════════════════════════════════════════════════════════ */
+.aurora-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+  mix-blend-mode: screen;
+}
+
+@media (prefers-color-scheme: light) {
+  .aurora-bg { opacity: 0.3; mix-blend-mode: multiply; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CODE GENESIS — Text decode/scramble effect
+   ═══════════════════════════════════════════════════════════ */
+[data-genesis] {
+  font-variant-numeric: tabular-nums;
+}
+
+[data-genesis].genesis-active {
+  color: var(--accent);
+  transition: color 0.4s ease;
+}
+
+[data-genesis].genesis-decoded {
+  color: inherit;
+  transition: color 0.6s ease 0.1s;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   QUANTUM COLLAPSE — Proximity-driven reveal
+   ═══════════════════════════════════════════════════════════ */
+.quantum-lines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+[data-quantum] {
+  --q-strength: 0;
+  filter: blur(calc((1 - var(--q-strength)) * 3px));
+  opacity: calc(0.35 + var(--q-strength) * 0.65);
+  transform: scale(calc(0.97 + var(--q-strength) * 0.03));
+  transition: filter 0.15s ease, opacity 0.15s ease, transform 0.2s ease;
+  will-change: filter, opacity, transform;
+}
+
+[data-quantum].genesis-decoded {
+  filter: blur(calc((1 - var(--q-strength)) * 2px));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DIMENSIONAL DEPTH — 3D perspective cards
+   ═══════════════════════════════════════════════════════════ */
+.dimensional-wrapper {
+  perspective: 1200px;
+  perspective-origin: center center;
+}
+
+.dimensional-inner {
+  transform-style: preserve-3d;
+  transform: rotateX(var(--d-rotX, 0deg)) rotateY(var(--d-rotY, 0deg));
+  transition: transform 0.1s ease;
+}
+
+[data-depth] {
+  transform: translateZ(var(--d-z, 0px)) translate(var(--d-tx, 0px), var(--d-ty, 0px));
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+[data-depth]:hover {
+  transform: translateZ(calc(var(--d-z, 0px) + 30px)) translate(var(--d-tx, 0px), var(--d-ty, 0px)) scale(1.03);
+  box-shadow:
+    0 20px 60px rgba(139, 124, 255, 0.15),
+    0 8px 25px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+}
+
+/* Portal transition between sections */
+.portal-enter {
+  animation: portalIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes portalIn {
+  0% {
+    clip-path: circle(0% at 50% 50%);
+    filter: blur(12px);
+    opacity: 0;
+  }
+  60% {
+    filter: blur(2px);
+  }
+  100% {
+    clip-path: circle(150% at 50% 50%);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SYNAPTIC GRID — Neural network background
+   ═══════════════════════════════════════════════════════════ */
+.synaptic-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.synaptic-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.synaptic-section > *:not(.synaptic-grid) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REDUCED MOTION — Respect accessibility for all new effects
+   ═══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg,
+  .quantum-lines,
+  .synaptic-grid { display: none !important; }
+
+  [data-quantum] {
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  [data-genesis] {
+    color: inherit !important;
+  }
+
+  [data-depth] {
+    transform: none !important;
+  }
+
+  .portal-enter { animation: none !important; }
+}
+
+/* Touch devices — no cursor-dependent effects */
+@media (hover: none) {
+  .quantum-lines { display: none; }
+  [data-quantum] { filter: none; opacity: 1; transform: none; }
 }

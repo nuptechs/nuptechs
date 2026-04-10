@@ -7,7 +7,7 @@ interface FaqItem {
   a: string;
 }
 
-export default function FaqAccordion({ items }: { items: FaqItem[] }) {
+export default function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { dictionaries, type Locale } from "../../i18n/dictionaries";
 import NavLinks from "../../components/NavLinks";
 import ThemeToggle from "../../components/ThemeToggle";
+import SynapticGrid from "../../components/SynapticGrid";
+import CodeGenesis from "../../components/CodeGenesis";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -148,6 +150,8 @@ export default function AboutPage({ params }: Props) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
+      <CodeGenesis />
+
       {/* ── NAV ──────────────────────────────────────────── */}
       <nav className="nav-bar" aria-label="Main navigation">
         <div className="nav-inner">
@@ -178,8 +182,8 @@ export default function AboutPage({ params }: Props) {
               </ol>
             </nav>
 
-            <span className="eyebrow mb-4 block">{a.eyebrow}</span>
-            <h1 id="about-heading" className="display-title mb-6 max-w-3xl">{a.heroTitle}</h1>
+            <span className="eyebrow mb-4 block" data-genesis="fast">{a.eyebrow}</span>
+            <h1 id="about-heading" className="display-title mb-6 max-w-3xl" data-genesis>{a.heroTitle}</h1>
             <p className="lead mb-12 max-w-2xl">{a.heroLead}</p>
 
             {/* Stats */}
@@ -204,11 +208,12 @@ export default function AboutPage({ params }: Props) {
         </section>
 
         {/* ── VALUES ───────────────────────────────────────── */}
-        <section className="page-section" aria-labelledby="values-heading">
+        <section className="page-section synaptic-section" aria-labelledby="values-heading">
+          <SynapticGrid />
           <div className="inner">
             <div className="text-center mb-12">
-              <span className="eyebrow mb-4 block">{a.valuesEyebrow}</span>
-              <h2 id="values-heading" className="section-heading">{a.valuesTitle}</h2>
+              <span className="eyebrow mb-4 block" data-genesis="fast">{a.valuesEyebrow}</span>
+              <h2 id="values-heading" className="section-heading" data-genesis>{a.valuesTitle}</h2>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {a.values.map((v) => (
@@ -275,7 +280,7 @@ export default function AboutPage({ params }: Props) {
         <section className="page-section bg-[var(--surface)]" aria-labelledby="method-heading">
           <div className="inner max-w-4xl">
             <div className="mb-12">
-              <span className="eyebrow mb-4 block">{a.methodEyebrow}</span>
+              <span className="eyebrow mb-4 block" data-genesis="fast">{a.methodEyebrow}</span>
               <h2 id="method-heading" className="section-heading">{a.methodTitle}</h2>
             </div>
             <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

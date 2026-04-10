@@ -1,18 +1,20 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
+type Lang = "pt" | "en" | "es";
+
 interface Stat {
   value: number;
   suffix: string;
-  label: string;
-  sublabel: string;
+  label: Record<Lang, string>;
+  sublabel: Record<Lang, string>;
 }
 
 const stats: Stat[] = [
-  { value: 490, suffix: "k", label: "lines of production code", sublabel: "across 14 shipped products" },
-  { value: 7050, suffix: "+", label: "automated tests", sublabel: "unit, integration, e2e" },
-  { value: 17, suffix: "+", label: "government agencies", sublabel: "federal, state, municipal" },
-  { value: 18, suffix: "+", label: "years in gov IT", sublabel: "Caixa, Serpro, TRF, ANVISA…" },
+  { value: 490, suffix: "k", label: { pt: "linhas de código em produção", en: "lines of production code", es: "líneas de código en producción" }, sublabel: { pt: "em 14 produtos entregues", en: "across 14 shipped products", es: "en 14 productos entregados" } },
+  { value: 7050, suffix: "+", label: { pt: "testes automatizados", en: "automated tests", es: "tests automatizados" }, sublabel: { pt: "unitários, integração, e2e", en: "unit, integration, e2e", es: "unitarios, integración, e2e" } },
+  { value: 17, suffix: "+", label: { pt: "órgãos governamentais", en: "government agencies", es: "órganos gubernamentales" }, sublabel: { pt: "federal, estadual, distrital", en: "federal, state, municipal", es: "federal, estatal, municipal" } },
+  { value: 18, suffix: "+", label: { pt: "anos em TI governamental", en: "years in gov IT", es: "años en TI gubernamental" }, sublabel: { pt: "Caixa, Serpro, TRF, ANVISA…", en: "Caixa, Serpro, TRF, ANVISA…", es: "Caixa, Serpro, TRF, ANVISA…" } },
 ];
 
 function useCountUp(target: number, duration: number, active: boolean) {
@@ -35,7 +37,7 @@ function useCountUp(target: number, duration: number, active: boolean) {
   return count;
 }
 
-function StatItem({ stat, active, delay }: { stat: Stat; active: boolean; delay: number }) {
+function StatItem({ stat, active, delay, lang }: { stat: Stat; active: boolean; delay: number; lang: Lang }) {
   const [started, setStarted] = useState(false);
   useEffect(() => {
     if (active) {
@@ -51,13 +53,13 @@ function StatItem({ stat, active, delay }: { stat: Stat; active: boolean; delay:
         {started ? count.toLocaleString("en") : "0"}
         <span className="eng-stat__suffix">{stat.suffix}</span>
       </span>
-      <span className="eng-stat__label">{stat.label}</span>
-      <span className="eng-stat__sub">{stat.sublabel}</span>
+      <span className="eng-stat__label">{stat.label[lang]}</span>
+      <span className="eng-stat__sub">{stat.sublabel[lang]}</span>
     </div>
   );
 }
 
-export default function EngineeringStats() {
+export default function EngineeringStats({ lang = "pt" }: { lang?: Lang }) {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
 
@@ -73,7 +75,7 @@ export default function EngineeringStats() {
   return (
     <div ref={ref} className="eng-stats-grid">
       {stats.map((s, i) => (
-        <StatItem key={s.label} stat={s} active={active} delay={i * 150} />
+        <StatItem key={s.label[lang]} stat={s} active={active} delay={i * 150} lang={lang} />
       ))}
     </div>
   );

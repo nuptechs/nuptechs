@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import NavLinks from "../components/NavLinks";
 import ThemeToggle from "../components/ThemeToggle";
 import SiteFooter from "../components/SiteFooter";
+import SynapticGrid from "../components/SynapticGrid";
+import CodeGenesis from "../components/CodeGenesis";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -201,6 +203,7 @@ export default function SobrePage() {
       />
 
       {/* ── Nav ── */}
+      <CodeGenesis />
       <nav className="nav-bar" aria-label="Navegação principal">
         <div className="nav-inner">
           <a href="/" className="nav-logo" aria-label="NuPtechs — início">
@@ -231,8 +234,8 @@ export default function SobrePage() {
 
             <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
               <div>
-                <span className="eyebrow mb-4 block">Sobre a NuPtechs</span>
-                <h1 id="sobre-heading" className="display-title mb-6">
+                <span className="eyebrow mb-4 block" data-genesis="fast">Sobre a NuPtechs</span>
+                <h1 id="sobre-heading" className="display-title mb-6" data-genesis>
                   Construímos software que <em>resolve problemas reais</em>.
                 </h1>
                 <p className="lead mb-6">
@@ -282,11 +285,12 @@ export default function SobrePage() {
         </section>
 
         {/* ── Values ── */}
-        <section className="page-section" aria-labelledby="valores-heading">
+        <section className="page-section synaptic-section" aria-labelledby="valores-heading">
+          <SynapticGrid />
           <div className="inner">
             <div className="mb-12 max-w-xl">
-              <span className="eyebrow mb-3 block">Como trabalhamos</span>
-              <h2 id="valores-heading" className="section-heading">
+              <span className="eyebrow mb-3 block" data-genesis="fast">Como trabalhamos</span>
+              <h2 id="valores-heading" className="section-heading" data-genesis>
                 Os princípios que guiam cada projeto.
               </h2>
             </div>
