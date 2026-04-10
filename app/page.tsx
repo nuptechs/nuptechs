@@ -157,6 +157,21 @@ export default function Home() {
                   GitHub
                 </a>
               </div>
+
+              <div className="hero-proof-row" data-reveal style={{ transitionDelay: '650ms' }}>
+                <div className="hero-proof-card">
+                  <span className="hero-proof__kpi">14</span>
+                  <span className="hero-proof__label">produtos em produção</span>
+                </div>
+                <div className="hero-proof-card">
+                  <span className="hero-proof__kpi">490k+</span>
+                  <span className="hero-proof__label">linhas de código reais</span>
+                </div>
+                <div className="hero-proof-card">
+                  <span className="hero-proof__kpi">Gov</span>
+                  <span className="hero-proof__label">expertise federal crítica</span>
+                </div>
+              </div>
             </div>
 
             <div className="hero-demo" data-reveal style={{ transitionDelay: '600ms' }}>
@@ -212,7 +227,7 @@ export default function Home() {
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
             {blogPosts.map((post) => (
-              <article key={post.slug} className="blog-card group" data-reveal-item data-quantum>
+              <article key={post.slug} className="blog-card group" data-reveal-item>
                 <div className="blog-card__top">
                   <span className="badge badge-accent">{post.tag}</span>
                   <span className="blog-card__read">{post.readTime}</span>
@@ -302,8 +317,14 @@ export default function Home() {
                   Brasília, DF — Brasil
                 </span>
               </div>
+
+              <div className="contact-proof-grid" data-reveal>
+                <div className="contact-proof"><strong>24h</strong><span>retorno inicial</span></div>
+                <div className="contact-proof"><strong>NDA</strong><span>conversa segura</span></div>
+                <div className="contact-proof"><strong>BR + Global</strong><span>atendimento internacional</span></div>
+              </div>
             </div>
-            <div data-reveal="right">
+            <div className="contact-shell" data-reveal="right">
               <ContactForm />
             </div>
           </div>

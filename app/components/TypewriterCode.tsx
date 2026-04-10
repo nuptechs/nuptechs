@@ -1,6 +1,18 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
+const STATUS_CHIPS = [
+  { label: "CI", value: "PASS", tone: "green" },
+  { label: "OBS", value: "LIVE", tone: "cyan" },
+  { label: "AI", value: "94%", tone: "purple" },
+];
+
+const METRICS = [
+  { label: "systems", value: "14 live" },
+  { label: "tests", value: "7,050+" },
+  { label: "latency", value: "42ms" },
+];
+
 const CODE_LINES = [
   { text: "const", cls: "tk-keyword" },
   { text: " sentinel ", cls: "tk-var" },
@@ -91,19 +103,39 @@ export default function TypewriterCode() {
   });
 
   return (
-    <div ref={containerRef} className="code-window">
+    <div ref={containerRef} className="code-window command-center">
       <div className="code-window__bar">
         <span className="code-window__dot code-window__dot--red" />
         <span className="code-window__dot code-window__dot--yellow" />
         <span className="code-window__dot code-window__dot--green" />
         <span className="code-window__title">sentinel.config.ts</span>
+        <div className="command-center__hud" aria-label="system status">
+          {STATUS_CHIPS.map((chip) => (
+            <span key={chip.label} className={`command-chip command-chip--${chip.tone}`}>
+              <span className="command-chip__dot" aria-hidden="true" />
+              {chip.label} {chip.value}
+            </span>
+          ))}
+        </div>
       </div>
-      <pre className="code-window__body">
-        <code>
-          {rendered}
-          <span className="code-cursor" />
-        </code>
-      </pre>
+
+      <div className="command-center__body">
+        <pre className="code-window__body">
+          <code>
+            {rendered}
+            <span className="code-cursor" />
+          </code>
+        </pre>
+
+        <div className="command-center__metrics" aria-label="live engineering metrics">
+          {METRICS.map((metric) => (
+            <div key={metric.label} className="command-metric">
+              <span className="command-metric__label">{metric.label}</span>
+              <span className="command-metric__value">{metric.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

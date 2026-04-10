@@ -26,6 +26,28 @@ export default function LangPage({ params }: { params: { lang: string } }) {
   const ptUrl = siteUrl;
   const enUrl = `${siteUrl}/en`;
   const esUrl = `${siteUrl}/es`;
+  const heroProof = lang === "en"
+    ? [
+        { kpi: "14", label: "live products" },
+        { kpi: "490k+", label: "real production LOC" },
+        { kpi: "Gov", label: "federal-grade expertise" },
+      ]
+    : [
+        { kpi: "14", label: "productos en producción" },
+        { kpi: "490k+", label: "líneas de código reales" },
+        { kpi: "Gov", label: "experiencia federal crítica" },
+      ];
+  const contactProof = lang === "en"
+    ? [
+        { kpi: "24h", label: "initial response" },
+        { kpi: "NDA", label: "secure conversation" },
+        { kpi: "BR + Global", label: "international support" },
+      ]
+    : [
+        { kpi: "24h", label: "respuesta inicial" },
+        { kpi: "NDA", label: "conversación segura" },
+        { kpi: "BR + Global", label: "atención internacional" },
+      ];
 
   return (
     <>
@@ -89,6 +111,15 @@ export default function LangPage({ params }: { params: { lang: string } }) {
                   </svg>
                   GitHub
                 </a>
+              </div>
+
+              <div className="hero-proof-row" data-reveal style={{ transitionDelay: '650ms' }}>
+                {heroProof.map((item) => (
+                  <div key={item.label} className="hero-proof-card">
+                    <span className="hero-proof__kpi">{item.kpi}</span>
+                    <span className="hero-proof__label">{item.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -235,8 +266,14 @@ export default function LangPage({ params }: { params: { lang: string } }) {
                   Brasília, DF — Brasil
                 </span>
               </div>
+
+              <div className="contact-proof-grid" data-reveal>
+                {contactProof.map((item) => (
+                  <div key={item.label} className="contact-proof"><strong>{item.kpi}</strong><span>{item.label}</span></div>
+                ))}
+              </div>
             </div>
-            <div data-reveal="right">
+            <div className="contact-shell" data-reveal="right">
               <ContactForm lang={lang} />
             </div>
           </div>

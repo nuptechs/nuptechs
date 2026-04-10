@@ -26,10 +26,10 @@ export default function ParticleField() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     dprRef.current = dpr;
 
-    const PARTICLE_COUNT = 80;
-    const CONNECTION_DIST = 150;
-    const MOUSE_RADIUS = 200;
-    const SPEED = 0.3;
+    const PARTICLE_COUNT = 110;
+    const CONNECTION_DIST = 180;
+    const MOUSE_RADIUS = 220;
+    const SPEED = 0.34;
 
     function resize() {
       const rect = canvas!.getBoundingClientRect();
@@ -47,8 +47,8 @@ export default function ParticleField() {
           y: Math.random() * rect.height,
           vx: (Math.random() - 0.5) * SPEED,
           vy: (Math.random() - 0.5) * SPEED,
-          radius: Math.random() * 1.5 + 0.5,
-          opacity: Math.random() * 0.5 + 0.2,
+          radius: Math.random() * 2 + 0.8,
+          opacity: Math.random() * 0.55 + 0.3,
         });
       }
       particlesRef.current = particles;

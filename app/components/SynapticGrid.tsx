@@ -57,7 +57,7 @@ export default function SynapticGrid() {
     window.addEventListener("resize", resize, { passive: true });
 
     // Generate nodes
-    const NODE_COUNT = Math.min(50, Math.floor((w * h) / 18000));
+    const NODE_COUNT = Math.min(80, Math.floor((w * h) / 12000));
     const nodes: Node[] = [];
     for (let i = 0; i < NODE_COUNT; i++) {
       nodes.push({
@@ -129,7 +129,7 @@ export default function SynapticGrid() {
       }
 
       // Spawn random signals
-      if (time - lastSignalTime > 800) {
+      if (time - lastSignalTime > 500) {
         lastSignalTime = time;
         const from = Math.floor(Math.random() * nodes.length);
         if (nodes[from].connections.length > 0) {
@@ -159,7 +159,7 @@ export default function SynapticGrid() {
       for (const node of nodes) {
         for (const ci of node.connections) {
           const other = nodes[ci];
-          const alpha = Math.max(node.energy, other.energy) * 0.15 + 0.03;
+          const alpha = Math.max(node.energy, other.energy) * 0.24 + 0.05;
           ctx.strokeStyle = `rgba(139, 124, 255, ${alpha})`;
           ctx.lineWidth = 0.5;
           ctx.beginPath();

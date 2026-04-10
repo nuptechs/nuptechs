@@ -108,7 +108,7 @@ export default function ContactForm({ lang = "pt" }: { lang?: Lang }) {
 
   if (status === "success") {
     return (
-      <div className="card flex flex-col items-center gap-4 py-10 text-center">
+      <div className="contact-form-card flex flex-col items-center gap-4 py-10 text-center">
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-2xl dark:bg-emerald-950">
           ✅
         </div>
@@ -127,7 +127,7 @@ export default function ContactForm({ lang = "pt" }: { lang?: Lang }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="card space-y-4" noValidate>
+    <form onSubmit={handleSubmit} className="contact-form-card space-y-4" noValidate>
       <div>
         <p className="mb-1 text-sm font-semibold text-[var(--text)]">{t.heading}</p>
         <p className="text-sm text-[var(--muted)]">{t.subheading}</p>

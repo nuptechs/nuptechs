@@ -579,10 +579,10 @@ const i18nCategories: Record<Lang, { key: string; label: string }[]> = {
   ],
 };
 
-const i18nExpand: Record<Lang, { expand: string; collapse: string }> = {
-  pt: { expand: "Clique para expandir", collapse: "Clique para recolher" },
-  en: { expand: "Click to expand", collapse: "Click to collapse" },
-  es: { expand: "Clic para expandir", collapse: "Clic para contraer" },
+const i18nExpand: Record<Lang, { expand: string; collapse: string; live: string }> = {
+  pt: { expand: "Clique para expandir", collapse: "Clique para recolher", live: "Em produção" },
+  en: { expand: "Click to expand", collapse: "Click to collapse", live: "In production" },
+  es: { expand: "Clic para expandir", collapse: "Clic para contraer", live: "En producción" },
 };
 
 export default function ProductShowcase({ lang = "pt" }: { lang?: Lang }) {
@@ -618,6 +618,7 @@ export default function ProductShowcase({ lang = "pt" }: { lang?: Lang }) {
         {filtered.map((product) => {
           const isExpanded = expanded === product.id;
           const t = product.text[lang] ?? product.text.pt;
+          const categoryLabel = categories.find((cat) => cat.key === product.category)?.label ?? product.category;
           return (
             <article
               key={product.id}
@@ -633,6 +634,14 @@ export default function ProductShowcase({ lang = "pt" }: { lang?: Lang }) {
                 }
               }}
             >
+              <div className="psc__card-top">
+                <span className="psc__category">{categoryLabel}</span>
+                <span className="psc__live">
+                  <span className="psc__live-dot" aria-hidden="true" />
+                  {expandText.live}
+                </span>
+              </div>
+
               <div className="psc__card-header">
                 <h3 className="psc__card-name">{product.name}</h3>
                 <span className="psc__card-tagline">{t.tagline}</span>

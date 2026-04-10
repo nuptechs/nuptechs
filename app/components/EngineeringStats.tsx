@@ -49,8 +49,8 @@ function StatItem({ stat, active, delay, lang }: { stat: Stat; active: boolean; 
 
   return (
     <div className="eng-stat">
-      <span className="eng-stat__value">
-        {started ? count.toLocaleString("en") : "0"}
+      <span className={`eng-stat__value${started ? " is-active" : ""}`}>
+        {started ? count.toLocaleString("en") : stat.value.toLocaleString("en")}
         <span className="eng-stat__suffix">{stat.suffix}</span>
       </span>
       <span className="eng-stat__label">{stat.label[lang]}</span>

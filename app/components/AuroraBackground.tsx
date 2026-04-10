@@ -48,8 +48,8 @@ export default function AuroraBackground() {
       const dpr = Math.min(window.devicePixelRatio, 1.5);
       w = window.innerWidth;
       h = window.innerHeight;
-      canvas.width = w * dpr * 0.5;   // half-res for perf
-      canvas.height = h * dpr * 0.5;
+      canvas.width = w * dpr * 0.75;   // 75% res — balance perf + clarity
+      canvas.height = h * dpr * 0.75;
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
     };
@@ -119,11 +119,11 @@ export default function AuroraBackground() {
       // Aurora layers — 3 overlapping radial gradients with noise-driven movement
       const t = s.time;
       const layers = [
-        { x: 0.3 + Math.sin(t * 0.7) * 0.15 + s.mx * 0.2, y: 0.2 + Math.cos(t * 0.5) * 0.1, r: 0.6, color: cl.stop1, alpha: 0.12 },
-        { x: 0.7 + Math.sin(t * 0.5 + 1) * 0.15 + s.mx * 0.15, y: 0.5 + Math.sin(t * 0.3) * 0.15, r: 0.7, color: cl.stop2, alpha: 0.10 },
-        { x: 0.5 + Math.cos(t * 0.4 + 2) * 0.2, y: 0.8 + Math.cos(t * 0.6) * 0.1 + s.my * 0.1, r: 0.5, color: cl.stop3, alpha: 0.14 },
+        { x: 0.3 + Math.sin(t * 0.7) * 0.15 + s.mx * 0.2, y: 0.2 + Math.cos(t * 0.5) * 0.1, r: 0.6, color: cl.stop1, alpha: 0.22 },
+        { x: 0.7 + Math.sin(t * 0.5 + 1) * 0.15 + s.mx * 0.15, y: 0.5 + Math.sin(t * 0.3) * 0.15, r: 0.7, color: cl.stop2, alpha: 0.18 },
+        { x: 0.5 + Math.cos(t * 0.4 + 2) * 0.2, y: 0.8 + Math.cos(t * 0.6) * 0.1 + s.my * 0.1, r: 0.5, color: cl.stop3, alpha: 0.24 },
         // Cursor-following highlight
-        { x: s.mx, y: s.my, r: 0.35, color: cl.stop1, alpha: 0.06 },
+        { x: s.mx, y: s.my, r: 0.35, color: cl.stop1, alpha: 0.12 },
       ];
 
       for (const l of layers) {
