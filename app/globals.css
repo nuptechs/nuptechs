@@ -72,6 +72,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* ─── Nav ───────────────────────────────────────────────── */
@@ -201,13 +203,13 @@ body {
   color: var(--border-strong);
   font-size: 0.625rem;
   user-select: none;
-  opacity: 0.6;
+  opacity: 0.85;
 }
 
 .breadcrumb__current {
   color: var(--text);
   font-weight: 500;
-  max-width: 24ch;
+  max-width: 52ch;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -408,7 +410,9 @@ body {
 
 .lead {
   font-size: clamp(1rem, 1.75vw, 1.125rem); line-height: 1.75;
-  color: var(--muted); max-width: 60ch; width: 100%;
+  color: var(--muted); max-width: 64ch; width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .eyebrow {
@@ -471,9 +475,10 @@ body {
 .card-title {
   font-size: 1.0625rem; font-weight: 650;
   letter-spacing: -0.015em; color: var(--text); margin-bottom: 0.5rem;
+  overflow-wrap: break-word; word-break: break-word;
 }
 
-.card-body { font-size: 0.875rem; line-height: 1.65; color: var(--muted); }
+.card-body { font-size: 0.875rem; line-height: 1.65; color: var(--muted); overflow-wrap: break-word; word-break: break-word; }
 
 .card-footer {
   display: flex;
@@ -674,6 +679,8 @@ body {
   font-size: 0.8125rem;
   color: var(--muted);
   line-height: 1.55;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .product-tile__stat {
@@ -690,6 +697,7 @@ body {
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1;
+  white-space: nowrap;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -868,6 +876,7 @@ body {
   font-size: 0.9375rem; font-weight: 600;
   color: var(--text-secondary); line-height: 1.4;
   transition: color 0.15s ease;
+  overflow-wrap: break-word; word-break: break-word;
 }
 
 .faq-item:has([aria-expanded="true"]) .faq-question { color: var(--text); }
@@ -912,13 +921,19 @@ body {
 }
 
 .hero-copy .display-title {
-  max-width: 14ch;
+  max-width: none;
 }
 
 .hero-copy .lead {
-  max-width: 52ch;
+  max-width: 56ch;
   text-align: center;
   font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+}
+
+@media (max-width: 639px) {
+  .hero-copy .lead {
+    text-align: left;
+  }
 }
 
 /* Hero gradient orbs */
@@ -1158,6 +1173,13 @@ body {
   padding: 0.875rem 1.875rem;
   font-size: 0.9375rem;
   border-radius: 0.75rem;
+}
+
+@media (max-width: 374px) {
+  .btn-lg {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+  }
 }
 
 /* ─── Badge ──────────────────────────────────────────────── */
@@ -1488,6 +1510,40 @@ body {
 }
 
 /* ─── CTA Band ───────────────────────────────────────────── */
+
+/* ─── Step Items (Methodology) ───────────────────────────── */
+.step-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+
+.step-item:last-child {
+  border-right: none;
+}
+
+.step-num {
+  font-family: var(--font-display, "Manrope", "Inter", system-ui, sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 767px) {
+  .step-item {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 0;
+  }
+  .step-item:last-child {
+    border-bottom: none;
+  }
+}
+
 .cta-band {
   position: relative;
   padding: 8rem 0;
@@ -1562,7 +1618,7 @@ body {
   border-top: 1px solid var(--border);
 }
 
-.footer-bottom p { font-size: 0.75rem; color: var(--subtle); }
+.footer-bottom p { font-size: 0.75rem; color: var(--subtle); flex-basis: auto; }
 
 /* ─── Aliases ────────────────────────────────────────────── */
 .app-shell { min-height: 100dvh; }
@@ -1744,6 +1800,9 @@ body {
   text-decoration: none; border-left: 2px solid transparent;
   margin-left: -2px;
   transition: color 150ms ease, border-color 150ms ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .article-toc__link:hover { color: var(--text); }
 .article-toc__link--active {
@@ -2371,8 +2430,8 @@ body {
 .svc-card__num { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; color: var(--border-strong); font-variant-numeric: tabular-nums; }
 
 .svc-card__body { flex: 1; }
-.svc-card__title { font-size: 1.0625rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.5rem; line-height: 1.25; }
-.svc-card__body-text { font-size: 0.875rem; line-height: 1.6; color: var(--muted); }
+.svc-card__title { font-size: 1.0625rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.5rem; line-height: 1.25; overflow-wrap: break-word; word-break: break-word; }
+.svc-card__body-text { font-size: 0.875rem; line-height: 1.6; color: var(--muted); overflow-wrap: break-word; word-break: break-word; }
 
 .svc-card__footer { display: flex; flex-direction: column; gap: 0.625rem; padding-top: 0.875rem; border-top: 1px solid var(--border); }
 .svc-card__metric { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; font-weight: 600; color: var(--accent); }
@@ -3311,7 +3370,7 @@ a, button {
 }
 
 .hero-copy--left .display-title {
-  max-width: 18ch;
+  max-width: none;
   text-align: left;
 }
 

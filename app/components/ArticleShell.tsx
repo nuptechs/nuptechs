@@ -143,7 +143,7 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
               <li aria-hidden="true" className="breadcrumb__sep">›</li>
               <li><a href="/blog">Blog</a></li>
               <li aria-hidden="true" className="breadcrumb__sep">›</li>
-              <li className="breadcrumb__current">{post.title.length > 50 ? post.title.slice(0, 50) + "…" : post.title}</li>
+              <li className="breadcrumb__current">{post.title}</li>
             </ol>
           </nav>
 
