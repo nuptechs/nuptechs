@@ -6,6 +6,8 @@ import InteractiveMindMap from "./InteractiveMindMap";
 import MnemonicCards from "./MnemonicCards";
 import DepthSelector from "./DepthSelector";
 import DepthExpander from "./DepthExpander";
+import ArticleCTA from "./ArticleCTA";
+import ShareButtons from "./ShareButtons";
 
 /* ═══════════════════════════════════════════════════════════
    ArticleShell v2 — Premium interactive article layout
@@ -177,6 +179,11 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
               <p className="article-header__author-role">{post.author.role}</p>
             </div>
           </div>
+
+          <ShareButtons
+            url={typeof window !== "undefined" ? window.location.href : `/blog/${post.slug}`}
+            title={post.title}
+          />
         </div>
       </header>
 
@@ -321,6 +328,9 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
               <p className="callout__body">{c.body}</p>
             </div>
           ))}
+
+          {/* ── Inline CTA ──────────────────────────────── */}
+          <ArticleCTA tag={post.tag} />
 
           {/* ── Mind Map ─────────────────────────────────── */}
           <InteractiveMindMap data={post.mindMap} />

@@ -174,7 +174,7 @@ const milestones = [
 
 const team = [
   {
-    name: "Yuri Fonseca",
+    name: "Yuri Francis",
     role: "CEO & Co-fundador",
     bio: "Engenheiro de software com foco em sistemas de alta performance e automação empresarial. Responsável pela estratégia de produto e crescimento.",
     initials: "YF",
@@ -182,7 +182,7 @@ const team = [
   {
     name: "Time NuPtechs",
     role: "Engenharia & Produto",
-    bio: "Equipe sênior de engenheiros full-stack, especialistas em IA aplicada, DevOps e design de sistemas — todos com experiência em projetos de produção.",
+    bio: "Analistas de Requisitos, Scrum Masters, Product Owners, Analistas de QA, Desenvolvedores e Gerentes de Projetos — todos com experiência em projetos de produção.",
     initials: "NT",
   },
 ];
@@ -351,7 +351,7 @@ export default function SobrePage() {
                 Engenheiros que entregam, não apenas planejam.
               </h2>
             </div>
-            <div className="grid gap-5 sm:grid-cols-2 max-w-2xl">
+            <div className="grid gap-5 sm:grid-cols-2 max-w-3xl">
               {team.map((member) => (
                 <div key={member.name} className="card flex flex-col gap-4">
                   <div className="flex items-center gap-4">
@@ -371,10 +371,10 @@ export default function SobrePage() {
               ))}
             </div>
 
-            <div className="mt-10 max-w-2xl rounded-2xl border border-[var(--border-strong)] bg-[var(--surface)] p-6">
+            <div className="mt-10 max-w-3xl rounded-2xl border border-[var(--border-strong)] bg-[var(--surface)] p-6">
               <p className="text-sm leading-relaxed text-[var(--muted)]">
                 <strong className="text-[var(--text)]">Trabalhamos com um modelo de equipe enxuta e especializada.</strong>{" "}
-                Cada projeto é alocado com os perfis certos — engenheiro de produto, especialista em IA, DevOps — sem o overhead de equipes grandes. Isso mantém a qualidade alta e o custo previsível.
+                Cada projeto é alocado com os perfis certos — Analistas de Requisitos, Scrum Masters, Product Owners, Analistas de QA, Desenvolvedores e Gerentes de Projetos — sem o overhead de equipes grandes. Isso mantém a qualidade alta e o custo previsível.
               </p>
             </div>
           </div>
