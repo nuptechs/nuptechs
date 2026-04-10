@@ -3,6 +3,7 @@ import { posts } from "./[slug]/page";
 import NavLinks from "../components/NavLinks";
 import ThemeToggle from "../components/ThemeToggle";
 import SiteFooter from "../components/SiteFooter";
+import BlogClient from "./BlogClient";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -74,15 +75,6 @@ const jsonLd = {
   ],
 };
 
-// Tag color mapping for visual variety
-const tagColors: Record<string, string> = {
-  "Automação":           "badge-accent",
-  "IA Aplicada":         "badge-accent",
-  "Desenvolvimento Ágil":"badge-accent",
-  "Business Intelligence":"badge-accent",
-  "Integrações":         "badge-accent",
-};
-
 export default function BlogIndex() {
   const postList = Object.values(posts).sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
@@ -138,96 +130,8 @@ export default function BlogIndex() {
               </p>
             </div>
 
-            {/* Tag pills */}
-            <div className="flex flex-wrap gap-2 mb-10" role="list" aria-label="Categorias">
-              {allTags.map((tag) => (
-                <span key={tag} role="listitem" className="badge badge-accent text-xs px-3 py-1">
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            {/* Featured post */}
-            {postList.length > 0 && (
-              <article className="blog-featured" data-reveal>
-                <div className="blog-featured__accent" aria-hidden="true" />
-                <div className="blog-featured__content">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className={`badge ${tagColors[postList[0].tag] ?? "badge-accent"} text-xs`}>
-                      {postList[0].tag}
-                    </span>
-                    <span className="text-xs text-[var(--subtle)]">{postList[0].readTime} leitura</span>
-                  </div>
-                  <h2 className="text-2xl sm:text-3xl font-bold leading-tight tracking-tight text-[var(--text)] mb-3">
-                    <a href={`/blog/${postList[0].slug}`} className="hover:text-[var(--accent)] transition-colors">
-                      {postList[0].title}
-                    </a>
-                  </h2>
-                  <p className="text-base leading-relaxed text-[var(--muted)] mb-6 max-w-prose">
-                    {postList[0].description}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <time dateTime={postList[0].publishedAt} className="text-xs text-[var(--subtle)]">
-                      {new Date(postList[0].publishedAt).toLocaleDateString("pt-BR", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                      })}
-                    </time>
-                    <a href={`/blog/${postList[0].slug}`} className="btn btn-primary btn-sm">
-                      Ler artigo
-                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </article>
-            )}
-
-            {/* Article grid */}
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
-              {postList.slice(1).map((post) => (
-                <article
-                  key={post.slug}
-                  className="blog-card group"
-                  data-reveal-item
-                >
-                  <div className="blog-card__top">
-                    <span className={`badge ${tagColors[post.tag] ?? "badge-accent"} text-xs`}>
-                      {post.tag}
-                    </span>
-                    <span className="text-xs text-[var(--subtle)]">{post.readTime} leitura</span>
-                  </div>
-
-                  <h2 className="blog-card__title">
-                    <a href={`/blog/${post.slug}`}>
-                      {post.title}
-                    </a>
-                  </h2>
-
-                  <p className="blog-card__excerpt">
-                    {post.description}
-                  </p>
-
-                  <div className="flex items-center justify-between border-t border-[var(--border)] pt-3 mt-auto">
-                    <time dateTime={post.publishedAt} className="text-xs text-[var(--subtle)]">
-                      {new Date(post.publishedAt).toLocaleDateString("pt-BR", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </time>
-                    <a href={`/blog/${post.slug}`} className="card-link">
-                      Ler artigo
-                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
+            {/* Interactive tag filter + article grid (client component) */}
+            <BlogClient postList={postList} allTags={allTags} />
           </div>
         </section>
 
