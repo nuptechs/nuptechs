@@ -183,7 +183,7 @@ export default function AboutPage({ params }: Props) {
             </nav>
 
             <span className="eyebrow mb-4 block" data-genesis="fast">{a.eyebrow}</span>
-            <h1 id="about-heading" className="display-title mb-6 max-w-3xl" data-genesis>{a.heroTitle}</h1>
+            <h1 id="about-heading" className="display-title mb-6 max-w-3xl">{a.heroTitle}</h1>
             <p className="lead mb-12 max-w-2xl">{a.heroLead}</p>
 
             {/* Stats */}

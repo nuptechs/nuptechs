@@ -277,10 +277,13 @@ body {
 
 /* ─── Typography ─────────────────────────────────────────── */
 .display-title {
-  font-family: var(--font-display, "Fraunces", Georgia, serif);
-  font-size: clamp(3rem, 7.5vw, 6rem);
-  font-weight: 750; line-height: 1.0;
-  letter-spacing: -0.05em; color: var(--text);
+  font-family: var(--font-display, "Manrope", "Inter", system-ui, sans-serif);
+  font-size: clamp(2.8rem, 6.8vw, 5.35rem);
+  font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: -0.042em;
+  text-wrap: balance;
+  color: var(--text);
 }
 
 .display-title em {
@@ -299,19 +302,17 @@ body {
 .text-reveal__word {
   display: inline-block;
   opacity: 0;
-  transform: translateY(100%);
-  filter: blur(4px);
+  transform: translateY(0.85em);
   transition:
-    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: calc(var(--word-index, 0) * 60ms);
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--word-index, 0) * 45ms);
+  will-change: opacity, transform;
 }
 
 .text-revealed .text-reveal__word {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -397,9 +398,12 @@ body {
 }
 
 .section-heading {
-  font-size: clamp(1.875rem, 4vw, 3.25rem);
-  font-weight: 750; letter-spacing: -0.04em;
-  line-height: 1.05; color: var(--text);
+  font-size: clamp(1.875rem, 4vw, 3.15rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  text-wrap: balance;
+  color: var(--text);
 }
 
 .lead {
@@ -2875,22 +2879,22 @@ body::before {
 /* ─── Premium Scroll Reveal System ───────────────────────── */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(18px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
 [data-reveal="left"] {
-  transform: translateX(-40px);
+  transform: translateX(-24px);
 }
 
 [data-reveal="right"] {
-  transform: translateX(40px);
+  transform: translateX(24px);
 }
 
 [data-reveal="scale"] {
-  transform: scale(0.92);
+  transform: scale(0.975);
 }
 
 [data-reveal].revealed {
@@ -2900,10 +2904,10 @@ body::before {
 
 [data-reveal-item] {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: calc(var(--stagger, 0) * 100ms);
+  transform: translateY(14px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--stagger, 0) * 75ms);
   will-change: opacity, transform;
 }
 

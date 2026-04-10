@@ -41,30 +41,35 @@ export default function CodeGenesis() {
   const processedRef = useRef(new Set<Element>());
 
   const decodeElement = useCallback((el: HTMLElement) => {
-    const original = el.dataset.genesisText || el.textContent || "";
-    if (!original.trim()) return;
+    const originalText = el.dataset.genesisText || el.innerText || el.textContent || "";
+    const originalHtml = el.dataset.genesisHtml || el.innerHTML;
+    if (!originalText.trim()) return;
 
     if (!el.dataset.genesisText) {
-      el.dataset.genesisText = original;
+      el.dataset.genesisText = originalText;
+    }
+    if (!el.dataset.genesisHtml) {
+      el.dataset.genesisHtml = originalHtml;
     }
 
     const speed = el.dataset.genesis || "default";
     const cfg = SPEED_CONFIG[speed] || SPEED_CONFIG.default;
 
-    const chars = original.split("");
+    const chars = originalText.split("");
     const totalChars = chars.filter((c) => c !== " " && c !== "\n").length;
 
     // Build per-character spans for individual control
     el.innerHTML = "";
+    el.style.whiteSpace = "pre-wrap";
     const spans: HTMLSpanElement[] = [];
     chars.forEach((ch) => {
       const span = document.createElement("span");
       if (ch === " ") {
-        span.innerHTML = "&nbsp;";
+        span.textContent = "\u00A0";
         span.className = "genesis-space";
       } else if (ch === "\n") {
-        el.appendChild(document.createElement("br"));
-        return;
+        span.textContent = "\n";
+        span.className = "genesis-space";
       } else {
         span.textContent = BLOCKS[Math.floor(Math.random() * BLOCKS.length)];
         span.className = "genesis-char genesis-phase-void";
@@ -151,8 +156,8 @@ export default function CodeGenesis() {
 
       if (allDone || pass > cfg.passes * 2) {
         // Final cleanup — ensure perfect text
-        el.innerHTML = "";
-        el.textContent = original;
+        el.style.whiteSpace = "";
+        el.innerHTML = originalHtml;
         el.classList.remove("genesis-active");
         el.classList.add("genesis-decoded");
       } else {

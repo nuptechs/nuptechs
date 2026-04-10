@@ -235,7 +235,7 @@ export default function SobrePage() {
             <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
               <div>
                 <span className="eyebrow mb-4 block" data-genesis="fast">Sobre a NuPtechs</span>
-                <h1 id="sobre-heading" className="display-title mb-6" data-genesis>
+                <h1 id="sobre-heading" className="display-title mb-6">
                   Construímos software que <em>resolve problemas reais</em>.
                 </h1>
                 <p className="lead mb-6">

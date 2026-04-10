@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import ScrollObserver from "./components/ScrollObserver";
@@ -11,11 +11,10 @@ const inter = Inter({
   display: "swap"
 });
 
-const fraunces = Fraunces({
+const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-display",
-  display: "swap",
-  axes: ["opsz", "SOFT", "WONK"]
+  display: "swap"
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
@@ -119,7 +118,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning className={`${inter.variable} ${fraunces.variable}`}>
+    <html lang="pt-BR" suppressHydrationWarning className={`${inter.variable} ${manrope.variable}`}>
       <body className="min-h-screen bg-[var(--bg)] antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark">
           <ScrollObserver />
