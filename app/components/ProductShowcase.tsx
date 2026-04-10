@@ -26,8 +26,8 @@ const products: Product[] = [
         tagline: "Gestão de Contratos e Workflows",
         description: "Plataforma enterprise para gestão do ciclo de vida de contratos de TI com análise documental por IA, designer visual de workflows BPMN e dashboards executivos 360°. Construída para conformidade com o setor público brasileiro.",
         stats: [
-          { label: "Linhas de código", value: "490k" },
-          { label: "Testes automatizados", value: "5.850+" },
+          { label: "Linhas de código", value: "591k" },
+          { label: "Testes automatizados", value: "6.100+" },
           { label: "Regras de permissão", value: "511" },
           { label: "Entidades de domínio", value: "150+" },
         ],
@@ -36,8 +36,8 @@ const products: Product[] = [
         tagline: "Contract & Workflow Management",
         description: "Enterprise platform for IT contract lifecycle management with AI-powered document analysis, visual BPMN workflow designer, and 360° executive dashboards. Built for Brazilian public sector compliance.",
         stats: [
-          { label: "Lines of code", value: "490k" },
-          { label: "Automated tests", value: "5,850+" },
+          { label: "Lines of code", value: "591k" },
+          { label: "Automated tests", value: "6,100+" },
           { label: "Permission rules", value: "511" },
           { label: "Domain entities", value: "150+" },
         ],
@@ -46,8 +46,8 @@ const products: Product[] = [
         tagline: "Gestión de Contratos y Workflows",
         description: "Plataforma enterprise para gestión del ciclo de vida de contratos de TI con análisis documental por IA, diseñador visual de workflows BPMN y dashboards ejecutivos 360°.",
         stats: [
-          { label: "Líneas de código", value: "490k" },
-          { label: "Tests automatizados", value: "5.850+" },
+          { label: "Líneas de código", value: "591k" },
+          { label: "Tests automatizados", value: "6.100+" },
           { label: "Reglas de permiso", value: "511" },
           { label: "Entidades de dominio", value: "150+" },
         ],

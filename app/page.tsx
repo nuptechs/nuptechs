@@ -25,7 +25,7 @@ const jsonLd = {
       "@id": `${siteUrl}/#website`,
       url: siteUrl,
       name: "NuPtechs",
-      description: "Engenharia de software para infraestrutura empresarial. 14 produtos em produção, 490k+ linhas de código, 7.050+ testes automatizados.",
+      description: "Engenharia de software para infraestrutura empresarial. 14 produtos em produção, 1,2M+ linhas de código e 12.300+ testes automatizados.",
       inLanguage: ["pt-BR", "en-US", "es-419"],
       potentialAction: {
         "@type": "SearchAction",
@@ -79,7 +79,7 @@ const jsonLd = {
       mainEntity: [
         { "@type": "Question", name: "Qual é o stack tecnológico da NuPtechs?", acceptedAnswer: { "@type": "Answer", text: "Java 21 + Spring Boot para backends de domínio, Node.js + Express para gateways, Vue 3 e React para frontends, Python + FastAPI para pipelines de IA, PostgreSQL como banco primário e Turborepo para monorepos." } },
         { "@type": "Question", name: "A NuPtechs trabalha com o setor público?", acceptedAnswer: { "@type": "Answer", text: "Sim. Nosso fundador acumula 18+ anos de experiência em TI governamental, com projetos para Caixa Econômica Federal, Serpro, TRF, ANVISA, Anatel e mais de 12 outros órgãos federais." } },
-        { "@type": "Question", name: "Quantos produtos a NuPtechs tem em produção?", acceptedAnswer: { "@type": "Answer", text: "14 produtos, totalizando 490k+ linhas de código e 7.050+ testes automatizados. De gestão de contratos (EasyNuP) a IAM (NuPIdentify) e debugging com IA (Sentinel)." } }
+        { "@type": "Question", name: "Quantos produtos a NuPtechs tem em produção?", acceptedAnswer: { "@type": "Answer", text: "14 produtos, somando mais de 1,2M linhas de código e 12.300+ testes automatizados. Só o EasyNuP já ultrapassa 590k linhas e 6.100+ testes." } }
       ]
     }
   ]
@@ -89,7 +89,7 @@ const faqs = [
   { q: "Qual é o stack tecnológico da NuPtechs?", a: "Java 21 + Spring Boot para backends de domínio, Node.js + Express para gateways e integrações, Vue 3 e React para frontends, Python + FastAPI para pipelines de IA, e PostgreSQL como banco primário. Monorepos gerenciados com Turborepo." },
   { q: "A NuPtechs trabalha com o setor público?", a: "Sim. Nosso fundador acumula 18+ anos de experiência em projetos de TI para órgãos como Caixa Econômica Federal, Serpro, TRF, ANVISA, Anatel, ANA e outros 12+ órgãos federais, estaduais e distritais." },
   { q: "Os produtos podem ser integrados a sistemas existentes?", a: "Toda a nossa arquitetura segue o padrão Port/Adapter — cada integração externa é abstraída por interfaces e adapters plugáveis. APIs REST, webhooks e event-driven architecture garantem integração com ERPs, CRMs e sistemas legados." },
-  { q: "Como a NuPtechs garante qualidade do código?", a: "7.050+ testes automatizados (unit, integration, e2e), CI/CD com pipelines de lint, build e teste, code review estruturado e análise de segurança automatizada com o Manifest. Nenhum código vai para produção sem passar por toda a pipeline." },
+  { q: "Como a NuPtechs garante qualidade do código?", a: "12.300+ testes automatizados (unit, integration, e2e), CI/CD com pipelines de lint, build e teste, code review estruturado e análise de segurança automatizada com o Manifest. Nenhum código vai para produção sem passar por toda a pipeline." },
   { q: "Quais tipos de projeto a NuPtechs realiza?", a: "Construímos plataformas empresariais, ferramentas de infraestrutura e soluções de IA. Desde sistemas de gestão de contratos com 150+ entidades de domínio até pipelines de processamento de documentos com embeddings semânticos." }
 ];
 
@@ -140,7 +140,7 @@ export default function Home() {
               </TextReveal>
 
               <p className="lead" data-reveal style={{ transitionDelay: '300ms' }}>
-                14 produtos em produção. 490 mil linhas de código. Da gestão de identidade ao debugging com IA — engenharia que opera nos maiores órgãos do governo federal.
+                14 produtos em produção. Mais de 1,2 milhão de linhas de código. Só o EasyNuP já supera 590 mil linhas — engenharia que opera nos maiores órgãos do governo federal.
               </p>
 
               <div className="flex flex-wrap gap-3 mt-2" data-reveal style={{ transitionDelay: '500ms' }}>
@@ -164,7 +164,7 @@ export default function Home() {
                   <span className="hero-proof__label">produtos em produção</span>
                 </div>
                 <div className="hero-proof-card" data-reveal-item>
-                  <span className="hero-proof__kpi">490k+</span>
+                  <span className="hero-proof__kpi">1,2M+</span>
                   <span className="hero-proof__label">linhas de código reais</span>
                 </div>
                 <div className="hero-proof-card" data-reveal-item>
