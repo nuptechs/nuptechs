@@ -12,7 +12,7 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { value: 1.2, suffix: "M+", decimals: 1, label: { pt: "linhas de código em produção", en: "lines of production code", es: "líneas de código en producción" }, sublabel: { pt: "em 14 produtos entregues", en: "across 14 shipped products", es: "en 14 productos entregados" } },
+  { value: 1.2, suffix: "M+", decimals: 1, label: { pt: "linhas de código em produção", en: "lines of production code", es: "líneas de código en producción" }, sublabel: { pt: "em 14 produtos próprios", en: "across 14 proprietary products", es: "en 14 productos propios" } },
   { value: 12.3, suffix: "k+", decimals: 1, label: { pt: "testes automatizados", en: "automated tests", es: "tests automatizados" }, sublabel: { pt: "unitários, integração, e2e", en: "unit, integration, e2e", es: "unitarios, integración, e2e" } },
   { value: 17, suffix: "+", label: { pt: "órgãos governamentais", en: "government agencies", es: "órganos gubernamentales" }, sublabel: { pt: "federal, estadual, distrital", en: "federal, state, municipal", es: "federal, estatal, municipal" } },
   { value: 18, suffix: "+", label: { pt: "anos em TI governamental", en: "years in gov IT", es: "años en TI gubernamental" }, sublabel: { pt: "Caixa, Serpro, TRF, ANVISA…", en: "Caixa, Serpro, TRF, ANVISA…", es: "Caixa, Serpro, TRF, ANVISA…" } },

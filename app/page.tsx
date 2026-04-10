@@ -25,7 +25,7 @@ const jsonLd = {
       "@id": `${siteUrl}/#website`,
       url: siteUrl,
       name: "NuPtechs",
-      description: "Engenharia de software para infraestrutura empresarial. 14 produtos em produção, 1,2M+ linhas de código e 12.300+ testes automatizados.",
+      description: "Engenharia de software para infraestrutura empresarial. 14 produtos próprios em produção, além de 200+ projetos entregues, 1,2M+ linhas de código e 12.300+ testes automatizados.",
       inLanguage: ["pt-BR", "en-US", "es-419"],
       potentialAction: {
         "@type": "SearchAction",
@@ -50,7 +50,7 @@ const jsonLd = {
       email: "nuptechs@nuptechs.com",
       telephone: "+55-61-99369-1692",
       foundingDate: "2022",
-      description: "Empresa de engenharia de software com 14 produtos em produção, incluindo plataformas de gestão de contratos, identidade e acesso, debugging e IA. 18+ anos de experiência em TI governamental.",
+      description: "Empresa de engenharia de software com 14 produtos próprios em produção — entre SaaS, plataformas, bibliotecas e ferramentas de infraestrutura — além de 200+ projetos entregues. 18+ anos de experiência em TI governamental.",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Brasília",
@@ -79,7 +79,7 @@ const jsonLd = {
       mainEntity: [
         { "@type": "Question", name: "Qual é o stack tecnológico da NuPtechs?", acceptedAnswer: { "@type": "Answer", text: "Java 21 + Spring Boot para backends de domínio, Node.js + Express para gateways, Vue 3 e React para frontends, Python + FastAPI para pipelines de IA, PostgreSQL como banco primário e Turborepo para monorepos." } },
         { "@type": "Question", name: "A NuPtechs trabalha com o setor público?", acceptedAnswer: { "@type": "Answer", text: "Sim. Nosso fundador acumula 18+ anos de experiência em TI governamental, com projetos para Caixa Econômica Federal, Serpro, TRF, ANVISA, Anatel e mais de 12 outros órgãos federais." } },
-        { "@type": "Question", name: "Quantos produtos a NuPtechs tem em produção?", acceptedAnswer: { "@type": "Answer", text: "14 produtos, somando mais de 1,2M linhas de código e 12.300+ testes automatizados. Só o EasyNuP já ultrapassa 590k linhas e 6.100+ testes." } }
+        { "@type": "Question", name: "Quantos produtos próprios a NuPtechs mantém em produção?", acceptedAnswer: { "@type": "Answer", text: "Mantemos 14 produtos próprios em produção — entre SaaS, plataformas, bibliotecas e ferramentas de infraestrutura — além de mais de 200 projetos entregues. Juntos, somam 1,2M+ linhas de código e 12.300+ testes automatizados." } }
       ]
     }
   ]
@@ -140,7 +140,7 @@ export default function Home() {
               </TextReveal>
 
               <p className="lead" data-reveal style={{ transitionDelay: '300ms' }}>
-                14 produtos em produção. Mais de 1,2 milhão de linhas de código. Só o EasyNuP já supera 590 mil linhas — engenharia que opera nos maiores órgãos do governo federal.
+                +200 projetos entregues e 14 produtos próprios em produção — entre SaaS, plataformas e bibliotecas. Mais de 1,2 milhão de linhas de código operando em governo e enterprise.
               </p>
 
               <div className="flex flex-wrap gap-3 mt-2" data-reveal style={{ transitionDelay: '500ms' }}>
@@ -161,7 +161,7 @@ export default function Home() {
               <div className="hero-proof-row" data-reveal data-reveal-group style={{ transitionDelay: '650ms' }}>
                 <div className="hero-proof-card" data-reveal-item>
                   <span className="hero-proof__kpi">14</span>
-                  <span className="hero-proof__label">produtos em produção</span>
+                  <span className="hero-proof__label">produtos próprios</span>
                 </div>
                 <div className="hero-proof-card" data-reveal-item>
                   <span className="hero-proof__kpi">1,2M+</span>
@@ -194,10 +194,10 @@ export default function Home() {
           <div className="mb-16 max-w-2xl" data-reveal>
             <span className="eyebrow mb-4 block" data-genesis="fast">Produtos</span>
             <TextReveal as="h2" className="section-heading mb-4">
-              14 produtos. Código real em produção.
+              14 produtos próprios — SaaS, plataformas e bibliotecas em produção.
             </TextReveal>
             <p className="lead" data-genesis>
-              Cada produto nasceu de necessidades reais em projetos de governo e enterprise. Sem protótipos — código que roda em produção com milhares de usuários.
+              Além dos +200 projetos entregues para governo e enterprise, a NuPtechs mantém 14 produtos próprios — alguns por assinatura, outros como plataformas, bibliotecas e ferramentas de infraestrutura. Todos nasceram de demandas reais e já rodam em produção.
             </p>
           </div>
           <ProductShowcase />

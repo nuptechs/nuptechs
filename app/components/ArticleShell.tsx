@@ -51,6 +51,14 @@ function getDeeperChildren(sections: PostSection[], parentId: string, activeDept
   });
 }
 
+function enhanceArticleHtml(html: string) {
+  return html
+    .replace(/<table(\b[^>]*)>/g, '<div class="article-table-wrap"><table class="article-table"$1>')
+    .replace(/<\/table>/g, "</table></div>")
+    .replace(/<pre(\b[^>]*)>/g, '<div class="article-code-wrap"><pre$1>')
+    .replace(/<\/pre>/g, "</pre></div>");
+}
+
 /* ── Main Component ───────────────────────────────────────── */
 export default function ArticleShell({ post, related }: { post: Post; related: Post[] }) {
   const articleRef = useRef<HTMLElement>(null);
@@ -289,7 +297,7 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
               <div key={section.id}>
                 <section id={section.id} className={`article-section${(section.depth ?? 0) > 0 ? ` article-section--depth-${section.depth}` : ""}`}>
                   <h2>{section.heading}</h2>
-                  <div dangerouslySetInnerHTML={{ __html: section.content }} />
+                  <div dangerouslySetInnerHTML={{ __html: enhanceArticleHtml(section.content) }} />
                 </section>
 
                 {/* Depth expander cards for deeper children */}
@@ -298,7 +306,7 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
                     key={child.id}
                     depth={child.depth ?? 1}
                     heading={child.heading}
-                    content={child.content}
+                    content={enhanceArticleHtml(child.content)}
                     isExpanded={expandedSections.has(child.id)}
                     onToggle={() => toggleExpanded(child.id)}
                   />
