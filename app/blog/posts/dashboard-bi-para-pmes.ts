@@ -11,6 +11,12 @@ publishedAt: "2026-02-22",
 updatedAt: "2026-04-10",
 author: { name: "NuPtechs", role: "Business Intelligence" },
 executiveSummary: "PMEs brasileiras perdem em média 12 horas semanais gerando relatórios manuais em planilhas que já nascem desatualizados. Este guia apresenta por que planilhas falham acima de 3 fontes de dados, os 4 elementos de um dashboard eficaz, comparativo Grafana vs Metabase vs Superset para PMEs, stack completa implementável em 2-4 semanas por menos de R$ 5.000, 3 casos reais com ROI documentado, e o erro organizacional que mata 60% dos projetos de BI.",
+snapshot: [
+  { label: "Prazo inicial", value: "2 a 4 semanas para colocar um dashboard útil no ar com dados reais." },
+  { label: "Investimento", value: "R$ 2 mil a R$ 5 mil para implementar + R$ 200–500/mês de infraestrutura." },
+  { label: "Stack sugerida", value: "PostgreSQL + n8n + Metabase ou Grafana resolve a maioria das PMEs." },
+  { label: "Erro fatal", value: "Não ter um responsável claro pelos KPIs, pela rotina de uso e pela qualidade do dado." },
+],
 keyTakeaways: [
   "Planilhas falham em latência, escala e erro humano — BI resolve os três",
   "Um dashboard eficaz tem: KPIs, drill-down, alertas automáticos e histórico comparativo",

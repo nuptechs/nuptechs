@@ -11,6 +11,12 @@ publishedAt: "2026-02-15",
 updatedAt: "2026-04-10",
 author: { name: "NuPtechs", role: "Engenharia & Automação" },
 executiveSummary: "Empresas brasileiras perdem em média 25 a 40 horas semanais por equipe operacional com tarefas repetitivas que poderiam ser automatizadas. Este guia completo apresenta as 5 categorias de processos mais desperdiçadores, um framework de priorização em 3 perguntas, comparativo de ferramentas (n8n vs Make vs Zapier), 4 casos reais com ROI documentado e um checklist para começar esta semana.",
+snapshot: [
+  { label: "Custo invisível", value: "Uma equipe de 5 pessoas pode desperdiçar mais de R$ 92,4 mil por ano em tarefas repetitivas." },
+  { label: "Quick win ideal", value: "Alta frequência, alta padronização e baixo risco operacional." },
+  { label: "Ferramenta de partida", value: "n8n, Make ou Zapier para provar valor rápido antes de escalar." },
+  { label: "Retorno comum", value: "Integrações simples costumam se pagar em dias, não em meses." },
+],
 keyTakeaways: [
   "As 5 tarefas mais custosas: entrada de dados, confirmações, documentos, triagem e monitoramento",
   "Use o framework frequência × padronização × risco para priorizar",

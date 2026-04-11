@@ -11,6 +11,12 @@ publishedAt: "2026-03-02",
 updatedAt: "2026-04-10",
 author: { name: "NuPtechs", role: "Consultoria Técnica" },
 executiveSummary: "O custo de software sob medida no Brasil em 2026 varia de R$ 25.000 (MVP simples) a R$ 1.500.000+ (plataforma complexa regulada). Este guia apresenta tabela completa de preços por categoria, a composição detalhada de cada real investido, 5 custos ocultos que podem dobrar o orçamento, como comparar fornecedores de forma justa, 4 modelos de contratação com prós/contras, e um checklist para reduzir risco em 60%.",
+snapshot: [
+  { label: "Faixa típica", value: "R$ 25 mil a R$ 250 mil para a maioria dos sistemas empresariais sob medida." },
+  { label: "Prazo comum", value: "Entre 2 e 8 meses, dependendo de regras de negócio, integrações e nível de acabamento." },
+  { label: "Pós-lançamento", value: "Reserve 15–20% do custo inicial por ano para manutenção e evolução." },
+  { label: "Erro mais caro", value: "Escolher pelo menor preço sem escopo claro — é o cenário que mais estoura prazo e orçamento." },
+],
 keyTakeaways: [
   "MVP funcional (1 desenvolvedor sênior, 2–3 meses): R$ 25.000–60.000",
   "Sistema empresarial médio (equipe 3–5 pessoas, 4–8 meses): R$ 80.000–250.000",

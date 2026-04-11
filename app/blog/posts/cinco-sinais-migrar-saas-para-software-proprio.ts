@@ -11,6 +11,12 @@ publishedAt: "2026-02-08",
 updatedAt: "2026-04-10",
 author: { name: "NuPtechs", role: "Consultoria Técnica" },
 executiveSummary: "O SaaS que acelerou sua empresa no início pode estar limitando-a agora. Este artigo detalha os 5 sinais concretos (com métricas e fórmulas) de que a migração para software próprio se tornou financeiramente vantajosa, apresenta o framework SAÍDA para tomada de decisão, 3 case studies com números reais de empresas brasileiras, a estratégia de migração faseada (Strangler Fig) que reduz risco em 80%, e o checklist de capacidade operacional que toda empresa deve validar antes de começar.",
+snapshot: [
+  { label: "Sinal crítico", value: "Planilhas paralelas, workarounds e integrações frágeis já consumindo tempo todo mês." },
+  { label: "Breakeven comum", value: "Muitas operações médias recuperam a migração entre os meses 24 e 36." },
+  { label: "Estratégia segura", value: "Migrar módulo a módulo, mantendo o SaaS ativo como fallback durante a transição." },
+  { label: "Quando não migrar", value: "Se o processo não é diferencial e a licença segue baixa, o SaaS ainda pode ser a melhor escolha." },
+],
 keyTakeaways: [
   "Sinal #1: o custo de licença em 5 anos supera o custo de desenvolvimento + manutenção — faça a conta com projeção de crescimento",
   "Sinal #2: você customiza o processo para o SaaS, não o SaaS para o processo — 2+ workarounds = alerta",

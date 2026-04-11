@@ -11,6 +11,12 @@ publishedAt: "2026-03-01",
 updatedAt: "2026-04-10",
 author: { name: "NuPtechs", role: "IA & Machine Learning" },
 executiveSummary: "O custo de IA por token caiu 95% em 2 anos, mas a maioria das empresas ainda paga 10 a 100× mais do que deveria por usar o modelo errado para a tarefa. Este guia apresenta a tabela atualizada de preços de todos os modelos relevantes, fórmulas de cálculo com exemplos reais, uma análise completa dos custos ocultos (engenharia de prompt, latência, manutenção, compliance), a economia de self-hosting com Llama/Mistral, e a estratégia de routing por tier que reduz custos em 60-80%.",
+snapshot: [
+  { label: "Economia comum", value: "Routing por tier reduz o custo total de IA em 60–80% sem perda perceptível para o usuário final." },
+  { label: "Regra de ouro", value: "Use o menor modelo que resolva o caso — GPT-4o Mini cobre grande parte das demandas empresariais." },
+  { label: "Open-source", value: "Self-hosting pode ficar dezenas de vezes mais barato em alto volume, mas exige operação e monitoramento." },
+  { label: "Custo real", value: "Não é só token: prompt, latência, revisão humana e manutenção pesam bastante na conta final." },
+],
 keyTakeaways: [
   "GPT-4o Mini cobre 80% dos casos a 20× menor custo que GPT-4o — use o menor modelo suficiente",
   "Claude 3.5 Sonnet lidera em seguir instruções complexas e redação; GPT-4o em código e raciocínio",

@@ -11,6 +11,12 @@ publishedAt: "2026-02-10",
 updatedAt: "2026-04-10",
 author: { name: "NuPtechs", role: "IA & Machine Learning" },
 executiveSummary: "Após implementar LLMs em dezenas de operações brasileiras, identificamos os 4 casos de uso com ROI comprovado em 90 dias (triagem, geração de docs, FAQ, extração de dados), os 3 cenários onde falham consistentemente, e o modelo de 4 etapas para implementação segura. Este guia inclui comparativo de modelos (GPT-4o vs Claude vs Gemini), planilha de custos reais, arquitetura RAG simplificada e 3 estudos de caso com números verificáveis.",
+snapshot: [
+  { label: "Onde entrega ROI", value: "Triagem de texto, FAQ, extração de dados e rascunhos documentais com revisão humana." },
+  { label: "Custo-base", value: "Classificações simples ficam abaixo de R$ 0,01 por chamada na maioria dos cenários." },
+  { label: "Prazo de prova", value: "Resultados sólidos costumam aparecer em até 90 dias quando há baseline claro." },
+  { label: "Erro comum", value: "Querer 'IA na empresa inteira' antes de validar um caso de uso específico e mensurável." },
+],
 keyTakeaways: [
   "LLMs entregam ROI consistente em triagem de texto, geração de documentos, FAQ e extração de dados",
   "Falham em cálculos precisos, dados em tempo real sem integração e responsabilidade jurídica",

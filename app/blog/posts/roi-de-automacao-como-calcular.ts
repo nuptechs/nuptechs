@@ -11,6 +11,12 @@ publishedAt: "2026-02-25",
 updatedAt: "2026-04-10",
 author: { name: "NuPtechs", role: "Engenharia & Automação" },
 executiveSummary: "Calcular o ROI de automação antes de iniciar o projeto é o que separa investimentos que se pagam em 2 meses de projetos que viram custo afundado. Este guia apresenta a fórmula completa com seus 4 componentes, 3 exemplos práticos com números reais por setor, uma metodologia para mapear benefícios indiretos, os 6 erros que inflam ou deflam o ROI artificialmente, e um framework para apresentar o business case para gestores.",
+snapshot: [
+  { label: "Fórmula", value: "ROI = (benefícios anuais − custo total) ÷ custo total × 100." },
+  { label: "Payback típico", value: "1 a 4 meses em automações bem recortadas e com processo repetitivo." },
+  { label: "Número que convence", value: "Mostre R$ economizados por mês — é mais tangível do que só percentual." },
+  { label: "Alerta", value: "Se o payback passar de 18 meses, vale reavaliar escopo, custo ou prioridade." },
+],
 keyTakeaways: [
   "ROI de automação = (Benefícios anuais − Custo total) / Custo total × 100%",
   "Os 4 benefícios mensuráveis: horas economizadas, erros evitados, retrabalho eliminado e receita acelerada",

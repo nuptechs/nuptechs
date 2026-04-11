@@ -11,6 +11,12 @@ publishedAt: "2026-02-05",
 updatedAt: "2026-04-10",
 author: { name: "NuPtechs", role: "Consultoria Técnica" },
 executiveSummary: "A escolha entre SaaS e software sob medida raramente é binária — as melhores empresas combinam ambos estrategicamente. Este guia apresenta os cenários reais onde cada abordagem vence, os 3 custos ocultos do SaaS que ninguém calcula, um framework de decisão prático com scoring ponderado, 4 estudos de caso com números reais, e um plano de execução para quem decidiu migrar.",
+snapshot: [
+  { label: "SaaS vence em", value: "Processos commodity, implantação rápida e operações pequenas ou pouco críticas." },
+  { label: "Sob medida vence em", value: "Diferencial competitivo, integrações profundas e controle total sobre dados e roadmap." },
+  { label: "Comparação certa", value: "Sempre coloque lado a lado o TCO de 5 anos — não só o preço mensal da licença." },
+  { label: "Ponto de virada", value: "Em muitos casos aparece a partir de 50+ usuários ou R$ 80–150 mil/ano em licenças." },
+],
 keyTakeaways: [
   "A decisão raramente é binária — as melhores arquiteturas combinam SaaS + sob medida",
   "SaaS ganha em: processos padrão, velocidade de adoção e volume que não justifica dev",
