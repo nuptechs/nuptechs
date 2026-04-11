@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import NavLinks from "../../../components/NavLinks";
 import ThemeToggle from "../../../components/ThemeToggle";
+import SiteFooter from "../../../components/SiteFooter";
 import { type Locale } from "../../../i18n/dictionaries";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
@@ -785,21 +786,7 @@ export default function LangServicePage({ params }: PageParams) {
         </div>
       </section>
 
-      {/* ── Footer ── */}
-      <footer className="site-footer" role="contentinfo">
-        <div className="inner flex flex-col items-center justify-between gap-6 sm:flex-row">
-          <a href={homeHref} className="nav-logo" aria-label="NuPtechs — home">
-            <span className="nav-logo-dot" aria-hidden="true" />
-            <span className="nav-logo-text">NuPtechs</span>
-          </a>
-          <div className="flex items-center gap-6 text-sm text-[var(--muted)]">
-            <a href={ptUrl} className="hover:text-[var(--text)] transition-colors">PT</a>
-            <a href={enUrl} className="hover:text-[var(--text)] transition-colors">EN</a>
-            <a href={esUrl} className="hover:text-[var(--text)] transition-colors">ES</a>
-          </div>
-          <p className="text-xs text-[var(--subtle)]">© 2022&ndash;{new Date().getFullYear()} NuPtechs. {isEn ? "All rights reserved." : "Todos los derechos reservados."}</p>
-        </div>
-      </footer>
+      <SiteFooter lang={params.lang as Locale} />
     </>
   );
 }

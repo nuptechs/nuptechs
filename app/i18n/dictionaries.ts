@@ -33,9 +33,9 @@ export const dictionaries = {
       viewAll: "View all articles",
       readArticle: "Read article",
       posts: [
-        { slug: "como-automatizar-processos-manuais", tag: "Automation", title: "How to automate manual processes and free 30h/week from your team", excerpt: "Discover the 5 tasks that consume the most time in operations and how to eliminate them with intelligent workflows.", readTime: "6 min" },
-        { slug: "llms-no-mundo-corporativo", tag: "Applied AI", title: "LLMs in the corporate world: where AI actually delivers ROI", excerpt: "Analysis of real cases from Brazilian companies that implemented AI and the results obtained in the first 90 days.", readTime: "8 min" },
-        { slug: "software-sob-medida-vs-saas", tag: "Engineering", title: "Custom software vs. off-the-shelf SaaS: which one for your company?", excerpt: "A practical guide for managers evaluating cost, time, and risk before hiring custom development.", readTime: "5 min" },
+        { slug: "como-automatizar-processos-manuais", tag: "Automation", title: "How to automate manual processes and free 30h/week from your team", excerpt: "Discover the 5 tasks that consume the most time in operations and how to eliminate them with intelligent workflows.", readTime: "22 min" },
+        { slug: "llms-no-mundo-corporativo", tag: "Applied AI", title: "LLMs in the corporate world: where AI actually delivers ROI", excerpt: "Analysis of real cases from Brazilian companies that implemented AI and the results obtained in the first 90 days.", readTime: "24 min" },
+        { slug: "como-implementar-rag-na-sua-empresa", tag: "Applied AI", title: "How to implement RAG in your company in 2 weeks", excerpt: "A practical playbook for turning internal documents into a usable AI knowledge layer without months of experimentation.", readTime: "22 min" },
       ],
     },
     faq: {
@@ -156,9 +156,9 @@ export const dictionaries = {
       viewAll: "Ver todos los artículos",
       readArticle: "Leer artículo",
       posts: [
-        { slug: "como-automatizar-processos-manuais", tag: "Automatización", title: "Cómo automatizar procesos manuales y liberar 30h/semana de tu equipo", excerpt: "Descubre las 5 tareas que más consumen tiempo en operaciones y cómo eliminarlas con flujos inteligentes.", readTime: "6 min" },
-        { slug: "llms-no-mundo-corporativo", tag: "IA Aplicada", title: "LLMs en el mundo corporativo: dónde la IA realmente entrega ROI", excerpt: "Análisis de casos reales de empresas brasileñas que implementaron IA y los resultados obtenidos en los primeros 90 días.", readTime: "8 min" },
-        { slug: "software-sob-medida-vs-saas", tag: "Ingeniería", title: "Software a medida vs. SaaS listo: ¿cuál elegir para tu empresa?", excerpt: "Una guía práctica para gestores que evalúan costo, tiempo y riesgo antes de contratar desarrollo personalizado.", readTime: "5 min" },
+        { slug: "como-automatizar-processos-manuais", tag: "Automatización", title: "Cómo automatizar procesos manuales y liberar 30h/semana de tu equipo", excerpt: "Descubre las 5 tareas que más consumen tiempo en operaciones y cómo eliminarlas con flujos inteligentes.", readTime: "22 min" },
+        { slug: "llms-no-mundo-corporativo", tag: "IA Aplicada", title: "LLMs en el mundo corporativo: dónde la IA realmente entrega ROI", excerpt: "Análisis de casos reales de empresas brasileñas que implementaron IA y los resultados obtenidos en los primeros 90 días.", readTime: "24 min" },
+        { slug: "como-implementar-rag-na-sua-empresa", tag: "IA Aplicada", title: "Cómo implementar RAG en tu empresa en 2 semanas", excerpt: "Una guía práctica para convertir documentos internos en una capa de conocimiento útil con IA, sin meses de experimentación.", readTime: "22 min" },
       ],
     },
     faq: {

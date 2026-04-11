@@ -8,7 +8,7 @@ interface NavItem { label: string; href: string }
 
 function getLinks(lang: Lang): NavItem[] {
   if (lang === "en") return [
-    { label: "Services",    href: "/en#services" },
+    { label: "Services",    href: "/servicos" },
     { label: "How it works",href: "/en#process" },
     { label: "Products",    href: "/en#products" },
     { label: "Blog",        href: "/blog" },
@@ -16,7 +16,7 @@ function getLinks(lang: Lang): NavItem[] {
     { label: "Contact",     href: "/en#contact" },
   ];
   if (lang === "es") return [
-    { label: "Servicios",   href: "/es#services" },
+    { label: "Servicios",   href: "/servicos" },
     { label: "Cómo funciona",href: "/es#process" },
     { label: "Productos",   href: "/es#products" },
     { label: "Blog",        href: "/blog" },

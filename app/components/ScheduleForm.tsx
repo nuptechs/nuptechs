@@ -174,7 +174,7 @@ export default function ScheduleForm() {
         />
       </label>
       <button
-        className="button-primary w-full justify-center"
+        className="btn btn-primary w-full justify-center"
         type="submit"
         disabled={state === "submitting"}
       >

@@ -1,56 +1,170 @@
 "use client";
 
-export default function SiteFooter() {
+type Lang = "pt" | "en" | "es";
+
+const footerCopy = {
+  pt: {
+    tagline: "Software sob medida, automação com IA e produtos prontos para empresas que precisam operar melhor — não apenas parecer modernas.",
+    primaryCta: "Solicitar diagnóstico",
+    secondaryCta: "WhatsApp",
+    proofPoints: ["+200 projetos entregues", "14 produtos em produção", "1,2M+ linhas de código"],
+    company: "Empresa",
+    services: "Serviços",
+    products: "Produtos",
+    rights: "Todos os direitos reservados.",
+    companyLinks: [
+      { label: "Sobre", href: "/sobre" },
+      { label: "Blog", href: "/blog" },
+      { label: "FAQ", href: "/#faq" },
+      { label: "Contato", href: "/#contato" },
+    ],
+    serviceLinks: [
+      { label: "Automação com IA", href: "/servicos/automacao-inteligente" },
+      { label: "Dashboards BI", href: "/servicos/dashboards-bi" },
+      { label: "Apps móveis", href: "/servicos/aplicativos-moveis" },
+      { label: "Integrações & APIs", href: "/servicos/integracoes-api" },
+    ],
+    productLinks: [
+      { label: "FlowOps", href: "/produtos/flowops" },
+      { label: "DataPulse", href: "/produtos/datapulse" },
+      { label: "BookFlow", href: "/produtos/bookflow" },
+      { label: "ChatCore", href: "/produtos/chatcore" },
+    ],
+  },
+  en: {
+    tagline: "Custom software, AI automation, and production-ready products for companies that need real execution — not just polished slides.",
+    primaryCta: "Request a diagnosis",
+    secondaryCta: "WhatsApp",
+    proofPoints: ["200+ projects shipped", "14 live products", "1.2M+ LOC in production"],
+    company: "Company",
+    services: "Services",
+    products: "Products",
+    rights: "All rights reserved.",
+    companyLinks: [
+      { label: "About", href: "/en/about" },
+      { label: "Blog", href: "/blog" },
+      { label: "FAQ", href: "/en#faq" },
+      { label: "Contact", href: "/en#contact" },
+    ],
+    serviceLinks: [
+      { label: "AI Automation", href: "/servicos/automacao-inteligente" },
+      { label: "BI Dashboards", href: "/servicos/dashboards-bi" },
+      { label: "Mobile Apps", href: "/servicos/aplicativos-moveis" },
+      { label: "API Integrations", href: "/servicos/integracoes-api" },
+    ],
+    productLinks: [
+      { label: "FlowOps", href: "/produtos/flowops" },
+      { label: "DataPulse", href: "/produtos/datapulse" },
+      { label: "BookFlow", href: "/produtos/bookflow" },
+      { label: "ChatCore", href: "/produtos/chatcore" },
+    ],
+  },
+  es: {
+    tagline: "Software a medida, automatización con IA y productos listos para empresas que necesitan resultados reales — no solo una buena presentación.",
+    primaryCta: "Solicitar diagnóstico",
+    secondaryCta: "WhatsApp",
+    proofPoints: ["200+ proyectos entregados", "14 productos en producción", "1,2M+ líneas de código"],
+    company: "Empresa",
+    services: "Servicios",
+    products: "Productos",
+    rights: "Todos los derechos reservados.",
+    companyLinks: [
+      { label: "Nosotros", href: "/es/about" },
+      { label: "Blog", href: "/blog" },
+      { label: "FAQ", href: "/es#faq" },
+      { label: "Contacto", href: "/es#contact" },
+    ],
+    serviceLinks: [
+      { label: "Automatización con IA", href: "/servicos/automacao-inteligente" },
+      { label: "Dashboards BI", href: "/servicos/dashboards-bi" },
+      { label: "Apps móviles", href: "/servicos/aplicativos-moveis" },
+      { label: "Integraciones API", href: "/servicos/integracoes-api" },
+    ],
+    productLinks: [
+      { label: "FlowOps", href: "/produtos/flowops" },
+      { label: "DataPulse", href: "/produtos/datapulse" },
+      { label: "BookFlow", href: "/produtos/bookflow" },
+      { label: "ChatCore", href: "/produtos/chatcore" },
+    ],
+  },
+} as const;
+
+export default function SiteFooter({ lang = "pt" }: { lang?: Lang }) {
   const year = new Date().getFullYear();
+  const t = footerCopy[lang] ?? footerCopy.pt;
+  const homeHref = lang === "pt" ? "/" : `/${lang}`;
 
   return (
     <footer className="site-footer" role="contentinfo">
       <div className="inner">
         <div className="footer-grid">
-          {/* Brand */}
           <div className="footer-brand">
-            <a href="/" className="nav-logo" aria-label="NuPtechs — voltar ao topo">
+            <a href={homeHref} className="nav-logo" aria-label="NuPtechs — voltar ao topo">
               <span className="nav-logo-dot" aria-hidden="true" />
               <span className="nav-logo-text">NuPtechs</span>
             </a>
-            <p>
-              Desenvolvimento de software sob medida, automação com IA e produtos prontos
-              para empresas brasileiras.
-            </p>
+            <p>{t.tagline}</p>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {t.proofPoints.map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-[var(--border)] bg-[var(--surface-raised)] px-3 py-1.5 text-[0.72rem] font-semibold text-[var(--text-secondary)]"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              <a href="mailto:nuptechs@nuptechs.com" className="btn btn-primary">
+                {t.primaryCta}
+              </a>
+              <a
+                href="https://wa.me/5561993691692"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+              >
+                {t.secondaryCta}
+              </a>
+            </div>
           </div>
 
-          {/* Empresa */}
           <div className="footer-col">
-            <h4>Empresa</h4>
-            <a href="/sobre">Sobre</a>
-            <a href="/blog">Blog</a>
-            <a href="/#faq">FAQ</a>
-            <a href="/#contato">Contato</a>
+            <h4>{t.company}</h4>
+            {t.companyLinks.map((link) => (
+              <a key={link.label} href={link.href}>{link.label}</a>
+            ))}
           </div>
 
-          {/* Serviços */}
           <div className="footer-col">
-            <h4>Serviços</h4>
-            <a href="/servicos/automacao-inteligente">Automação com IA</a>
-            <a href="/servicos/dashboards-bi">Dashboards BI</a>
-            <a href="/servicos/aplicativos-moveis">Apps Móveis</a>
-            <a href="/servicos/integracoes-api">Integrações</a>
+            <h4>{t.services}</h4>
+            {t.serviceLinks.map((link) => (
+              <a key={link.label} href={link.href}>{link.label}</a>
+            ))}
           </div>
 
-          {/* Produtos */}
           <div className="footer-col">
-            <h4>Produtos</h4>
-            <a href="/produtos/flowops">FlowOps</a>
-            <a href="/produtos/datapulse">DataPulse</a>
-            <a href="/produtos/bookflow">BookFlow</a>
-            <a href="/produtos/chatcore">ChatCore</a>
+            <h4>{t.products}</h4>
+            {t.productLinks.map((link) => (
+              <a key={link.label} href={link.href}>{link.label}</a>
+            ))}
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className="footer-bottom">
-          <p>© 2022&ndash;{year} NuPtechs. Todos os direitos reservados.</p>
+          <p>© 2022&ndash;{year} NuPtechs. {t.rights}</p>
           <div className="flex items-center gap-4">
+            {lang !== "pt" && (
+              <div className="flex items-center gap-2 text-xs text-[var(--muted)]">
+                <a href="/" className="hover:text-[var(--text)] transition-colors">PT</a>
+                <span>·</span>
+                <a href="/en" className={`hover:text-[var(--text)] transition-colors ${lang === "en" ? "text-[var(--accent)] font-semibold" : ""}`}>EN</a>
+                <span>·</span>
+                <a href="/es" className={`hover:text-[var(--text)] transition-colors ${lang === "es" ? "text-[var(--accent)] font-semibold" : ""}`}>ES</a>
+              </div>
+            )}
             <a
               href="https://www.linkedin.com/company/nuptechs"
               className="text-[var(--subtle)] hover:text-[var(--text)] transition-colors"

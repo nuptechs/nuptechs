@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { allPosts } from "./blog/posts";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -20,14 +21,7 @@ const products = [
   "peopledesk"
 ];
 
-const blogSlugs = [
-  "como-automatizar-processos-manuais",
-  "llms-no-mundo-corporativo",
-  "software-sob-medida-vs-saas",
-  "dashboard-bi-para-pmes",
-  "como-escolher-stack-tecnologica",
-  "integracao-api-whatsapp-business"
-];
+const blogSlugs = Object.keys(allPosts);
 
 const servicesEn = [
   "intelligent-automation",

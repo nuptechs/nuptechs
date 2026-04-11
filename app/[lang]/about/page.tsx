@@ -4,6 +4,7 @@ import NavLinks from "../../components/NavLinks";
 import ThemeToggle from "../../components/ThemeToggle";
 import SynapticGrid from "../../components/SynapticGrid";
 import CodeGenesis from "../../components/CodeGenesis";
+import SiteFooter from "../../components/SiteFooter";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -347,34 +348,7 @@ export default function AboutPage({ params }: Props) {
 
       </main>
 
-      {/* ── FOOTER ───────────────────────────────────────── */}
-      <footer className="site-footer" role="contentinfo">
-        <div className="inner flex flex-col gap-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <a href={`/${params.lang}`} className="nav-logo" aria-label="NuPtechs — home">
-              <span className="nav-logo-dot" aria-hidden="true" />
-              <span className="nav-logo-text">NuPtechs</span>
-            </a>
-            {/* Language switcher */}
-            <div className="flex items-center gap-1 text-xs" aria-label="Language">
-              <a href={ptHref} className="px-2 py-1 rounded text-[var(--subtle)] hover:text-[var(--text)] transition-colors">PT</a>
-              <span className="text-[var(--border)]">·</span>
-              <a href={enHref} className={`px-2 py-1 rounded transition-colors ${params.lang === "en" ? "text-[var(--accent)] font-semibold" : "text-[var(--subtle)] hover:text-[var(--text)]"}`}>EN</a>
-              <span className="text-[var(--border)]">·</span>
-              <a href={esHref} className={`px-2 py-1 rounded transition-colors ${params.lang === "es" ? "text-[var(--accent)] font-semibold" : "text-[var(--subtle)] hover:text-[var(--text)]"}`}>ES</a>
-            </div>
-          </div>
-          <div className="border-t border-[var(--border)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-[var(--subtle)]">© 2022&ndash;{new Date().getFullYear()} NuPtechs. {d.footer.rights}</p>
-            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-[var(--muted)]">
-              <a href={`/${params.lang}#services`} className="hover:text-[var(--text)] transition-colors">{d.nav.services}</a>
-              <a href={`/${params.lang}#products`} className="hover:text-[var(--text)] transition-colors">{d.nav.products}</a>
-              <a href={`/${params.lang}#contact`} className="hover:text-[var(--text)] transition-colors">{d.nav.contact}</a>
-              <a href="/sobre" className="hover:text-[var(--text)] transition-colors">Sobre (PT)</a>
-            </nav>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter lang={params.lang} />
     </>
   );
 }
