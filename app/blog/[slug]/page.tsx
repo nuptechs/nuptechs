@@ -48,6 +48,7 @@ export interface Post {
   updatedAt?: string;
   author: { name: string; role: string };
   executiveSummary?: string;
+  snapshot?: { label: string; value: string }[];
   keyTakeaways: string[];
   sections: PostSection[];
   callouts: Callout[];

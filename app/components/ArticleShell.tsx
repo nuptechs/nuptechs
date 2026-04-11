@@ -53,6 +53,7 @@ function getDeeperChildren(sections: PostSection[], parentId: string, activeDept
 
 function enhanceArticleHtml(html: string) {
   return html
+    .replace(/<p(?![^>]*class=)([^>]*)>/, '<p class="lead"$1>')
     .replace(/<table(\b[^>]*)>/g, '<div class="article-table-wrap"><table class="article-table"$1>')
     .replace(/<\/table>/g, "</table></div>")
     .replace(/<pre(\b[^>]*)>/g, '<div class="article-code-wrap"><pre$1>')
@@ -278,6 +279,23 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
               <p>{post.executiveSummary}</p>
             </div>
           )}
+
+          {post.snapshot?.length ? (
+            <section className="article-snapshot" aria-label="Resumo rápido do artigo">
+              <div className="article-snapshot__header">
+                <span className="article-snapshot__eyebrow">Em 30 segundos</span>
+                <h2 className="article-snapshot__title">O que você precisa reter deste artigo</h2>
+              </div>
+              <div className="article-snapshot__grid">
+                {post.snapshot.map((item) => (
+                  <div key={`${item.label}-${item.value}`} className="article-snapshot__card">
+                    <p className="article-snapshot__label">{item.label}</p>
+                    <p className="article-snapshot__value">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           {/* Sections with interspersed callouts + depth expanders */}
           {visibleSections.map((section, sIdx) => {
