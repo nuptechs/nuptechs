@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import type { Post } from "./[slug]/page";
+import { formatDatePtBr } from "../lib/date";
 
 const tagColors: Record<string, string> = {
   "Automação":            "badge-accent",
@@ -107,7 +108,7 @@ export default function BlogClient({ postList, allTags }: Props) {
             </p>
             <div className="flex items-center justify-between">
               <time dateTime={featured.publishedAt} className="text-xs text-[var(--subtle)]">
-                {new Date(featured.publishedAt).toLocaleDateString("pt-BR", {
+                {formatDatePtBr(featured.publishedAt, {
                   day: "numeric",
                   month: "long",
                   year: "numeric",
@@ -149,7 +150,7 @@ export default function BlogClient({ postList, allTags }: Props) {
 
               <div className="flex items-center justify-between border-t border-[var(--border)] pt-3 mt-auto">
                 <time dateTime={post.publishedAt} className="text-xs text-[var(--subtle)]">
-                  {new Date(post.publishedAt).toLocaleDateString("pt-BR", {
+                  {formatDatePtBr(post.publishedAt, {
                     day: "numeric",
                     month: "short",
                     year: "numeric",

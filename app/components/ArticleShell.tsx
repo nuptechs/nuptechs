@@ -8,6 +8,7 @@ import DepthSelector from "./DepthSelector";
 import DepthExpander from "./DepthExpander";
 import ArticleCTA from "./ArticleCTA";
 import ShareButtons from "./ShareButtons";
+import { formatDatePtBr } from "../lib/date";
 
 /* ═══════════════════════════════════════════════════════════
    ArticleShell v2 — Premium interactive article layout
@@ -61,7 +62,15 @@ function enhanceArticleHtml(html: string) {
 }
 
 /* ── Main Component ───────────────────────────────────────── */
-export default function ArticleShell({ post, related }: { post: Post; related: Post[] }) {
+export default function ArticleShell({
+  post,
+  related,
+  canonicalUrl,
+}: {
+  post: Post;
+  related: Post[];
+  canonicalUrl: string;
+}) {
   const articleRef = useRef<HTMLElement>(null);
   const [progress, setProgress] = useState(0);
   const [activeSectionId, setActiveSectionId] = useState<string>("");
@@ -160,7 +169,7 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
             <span className="badge badge-accent">{post.tag}</span>
             <span className="article-meta-dot">·</span>
             <time dateTime={post.publishedAt}>
-              {new Date(post.publishedAt).toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })}
+              {formatDatePtBr(post.publishedAt, { day: "numeric", month: "long", year: "numeric" })}
             </time>
             <span className="article-meta-dot">·</span>
             <span>{post.readTime} leitura</span>
@@ -179,20 +188,18 @@ export default function ArticleShell({ post, related }: { post: Post; related: P
             />
           )}
 
-          <div className="article-header__author">
-            <div className="article-header__avatar" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="1.5"/></svg>
+          <div className="article-header__footer">
+            <div className="article-header__author">
+              <div className="article-header__avatar" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="1.5"/></svg>
+              </div>
+              <div>
+                <p className="article-header__author-name">{post.author.name}</p>
+                <p className="article-header__author-role">{post.author.role}</p>
+              </div>
             </div>
-            <div>
-              <p className="article-header__author-name">{post.author.name}</p>
-              <p className="article-header__author-role">{post.author.role}</p>
-            </div>
+            <ShareButtons url={canonicalUrl} title={post.title} />
           </div>
-
-          <ShareButtons
-            url={typeof window !== "undefined" ? window.location.href : `/blog/${post.slug}`}
-            title={post.title}
-          />
         </div>
       </header>
 

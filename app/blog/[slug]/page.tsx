@@ -109,6 +109,7 @@ export async function generateMetadata({ params }: BlogParams): Promise<Metadata
 export default function BlogPost({ params }: BlogParams) {
   const post = posts[params.slug as keyof typeof posts];
   if (!post) notFound();
+  const canonicalUrl = `${siteUrl}/blog/${post.slug}`;
 
   const wordCount = post.sections.reduce((sum, s) => sum + s.content.replace(/<[^>]+>/g, "").split(/\s+/).length, 0);
 
@@ -166,7 +167,7 @@ export default function BlogPost({ params }: BlogParams) {
       </nav>
 
       <main>
-        <ArticleShell post={post} related={related} />
+        <ArticleShell post={post} related={related} canonicalUrl={canonicalUrl} />
       </main>
 
       <SiteFooter />

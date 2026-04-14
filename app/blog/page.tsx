@@ -4,6 +4,7 @@ import NavLinks from "../components/NavLinks";
 import ThemeToggle from "../components/ThemeToggle";
 import SiteFooter from "../components/SiteFooter";
 import BlogClient from "./BlogClient";
+import { compareDateStringsDesc } from "../lib/date";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -77,7 +78,7 @@ const jsonLd = {
 
 export default function BlogIndex() {
   const postList = Object.values(posts).sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    (a, b) => compareDateStringsDesc(a.publishedAt, b.publishedAt)
   );
 
   // Group by tag for the tag filter display
