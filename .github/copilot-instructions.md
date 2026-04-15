@@ -1,22 +1,71 @@
-<!-- Use this file to provide workspace-specific custom instructions to Copilot. For more details, visit https://code.visualstudio.com/docs/copilot/copilot-customization#_use-a-githubcopilotinstructionsmd-file -->
-- [x] Verify that the copilot-instructions.md file in the .github directory is created.
+# NupTechs — AI Agent Guidelines
 
-- [x] Clarify Project Requirements
-	<!-- Ask for project type, language, and frameworks if not specified. Skip if already provided. -->
+## Overview
 
-- [x] Scaffold the Project — Next.js structure criada com App Router e TypeScript.
+NupTechs corporate website and blog platform. Next.js 14 App Router with static generation, SEO-optimized content, AI-assisted scheduling, and bilingual support (pt-BR / en-US).
 
-- [x] Customize the Project — Conteúdo, agendamento e estrutura de SEO implementados.
+## Tech Stack (Firmly Decided)
 
-- [x] Install Required Extensions — Nenhuma extensão adicional necessária.
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 14.2 (App Router) |
+| Language | TypeScript + React 18.3 |
+| Styling | TailwindCSS 4 |
+| AI | OpenAI (@ai-sdk/openai) |
+| Vector Search | Pinecone |
+| Email | Resend |
+| Validation | Zod |
+| Deploy | Vercel / Static export |
 
-- [x] Compile the Project — Dependências instaladas, lint e build concluídos.
+## Project Structure
 
-- [x] Create and Run Task — Não necessário para este projeto.
+```
+app/
+  [lang]/               ← i18n routes (pt-BR, en-US)
+  blog/                 ← Blog posts with mind maps, flashcards
+  servicos/             ← Services pages
+  produtos/             ← Products pages
+  sobre/                ← About page
+  api/
+    blog/               ← Blog API routes
+    contact/            ← Contact form endpoint
+    schedule/           ← Scheduling endpoint
+  components/           ← Shared UI (ThemeToggle, NavLinks, ParticleField, etc.)
+next.config.js          ← Security headers (CSP, HSTS, X-Frame-Options), compression
+```
 
-- [ ] Launch the Project — Aguardando confirmação para iniciar modo de depuração.
+## SEO Implementation
 
-- [x] Ensure Documentation is Complete — README atualizado e comentários removidos.
-- Work through each checklist item systematically.
-- Keep communication concise and focused.
-- Follow development best practices.
+Fully implemented:
+- Title templates, meta descriptions, keywords per page
+- Canonical URLs, robots.txt, sitemap.xml
+- JSON-LD structured data (WebSite, BreadcrumbList, Article, Blog)
+- Open Graph + Twitter Cards
+- GA4 integration via `@next/third-parties`
+- hreflang pt-BR / en-US alternates
+- Static generation with `generateStaticParams`
+
+See `SEO-PLANO.md` for strategy details and `BLOG-PLANO.md` for content expansion plan.
+
+## Blog Platform
+
+- 6 pillar posts with interactive mind maps (SVG), mnemonic flashcards, key takeaways
+- 5 content tags: Automação, IA Aplicada, BI, Dev Ágil, Integrações
+- ArticleShell layout component, MnemonicCards component
+- Cross-reference network via `relatedSlugs`
+
+## Build & Test
+
+```bash
+npm run dev          # next dev
+npm run build        # next build (SSG)
+npm start            # next start
+npm run lint         # ESLint
+```
+
+## Key Conventions
+
+- All pages use static generation (no server-side rendering)
+- Security headers configured in `next.config.js` (Helmet-equivalent)
+- No database — content is co-located in source
+- Blog posts define structured data inline
