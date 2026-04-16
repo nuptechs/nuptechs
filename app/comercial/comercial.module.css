@@ -131,13 +131,44 @@
   color: var(--accent);
 }
 
+/* ─── Card Stage (levitation wrapper) ─── */
+.cardStage {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  padding-bottom: 36px;
+  animation: cardLevitate 5s ease-in-out 1s infinite;
+}
+
+/* ─── Ground Shadow (contact shadow — creates floating illusion) ─── */
+.cardShadow {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  width: 72%;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center,
+    rgba(0, 0, 0, 0.14) 0%,
+    rgba(0, 0, 0, 0.06) 40%,
+    transparent 70%
+  );
+  filter: blur(12px);
+  transform: translateX(-50%);
+  animation: shadowBreath 5s ease-in-out 1s infinite;
+  pointer-events: none;
+}
+
 /* ─── Floating Card ─── */
 .card {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 440px;
   border-radius: 28px;
   background: var(--surface);
   border: 1px solid var(--border);
+  overflow: hidden;
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.02),
     0 1px 2px rgba(0, 0, 0, 0.04),
@@ -147,6 +178,28 @@
   transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1), box-shadow 0.3s ease;
   will-change: transform;
   animation: cardEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
+}
+
+/* Specular highlight — follows cursor on desktop */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  background: radial-gradient(
+    600px circle at var(--mx, 50%) var(--my, -20%),
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    transparent 60%
+  );
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .cardAccent {
@@ -588,4 +641,24 @@
   0%, 100% { transform: translate(0, 0) scale(1); }
   33% { transform: translate(20px, -20px) scale(1.05); }
   66% { transform: translate(-15px, 15px) scale(0.95); }
+}
+
+@keyframes cardLevitate {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shadowBreath {
+  0%, 100% {
+    transform: translateX(-50%) scaleX(1) scaleY(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) scaleX(0.85) scaleY(0.65);
+    opacity: 0.55;
+  }
 }

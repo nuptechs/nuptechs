@@ -25,6 +25,7 @@ export default function CommercialCard() {
   const [loaded, setLoaded] = useState(false);
   const installTimeoutRef = useRef<number | null>(null);
   const cardRef = useRef<HTMLElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setLoaded(true);
@@ -52,10 +53,16 @@ export default function CommercialCard() {
         const rect = card.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
-        card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateZ(10px)`;
+        card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateZ(10px)`;
+        card.style.setProperty("--mx", `${(x + 0.5) * 100}%`);
+        card.style.setProperty("--my", `${(y + 0.5) * 100}%`);
+        if (stageRef.current) stageRef.current.style.animationPlayState = "paused";
       };
       const handleLeave = () => {
         card.style.transform = "";
+        card.style.removeProperty("--mx");
+        card.style.removeProperty("--my");
+        if (stageRef.current) stageRef.current.style.animationPlayState = "running";
       };
       card.addEventListener("pointermove", handleMove);
       card.addEventListener("pointerleave", handleLeave);
@@ -102,6 +109,7 @@ export default function CommercialCard() {
         </header>
 
         {/* Floating card */}
+        <div ref={stageRef} className={styles.cardStage}>
         <section ref={cardRef} className={styles.card} aria-label="Cartao comercial de Silkeny Ferreira">
           {/* Top accent line */}
           <div className={styles.cardAccent} />
@@ -229,6 +237,8 @@ export default function CommercialCard() {
             </div>
           </div>
         </section>
+        <div className={styles.cardShadow} aria-hidden="true" />
+        </div>
 
         {/* Footer */}
         <footer className={styles.footer}>
