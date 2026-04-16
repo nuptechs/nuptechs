@@ -13,8 +13,8 @@ type BeforeInstallPromptEvent = Event & {
   userChoice: Promise<InstallPromptChoice>;
 };
 
-const contactNumber = "+5561993691692";
-const contactNumberLabel = "+55 (61) 99369-1692";
+const contactNumber = "+5562985507649";
+const contactNumberLabel = "+55 (62) 98550-7649";
 const whatsappUrl = `https://wa.me/${contactNumber.slice(1)}?text=${encodeURIComponent(
   "Ola Silkeny! Vi seu cartao NuPtechs e gostaria de saber mais."
 )}`;
@@ -127,7 +127,7 @@ export default function CommercialCard() {
                     <path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
                     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                   </svg>
-                  Diretora Comercial
+                  Diretor Comercial
                 </div>
               </div>
             </div>
@@ -225,9 +225,11 @@ export default function CommercialCard() {
               <div className={styles.infoText}>
                 <div className={styles.infoTitle}>NuPtechs Tecnologia</div>
                 <div className={styles.infoDesc}>
-                  <strong>Automacao · Contratos de TI · IA Documental</strong>
+                  <strong>Engenharia de Software e Automacao Empresarial</strong>
                   <br />
-                  Solucoes enterprise para gestao inteligente.
+                  Especialistas em sistemas corporativos, IA aplicada e contratos de TI.
+                  <br />
+                  Arquiteturas robustas para operacoes de todas as complexidades.
                 </div>
               </div>
             </div>
