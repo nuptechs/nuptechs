@@ -214,6 +214,21 @@ export default function CommercialCard() {
               </a>
             </div>
 
+            <div className={styles.nfcDownload}>
+              <a href="/comercial/nuptechs-nfc.apk" download className={styles.nfcBtn}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+                  <polyline points="13 2 13 9 20 9" />
+                  <line x1="12" y1="18" x2="12" y2="12" />
+                  <polyline points="9 15 12 18 15 15" />
+                </svg>
+                <div>
+                  <span className={styles.nfcBtnMain}>Baixar app NFC (Android)</span>
+                  <span className={styles.nfcBtnSub}>Transmita o cartao ao encostar celulares</span>
+                </div>
+              </a>
+            </div>
+
             <div className={styles.infoStrip}>
               <div className={styles.infoIcon}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" aria-hidden="true">

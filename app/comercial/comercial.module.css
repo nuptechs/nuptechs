@@ -413,6 +413,43 @@
   font-weight: 600;
 }
 
+.nfcDownload {
+  margin-top: 20px;
+}
+
+.nfcBtn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(108, 99, 255, 0.12), rgba(0, 212, 255, 0.08));
+  border: 1px dashed rgba(108, 99, 255, 0.35);
+  border-radius: 12px;
+  color: var(--commercial-cyan);
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.nfcBtn:hover {
+  background: linear-gradient(135deg, rgba(108, 99, 255, 0.2), rgba(0, 212, 255, 0.14));
+  border-color: rgba(108, 99, 255, 0.55);
+}
+
+.nfcBtnMain {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--commercial-text);
+}
+
+.nfcBtnSub {
+  display: block;
+  font-size: 11px;
+  color: var(--commercial-sub);
+  margin-top: 2px;
+}
+
 .footer {
   display: flex;
   width: 100%;
