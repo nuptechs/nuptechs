@@ -98,14 +98,14 @@ export default function CommercialCard() {
       </div>
 
       <div className={styles.page}>
-        {/* Brand header */}
+        {/* Brand header — top-left */}
         <header className={styles.header}>
-          <div className={styles.logoRow}>
+          <a href="https://www.nuptechs.com" className={styles.logoLink}>
             <div className={styles.mark}>NP</div>
             <div className={styles.wordmark}>
               Nu<span>P</span>techs
             </div>
-          </div>
+          </a>
         </header>
 
         {/* Floating card */}
