@@ -53,8 +53,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#060C18",
-  colorScheme: "dark"
+  themeColor: "#f8f9fc",
+  colorScheme: "light"
 };
 
 export default function ComercialPage() {
