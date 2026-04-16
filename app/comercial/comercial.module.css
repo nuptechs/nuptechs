@@ -103,13 +103,18 @@
 .logoLink {
   display: flex;
   align-items: center;
-  gap: 8px;
   text-decoration: none;
   transition: opacity 0.15s ease;
 }
 
 .logoLink:hover {
   opacity: 0.75;
+}
+
+.logoImg {
+  height: 34px;
+  width: auto;
+  object-fit: contain;
 }
 
 .mark {

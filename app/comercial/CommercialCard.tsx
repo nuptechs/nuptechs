@@ -101,10 +101,13 @@ export default function CommercialCard() {
         {/* Brand header — top-left */}
         <header className={styles.header}>
           <a href="https://www.nuptechs.com" className={styles.logoLink}>
-            <div className={styles.mark}>NP</div>
-            <div className={styles.wordmark}>
-              Nu<span>P</span>techs
-            </div>
+            <img
+              src="/comercial/logo-nuptechs.png"
+              alt="NuPtechs"
+              className={styles.logoImg}
+              width={120}
+              height={40}
+            />
           </a>
         </header>
 
