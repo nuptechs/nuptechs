@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import styles from "./silkeny.module.css";
+import styles from "./comercial.module.css";
 
 type InstallPromptChoice = {
   outcome: "accepted" | "dismissed";
@@ -47,7 +47,7 @@ export default function CommercialCard() {
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/silkeny/sw.js").catch(() => undefined);
+      navigator.serviceWorker.register("/comercial/sw.js").catch(() => undefined);
     }
 
     return () => {
@@ -135,7 +135,7 @@ export default function CommercialCard() {
             <div className={styles.rule} />
 
             <div className={styles.actions}>
-              <a href="/silkeny/contato.vcf" download className={`${styles.btn} ${styles.btnPrimary}`}>
+              <a href="/comercial/contato.vcf" download className={`${styles.btn} ${styles.btnPrimary}`}>
                 <div className={styles.btnIcon}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" aria-hidden="true">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />

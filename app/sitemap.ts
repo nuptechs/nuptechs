@@ -129,14 +129,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       }
     },
     {
-      url: `${siteUrl}/silkeny`,
+      url: `${siteUrl}/comercial`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
       alternates: {
         languages: {
-          "pt-BR": `${siteUrl}/silkeny`,
-          "x-default": `${siteUrl}/silkeny`
+          "pt-BR": `${siteUrl}/comercial`,
+          "x-default": `${siteUrl}/comercial`
         }
       }
     },

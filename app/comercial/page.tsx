@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import CommercialCard from "./CommercialCard";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
-const pageUrl = `${siteUrl}/silkeny`;
+const pageUrl = `${siteUrl}/comercial`;
 const title = "Silkeny Ferreira - Cartao Comercial";
 const description = "Diretora Comercial da NuPtechs Tecnologia. Cartao digital com acesso rapido aos canais de contato.";
 const ogImage = `${siteUrl}/og?title=Silkeny+Ferreira+%E2%80%94+NuPtechs&lang=pt`;
@@ -10,7 +10,7 @@ const ogImage = `${siteUrl}/og?title=Silkeny+Ferreira+%E2%80%94+NuPtechs&lang=pt
 export const metadata: Metadata = {
   title,
   description,
-  manifest: "/silkeny/manifest.json",
+  manifest: "/comercial/manifest.json",
   keywords: [
     "Silkeny Ferreira",
     "NuPtechs comercial",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "contato comercial NuPtechs"
   ],
   alternates: {
-    canonical: "/silkeny"
+    canonical: "/comercial"
   },
   appleWebApp: {
     capable: true,
