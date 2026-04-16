@@ -231,7 +231,7 @@ export default function CommercialCard() {
               <div>
                 <div className={styles.companyName}>NuPtechs Tecnologia</div>
                 <p className={styles.companyDesc}>
-                  Engenharia de Software e Automacao Empresarial — sistemas corporativos, IA aplicada e contratos de TI.
+                  Engenharia de Software e Automacao Empresarial — sistemas para toda complexidade.
                 </p>
               </div>
             </div>
