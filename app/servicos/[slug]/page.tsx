@@ -145,7 +145,12 @@ const services = {
       "Alertas inteligentes de estoque baseados em histórico de vendas",
       "Triagem automatizada de leads com qualificação por IA"
     ],
-    tech: ["n8n", "Python", "Node.js", "OpenAI API", "Make (Integromat)", "Webhooks", "REST APIs"]
+    tech: [
+      { category: "Plataformas", items: ["n8n", "Make (Integromat)", "Zapier"] },
+      { category: "Backend", items: ["Python", "Node.js", "REST APIs"] },
+      { category: "IA", items: ["OpenAI API", "LangChain", "Claude"] },
+      { category: "Integração", items: ["Webhooks", "Cron Jobs", "Event-driven"] }
+    ]
   },
   "dashboards-bi": {
     title: "Dashboards de Business Intelligence",
@@ -168,7 +173,12 @@ const services = {
       "Relatório financeiro executivo atualizado automaticamente",
       "Análise de produtividade por equipe e por colaborador"
     ],
-    tech: ["React", "Next.js", "Recharts", "PostgreSQL", "Redis", "REST API", "WebSocket"]
+    tech: [
+      { category: "Frontend", items: ["React", "Next.js", "Recharts", "D3.js"] },
+      { category: "Backend", items: ["Node.js", "Express", "REST API"] },
+      { category: "Dados", items: ["PostgreSQL", "Redis", "WebSocket"] },
+      { category: "Infra", items: ["Docker", "CI/CD", "Vite"] }
+    ]
   },
   "aplicativos-moveis": {
     title: "Aplicativos Móveis iOS e Android",
@@ -191,30 +201,41 @@ const services = {
       "Marketplace B2B com catálogo e pedidos",
       "App de fidelidade com gamificação e cashback"
     ],
-    tech: ["React Native", "Expo", "TypeScript", "Node.js", "PostgreSQL", "Firebase", "AWS"]
+    tech: [
+      { category: "Mobile", items: ["React Native", "Expo", "Expo Router"] },
+      { category: "Backend", items: ["Node.js", "Express", "TypeScript"] },
+      { category: "Dados", items: ["PostgreSQL", "Drizzle ORM", "Redis"] },
+      { category: "Infra", items: ["EAS Build", "Docker", "CI/CD"] }
+    ]
   },
   "integracoes-api": {
     title: "Integrações & APIs",
     slug: "integracoes-api",
     icon: "link",
-    headline: "Seus sistemas conversando. Sem silos, sem retrabalho.",
+    headline: "Conecte tudo. Automatize o fluxo. Elimine o retrabalho.",
     description:
-      "Conectamos ferramentas, sistemas legados e plataformas modernas via APIs robustas — eliminando trabalho manual de sincronização e retrabalho operacional.",
-    keywords: ["integração de sistemas", "desenvolvimento de API", "integração ERP CRM", "middleware"],
+      "Projetamos APIs e integrações que fazem seus sistemas operarem como um organismo único — dados fluem em tempo real, sem exportação manual, sem silos e com rastreabilidade completa.",
+    keywords: ["integração de sistemas", "desenvolvimento de API", "integração ERP CRM", "middleware", "API gateway"],
     benefits: [
-      { icon: "refresh", title: "Sincronização em tempo real", desc: "Dados fluem automaticamente entre sistemas — sem exportar e importar manualmente." },
-      { icon: "building", title: "Sem reescrever sistemas legados", desc: "Integramos via API o que você já tem — preservando o investimento existente." },
-      { icon: "shield", title: "Seguro e auditável", desc: "Logs completos, autenticação OAuth/JWT e controle granular de permissões." },
-      { icon: "chart", title: "Visibilidade de ponta a ponta", desc: "Rastreie o dado de uma venda do CRM ao ERP ao financeiro em uma única trilha." }
+      { icon: "refresh", title: "Zero sincronização manual", desc: "Eliminamos processos de exportar/importar planilhas entre sistemas. Dados fluem automaticamente, em tempo real." },
+      { icon: "building", title: "Sem reconstruir o que funciona", desc: "Conectamos sistemas legados via API sem reescrevê-los — 80% menos custo do que uma migração completa." },
+      { icon: "shield", title: "Segurança enterprise-grade", desc: "OAuth 2.0, JWT, API keys com rotação, rate limiting e logs de auditoria completos por padrão." },
+      { icon: "chart", title: "Observabilidade de ponta a ponta", desc: "Cada transação rastreada do CRM ao ERP ao financeiro — com alertas em caso de falha." }
     ],
     useCases: [
-      "Integração ERP ↔ e-commerce ↔ marketplace (Shopify, Mercado Livre, WooCommerce)",
-      "Sincronização de clientes entre CRM, suporte e financeiro",
-      "Pipeline de dados de IoT para análise em tempo real",
-      "Integração de gateway de pagamento com sistema de gestão",
-      "API unificada para múltiplos canais de atendimento (WhatsApp, chat, e-mail)"
+      "Integração ERP ↔ e-commerce ↔ marketplace (Shopify, Mercado Livre, WooCommerce) com estoque unificado",
+      "Sincronização bidirecional de clientes entre CRM (HubSpot, Salesforce), suporte (Zendesk) e financeiro (SAP, Omie)",
+      "API Gateway centralizado para expor dados internos a parceiros e fornecedores com controle de acesso",
+      "Integração de gateway de pagamento (Stripe, PagSeguro) com conciliação financeira automática",
+      "Orquestração de webhooks para múltiplos canais — WhatsApp Business, e-mail transacional e notificações push"
     ],
-    tech: ["Node.js", "Python", "REST", "GraphQL", "Webhooks", "RabbitMQ", "Redis"]
+    tech: [
+      { category: "Backend", items: ["Node.js", "Express", "Spring Boot", "Python"] },
+      { category: "Protocolos", items: ["REST", "GraphQL", "WebSocket", "gRPC"] },
+      { category: "Mensageria", items: ["RabbitMQ", "Redis Pub/Sub", "Webhooks"] },
+      { category: "Auth & Segurança", items: ["OAuth 2.0", "JWT", "API Keys", "HMAC"] },
+      { category: "Infra", items: ["Docker", "Nginx", "API Gateway", "CI/CD"] }
+    ]
   },
   "ia-aplicada": {
     title: "IA Aplicada ao Negócio",
@@ -237,7 +258,12 @@ const services = {
       "Análise de contratos e documentos jurídicos",
       "Previsão de demanda para planejamento de estoque e produção"
     ],
-    tech: ["OpenAI GPT-4", "Google Gemini", "LangChain", "Python", "PostgreSQL", "pgvector", "Redis"]
+    tech: [
+      { category: "LLMs", items: ["Claude (Anthropic)", "GPT-4 (OpenAI)", "Gemini (Google)"] },
+      { category: "Frameworks", items: ["LangChain", "FastAPI", "Python"] },
+      { category: "Dados", items: ["PostgreSQL", "Pinecone", "pgvector"] },
+      { category: "Infra", items: ["Docker", "Redis", "Ollama"] }
+    ]
   },
   "seguranca-compliance": {
     title: "Segurança & Compliance (LGPD)",
@@ -260,7 +286,12 @@ const services = {
       "Plano de resposta a incidentes (IR Plan) para equipes de TI",
       "Certificação SOC 2 / ISO 27001 — preparação e documentação"
     ],
-    tech: ["OAuth 2.0", "JWT", "AWS IAM", "Vault (HashiCorp)", "OWASP ZAP", "Terraform"]
+    tech: [
+      { category: "Auth & IAM", items: ["OAuth 2.0", "OIDC/PKCE", "JWT", "RBAC/ABAC"] },
+      { category: "Segurança", items: ["OWASP ZAP", "Helmet", "CSP/HSTS"] },
+      { category: "Compliance", items: ["LGPD", "SOC 2", "ISO 27001"] },
+      { category: "Infra", items: ["Vault (HashiCorp)", "Docker", "Terraform"] }
+    ]
   }
 };
 
@@ -453,12 +484,24 @@ export default function ServicePage({ params }: ServiceParams) {
       {/* Tech Stack */}
       <section className="page-section bg-[var(--surface)]" aria-labelledby="tech-heading">
         <div className="inner">
-          <h2 id="tech-heading" className="section-heading mb-8">Stack tecnológico</h2>
-          <div className="flex flex-wrap gap-2">
-            {service.tech.map((t) => (
-              <span key={t} className="rounded-full border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-sm font-semibold text-[var(--text-secondary)]">
-                {t}
-              </span>
+          <div className="mb-12">
+            <span className="eyebrow mb-4 block">Tecnologia</span>
+            <h2 id="tech-heading" className="section-heading mb-4">Stack tecnológico</h2>
+            <p className="lead">As ferramentas que usamos para entregar com qualidade, performance e segurança.</p>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {(service.tech as Array<{ category: string; items: string[] }>).map((group) => (
+              <div key={group.category} className="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 transition-all hover:border-[var(--accent)]/30 hover:shadow-[0_0_24px_var(--accent-glow)]">
+                <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-[var(--accent)]">{group.category}</h3>
+                <ul className="flex flex-col gap-2.5">
+                  {group.items.map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)]">
+                      <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--accent)]" aria-hidden="true" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </div>
