@@ -1,0 +1,19 @@
+{
+  "name": "Silkeny Ferreira | NuPtechs",
+  "short_name": "Silkeny",
+  "description": "Cartao comercial digital da Silkeny Ferreira na NuPtechs.",
+  "lang": "pt-BR",
+  "start_url": "/silkeny",
+  "scope": "/silkeny/",
+  "display": "standalone",
+  "background_color": "#060C18",
+  "theme_color": "#060C18",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -128,6 +128,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         }
       }
     },
+    {
+      url: `${siteUrl}/silkeny`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: {
+        languages: {
+          "pt-BR": `${siteUrl}/silkeny`,
+          "x-default": `${siteUrl}/silkeny`
+        }
+      }
+    },
     // ── Listagens PT ──────────────────────────────────
     {
       url: `${siteUrl}/servicos`,
