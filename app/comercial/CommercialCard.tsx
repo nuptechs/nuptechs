@@ -15,6 +15,9 @@ type BeforeInstallPromptEvent = Event & {
 
 const contactNumber = "+5562985507649";
 const contactNumberLabel = "+55 (62) 98550-7649";
+const shareText = `Contato de Silkeny Ferreira — Diretor Comercial NuPtechs\nWhatsApp: ${contactNumberLabel}\nhttps://www.nuptechs.com/comercial`;
+const shareWhatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+
 const whatsappUrl = `https://wa.me/${contactNumber.slice(1)}?text=${encodeURIComponent(
   "Ola Silkeny! Vi seu cartao NuPtechs e gostaria de saber mais."
 )}`;
@@ -101,13 +104,8 @@ export default function CommercialCard() {
         {/* Brand header — top-left */}
         <header className={styles.header}>
           <a href="https://www.nuptechs.com" className={styles.logoLink}>
-            <img
-              src="/comercial/logo-nuptechs.png"
-              alt="NuPtechs"
-              className={styles.logoImg}
-              width={120}
-              height={40}
-            />
+            <span className={styles.logoN}>N</span>
+            <span className={styles.logoText}>techs</span>
           </a>
         </header>
 
@@ -248,7 +246,14 @@ export default function CommercialCard() {
           <a href="https://www.nuptechs.com" className={styles.footerLink}>
             nuptechs<span>.com</span>
           </a>
-          <span className={styles.footerCopy}>© 2025 NuPtechs</span>
+          <a href={shareWhatsappUrl} target="_blank" rel="noopener noreferrer" className={styles.shareLink} aria-label="Compartilhar cartao via WhatsApp">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+              <polyline points="16 6 12 2 8 6" />
+              <line x1="12" y1="2" x2="12" y2="15" />
+            </svg>
+            Compartilhar
+          </a>
         </footer>
       </div>
 
