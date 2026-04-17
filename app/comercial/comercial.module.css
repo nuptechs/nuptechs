@@ -517,24 +517,88 @@
   letter-spacing: 0.04em;
 }
 
-.shareLink {
+.shareSection {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
+  gap: 8px;
   margin-top: 4px;
-  padding: 10px 0 2px;
-  color: var(--text-secondary);
-  font-size: 12px;
-  font-weight: 500;
-  text-decoration: none;
-  opacity: 0.45;
-  transition: opacity 0.2s ease;
+  padding-top: 10px;
   border-top: 1px solid var(--border);
 }
 
-.shareLink:hover {
+.shareToggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: inherit;
+  opacity: 0.45;
+  transition: opacity 0.2s ease;
+  padding: 0;
+}
+
+.shareToggle:hover {
   opacity: 0.75;
+}
+
+.shareInput {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  max-width: 280px;
+  animation: fadeIn 0.2s ease;
+}
+
+.shareField {
+  flex: 1;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.shareField:focus {
+  border-color: var(--accent-light);
+}
+
+.shareSend {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s ease;
+}
+
+.shareSend:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.shareOk {
+  font-size: 11px;
+  color: var(--green);
+}
+
+.shareErr {
+  font-size: 11px;
+  color: #dc2626;
 }
 
 /* ─── Install Banner ─── */
