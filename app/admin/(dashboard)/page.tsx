@@ -1,73 +1,224 @@
-import { db } from "../../../db";
-import { contacts, schedules, pageViews } from "../../../db/schema";
-import { sql, desc, eq, count } from "drizzle-orm";
-import { StatsCard } from "../components/StatsCard";
+"use client";
 
-async function getStats() {
-  const [contactCount] = await db
-    .select({ count: count() })
-    .from(contacts);
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
-  const [newLeads] = await db
-    .select({ count: count() })
-    .from(contacts)
-    .where(eq(contacts.status, "new"));
+interface LeadStats {
+  total: number;
+  new: number;
+  contacted: number;
+  qualified: number;
+  converted: number;
+  lost: number;
+  conversionRate: number;
+}
 
-  const [scheduleCount] = await db
-    .select({ count: count() })
-    .from(schedules);
+interface ScheduleStats {
+  total: number;
+  pending: number;
+  confirmed: number;
+  completed: number;
+  cancelled: number;
+  no_show: number;
+}
 
-  const [viewsToday] = await db
-    .select({ count: count() })
-    .from(pageViews)
-    .where(
-      sql`${pageViews.createdAt} >= CURRENT_DATE`
+interface AnalyticsOverview {
+  today: number;
+  yesterday: number;
+  thisWeek: number;
+  lastWeek: number;
+  thisMonth: number;
+  total: number;
+  trend: number;
+}
+
+interface Lead {
+  id: number;
+  name: string;
+  email: string;
+  company: string | null;
+  status: string;
+  score: number | null;
+  createdAt: string;
+}
+
+interface DashboardData {
+  leadStats: LeadStats | null;
+  scheduleStats: ScheduleStats | null;
+  analytics: AnalyticsOverview | null;
+  recentLeads: Lead[];
+  dailyViews: { date: string; views: number }[];
+}
+
+export default function AdminDashboard() {
+  const [data, setData] = useState<DashboardData>({
+    leadStats: null,
+    scheduleStats: null,
+    analytics: null,
+    recentLeads: [],
+    dailyViews: [],
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    Promise.all([
+      fetch("/api/admin/leads?limit=5").then((r) => r.ok ? r.json() : null),
+      fetch("/api/admin/schedules?limit=0").then((r) => r.ok ? r.json() : null),
+      fetch("/api/admin/analytics").then((r) => r.ok ? r.json() : null),
+    ]).then(([leadsRes, schedulesRes, analyticsRes]) => {
+      setData({
+        leadStats: leadsRes?.stats ?? null,
+        scheduleStats: schedulesRes?.stats ?? null,
+        analytics: analyticsRes?.overview ?? null,
+        recentLeads: leadsRes?.items ?? [],
+        dailyViews: analyticsRes?.dailyViews ?? [],
+      });
+    }).catch(() => {}).finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="admin-content">
+        <header className="admin-page-header">
+          <div><h1>Dashboard</h1><p className="admin-subtitle">Visão geral do site NuPtechs</p></div>
+        </header>
+        <div className="admin-stats-grid">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="admin-stat-card" style={{ minHeight: 90, opacity: 0.5 }} />
+          ))}
+        </div>
+      </div>
     );
-
-  return {
-    totalLeads: contactCount?.count ?? 0,
-    newLeads: newLeads?.count ?? 0,
-    totalSchedules: scheduleCount?.count ?? 0,
-    viewsToday: viewsToday?.count ?? 0,
-  };
-}
-
-async function getRecentLeads() {
-  return db
-    .select()
-    .from(contacts)
-    .orderBy(desc(contacts.createdAt))
-    .limit(5);
-}
-
-export default async function AdminDashboard() {
-  let stats = { totalLeads: 0, newLeads: 0, totalSchedules: 0, viewsToday: 0 };
-  let recentLeads: Awaited<ReturnType<typeof getRecentLeads>> = [];
-
-  try {
-    [stats, recentLeads] = await Promise.all([getStats(), getRecentLeads()]);
-  } catch {
-    // DB not available yet — show empty state
   }
+
+  const { leadStats, scheduleStats, analytics, recentLeads, dailyViews } = data;
+  const maxView = Math.max(...dailyViews.map((d) => d.views), 1);
 
   return (
     <div className="admin-content">
       <header className="admin-page-header">
-        <h1>Dashboard</h1>
-        <p className="admin-subtitle">Visão geral do site NuPtechs</p>
+        <div>
+          <h1>Dashboard</h1>
+          <p className="admin-subtitle">Visão geral do site NuPtechs</p>
+        </div>
       </header>
 
+      {/* KPI Cards */}
       <div className="admin-stats-grid">
-        <StatsCard label="Total de Leads" value={stats.totalLeads} />
-        <StatsCard label="Leads Novos" value={stats.newLeads} accent />
-        <StatsCard label="Agendamentos" value={stats.totalSchedules} />
-        <StatsCard label="Visitas Hoje" value={stats.viewsToday} />
+        <div className="admin-stat-card accent">
+          <span className="admin-stat-value">{leadStats?.new ?? 0}</span>
+          <span className="admin-stat-label">Leads novos</span>
+        </div>
+        <div className="admin-stat-card">
+          <span className="admin-stat-value">{leadStats?.total ?? 0}</span>
+          <span className="admin-stat-label">Total de leads</span>
+          {leadStats && leadStats.conversionRate > 0 && (
+            <span className="admin-stat-trend up">
+              ↑ {leadStats.conversionRate.toFixed(1)}% conversão
+            </span>
+          )}
+        </div>
+        <div className="admin-stat-card">
+          <span className="admin-stat-value">{scheduleStats?.pending ?? 0}</span>
+          <span className="admin-stat-label">Agendamentos pendentes</span>
+        </div>
+        <div className="admin-stat-card">
+          <span className="admin-stat-value">{analytics?.today ?? 0}</span>
+          <span className="admin-stat-label">Visitas hoje</span>
+          {analytics && analytics.trend !== 0 && (
+            <span className={`admin-stat-trend ${analytics.trend > 0 ? "up" : "down"}`}>
+              {analytics.trend > 0 ? "↑" : "↓"} {Math.abs(analytics.trend).toFixed(0)}% vs semana anterior
+            </span>
+          )}
+        </div>
       </div>
 
+      {/* Pipeline Overview + Sparkline */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "2.5rem" }}>
+        {/* Lead Pipeline */}
+        <div className="admin-card">
+          <div className="admin-card-header">
+            <span className="admin-card-title">Pipeline de Leads</span>
+            <Link href="/admin/leads" className="admin-btn admin-btn-ghost admin-btn-sm">
+              Ver todos →
+            </Link>
+          </div>
+          <div className="admin-card-body">
+            {leadStats ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+                {(["new", "contacted", "qualified", "converted", "lost"] as const).map((status) => {
+                  const val = leadStats[status] ?? 0;
+                  const pct = leadStats.total > 0 ? (val / leadStats.total) * 100 : 0;
+                  const labels: Record<string, string> = {
+                    new: "Novo", contacted: "Contatado", qualified: "Qualificado",
+                    converted: "Convertido", lost: "Perdido",
+                  };
+                  return (
+                    <div key={status} style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                      <span style={{ fontSize: "0.75rem", width: 80, color: "var(--muted)" }}>{labels[status]}</span>
+                      <div style={{ flex: 1, height: 6, background: "var(--surface-raised)", borderRadius: 3 }}>
+                        <div style={{ width: `${pct}%`, height: "100%", borderRadius: 3 }} className={`admin-score-fill ${pct > 60 ? "high" : pct > 30 ? "mid" : "low"}`} />
+                      </div>
+                      <span style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--text)", minWidth: 20, textAlign: "right" }}>{val}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="admin-empty">Sem dados disponíveis</p>
+            )}
+          </div>
+        </div>
+
+        {/* Daily Views Sparkline */}
+        <div className="admin-card">
+          <div className="admin-card-header">
+            <span className="admin-card-title">Visitas (últimos 30 dias)</span>
+            <Link href="/admin/analytics" className="admin-btn admin-btn-ghost admin-btn-sm">
+              Detalhes →
+            </Link>
+          </div>
+          <div className="admin-card-body">
+            {dailyViews.length > 0 ? (
+              <>
+                <div className="admin-sparkline" style={{ height: 80 }}>
+                  {dailyViews.map((d, i) => (
+                    <div
+                      key={i}
+                      className="admin-spark-bar"
+                      style={{ height: `${(d.views / maxView) * 100}%` }}
+                      title={`${d.date}: ${d.views} visitas`}
+                    />
+                  ))}
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "0.5rem" }}>
+                  <span style={{ fontSize: "0.6875rem", color: "var(--subtle)" }}>
+                    {dailyViews[0]?.date}
+                  </span>
+                  <span style={{ fontSize: "0.6875rem", color: "var(--subtle)" }}>
+                    {dailyViews[dailyViews.length - 1]?.date}
+                  </span>
+                </div>
+              </>
+            ) : (
+              <p className="admin-empty">Sem dados de visualização</p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Leads */}
       <section className="admin-section">
-        <h2>Leads Recentes</h2>
+        <div className="admin-section-header">
+          <h2>Leads Recentes</h2>
+          <Link href="/admin/leads" className="admin-btn admin-btn-ghost admin-btn-sm">Ver todos →</Link>
+        </div>
         {recentLeads.length === 0 ? (
-          <p className="admin-empty">Nenhum lead registrado ainda.</p>
+          <div className="admin-empty-state">
+            <div className="admin-empty-icon">✉</div>
+            <p>Nenhum lead registrado</p>
+            <p className="admin-subtle">Leads aparecerão aqui quando visitantes preencherem o formulário de contato.</p>
+          </div>
         ) : (
           <table className="admin-table">
             <thead>
@@ -76,23 +227,30 @@ export default async function AdminDashboard() {
                 <th>Email</th>
                 <th>Empresa</th>
                 <th>Status</th>
+                <th>Score</th>
                 <th>Data</th>
               </tr>
             </thead>
             <tbody>
               {recentLeads.map((lead) => (
-                <tr key={lead.id}>
-                  <td>{lead.name}</td>
+                <tr key={lead.id} className="clickable">
+                  <td className="font-medium">{lead.name}</td>
                   <td>{lead.email}</td>
                   <td>{lead.company ?? "—"}</td>
                   <td>
-                    <span className={`admin-badge badge-${lead.status}`}>
-                      {lead.status}
-                    </span>
+                    <span className={`admin-badge badge-${lead.status}`}>{lead.status}</span>
                   </td>
                   <td>
-                    {lead.createdAt.toLocaleDateString("pt-BR")}
+                    {lead.score != null ? (
+                      <div className="admin-score">
+                        <div className="admin-score-bar">
+                          <div className={`admin-score-fill ${lead.score >= 70 ? "high" : lead.score >= 40 ? "mid" : "low"}`} style={{ width: `${lead.score}%` }} />
+                        </div>
+                        <span className="admin-score-label">{lead.score}</span>
+                      </div>
+                    ) : "—"}
                   </td>
+                  <td>{new Date(lead.createdAt).toLocaleDateString("pt-BR")}</td>
                 </tr>
               ))}
             </tbody>
