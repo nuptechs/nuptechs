@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: "◎" },
@@ -14,6 +15,14 @@ const NAV_ITEMS = [
 
 export function AdminSidebar() {
   const pathname = usePathname();
+  const [user, setUser] = useState<{ name?: string; email?: string } | null>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => data?.user && setUser(data.user))
+      .catch(() => {});
+  }, []);
 
   return (
     <aside className="admin-sidebar">
@@ -42,6 +51,15 @@ export function AdminSidebar() {
         })}
       </nav>
       <div className="admin-sidebar-footer">
+        {user && (
+          <div className="admin-user-info">
+            <span className="admin-user-name">{user.name || user.email}</span>
+          </div>
+        )}
+        <a href="/api/auth/logout" className="admin-nav-item">
+          <span className="admin-nav-icon">⏻</span>
+          <span>Sair</span>
+        </a>
         <Link href="/" className="admin-nav-item">
           <span className="admin-nav-icon">←</span>
           <span>Voltar ao site</span>
