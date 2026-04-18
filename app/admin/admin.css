@@ -332,3 +332,213 @@
     padding: 0.5rem 0.625rem;
   }
 }
+
+/* ─── WhatsApp Page ──────────────────────────────────────── */
+
+.wa-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.wa-loading {
+  text-align: center;
+  color: var(--muted);
+  padding: 2rem 0;
+}
+
+.wa-status-row {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.wa-status-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.wa-status-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.wa-status-value {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+}
+
+.badge-connected-wa {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.dark .badge-connected-wa {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+}
+
+.wa-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 0.375rem;
+  vertical-align: middle;
+}
+
+.wa-dot-green { background: #10b981; }
+.wa-dot-yellow { background: #f59e0b; }
+.wa-dot-red { background: #ef4444; }
+
+.wa-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.wa-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.wa-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.wa-btn-primary {
+  background: #25d366;
+  color: #fff;
+  border-color: #25d366;
+}
+
+.wa-btn-primary:hover:not(:disabled) {
+  background: #1ebe5a;
+  border-color: #1ebe5a;
+}
+
+.wa-btn-secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border);
+}
+
+.wa-btn-secondary:hover:not(:disabled) {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.wa-btn-danger {
+  background: transparent;
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+.wa-btn-danger:hover:not(:disabled) {
+  background: #ef4444;
+  color: #fff;
+}
+
+/* QR Code card */
+.wa-qr-card {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.wa-qr-container {
+  flex-shrink: 0;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+}
+
+.wa-qr-image {
+  display: block;
+  width: 280px;
+  height: 280px;
+  image-rendering: pixelated;
+}
+
+.wa-qr-instructions {
+  flex: 1;
+  min-width: 220px;
+}
+
+.wa-qr-step {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.625rem;
+  line-height: 1.5;
+}
+
+.wa-qr-expire {
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Alert */
+.wa-alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.wa-alert-error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.dark .wa-alert-error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.wa-alert-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .wa-qr-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wa-qr-image {
+    width: 220px;
+    height: 220px;
+  }
+
+  .wa-status-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

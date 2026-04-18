@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: "◎" },
   { href: "/admin/leads", label: "Leads", icon: "✉" },
   { href: "/admin/schedules", label: "Agendamentos", icon: "📅" },
+  { href: "/admin/whatsapp", label: "WhatsApp", icon: "💬" },
   { href: "/admin/blog", label: "Blog", icon: "✎" },
   { href: "/admin/analytics", label: "Analytics", icon: "◈" },
   { href: "/admin/settings", label: "Configurações", icon: "⚙" },
