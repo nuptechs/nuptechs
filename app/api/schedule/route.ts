@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { db } from "../../../db";
+import { schedules } from "../../../db/schema";
 
 type SchedulePayload = {
   name?: string;
@@ -26,6 +28,21 @@ export async function POST(request: Request) {
       { message: "Dados obrigatórios ausentes." },
       { status: 400 }
     );
+  }
+
+  // Save schedule to database
+  try {
+    await db.insert(schedules).values({
+      name: payload.name,
+      email: payload.email,
+      company: payload.company ?? null,
+      phone: payload.phone ?? null,
+      tool: payload.tool,
+      timeslot: payload.timeslot ?? null,
+      summary: payload.summary ?? null,
+    });
+  } catch {
+    // DB save failure should not block response
   }
 
   const redirectUrl = TOOL_LINKS[payload.tool];

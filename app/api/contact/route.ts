@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { db } from "../../../db";
+import { contacts } from "../../../db/schema";
 
 export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -23,6 +25,18 @@ export async function POST(request: Request) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json({ error: "E-mail inválido." }, { status: 400 });
+    }
+
+    // Save lead to database
+    try {
+      await db.insert(contacts).values({
+        name,
+        email,
+        company: company ?? null,
+        challenge,
+      });
+    } catch {
+      // DB save failure should not block email sending
     }
 
     // Send notification to NuPtechs team

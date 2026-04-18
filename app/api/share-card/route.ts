@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const EVOLUTION_API_URL = process.env.EVOLUTION_API_URL || "";
 const EVOLUTION_API_KEY = process.env.EVOLUTION_API_KEY || "";
-const EVOLUTION_INSTANCE = process.env.EVOLUTION_INSTANCE || "easynup";
+const EVOLUTION_INSTANCE = process.env.EVOLUTION_INSTANCE || "nuptechs-comercial";
 
 function normalizePhone(phone: string): string {
   let clean = phone.replace(/[^\d+]/g, "");
