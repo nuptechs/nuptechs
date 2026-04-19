@@ -65,6 +65,12 @@ export function AdminSidebar() {
       ],
     },
     {
+      title: "Distribuição",
+      items: [
+        { href: "/admin/downloads", label: "Downloads", icon: "⬇" },
+      ],
+    },
+    {
       title: "Sistema",
       items: [
         { href: "/admin/audit", label: "Auditoria", icon: "🔍" },
