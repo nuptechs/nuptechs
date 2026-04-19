@@ -144,14 +144,14 @@ export async function fetchUserPermissions(accessToken: string): Promise<string[
   }
 }
 
-export async function createSession(data: {
+export async function createSessionToken(data: {
   accessToken: string;
   idToken: string;
   refreshToken?: string;
   user: { sub: string; name?: string; email?: string; picture?: string };
   permissions?: string[];
-}) {
-  const jwt = await new jose.SignJWT({
+}): Promise<string> {
+  return await new jose.SignJWT({
     accessToken: data.accessToken,
     idToken: data.idToken,
     refreshToken: data.refreshToken,
@@ -162,16 +162,9 @@ export async function createSession(data: {
     .setIssuedAt()
     .setExpirationTime("7d")
     .sign(SECRET);
-
-  const cookieStore = await cookies();
-  cookieStore.set(COOKIE_NAME, jwt, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: COOKIE_MAX_AGE,
-  });
 }
+
+export { COOKIE_NAME as SESSION_COOKIE_NAME, COOKIE_MAX_AGE as SESSION_COOKIE_MAX_AGE };
 
 export async function getSession() {
   const cookieStore = await cookies();

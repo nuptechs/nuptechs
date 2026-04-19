@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { exchangeCode, validateToken, createSession, fetchUserPermissions } from "../../../../lib/auth";
+import {
+  exchangeCode,
+  validateToken,
+  createSessionToken,
+  fetchUserPermissions,
+  SESSION_COOKIE_NAME,
+  SESSION_COOKIE_MAX_AGE,
+} from "../../../../lib/auth";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
@@ -25,11 +32,8 @@ export async function GET(request: NextRequest) {
   const savedState = cookieStore.get("oidc_state")?.value;
   const codeVerifier = cookieStore.get("oidc_verifier")?.value;
 
-  // Clean up PKCE cookies
-  cookieStore.delete("oidc_state");
-  cookieStore.delete("oidc_verifier");
-
   if (!savedState || !codeVerifier || state !== savedState) {
+    console.error("OIDC state mismatch", { savedState: !!savedState, codeVerifier: !!codeVerifier, stateMatch: state === savedState });
     return NextResponse.redirect(new URL("/admin?error=invalid_state", SITE_URL));
   }
 
@@ -43,7 +47,7 @@ export async function GET(request: NextRequest) {
 
     const permissions = await fetchUserPermissions(tokens.access_token);
 
-    await createSession({
+    const sessionJwt = await createSessionToken({
       accessToken: tokens.access_token,
       idToken: tokens.id_token,
       refreshToken: tokens.refresh_token,
@@ -56,7 +60,19 @@ export async function GET(request: NextRequest) {
       permissions,
     });
 
-    return NextResponse.redirect(new URL("/admin", SITE_URL));
+    // Set ALL cookies on the redirect response object directly
+    // (cookies() + NextResponse.redirect() may not merge Set-Cookie headers reliably)
+    const response = NextResponse.redirect(new URL("/admin", SITE_URL));
+    response.cookies.set(SESSION_COOKIE_NAME, sessionJwt, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: SESSION_COOKIE_MAX_AGE,
+    });
+    response.cookies.delete("oidc_state");
+    response.cookies.delete("oidc_verifier");
+    return response;
   } catch (err) {
     console.error("Auth callback error:", err);
     return NextResponse.redirect(new URL("/admin?error=exchange_failed", SITE_URL));
