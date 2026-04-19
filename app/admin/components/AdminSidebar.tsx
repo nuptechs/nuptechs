@@ -9,6 +9,7 @@ interface NavItem {
   label: string;
   icon: string;
   badge?: number;
+  requiredPermission?: "nuptechs:admin" | "nuptechs:content" | "nuptechs:viewer";
 }
 
 interface NavSection {
@@ -16,9 +17,19 @@ interface NavSection {
   items: NavItem[];
 }
 
+function canAccess(
+  permissions: string[],
+  required?: "nuptechs:admin" | "nuptechs:content" | "nuptechs:viewer",
+): boolean {
+  if (!required) return true; // no restriction
+  if (permissions.includes("nuptechs:admin")) return true; // admin sees everything
+  return permissions.includes(required);
+}
+
 export function AdminSidebar() {
   const pathname = usePathname();
   const [user, setUser] = useState<{ name?: string; email?: string } | null>(null);
+  const [permissions, setPermissions] = useState<string[]>([]);
   const [counts, setCounts] = useState<{ newLeads: number; pendingSchedules: number }>({
     newLeads: 0,
     pendingSchedules: 0,
@@ -27,7 +38,10 @@ export function AdminSidebar() {
   useEffect(() => {
     fetch("/api/auth/me")
       .then((r) => (r.ok ? r.json() : null))
-      .then((data) => data?.user && setUser(data.user))
+      .then((data) => {
+        if (data?.user) setUser(data.user);
+        if (data?.permissions) setPermissions(data.permissions);
+      })
       .catch(() => {});
 
     // Fetch counts for badges
@@ -46,38 +60,46 @@ export function AdminSidebar() {
     {
       title: "Geral",
       items: [
-        { href: "/admin", label: "Dashboard", icon: "◎" },
+        { href: "/admin", label: "Dashboard", icon: "◎", requiredPermission: "nuptechs:viewer" },
       ],
     },
     {
       title: "Pipeline",
       items: [
-        { href: "/admin/leads", label: "Leads", icon: "✉", badge: counts.newLeads || undefined },
-        { href: "/admin/schedules", label: "Agendamentos", icon: "📅", badge: counts.pendingSchedules || undefined },
-        { href: "/admin/whatsapp", label: "WhatsApp", icon: "💬" },
+        { href: "/admin/leads", label: "Leads", icon: "✉", badge: counts.newLeads || undefined, requiredPermission: "nuptechs:content" },
+        { href: "/admin/schedules", label: "Agendamentos", icon: "📅", badge: counts.pendingSchedules || undefined, requiredPermission: "nuptechs:content" },
+        { href: "/admin/whatsapp", label: "WhatsApp", icon: "💬", requiredPermission: "nuptechs:admin" },
       ],
     },
     {
       title: "Conteúdo",
       items: [
-        { href: "/admin/blog", label: "Blog", icon: "✎" },
-        { href: "/admin/analytics", label: "Analytics", icon: "◈" },
+        { href: "/admin/blog", label: "Blog", icon: "✎", requiredPermission: "nuptechs:content" },
+        { href: "/admin/analytics", label: "Analytics", icon: "◈", requiredPermission: "nuptechs:viewer" },
       ],
     },
     {
       title: "Distribuição",
       items: [
-        { href: "/admin/downloads", label: "Downloads", icon: "⬇" },
+        { href: "/admin/downloads", label: "Downloads", icon: "⬇", requiredPermission: "nuptechs:admin" },
       ],
     },
     {
       title: "Sistema",
       items: [
-        { href: "/admin/audit", label: "Auditoria", icon: "🔍" },
-        { href: "/admin/settings", label: "Configurações", icon: "⚙" },
+        { href: "/admin/audit", label: "Auditoria", icon: "🔍", requiredPermission: "nuptechs:admin" },
+        { href: "/admin/settings", label: "Configurações", icon: "⚙", requiredPermission: "nuptechs:admin" },
       ],
     },
   ];
+
+  // Filter sections based on user permissions
+  const visibleSections = sections
+    .map((section) => ({
+      ...section,
+      items: section.items.filter((item) => canAccess(permissions, item.requiredPermission)),
+    }))
+    .filter((section) => section.items.length > 0);
 
   return (
     <aside className="admin-sidebar">
@@ -88,7 +110,7 @@ export function AdminSidebar() {
         </Link>
       </div>
       <nav className="admin-nav">
-        {sections.map((section) => (
+        {visibleSections.map((section) => (
           <div key={section.title}>
             <div className="admin-nav-section">{section.title}</div>
             {section.items.map(({ href, label, icon, badge }) => {
@@ -117,7 +139,13 @@ export function AdminSidebar() {
         {user && (
           <div className="admin-user-info">
             <span className="admin-user-name">{user.name || user.email}</span>
-            <span className="admin-user-role">Administrador</span>
+            <span className="admin-user-role">
+              {permissions.includes("nuptechs:admin")
+                ? "Administrador"
+                : permissions.includes("nuptechs:content")
+                  ? "Editor"
+                  : "Visualizador"}
+            </span>
           </div>
         )}
         <a href="/api/auth/logout" className="admin-nav-item">

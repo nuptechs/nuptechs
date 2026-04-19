@@ -57,7 +57,7 @@ export function buildAuthorizeUrl(state: string, codeChallenge: string): string 
     response_type: "code",
     client_id: CLIENT_ID,
     redirect_uri: getCallbackUrl(),
-    scope: "openid profile email",
+    scope: "openid profile email permissions",
     state,
     code_challenge: codeChallenge,
     code_challenge_method: "S256",
@@ -131,17 +131,32 @@ const SECRET = new TextEncoder().encode(
   process.env.SESSION_SECRET || process.env.NUPIDENTITY_CLIENT_SECRET || "nuptechs-fallback-secret-change-me"
 );
 
+export async function fetchUserPermissions(accessToken: string): Promise<string[]> {
+  try {
+    const res = await fetch(USERINFO_URL, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    if (!res.ok) return [];
+    const info = await res.json();
+    return Array.isArray(info.permissions) ? info.permissions : [];
+  } catch {
+    return [];
+  }
+}
+
 export async function createSession(data: {
   accessToken: string;
   idToken: string;
   refreshToken?: string;
   user: { sub: string; name?: string; email?: string; picture?: string };
+  permissions?: string[];
 }) {
   const jwt = await new jose.SignJWT({
     accessToken: data.accessToken,
     idToken: data.idToken,
     refreshToken: data.refreshToken,
     user: data.user,
+    permissions: data.permissions || [],
   })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -170,6 +185,7 @@ export async function getSession() {
       idToken: string;
       refreshToken?: string;
       user: { sub: string; name?: string; email?: string; picture?: string };
+      permissions: string[];
     };
   } catch {
     return null;
@@ -179,4 +195,27 @@ export async function getSession() {
 export async function destroySession() {
   const cookieStore = await cookies();
   cookieStore.delete(COOKIE_NAME);
+}
+
+// ─── Permission definitions ────────────────────────────
+// These match function keys defined in NuPIdentity for the nuptechs system.
+// nuptechs:admin   → Full access (settings, whatsapp, audit, downloads)
+// nuptechs:content → Content management (leads, schedules, blog, analytics)
+// nuptechs:viewer  → Read-only (dashboard, analytics)
+
+export type NuptechsPermission = "nuptechs:admin" | "nuptechs:content" | "nuptechs:viewer";
+
+export function hasPermission(
+  sessionPermissions: string[],
+  required: NuptechsPermission | NuptechsPermission[],
+): boolean {
+  const perms = sessionPermissions || [];
+  // admin has implicit access to everything
+  if (perms.includes("nuptechs:admin")) return true;
+  const needed = Array.isArray(required) ? required : [required];
+  return needed.some((p) => perms.includes(p));
+}
+
+export function getIdentityConsoleUrl(): string {
+  return `${ISSUER_URL}/console`;
 }

@@ -199,6 +199,45 @@ export default function SettingsPage() {
         </div>
       </section>
 
+      {/* Identity & Access */}
+      <section className="admin-section">
+        <div className="admin-section-header"><h2>Identidade & Acesso</h2></div>
+        <div className="admin-card">
+          <div className="admin-card-body">
+            <p style={{ fontSize: "0.875rem", color: "var(--muted)", marginBottom: "1rem" }}>
+              Usuários, permissões e perfis são gerenciados centralmente no NuPIdentity.
+            </p>
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+              <a
+                href={process.env.NEXT_PUBLIC_NUPIDENTITY_CONSOLE_URL || "https://identify.nuptechs.com/console"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="admin-btn admin-btn-secondary"
+                style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem" }}
+              >
+                <span>👥</span> Gerenciar Usuários
+                <span style={{ fontSize: "0.75rem", opacity: 0.6 }}>↗</span>
+              </a>
+              <a
+                href={`${process.env.NEXT_PUBLIC_NUPIDENTITY_CONSOLE_URL || "https://identify.nuptechs.com/console"}/functions`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="admin-btn admin-btn-secondary"
+                style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem" }}
+              >
+                <span>🔑</span> Gerenciar Permissões
+                <span style={{ fontSize: "0.75rem", opacity: 0.6 }}>↗</span>
+              </a>
+            </div>
+            <p className="admin-form-hint" style={{ marginTop: "0.75rem" }}>
+              Permissões do nuptechs: <code style={{ fontSize: "0.75rem", background: "var(--surface-raised)", padding: "0.125rem 0.375rem", borderRadius: "0.25rem" }}>nuptechs:admin</code>{" "}
+              <code style={{ fontSize: "0.75rem", background: "var(--surface-raised)", padding: "0.125rem 0.375rem", borderRadius: "0.25rem" }}>nuptechs:content</code>{" "}
+              <code style={{ fontSize: "0.75rem", background: "var(--surface-raised)", padding: "0.125rem 0.375rem", borderRadius: "0.25rem" }}>nuptechs:viewer</code>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Toast */}
       {toast && (
         <div className="admin-toast-container">

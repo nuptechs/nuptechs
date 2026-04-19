@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "../../../../lib/auth";
+import { getSession, hasPermission } from "../../../../lib/auth";
 import { getContainer } from "../../../../lib/core/container";
 
 export async function GET() {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!hasPermission(session.permissions, "nuptechs:admin")) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const { settings } = getContainer();
   const siteSettings = await settings.getSiteSettings();
@@ -14,6 +15,7 @@ export async function GET() {
 export async function PATCH(request: NextRequest) {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!hasPermission(session.permissions, "nuptechs:admin")) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const body = await request.json();
   const { settings, audit } = getContainer();

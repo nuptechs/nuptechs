@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { exchangeCode, validateToken, createSession } from "../../../../lib/auth";
+import { exchangeCode, validateToken, createSession, fetchUserPermissions } from "../../../../lib/auth";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -39,6 +39,8 @@ export async function GET(request: NextRequest) {
       return NextResponse.redirect(new URL("/admin?error=invalid_token", request.url));
     }
 
+    const permissions = await fetchUserPermissions(tokens.access_token);
+
     await createSession({
       accessToken: tokens.access_token,
       idToken: tokens.id_token,
@@ -49,6 +51,7 @@ export async function GET(request: NextRequest) {
         email: (claims as any).email,
         picture: (claims as any).picture,
       },
+      permissions,
     });
 
     return NextResponse.redirect(new URL("/admin", request.url));

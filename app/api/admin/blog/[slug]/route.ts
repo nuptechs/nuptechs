@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "../../../../../lib/auth";
+import { getSession, hasPermission } from "../../../../../lib/auth";
 import { getContainer } from "../../../../../lib/core/container";
 import type { BlogPostStatus } from "../../../../../lib/core/ports/blog.port";
 
@@ -8,6 +8,7 @@ type RouteParams = { params: { slug: string } };
 export async function GET(_request: NextRequest, { params }: RouteParams) {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!hasPermission(session.permissions, "nuptechs:content")) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const { blog } = getContainer();
   const post = await blog.findBySlug(params.slug);
@@ -19,6 +20,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
 export async function PATCH(request: NextRequest, { params }: RouteParams) {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!hasPermission(session.permissions, "nuptechs:content")) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const body = await request.json();
   const { blog, audit } = getContainer();
