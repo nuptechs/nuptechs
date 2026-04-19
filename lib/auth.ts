@@ -166,6 +166,16 @@ export async function createSessionToken(data: {
 
 export { COOKIE_NAME as SESSION_COOKIE_NAME, COOKIE_MAX_AGE as SESSION_COOKIE_MAX_AGE };
 
+/**
+ * Returns cookie domain for production so cookies work across
+ * both nuptechs.com and www.nuptechs.com.
+ */
+export function getCookieDomain(): string | undefined {
+  const url = process.env.NEXT_PUBLIC_SITE_URL || '';
+  if (url.includes('nuptechs.com')) return '.nuptechs.com';
+  return undefined;
+}
+
 export async function getSession() {
   const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;

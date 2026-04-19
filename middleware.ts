@@ -9,6 +9,16 @@ const SECRET = new TextEncoder().encode(
 );
 
 export async function middleware(request: NextRequest) {
+  const host = request.headers.get("host") || "";
+
+  // Canonical redirect: nuptechs.com → www.nuptechs.com
+  if (host === "nuptechs.com") {
+    const url = request.nextUrl.clone();
+    url.host = "www.nuptechs.com";
+    url.protocol = "https";
+    return NextResponse.redirect(url, 308);
+  }
+
   const { pathname } = request.nextUrl;
 
   // Only protect /admin routes (not auth API routes)
@@ -34,5 +44,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|webp|svg|ico|woff|woff2)).*)"],
 };

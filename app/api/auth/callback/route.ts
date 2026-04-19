@@ -7,6 +7,7 @@ import {
   fetchUserPermissions,
   SESSION_COOKIE_NAME,
   SESSION_COOKIE_MAX_AGE,
+  getCookieDomain,
 } from "../../../../lib/auth";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -63,15 +64,32 @@ export async function GET(request: NextRequest) {
     // Set ALL cookies on the redirect response object directly
     // (cookies() + NextResponse.redirect() may not merge Set-Cookie headers reliably)
     const response = NextResponse.redirect(new URL("/admin", SITE_URL));
+    const cookieDomain = getCookieDomain();
     response.cookies.set(SESSION_COOKIE_NAME, sessionJwt, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
       maxAge: SESSION_COOKIE_MAX_AGE,
+      ...(cookieDomain && { domain: cookieDomain }),
     });
-    response.cookies.delete("oidc_state");
-    response.cookies.delete("oidc_verifier");
+    // Delete OIDC cookies with matching domain so browsers actually remove them
+    response.cookies.set("oidc_state", "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 0,
+      ...(cookieDomain && { domain: cookieDomain }),
+    });
+    response.cookies.set("oidc_verifier", "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 0,
+      ...(cookieDomain && { domain: cookieDomain }),
+    });
     return response;
   } catch (err) {
     console.error("Auth callback error:", err);

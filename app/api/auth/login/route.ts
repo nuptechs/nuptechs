@@ -5,6 +5,7 @@ import {
   generateCodeVerifier,
   generateCodeChallenge,
   buildAuthorizeUrl,
+  getCookieDomain,
 } from "../../../../lib/auth";
 
 export async function GET() {
@@ -15,12 +16,14 @@ export async function GET() {
 
   // Store state and verifier in httpOnly cookie for callback validation
   const cookieStore = await cookies();
+  const cookieDomain = getCookieDomain();
   cookieStore.set("oidc_state", state, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
     maxAge: 600, // 10 min
+    ...(cookieDomain && { domain: cookieDomain }),
   });
   cookieStore.set("oidc_verifier", codeVerifier, {
     httpOnly: true,
@@ -28,6 +31,7 @@ export async function GET() {
     sameSite: "lax",
     path: "/",
     maxAge: 600,
+    ...(cookieDomain && { domain: cookieDomain }),
   });
 
   return NextResponse.redirect(url);
