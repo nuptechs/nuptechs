@@ -25,15 +25,21 @@ export async function middleware(request: NextRequest) {
   }
 
   const token = request.cookies.get(COOKIE_NAME)?.value;
+  const allCookieNames = request.cookies.getAll().map(c => c.name);
+
+  console.error(`[MW] path=${pathname} hasCookie=${!!token} tokenLen=${token?.length || 0} allCookies=[${allCookieNames.join(',')}] host=${host} secretLen=${SECRET.byteLength}`);
 
   if (!token) {
+    console.error(`[MW] NO SESSION COOKIE → redirect to login`);
     return NextResponse.redirect(new URL("/api/auth/login", SITE_URL));
   }
 
   try {
-    await jose.jwtVerify(token, SECRET);
+    const { payload } = await jose.jwtVerify(token, SECRET);
+    console.error(`[MW] JWT OK sub=${(payload as any)?.user?.sub} exp=${payload.exp}`);
     return NextResponse.next();
-  } catch {
+  } catch (err: any) {
+    console.error(`[MW] JWT VERIFY FAILED: ${err.code || err.message || err}`);
     // Invalid or expired session — redirect to login
     const response = NextResponse.redirect(new URL("/api/auth/login", SITE_URL));
     response.cookies.delete(COOKIE_NAME);

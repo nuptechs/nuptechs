@@ -63,8 +63,10 @@ export async function GET(request: NextRequest) {
 
     // Set ALL cookies on the redirect response object directly
     // (cookies() + NextResponse.redirect() may not merge Set-Cookie headers reliably)
+    console.error(`[CALLBACK] SUCCESS — creating session. sub=${claims.sub} email=${(claims as any).email} permissions=[${permissions.join(',')}] jwtLen=${sessionJwt.length}`);
     const response = NextResponse.redirect(new URL("/admin", SITE_URL));
     const cookieDomain = getCookieDomain();
+    console.error(`[CALLBACK] Setting cookie domain=${cookieDomain} secure=${process.env.NODE_ENV === 'production'} SITE_URL=${SITE_URL}`);
     response.cookies.set(SESSION_COOKIE_NAME, sessionJwt, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
