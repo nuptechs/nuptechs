@@ -13,10 +13,8 @@ export async function middleware(request: NextRequest) {
 
   // Canonical redirect: nuptechs.com → www.nuptechs.com
   if (host === "nuptechs.com") {
-    const url = request.nextUrl.clone();
-    url.host = "www.nuptechs.com";
-    url.protocol = "https";
-    return NextResponse.redirect(url, 308);
+    const target = new URL(request.nextUrl.pathname + request.nextUrl.search, "https://www.nuptechs.com");
+    return NextResponse.redirect(target, 308);
   }
 
   const { pathname } = request.nextUrl;
