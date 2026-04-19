@@ -151,10 +151,10 @@ export async function createSessionToken(data: {
   user: { sub: string; name?: string; email?: string; picture?: string };
   permissions?: string[];
 }): Promise<string> {
+  // Only store essential user data + permissions in the cookie JWT.
+  // Full OIDC tokens (accessToken, idToken, refreshToken) are intentionally
+  // excluded to keep the cookie under the browser's ~4096 byte limit.
   return await new jose.SignJWT({
-    accessToken: data.accessToken,
-    idToken: data.idToken,
-    refreshToken: data.refreshToken,
     user: data.user,
     permissions: data.permissions || [],
   })
@@ -184,9 +184,6 @@ export async function getSession() {
   try {
     const { payload } = await jose.jwtVerify(token, SECRET);
     return payload as unknown as {
-      accessToken: string;
-      idToken: string;
-      refreshToken?: string;
       user: { sub: string; name?: string; email?: string; picture?: string };
       permissions: string[];
     };
