@@ -12,8 +12,10 @@ export async function generateMetadata({
 }: {
   params: { lang: Locale };
 }): Promise<Metadata> {
-  const d = dictionaries[params.lang];
-  const isEn = params.lang === "en";
+  const lang = params?.lang;
+  if (!lang || !dictionaries[lang]) return {};
+  const d = dictionaries[lang];
+  const isEn = lang === "en";
 
   const title = isEn
     ? "NuPtechs — Custom Software Development with AI | Brazil"
@@ -28,7 +30,7 @@ export async function generateMetadata({
     description,
     robots: { index: true, follow: true },
     alternates: {
-      canonical: `${siteUrl}/${params.lang}`,
+      canonical: `${siteUrl}/${lang}`,
       languages: {
         "pt-BR": siteUrl,
         "en-US": `${siteUrl}/en`,
@@ -38,7 +40,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `${siteUrl}/${params.lang}`,
+      url: `${siteUrl}/${lang}`,
       siteName: "NuPtechs",
       type: "website",
       locale: d.lang,
