@@ -30,6 +30,7 @@ export function AdminSidebar() {
   const pathname = usePathname();
   const [user, setUser] = useState<{ name?: string; email?: string } | null>(null);
   const [permissions, setPermissions] = useState<string[]>([]);
+  const [permissionsChanged, setPermissionsChanged] = useState(false);
   const [counts, setCounts] = useState<{ newLeads: number; pendingSchedules: number }>({
     newLeads: 0,
     pendingSchedules: 0,
@@ -37,7 +38,21 @@ export function AdminSidebar() {
 
   useEffect(() => {
     fetch("/api/auth/me")
-      .then((r) => (r.ok ? r.json() : null))
+      .then(async (r) => {
+        if (r.status === 401) {
+          const body = await r.json().catch(() => ({}));
+          if (body?.reason === "permissions_changed") {
+            // NuPIdentify notified us that this user's permissions changed.
+            // Show a banner and redirect to re-login after a brief delay.
+            setPermissionsChanged(true);
+            setTimeout(() => {
+              window.location.href = "/api/auth/logout";
+            }, 3000);
+          }
+          return null;
+        }
+        return r.ok ? r.json() : null;
+      })
       .then((data) => {
         if (data?.user) setUser(data.user);
         if (data?.permissions) setPermissions(data.permissions);
@@ -109,6 +124,19 @@ export function AdminSidebar() {
           <span className="admin-logo-text">admin</span>
         </Link>
       </div>
+      {permissionsChanged && (
+        <div style={{
+          background: "var(--color-warning, #f59e0b)",
+          color: "#000",
+          padding: "0.75rem 1rem",
+          fontSize: "0.8rem",
+          lineHeight: 1.4,
+          borderBottom: "1px solid rgba(0,0,0,0.1)",
+        }}>
+          <strong>Permissões atualizadas.</strong><br />
+          Redirecionando para login…
+        </div>
+      )}
       <nav className="admin-nav">
         {visibleSections.map((section) => (
           <div key={section.title}>

@@ -186,6 +186,7 @@ export async function getSession() {
     return payload as unknown as {
       user: { sub: string; name?: string; email?: string; picture?: string };
       permissions: string[];
+      iat: number; // seconds since epoch — used for invalidation check
     };
   } catch {
     return null;
