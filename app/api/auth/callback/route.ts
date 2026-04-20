@@ -18,6 +18,8 @@ export async function GET(request: NextRequest) {
   const state = searchParams.get("state");
   const error = searchParams.get("error");
 
+  console.error(`[CALLBACK] HIT — code=${!!code} state=${!!state} error=${error || 'none'} url=${request.url.substring(0, 120)}`);
+
   if (error) {
     const desc = searchParams.get("error_description") || error;
     return NextResponse.redirect(
@@ -34,7 +36,7 @@ export async function GET(request: NextRequest) {
   const codeVerifier = cookieStore.get("oidc_verifier")?.value;
 
   if (!savedState || !codeVerifier || state !== savedState) {
-    console.error("OIDC state mismatch", { savedState: !!savedState, codeVerifier: !!codeVerifier, stateMatch: state === savedState });
+    console.error("[CALLBACK] STATE MISMATCH", { hasSavedState: !!savedState, hasVerifier: !!codeVerifier, stateMatch: state === savedState, stateFromUrl: state?.substring(0, 10), stateFromCookie: savedState?.substring(0, 10) });
     return NextResponse.redirect(new URL("/admin?error=invalid_state", SITE_URL));
   }
 
