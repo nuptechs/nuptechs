@@ -11,8 +11,8 @@ const WEBHOOK_SECRET = process.env.NUPIDENTITY_WEBHOOK_SECRET;
  */
 function verifySignature(signature: string, timestamp: string, rawBody: string): boolean {
   if (!WEBHOOK_SECRET) {
-    console.error("[WEBHOOK] NUPIDENTITY_WEBHOOK_SECRET not set — accepting without verification (insecure)");
-    return true; // fail-open until secret is configured; switch to false for strict mode
+    console.error("[WEBHOOK] NUPIDENTITY_WEBHOOK_SECRET not set — rejecting request");
+    return false;
   }
   try {
     const expected = `sha256=${crypto
