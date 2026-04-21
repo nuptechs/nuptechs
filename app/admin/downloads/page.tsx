@@ -7,10 +7,11 @@ interface AppRelease {
   version: string;
   platform: "android" | "ios";
   description: string;
-  downloadUrl: string;
+  downloadUrl: string | null;
   size: string;
   updatedAt: string;
   icon: string;
+  available: boolean;
 }
 
 const APPS: AppRelease[] = [
@@ -19,30 +20,33 @@ const APPS: AppRelease[] = [
     version: "1.0.0",
     platform: "android",
     description: "App do cliente — agendar cortes, ver fila, chat e promoções",
-    downloadUrl: "https://github.com/nuptechs/NuP-Salon-Client/releases/latest/download/NuP-Salon-v1.0.0.apk",
+    downloadUrl: "/downloads/NuP-Salon-v1.0.0.apk",
     size: "74 MB",
     updatedAt: "2026-04-19",
     icon: "💇",
+    available: true,
   },
   {
     name: "NuP Salon Pro",
     version: "1.0.0",
     platform: "android",
     description: "App do barbeiro — agenda, clientes, relatórios e gestão",
-    downloadUrl: "https://github.com/nuptechs/NuP-Salon-Barb/releases/latest/download/NuP-Salon-Pro-v1.0.0.apk",
+    downloadUrl: null,
     size: "~75 MB",
-    updatedAt: "2026-04-19",
+    updatedAt: "—",
     icon: "✂️",
+    available: false,
   },
   {
     name: "NuP Sales",
     version: "0.1.0",
     platform: "android",
     description: "Plataforma de vendas — catálogo, carrinho, pedidos e fidelidade",
-    downloadUrl: "https://github.com/nuptechs/NuP-Sales/releases/latest/download/NuP-Sales-v0.1.0.apk",
-    size: "~70 MB",
+    downloadUrl: "/downloads/NuP-Sales-v0.1.0.apk",
+    size: "70 MB",
     updatedAt: "2026-04-19",
     icon: "🛒",
+    available: true,
   },
 ];
 
@@ -104,13 +108,23 @@ export default function DownloadsPage() {
               <span>·</span>
               <span>{app.updatedAt}</span>
             </div>
-            <a
-              href={app.downloadUrl}
-              className="download-btn"
-              download
-            >
-              ⬇ Baixar APK
-            </a>
+            {app.available && app.downloadUrl ? (
+              <a
+                href={app.downloadUrl}
+                className="download-btn"
+                download
+              >
+                ⬇ Baixar APK
+              </a>
+            ) : (
+              <button
+                className="download-btn"
+                disabled
+                style={{ opacity: 0.5, cursor: "not-allowed" }}
+              >
+                Em breve
+              </button>
+            )}
           </div>
         ))}
       </div>
