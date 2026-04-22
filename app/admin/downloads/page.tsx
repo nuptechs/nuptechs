@@ -17,12 +17,12 @@ interface AppRelease {
 const APPS: AppRelease[] = [
   {
     name: "NuP Salon",
-    version: "1.0.0",
+    version: "1.1.0",
     platform: "android",
     description: "App do cliente — agendar cortes, ver fila, chat e promoções",
-    downloadUrl: "/downloads/NuP-Salon-v1.0.0.apk",
-    size: "74 MB",
-    updatedAt: "2026-04-19",
+    downloadUrl: "/downloads/NuP-Salon-v1.1.0.apk",
+    size: "78 MB",
+    updatedAt: "2026-04-21",
     icon: "💇",
     available: true,
   },
