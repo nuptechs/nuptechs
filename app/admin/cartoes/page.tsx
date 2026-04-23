@@ -463,11 +463,11 @@ function TemplateCard({
       <div
         style={{
           aspectRatio: "4 / 3",
-          background: "#0b0b12",
-          display: "grid",
-          placeItems: "center",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          background:
+            "linear-gradient(135deg, #0e1116 0%, #14181f 60%, #1a1320 100%)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
           position: "relative",
+          overflow: "hidden",
         }}
       >
         {first ? (
@@ -475,10 +475,19 @@ function TemplateCard({
           <img
             src={`/api/card-media/${first.id}`}
             alt={tpl.name}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
           />
         ) : (
-          <div style={{ opacity: 0.4, fontSize: 14 }}>sem imagem</div>
+          <MiniWhatsPreview
+            caption={tpl.caption}
+            includeContact={tpl.includeContact}
+          />
         )}
         {tpl.isActive && (
           <div
@@ -488,11 +497,13 @@ function TemplateCard({
               left: 10,
               padding: "4px 10px",
               borderRadius: 999,
-              background: "rgba(124,58,237,0.9)",
+              background: "rgba(124,58,237,0.92)",
               color: "#fff",
               fontSize: 12,
               fontWeight: 600,
               letterSpacing: 0.3,
+              backdropFilter: "blur(4px)",
+              boxShadow: "0 2px 8px rgba(124,58,237,0.35)",
             }}
           >
             ★ ATIVO
@@ -506,9 +517,10 @@ function TemplateCard({
               right: 10,
               padding: "4px 10px",
               borderRadius: 999,
-              background: "rgba(0,0,0,0.6)",
+              background: "rgba(0,0,0,0.55)",
               color: "#fff",
               fontSize: 12,
+              backdropFilter: "blur(4px)",
             }}
           >
             +{tpl.media.length - 1}
@@ -943,6 +955,90 @@ function DraftEditor({
             {saving ? "Salvando…" : "Salvar e ativar"}
           </button>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function MiniWhatsPreview({
+  caption,
+  includeContact,
+}: {
+  caption: string;
+  includeContact: boolean;
+}) {
+  const text = (caption || "").trim();
+  const preview = text
+    ? text.length > 90
+      ? text.slice(0, 90).trimEnd() + "…"
+      : text
+    : "Sua mensagem aparecerá aqui";
+  return (
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        padding: 18,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        gap: 8,
+        backgroundImage:
+          "radial-gradient(circle at 20% 10%, rgba(124,58,237,0.18), transparent 55%), radial-gradient(circle at 90% 90%, rgba(37,211,102,0.10), transparent 55%)",
+      }}
+    >
+      {includeContact && (
+        <div
+          style={{
+            alignSelf: "flex-start",
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            background: "rgba(255,255,255,0.06)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            color: "#e7e7ea",
+            borderRadius: 12,
+            padding: "8px 10px",
+            fontSize: 12,
+            maxWidth: "85%",
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          <span
+            style={{
+              width: 22,
+              height: 22,
+              borderRadius: "50%",
+              background: "#25D366",
+              color: "#fff",
+              display: "grid",
+              placeItems: "center",
+              fontWeight: 700,
+              fontSize: 11,
+            }}
+          >
+            S
+          </span>
+          <span style={{ fontWeight: 600 }}>Silkeny</span>
+          <span style={{ opacity: 0.6 }}>· vCard</span>
+        </div>
+      )}
+      <div
+        style={{
+          alignSelf: "flex-start",
+          background: "#005c4b",
+          color: "#fff",
+          borderRadius: 12,
+          padding: "10px 12px",
+          fontSize: 13,
+          lineHeight: 1.4,
+          maxWidth: "92%",
+          boxShadow: "0 1px 0.5px rgba(0,0,0,0.13)",
+          opacity: text ? 1 : 0.55,
+          fontStyle: text ? "normal" : "italic",
+        }}
+      >
+        {preview}
       </div>
     </div>
   );
