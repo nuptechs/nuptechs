@@ -530,6 +530,7 @@ function DraftEditor({
           overflow: "hidden",
           borderRadius: 16,
           background: "#0f0f17",
+          color: "#e7e7ea",
           border: "1px solid rgba(255,255,255,0.1)",
           boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
           display: "flex",
@@ -649,20 +650,20 @@ function DraftEditor({
                 }}
                 onClick={() => fileInputRef.current?.click()}
                 style={{
-                  border: `2px dashed ${dragActive ? "rgba(124,58,237,0.8)" : "rgba(255,255,255,0.15)"}`,
-                  background: dragActive ? "rgba(124,58,237,0.08)" : "rgba(255,255,255,0.02)",
+                  border: `2px dashed ${dragActive ? "rgba(124,58,237,0.9)" : "rgba(255,255,255,0.3)"}`,
+                  background: dragActive ? "rgba(124,58,237,0.12)" : "rgba(255,255,255,0.04)",
                   borderRadius: 12,
-                  padding: 20,
+                  padding: "32px 20px",
                   textAlign: "center",
                   cursor: "pointer",
                   transition: "all 0.15s",
                 }}
               >
-                <div style={{ fontSize: 24, marginBottom: 4 }}>⬆</div>
-                <div style={{ fontSize: 14, fontWeight: 500 }}>
+                <div style={{ fontSize: 32, marginBottom: 8 }}>📤</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>
                   Arraste imagens aqui ou clique para selecionar
                 </div>
-                <div style={{ fontSize: 12, opacity: 0.6, marginTop: 4 }}>
+                <div style={{ fontSize: 12, opacity: 0.7, marginTop: 6 }}>
                   PNG, JPEG ou WEBP · até 5 MB por arquivo · máx 6 imagens
                 </div>
                 <input
