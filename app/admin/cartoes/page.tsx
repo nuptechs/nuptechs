@@ -72,6 +72,7 @@ export default function CartoesPage() {
   const [templates, setTemplates] = useState<Template[]>([]);
   const [draft, setDraft] = useState<DraftState | null>(null);
   const [saving, setSaving] = useState(false);
+  const [draftError, setDraftError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const load = useCallback(async () => {
@@ -96,10 +97,12 @@ export default function CartoesPage() {
   const activeTemplate = useMemo(() => templates.find((t) => t.isActive) || null, [templates]);
 
   function openCreate() {
+    setDraftError(null);
     setDraft({ ...EMPTY_DRAFT, mode: "create" });
   }
 
   function openEdit(t: Template) {
+    setDraftError(null);
     setDraft({
       mode: "edit",
       id: t.id,
@@ -113,6 +116,7 @@ export default function CartoesPage() {
 
   function closeDraft() {
     setDraft(null);
+    setDraftError(null);
   }
 
   async function activate(id: number) {
@@ -152,8 +156,13 @@ export default function CartoesPage() {
 
   async function saveDraft(activateAfter: boolean) {
     if (!draft) return;
+    setDraftError(null);
     if (!draft.name.trim()) {
-      alert("Dê um nome ao modelo");
+      setDraftError("Dê um nome ao modelo");
+      return;
+    }
+    if (draft.mode === "create" && draft.pendingFiles.length === 0) {
+      setDraftError("Adicione ao menos uma imagem antes de salvar.");
       return;
     }
 
@@ -166,8 +175,20 @@ export default function CartoesPage() {
         fd.append("includeContact", String(draft.includeContact));
         fd.append("activate", String(activateAfter));
         for (const f of draft.pendingFiles) fd.append("files", f);
+        // eslint-disable-next-line no-console
+        console.log("[cartoes] POST /api/admin/card-templates", {
+          name: draft.name,
+          files: draft.pendingFiles.map((f) => ({ name: f.name, size: f.size, type: f.type })),
+        });
         const r = await fetch("/api/admin/card-templates", { method: "POST", body: fd });
-        if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || "Falha ao salvar");
+        const txt = await r.text();
+        // eslint-disable-next-line no-console
+        console.log("[cartoes] response", r.status, txt);
+        if (!r.ok) {
+          let msg = "Falha ao salvar";
+          try { msg = JSON.parse(txt).error || msg; } catch {}
+          throw new Error(`${msg} (HTTP ${r.status})`);
+        }
       } else {
         const r = await fetch(`/api/admin/card-templates/${draft.id}`, {
           method: "PATCH",
@@ -178,7 +199,10 @@ export default function CartoesPage() {
             includeContact: draft.includeContact,
           }),
         });
-        if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || "Falha ao salvar");
+        if (!r.ok) {
+          const j = await r.json().catch(() => ({}));
+          throw new Error(`${j.error || "Falha ao salvar"} (HTTP ${r.status})`);
+        }
 
         if (draft.pendingFiles.length > 0) {
           const fd = new FormData();
@@ -187,17 +211,27 @@ export default function CartoesPage() {
             method: "POST",
             body: fd,
           });
-          if (!r2.ok) throw new Error((await r2.json().catch(() => ({}))).error || "Falha ao enviar imagens");
+          if (!r2.ok) {
+            const j = await r2.json().catch(() => ({}));
+            throw new Error(`${j.error || "Falha ao enviar imagens"} (HTTP ${r2.status})`);
+          }
         }
 
         if (activateAfter) {
-          await fetch(`/api/admin/card-templates/${draft.id}/activate`, { method: "POST" });
+          const r3 = await fetch(`/api/admin/card-templates/${draft.id}/activate`, { method: "POST" });
+          if (!r3.ok) {
+            const j = await r3.json().catch(() => ({}));
+            throw new Error(`${j.error || "Falha ao ativar"} (HTTP ${r3.status})`);
+          }
         }
       }
       await load();
       setDraft(null);
+      setDraftError(null);
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Erro");
+      // eslint-disable-next-line no-console
+      console.error("[cartoes] saveDraft error", e);
+      setDraftError(e instanceof Error ? e.message : "Erro desconhecido");
     } finally {
       setSaving(false);
     }
@@ -205,9 +239,30 @@ export default function CartoesPage() {
 
   function onPickFiles(files: FileList | null) {
     if (!files || files.length === 0) return;
+    const arr = Array.from(files);
+    // eslint-disable-next-line no-console
+    console.log("[cartoes] picked files", arr.map((f) => ({ name: f.name, size: f.size, type: f.type })));
+    const MAX = 5 * 1024 * 1024;
+    const allowed = new Set(["image/png", "image/jpeg", "image/webp"]);
+    for (const f of arr) {
+      if (!allowed.has(f.type)) {
+        setDraftError(`Tipo não suportado: ${f.name} (${f.type || "?"}). Use PNG, JPEG ou WEBP.`);
+        return;
+      }
+      if (f.size > MAX) {
+        setDraftError(`Arquivo ${f.name} excede 5 MB.`);
+        return;
+      }
+    }
+    setDraftError(null);
     setDraft((d) => {
       if (!d) return d;
-      return { ...d, pendingFiles: [...d.pendingFiles, ...Array.from(files)] };
+      const next = [...d.pendingFiles, ...arr];
+      if (next.length + d.existingMedia.length > 6) {
+        setDraftError("Máximo de 6 imagens por modelo.");
+        return d;
+      }
+      return { ...d, pendingFiles: next };
     });
   }
 
@@ -340,6 +395,7 @@ export default function CartoesPage() {
           draft={draft}
           setDraft={setDraft}
           saving={saving}
+          draftError={draftError}
           onClose={closeDraft}
           onSave={() => saveDraft(false)}
           onSaveAndActivate={() => saveDraft(true)}
@@ -482,6 +538,7 @@ function DraftEditor({
   draft,
   setDraft,
   saving,
+  draftError,
   onClose,
   onSave,
   onSaveAndActivate,
@@ -495,6 +552,7 @@ function DraftEditor({
   draft: DraftState;
   setDraft: React.Dispatch<React.SetStateAction<DraftState | null>>;
   saving: boolean;
+  draftError: string | null;
   onClose: () => void;
   onSave: () => void;
   onSaveAndActivate: () => void;
@@ -648,7 +706,13 @@ function DraftEditor({
                   setDragActive(false);
                   onPickFiles(e.dataTransfer.files);
                 }}
-                onClick={() => fileInputRef.current?.click()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  fileInputRef.current?.click();
+                }}
+                role="button"
+                tabIndex={0}
                 style={{
                   border: `2px dashed ${dragActive ? "rgba(124,58,237,0.9)" : "rgba(255,255,255,0.3)"}`,
                   background: dragActive ? "rgba(124,58,237,0.12)" : "rgba(255,255,255,0.04)",
@@ -666,18 +730,19 @@ function DraftEditor({
                 <div style={{ fontSize: 12, opacity: 0.7, marginTop: 6 }}>
                   PNG, JPEG ou WEBP · até 5 MB por arquivo · máx 6 imagens
                 </div>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/png,image/jpeg,image/webp"
-                  multiple
-                  hidden
-                  onChange={(e) => {
-                    onPickFiles(e.target.files);
-                    e.target.value = "";
-                  }}
-                />
               </div>
+              {/* File input lives OUTSIDE the clickable div to avoid any event collisions */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                multiple
+                style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", border: 0 }}
+                onChange={(e) => {
+                  onPickFiles(e.target.files);
+                  e.target.value = "";
+                }}
+              />
 
               {(draft.existingMedia.length > 0 || draft.pendingFiles.length > 0) && (
                 <div
@@ -699,8 +764,8 @@ function DraftEditor({
                   ))}
                   {draft.pendingFiles.map((f, i) => (
                     <Thumb
-                      key={`p-${i}`}
-                      src={URL.createObjectURL(f)}
+                      key={`p-${i}-${f.name}-${f.size}`}
+                      src={previewMediaUrls[draft.existingMedia.length + i] || ""}
                       label={f.name}
                       sub={`${formatBytes(f.size)} · novo`}
                       onRemove={() => onRemovePending(i)}
@@ -810,10 +875,28 @@ function DraftEditor({
             padding: "14px 24px",
             borderTop: "1px solid rgba(255,255,255,0.08)",
             display: "flex",
+            alignItems: "center",
             justifyContent: "flex-end",
             gap: 10,
           }}
         >
+          {draftError && (
+            <div
+              style={{
+                marginRight: "auto",
+                color: "#fecaca",
+                background: "rgba(239,68,68,0.12)",
+                border: "1px solid rgba(239,68,68,0.35)",
+                borderRadius: 8,
+                padding: "8px 12px",
+                fontSize: 13,
+                maxWidth: "60%",
+              }}
+              role="alert"
+            >
+              {draftError}
+            </div>
+          )}
           <button className="wa-btn wa-btn-secondary" onClick={onClose} disabled={saving}>
             Cancelar
           </button>
