@@ -79,6 +79,13 @@ export async function POST(req: NextRequest) {
     `);
     await db.execute(sql`CREATE INDEX IF NOT EXISTS card_template_media_template_idx ON card_template_media (template_id, position)`);
 
+    // Additive migration: per-template vCard contact fields (nullable → falls
+    // back to legacy defaults in share-card when unset).
+    await db.execute(sql`ALTER TABLE card_templates ADD COLUMN IF NOT EXISTS contact_name text`);
+    await db.execute(sql`ALTER TABLE card_templates ADD COLUMN IF NOT EXISTS contact_phone text`);
+    await db.execute(sql`ALTER TABLE card_templates ADD COLUMN IF NOT EXISTS contact_email text`);
+    await db.execute(sql`ALTER TABLE card_templates ADD COLUMN IF NOT EXISTS contact_org text`);
+
     return NextResponse.json({ ok: true });
   } catch (error) {
     const message = error instanceof Error ? error.message : "unknown";

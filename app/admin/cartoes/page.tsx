@@ -16,6 +16,10 @@ type Template = {
   name: string;
   caption: string;
   includeContact: boolean;
+  contactName: string | null;
+  contactPhone: string | null;
+  contactEmail: string | null;
+  contactOrg: string | null;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -28,6 +32,10 @@ type DraftState = {
   name: string;
   caption: string;
   includeContact: boolean;
+  contactName: string;
+  contactPhone: string;
+  contactEmail: string;
+  contactOrg: string;
   pendingFiles: File[]; // only for create, or to append on edit
   existingMedia: Media[]; // for edit mode
 };
@@ -37,6 +45,10 @@ const EMPTY_DRAFT: DraftState = {
   name: "",
   caption: "",
   includeContact: true,
+  contactName: "",
+  contactPhone: "",
+  contactEmail: "",
+  contactOrg: "",
   pendingFiles: [],
   existingMedia: [],
 };
@@ -109,6 +121,10 @@ export default function CartoesPage() {
       name: t.name,
       caption: t.caption,
       includeContact: t.includeContact,
+      contactName: t.contactName ?? "",
+      contactPhone: t.contactPhone ?? "",
+      contactEmail: t.contactEmail ?? "",
+      contactOrg: t.contactOrg ?? "",
       pendingFiles: [],
       existingMedia: [...t.media],
     });
@@ -173,6 +189,10 @@ export default function CartoesPage() {
         fd.append("name", draft.name);
         fd.append("caption", draft.caption);
         fd.append("includeContact", String(draft.includeContact));
+        fd.append("contactName", draft.contactName);
+        fd.append("contactPhone", draft.contactPhone);
+        fd.append("contactEmail", draft.contactEmail);
+        fd.append("contactOrg", draft.contactOrg);
         fd.append("activate", String(activateAfter));
         for (const f of draft.pendingFiles) fd.append("files", f);
         // eslint-disable-next-line no-console
@@ -197,6 +217,10 @@ export default function CartoesPage() {
             name: draft.name,
             caption: draft.caption,
             includeContact: draft.includeContact,
+            contactName: draft.contactName || null,
+            contactPhone: draft.contactPhone || null,
+            contactEmail: draft.contactEmail || null,
+            contactOrg: draft.contactOrg || null,
           }),
         });
         if (!r.ok) {
@@ -726,6 +750,80 @@ function DraftEditor({
                 </div>
               </div>
             </label>
+
+            {draft.includeContact && (
+              <div
+                style={{
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 12,
+                  padding: 14,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 10,
+                  background: "rgba(255,255,255,0.02)",
+                }}
+              >
+                <div style={{ fontSize: 13, fontWeight: 600 }}>Dados do vCard</div>
+                <div style={{ fontSize: 12, opacity: 0.6, marginTop: -4 }}>
+                  Deixe em branco para usar o padrão (Silkeny Ferreira ·
+                  NuPtechs · +55 (62) 98550-7649 · silkeny@nuptechs.com).
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                  <label style={{ display: "block" }}>
+                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>Nome</div>
+                    <input
+                      type="text"
+                      value={draft.contactName}
+                      maxLength={120}
+                      onChange={(e) =>
+                        setDraft((d) => (d ? { ...d, contactName: e.target.value } : d))
+                      }
+                      placeholder="Silkeny Ferreira"
+                      style={inputStyle}
+                    />
+                  </label>
+                  <label style={{ display: "block" }}>
+                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>Empresa</div>
+                    <input
+                      type="text"
+                      value={draft.contactOrg}
+                      maxLength={120}
+                      onChange={(e) =>
+                        setDraft((d) => (d ? { ...d, contactOrg: e.target.value } : d))
+                      }
+                      placeholder="NuPtechs"
+                      style={inputStyle}
+                    />
+                  </label>
+                  <label style={{ display: "block" }}>
+                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>Telefone</div>
+                    <input
+                      type="tel"
+                      value={draft.contactPhone}
+                      maxLength={120}
+                      onChange={(e) =>
+                        setDraft((d) => (d ? { ...d, contactPhone: e.target.value } : d))
+                      }
+                      placeholder="+55 62 98550-7649"
+                      style={inputStyle}
+                    />
+                  </label>
+                  <label style={{ display: "block" }}>
+                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>E-mail</div>
+                    <input
+                      type="email"
+                      value={draft.contactEmail}
+                      maxLength={120}
+                      onChange={(e) =>
+                        setDraft((d) => (d ? { ...d, contactEmail: e.target.value } : d))
+                      }
+                      placeholder="silkeny@nuptechs.com"
+                      style={inputStyle}
+                    />
+                  </label>
+                </div>
+              </div>
+            )}
 
             <div>
               <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8 }}>

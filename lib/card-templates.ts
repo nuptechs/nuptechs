@@ -13,6 +13,10 @@ export type ActiveTemplate = {
   name: string;
   caption: string;
   includeContact: boolean;
+  contactName: string | null;
+  contactPhone: string | null;
+  contactEmail: string | null;
+  contactOrg: string | null;
   media: ActiveTemplateMedia[];
 };
 
@@ -43,6 +47,10 @@ export async function getActiveCardTemplate(): Promise<ActiveTemplate | null> {
       name: tpl.name,
       caption: tpl.caption,
       includeContact: tpl.includeContact,
+      contactName: tpl.contactName ?? null,
+      contactPhone: tpl.contactPhone ?? null,
+      contactEmail: tpl.contactEmail ?? null,
+      contactOrg: tpl.contactOrg ?? null,
       media,
     };
   } catch {

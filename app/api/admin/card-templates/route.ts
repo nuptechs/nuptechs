@@ -23,6 +23,10 @@ export async function GET() {
       name: cardTemplates.name,
       caption: cardTemplates.caption,
       includeContact: cardTemplates.includeContact,
+      contactName: cardTemplates.contactName,
+      contactPhone: cardTemplates.contactPhone,
+      contactEmail: cardTemplates.contactEmail,
+      contactOrg: cardTemplates.contactOrg,
       isActive: cardTemplates.isActive,
       createdAt: cardTemplates.createdAt,
       updatedAt: cardTemplates.updatedAt,
@@ -74,12 +78,25 @@ export async function POST(req: NextRequest) {
   const name = String(form.get("name") || "").trim();
   const caption = String(form.get("caption") || "");
   const includeContact = String(form.get("includeContact") || "true") !== "false";
+  const contactName = (String(form.get("contactName") || "").trim() || null) as string | null;
+  const contactPhone = (String(form.get("contactPhone") || "").trim() || null) as string | null;
+  const contactEmail = (String(form.get("contactEmail") || "").trim() || null) as string | null;
+  const contactOrg = (String(form.get("contactOrg") || "").trim() || null) as string | null;
   const activateNow = String(form.get("activate") || "false") === "true";
 
   if (!name) return NextResponse.json({ error: "Nome obrigatório" }, { status: 400 });
   if (name.length > 80) return NextResponse.json({ error: "Nome muito longo" }, { status: 400 });
   if (caption.length > 2000)
     return NextResponse.json({ error: "Mensagem muito longa (máx 2000 caracteres)" }, { status: 400 });
+  for (const [label, val] of [
+    ["Nome do contato", contactName],
+    ["Telefone do contato", contactPhone],
+    ["E-mail do contato", contactEmail],
+    ["Empresa do contato", contactOrg],
+  ] as const) {
+    if (val && val.length > 120)
+      return NextResponse.json({ error: `${label} muito longo` }, { status: 400 });
+  }
 
   const files = form.getAll("files").filter((f): f is File => f instanceof File && f.size > 0);
   if (files.length > MAX_FILES) {
@@ -107,6 +124,10 @@ export async function POST(req: NextRequest) {
         name,
         caption,
         includeContact,
+        contactName,
+        contactPhone,
+        contactEmail,
+        contactOrg,
         isActive: activateNow,
         createdBy: session.user.sub,
       })

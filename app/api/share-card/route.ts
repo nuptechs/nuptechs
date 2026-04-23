@@ -181,15 +181,23 @@ async function sendCard(
   let firstError: string | undefined;
 
   if (includeContact) {
+    const contactName = (template?.contactName || "").trim() || "Silkeny Ferreira";
+    const contactOrg = (template?.contactOrg || "").trim() || "NuPtechs";
+    const contactEmail = (template?.contactEmail || "").trim() || "silkeny@nuptechs.com";
+    const rawPhone = (template?.contactPhone || "").trim() || "+55 62 98550-7649";
+    const phoneDigits = rawPhone.replace(/\D/g, "") || "5562985507649";
+    // Pretty display: if we got only digits, reformat as +XX XX XXXXX-XXXX best effort.
+    const phoneDisplay = rawPhone.startsWith("+") || /\D/.test(rawPhone) ? rawPhone : `+${phoneDigits}`;
+
     const contactRes = await evolutionFetch(`/message/sendContact/${instance}`, {
       number: numberDigits,
       contact: [
         {
-          fullName: "Silkeny Ferreira",
-          wuid: "5562985507649",
-          phoneNumber: "+55 62 98550-7649",
-          organization: "NuPtechs",
-          email: "silkeny@nuptechs.com",
+          fullName: contactName,
+          wuid: phoneDigits,
+          phoneNumber: phoneDisplay,
+          organization: contactOrg,
+          email: contactEmail,
           url: `${SITE_URL}/comercial`,
         },
       ],

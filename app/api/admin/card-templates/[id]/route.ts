@@ -31,6 +31,10 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     name?: string;
     caption?: string;
     includeContact?: boolean;
+    contactName?: string | null;
+    contactPhone?: string | null;
+    contactEmail?: string | null;
+    contactOrg?: string | null;
   };
 
   const updates: Record<string, unknown> = { updatedAt: new Date() };
@@ -47,6 +51,22 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   }
   if (typeof body.includeContact === "boolean") {
     updates.includeContact = body.includeContact;
+  }
+  for (const [col, label, raw] of [
+    ["contactName", "Nome do contato", body.contactName],
+    ["contactPhone", "Telefone do contato", body.contactPhone],
+    ["contactEmail", "E-mail do contato", body.contactEmail],
+    ["contactOrg", "Empresa do contato", body.contactOrg],
+  ] as const) {
+    if (raw === undefined) continue;
+    if (raw === null) {
+      updates[col] = null;
+      continue;
+    }
+    const trimmed = String(raw).trim();
+    if (trimmed.length > 120)
+      return NextResponse.json({ error: `${label} muito longo` }, { status: 400 });
+    updates[col] = trimmed || null;
   }
 
   const updated = await db
