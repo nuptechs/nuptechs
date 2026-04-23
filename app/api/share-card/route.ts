@@ -3,13 +3,13 @@ import { createHash } from "crypto";
 import { and, count, eq, gte } from "drizzle-orm";
 import { db } from "../../../db";
 import { cardShares } from "../../../db/schema";
+import { getActiveShareInstance } from "../../../lib/share-card-config";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const EVOLUTION_API_URL = process.env.EVOLUTION_API_URL || "";
 const EVOLUTION_API_KEY = process.env.EVOLUTION_API_KEY || "";
-const EVOLUTION_INSTANCE = process.env.EVOLUTION_INSTANCE || "nuptechs-comercial";
 const TURNSTILE_SECRET = process.env.TURNSTILE_SECRET || "";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.nuptechs.com";
 
@@ -108,10 +108,10 @@ async function checkRateLimit(
 
 type EvolutionSendResult = { ok: boolean; id?: string; error?: string };
 
-async function evolutionConnectionState(): Promise<"open" | "connecting" | "close" | "unknown"> {
+async function evolutionConnectionState(instance: string): Promise<"open" | "connecting" | "close" | "unknown"> {
   try {
     const res = await fetch(
-      `${EVOLUTION_API_URL}/instance/connectionState/${EVOLUTION_INSTANCE}`,
+      `${EVOLUTION_API_URL}/instance/connectionState/${instance}`,
       {
         headers: { apikey: EVOLUTION_API_KEY },
         signal: AbortSignal.timeout(5000),
@@ -146,14 +146,14 @@ async function evolutionFetch(path: string, body: unknown): Promise<EvolutionSen
   }
 }
 
-async function sendCard(numberDigits: string): Promise<{
+async function sendCard(numberDigits: string, instance: string): Promise<{
   ok: boolean;
   messageIds: string[];
   error?: string;
 }> {
   const messageIds: string[] = [];
 
-  const contactRes = await evolutionFetch(`/message/sendContact/${EVOLUTION_INSTANCE}`, {
+  const contactRes = await evolutionFetch(`/message/sendContact/${instance}`, {
     number: numberDigits,
     contact: [
       {
@@ -168,7 +168,7 @@ async function sendCard(numberDigits: string): Promise<{
   });
   if (contactRes.ok && contactRes.id) messageIds.push(contactRes.id);
 
-  const mediaRes = await evolutionFetch(`/message/sendMedia/${EVOLUTION_INSTANCE}`, {
+  const mediaRes = await evolutionFetch(`/message/sendMedia/${instance}`, {
     number: numberDigits,
     mediatype: "image",
     mimetype: "image/png",
@@ -218,7 +218,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "WhatsApp não configurado" }, { status: 503 });
   }
 
-  const connState = await evolutionConnectionState();
+  const activeInstance = await getActiveShareInstance();
+
+  const connState = await evolutionConnectionState(activeInstance);
   if (connState !== "open") {
     return NextResponse.json(
       { error: "WhatsApp temporariamente indisponível. Tente novamente em instantes." },
@@ -246,7 +248,7 @@ export async function POST(req: NextRequest) {
     })
     .returning({ id: cardShares.id });
 
-  const send = await sendCard(normalized.e164Digits);
+  const send = await sendCard(normalized.e164Digits, activeInstance);
 
   if (pending) {
     await db

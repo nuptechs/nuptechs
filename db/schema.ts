@@ -192,6 +192,16 @@ export const cardShares = pgTable(
   ]
 );
 
+// ── App Config (key/value settings for runtime config) ──
+// Used by the admin panel to override env-driven defaults
+// (e.g. which WhatsApp instance sends the commercial card).
+export const appConfig = pgTable("app_config", {
+  key: text("key").primaryKey(),
+  value: text("value").notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  updatedBy: text("updated_by"),
+});
+
 // ── Admin Users (NuPIdentity-linked) ────────────────────
 export const adminUsers = pgTable(
   "admin_users",

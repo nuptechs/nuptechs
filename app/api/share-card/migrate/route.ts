@@ -42,6 +42,15 @@ export async function POST(req: NextRequest) {
     await db.execute(sql`CREATE INDEX IF NOT EXISTS card_shares_created_idx ON card_shares (created_at)`);
     await db.execute(sql`CREATE INDEX IF NOT EXISTS card_shares_status_idx ON card_shares (status)`);
 
+    await db.execute(sql`
+      CREATE TABLE IF NOT EXISTS app_config (
+        key text PRIMARY KEY NOT NULL,
+        value text NOT NULL,
+        updated_at timestamp DEFAULT now() NOT NULL,
+        updated_by text
+      )
+    `);
+
     return NextResponse.json({ ok: true });
   } catch (error) {
     const message = error instanceof Error ? error.message : "unknown";
