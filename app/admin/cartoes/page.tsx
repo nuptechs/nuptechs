@@ -276,21 +276,47 @@ export default function CartoesPage() {
   }
 
   const previewCaption = draft?.caption ?? "";
+
+  // Create one blob URL per File and keep it stable until the File is removed
+  // or the draft closes. This avoids "broken image" flicker caused by
+  // re-creating URLs on every render and revoking them too eagerly.
+  const blobCacheRef = useRef<Map<File, string>>(new Map());
+  useEffect(() => {
+    const cache = blobCacheRef.current;
+    const liveFiles = new Set(draft?.pendingFiles ?? []);
+    for (const [file, url] of cache) {
+      if (!liveFiles.has(file)) {
+        URL.revokeObjectURL(url);
+        cache.delete(file);
+      }
+    }
+  }, [draft?.pendingFiles]);
+  useEffect(() => {
+    // revoke everything on unmount
+    const cache = blobCacheRef.current;
+    return () => {
+      for (const url of cache.values()) URL.revokeObjectURL(url);
+      cache.clear();
+    };
+  }, []);
+
+  function blobUrlFor(file: File): string {
+    const cache = blobCacheRef.current;
+    let url = cache.get(file);
+    if (!url) {
+      url = URL.createObjectURL(file);
+      cache.set(file, url);
+    }
+    return url;
+  }
+
   const previewMediaUrls = useMemo(() => {
     if (!draft) return [] as string[];
     const fromExisting = draft.existingMedia.map((m) => `/api/card-media/${m.id}`);
-    const fromPending = draft.pendingFiles.map((f) => URL.createObjectURL(f));
+    const fromPending = draft.pendingFiles.map((f) => blobUrlFor(f));
     return [...fromExisting, ...fromPending];
-  }, [draft]);
-
-  // Revoke blob URLs when draft closes or changes
-  useEffect(() => {
-    return () => {
-      for (const url of previewMediaUrls) {
-        if (url.startsWith("blob:")) URL.revokeObjectURL(url);
-      }
-    };
-  }, [previewMediaUrls]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [draft?.existingMedia, draft?.pendingFiles]);
 
   return (
     <div className="admin-content">
@@ -855,7 +881,17 @@ function DraftEditor({
                     <img
                       src={url}
                       alt=""
-                      style={{ width: "100%", borderRadius: 6, display: "block" }}
+                      onError={(e) => {
+                        // hide broken images gracefully in preview
+                        (e.currentTarget as HTMLImageElement).style.display = "none";
+                      }}
+                      style={{
+                        width: "100%",
+                        maxHeight: 260,
+                        objectFit: "cover",
+                        borderRadius: 6,
+                        display: "block",
+                      }}
                     />
                     {i === 0 && previewCaption.trim() && (
                       <div
@@ -923,55 +959,93 @@ function Thumb({
   sub: string;
   onRemove: () => void;
 }) {
+  const [failed, setFailed] = useState(false);
   return (
     <div
       style={{
         position: "relative",
         border: "1px solid rgba(255,255,255,0.08)",
-        borderRadius: 8,
+        borderRadius: 10,
         overflow: "hidden",
         background: "#0b0b12",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      <div style={{ aspectRatio: "1 / 1", background: "#000" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={src}
-          alt={label}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-        />
+      <div
+        style={{
+          aspectRatio: "1 / 1",
+          background:
+            "linear-gradient(135deg, rgba(124,58,237,0.15), rgba(37,211,102,0.08))",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {src && !failed ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={src}
+            alt={label}
+            onError={() => setFailed(true)}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "grid",
+              placeItems: "center",
+              fontSize: 28,
+              opacity: 0.55,
+            }}
+          >
+            🖼️
+          </div>
+        )}
       </div>
-      <div style={{ padding: "6px 8px" }}>
+      <div style={{ padding: "6px 8px 8px", minWidth: 0 }}>
         <div
           style={{
             fontSize: 11,
+            color: "#e7e7ea",
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
+            maxWidth: "100%",
           }}
           title={label}
         >
           {label}
         </div>
-        <div style={{ fontSize: 10, opacity: 0.6 }}>{sub}</div>
+        <div style={{ fontSize: 10, opacity: 0.55, marginTop: 2 }}>{sub}</div>
       </div>
       <button
         onClick={onRemove}
         aria-label="Remover"
         style={{
           position: "absolute",
-          top: 4,
-          right: 4,
+          top: 6,
+          right: 6,
           width: 22,
           height: 22,
           borderRadius: "50%",
-          border: "none",
-          background: "rgba(0,0,0,0.7)",
+          border: "1px solid rgba(255,255,255,0.18)",
+          background: "rgba(0,0,0,0.72)",
           color: "#fff",
           cursor: "pointer",
           fontSize: 14,
-          lineHeight: "22px",
+          lineHeight: "20px",
           padding: 0,
+          display: "grid",
+          placeItems: "center",
         }}
       >
         ×
