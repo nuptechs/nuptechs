@@ -18,6 +18,15 @@ type QrResponse = {
   pairingCode: string | null;
 };
 
+type CardTemplate = {
+  id: number;
+  name: string;
+  caption: string | null;
+  includeContact: boolean;
+  isActive: boolean;
+  media: { id: number; fileName: string; mimeType: string }[];
+};
+
 function formatPhone(num: string | null): string {
   if (!num) return "—";
   const digits = num.replace(/\D/g, "");
@@ -48,6 +57,10 @@ export default function WhatsAppPage() {
   const [newName, setNewName] = useState("");
   const [creating, setCreating] = useState(false);
 
+  const [templates, setTemplates] = useState<CardTemplate[]>([]);
+  const [templatesLoading, setTemplatesLoading] = useState(true);
+  const [templateBusy, setTemplateBusy] = useState<number | null>(null);
+
   const fetchInstances = useCallback(async () => {
     try {
       setError(null);
@@ -69,6 +82,44 @@ export default function WhatsAppPage() {
   useEffect(() => {
     fetchInstances();
   }, [fetchInstances]);
+
+  const fetchTemplates = useCallback(async () => {
+    try {
+      const res = await fetch("/api/admin/card-templates", { cache: "no-store" });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Falha ao listar modelos de mensagem");
+        return;
+      }
+      setTemplates(data.templates || []);
+    } catch {
+      setError("Erro de conexão ao carregar modelos");
+    } finally {
+      setTemplatesLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchTemplates();
+  }, [fetchTemplates]);
+
+  async function handleActivateTemplate(id: number) {
+    setTemplateBusy(id);
+    setError(null);
+    try {
+      const res = await fetch(`/api/admin/card-templates/${id}/activate`, {
+        method: "POST",
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(data.error || "Falha ao ativar modelo");
+        return;
+      }
+      await fetchTemplates();
+    } finally {
+      setTemplateBusy(null);
+    }
+  }
 
   useEffect(() => {
     if (!qr) return;
@@ -190,6 +241,93 @@ export default function WhatsAppPage() {
           <span>{error}</span>
         </div>
       )}
+
+      <div className="admin-section">
+        <h2>Modelo da mensagem</h2>
+        <p className="admin-subtitle" style={{ marginTop: 0 }}>
+          Escolha qual cartão (texto + imagens) será enviado por{" "}
+          <code>/api/share-card</code>. Você pode criar e editar modelos em{" "}
+          <a href="/admin/cartoes" style={{ textDecoration: "underline" }}>
+            /admin/cartoes
+          </a>
+          .
+        </p>
+
+        {templatesLoading ? (
+          <div className="wa-card">
+            <div className="wa-loading">Carregando modelos...</div>
+          </div>
+        ) : templates.length === 0 ? (
+          <div className="wa-card">
+            <p>
+              Nenhum modelo cadastrado. O cartão padrão será usado até você
+              criar um em <a href="/admin/cartoes" style={{ textDecoration: "underline" }}>/admin/cartoes</a>.
+            </p>
+          </div>
+        ) : (
+          <div className="wa-instance-list">
+            {templates.map((t) => {
+              const isBusy = templateBusy === t.id;
+              const captionPreview = (t.caption || "").trim();
+              return (
+                <div key={t.id} className="wa-card" style={{ marginBottom: 12 }}>
+                  <div className="wa-status-row">
+                    <div className="wa-status-info">
+                      <div className="wa-status-label">Modelo</div>
+                      <div className="wa-status-value font-medium">
+                        {t.name}{" "}
+                        {t.isActive && (
+                          <span className="admin-badge badge-connected-wa">★ Em uso</span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="wa-status-info">
+                      <div className="wa-status-label">Imagens</div>
+                      <div className="wa-status-value">{t.media.length}</div>
+                    </div>
+                    <div className="wa-status-info">
+                      <div className="wa-status-label">vCard</div>
+                      <div className="wa-status-value">
+                        {t.includeContact ? "Sim" : "Não"}
+                      </div>
+                    </div>
+                    <div className="wa-status-info" style={{ flex: 2, minWidth: 240 }}>
+                      <div className="wa-status-label">Legenda</div>
+                      <div
+                        className="wa-status-value"
+                        style={{
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          maxWidth: 360,
+                        }}
+                        title={captionPreview}
+                      >
+                        {captionPreview || <span style={{ opacity: 0.5 }}>—</span>}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="wa-actions">
+                    {!t.isActive && (
+                      <button
+                        onClick={() => handleActivateTemplate(t.id)}
+                        disabled={isBusy}
+                        className="wa-btn wa-btn-primary"
+                      >
+                        {isBusy ? "..." : "Usar este modelo"}
+                      </button>
+                    )}
+                    <a href="/admin/cartoes" className="wa-btn wa-btn-secondary">
+                      Editar em /admin/cartoes
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
 
       <div className="admin-section">
         <h2>Instâncias</h2>
