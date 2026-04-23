@@ -156,6 +156,42 @@ export const blogPosts = pgTable(
   ]
 );
 
+// ── Card Shares (audit + rate-limit source) ─────────────
+// Registers each share of the commercial card + delivery status
+// from Evolution API webhooks. Also used as the rate-limit source
+// (queries by ipAddress in a time window).
+export const cardShares = pgTable(
+  "card_shares",
+  {
+    id: serial("id").primaryKey(),
+    // SHA-256 hex of the normalized E.164 phone (no plaintext at rest)
+    phoneHash: text("phone_hash").notNull(),
+    // Country digits prefix (e.g. "55") — safe, non-PII
+    phonePrefix: text("phone_prefix"),
+    // Message IDs returned by Evolution for later status correlation
+    messageIds: jsonb("message_ids"),
+    // "pending" | "sent" | "delivered" | "read" | "failed"
+    status: text("status", {
+      enum: ["pending", "sent", "delivered", "read", "failed"],
+    })
+      .default("pending")
+      .notNull(),
+    errorMessage: text("error_message"),
+    ipAddress: text("ip_address"),
+    userAgent: text("user_agent"),
+    country: text("country"),
+    referrer: text("referrer"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => [
+    index("card_shares_phone_idx").on(t.phoneHash),
+    index("card_shares_ip_idx").on(t.ipAddress, t.createdAt),
+    index("card_shares_created_idx").on(t.createdAt),
+    index("card_shares_status_idx").on(t.status),
+  ]
+);
+
 // ── Admin Users (NuPIdentity-linked) ────────────────────
 export const adminUsers = pgTable(
   "admin_users",

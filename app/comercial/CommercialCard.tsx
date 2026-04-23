@@ -13,8 +13,19 @@ type BeforeInstallPromptEvent = Event & {
   userChoice: Promise<InstallPromptChoice>;
 };
 
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, options: Record<string, unknown>) => string;
+      reset: (widgetId?: string) => void;
+      remove: (widgetId?: string) => void;
+    };
+  }
+}
+
 const contactNumber = "+5562985507649";
 const contactNumberLabel = "+55 (62) 98550-7649";
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
 
 const whatsappUrl = `https://wa.me/${contactNumber.slice(1)}?text=${encodeURIComponent(
   "Ola Silkeny! Vi seu cartao NuPtechs e gostaria de saber mais."
@@ -31,12 +42,18 @@ export default function CommercialCard() {
   const [sharePhone, setSharePhone] = useState("");
   const [shareSending, setShareSending] = useState(false);
   const [shareResult, setShareResult] = useState<"sent" | "error" | null>(null);
+  const [shareError, setShareError] = useState<string | null>(null);
+  const [canNativeShare, setCanNativeShare] = useState(false);
   const shareInputRef = useRef<HTMLInputElement>(null);
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const turnstileTokenRef = useRef<string | null>(null);
+  const turnstileWidgetIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     setLoaded(true);
 
     const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
+    setCanNativeShare(typeof navigator !== "undefined" && typeof navigator.share === "function");
 
     const handleBeforeInstallPrompt = (event: Event) => {
       if (isStandalone) return;
@@ -86,6 +103,53 @@ export default function CommercialCard() {
     };
   }, []);
 
+  // Load Cloudflare Turnstile script when site key is configured and the
+  // share form is opened. Token is kept in a ref so it survives re-renders.
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY || !shareOpen || canNativeShare) return;
+
+    const SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    const ensureScript = () =>
+      new Promise<void>((resolve) => {
+        if (window.turnstile) return resolve();
+        const existing = document.querySelector<HTMLScriptElement>(`script[src="${SRC}"]`);
+        if (existing) {
+          existing.addEventListener("load", () => resolve(), { once: true });
+          return;
+        }
+        const s = document.createElement("script");
+        s.src = SRC;
+        s.async = true;
+        s.defer = true;
+        s.addEventListener("load", () => resolve(), { once: true });
+        document.head.appendChild(s);
+      });
+
+    let cancelled = false;
+    ensureScript().then(() => {
+      if (cancelled || !turnstileRef.current || !window.turnstile) return;
+      if (turnstileWidgetIdRef.current) return;
+      turnstileWidgetIdRef.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        size: "flexible",
+        appearance: "interaction-only",
+        callback: (token: string) => {
+          turnstileTokenRef.current = token;
+        },
+        "error-callback": () => {
+          turnstileTokenRef.current = null;
+        },
+        "expired-callback": () => {
+          turnstileTokenRef.current = null;
+        },
+      });
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [shareOpen, canNativeShare]);
+
   async function handleInstallClick() {
     if (!deferredPrompt) return;
     await deferredPrompt.prompt();
@@ -95,31 +159,72 @@ export default function CommercialCard() {
   }
 
   function handleShareToggle() {
+    if (canNativeShare) {
+      handleNativeShare();
+      return;
+    }
     setShareOpen((prev) => {
       if (!prev) setTimeout(() => shareInputRef.current?.focus(), 50);
       return !prev;
     });
     setShareResult(null);
+    setShareError(null);
     setSharePhone("");
+  }
+
+  async function handleNativeShare() {
+    const shareData: ShareData = {
+      title: "Cartão Comercial — NuPtechs",
+      text: `Silkeny Ferreira — Diretor Comercial NuPtechs\n${contactNumberLabel}`,
+      url: `${window.location.origin}/comercial`,
+    };
+    try {
+      await navigator.share(shareData);
+    } catch {
+      // user cancelled or not allowed — fall back to form
+      setShareOpen(true);
+      setTimeout(() => shareInputRef.current?.focus(), 50);
+    }
   }
 
   async function handleShareSend() {
     const digits = sharePhone.replace(/\D/g, "");
     if (digits.length < 10) return;
+    if (TURNSTILE_SITE_KEY && !turnstileTokenRef.current) {
+      setShareError("Conclua a verificação anti-bot");
+      return;
+    }
     setShareSending(true);
     setShareResult(null);
+    setShareError(null);
     try {
       const res = await fetch("/api/share-card", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: digits }),
+        body: JSON.stringify({
+          phone: digits,
+          turnstileToken: turnstileTokenRef.current,
+        }),
       });
-      setShareResult(res.ok ? "sent" : "error");
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
       if (res.ok) {
-        setTimeout(() => { setShareOpen(false); setShareResult(null); setSharePhone(""); }, 2000);
+        setShareResult("sent");
+        setTimeout(() => {
+          setShareOpen(false);
+          setShareResult(null);
+          setSharePhone("");
+        }, 2500);
+      } else {
+        setShareResult("error");
+        setShareError(data.error ?? "Falha ao enviar");
+        if (window.turnstile && turnstileWidgetIdRef.current) {
+          window.turnstile.reset(turnstileWidgetIdRef.current);
+          turnstileTokenRef.current = null;
+        }
       }
     } catch {
       setShareResult("error");
+      setShareError("Erro de conexão");
     } finally {
       setShareSending(false);
     }
@@ -279,33 +384,40 @@ export default function CommercialCard() {
                   <polyline points="16 6 12 2 8 6" />
                   <line x1="12" y1="2" x2="12" y2="15" />
                 </svg>
-                Compartilhar cartao
+                {canNativeShare ? "Compartilhar" : "Compartilhar cartao"}
               </button>
               {shareOpen && (
-                <div className={styles.shareInput}>
-                  <input
-                    ref={shareInputRef}
-                    type="tel"
-                    inputMode="numeric"
-                    placeholder="(62) 99999-9999"
-                    value={sharePhone}
-                    onChange={(e) => setSharePhone(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleShareSend()}
-                    className={styles.shareField}
-                    disabled={shareSending}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleShareSend}
-                    disabled={shareSending || sharePhone.replace(/\D/g, "").length < 10}
-                    className={styles.shareSend}
-                  >
-                    {shareSending ? "…" : shareResult === "sent" ? "✓" : "Enviar"}
-                  </button>
-                </div>
+                <>
+                  <div className={styles.shareInput}>
+                    <input
+                      ref={shareInputRef}
+                      type="tel"
+                      inputMode="numeric"
+                      placeholder="(62) 99999-9999"
+                      value={sharePhone}
+                      onChange={(e) => setSharePhone(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleShareSend()}
+                      className={styles.shareField}
+                      disabled={shareSending}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleShareSend}
+                      disabled={shareSending || sharePhone.replace(/\D/g, "").length < 10}
+                      className={styles.shareSend}
+                    >
+                      {shareSending ? "…" : shareResult === "sent" ? "✓" : "Enviar"}
+                    </button>
+                  </div>
+                  {TURNSTILE_SITE_KEY && (
+                    <div ref={turnstileRef} style={{ marginTop: 8 }} />
+                  )}
+                </>
               )}
               {shareResult === "sent" && <span className={styles.shareOk}>Cartao enviado!</span>}
-              {shareResult === "error" && <span className={styles.shareErr}>Falha ao enviar</span>}
+              {shareResult === "error" && (
+                <span className={styles.shareErr}>{shareError ?? "Falha ao enviar"}</span>
+              )}
             </div>
           </div>
         </section>
