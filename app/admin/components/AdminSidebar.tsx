@@ -84,6 +84,7 @@ export function AdminSidebar() {
         { href: "/admin/leads", label: "Leads", icon: "✉", badge: counts.newLeads || undefined, requiredPermission: "nuptechs:content" },
         { href: "/admin/schedules", label: "Agendamentos", icon: "📅", badge: counts.pendingSchedules || undefined, requiredPermission: "nuptechs:content" },
         { href: "/admin/whatsapp", label: "WhatsApp", icon: "💬", requiredPermission: "nuptechs:admin" },
+        { href: "/admin/cartoes", label: "Cartões", icon: "🪪", requiredPermission: "nuptechs:admin" },
       ],
     },
     {

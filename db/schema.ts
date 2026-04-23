@@ -7,7 +7,15 @@ import {
   boolean,
   jsonb,
   index,
+  customType,
 } from "drizzle-orm/pg-core";
+
+// Postgres bytea ⇄ Buffer. postgres-js returns bytea as Buffer (Uint8Array).
+const bytea = customType<{ data: Buffer; driverData: Buffer }>({
+  dataType() {
+    return "bytea";
+  },
+});
 
 // ── Leads (contact form submissions) ────────────────────
 export const contacts = pgTable(
@@ -201,6 +209,41 @@ export const appConfig = pgTable("app_config", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   updatedBy: text("updated_by"),
 });
+
+// ── Card Templates (WhatsApp commercial card models) ────
+// Admin-managed templates that bundle a custom caption + one or more images
+// sent via /api/share-card. Only one template can be active at a time.
+export const cardTemplates = pgTable(
+  "card_templates",
+  {
+    id: serial("id").primaryKey(),
+    name: text("name").notNull(),
+    caption: text("caption").notNull().default(""),
+    includeContact: boolean("include_contact").notNull().default(true),
+    isActive: boolean("is_active").notNull().default(false),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+    createdBy: text("created_by"),
+  },
+  (t) => [index("card_templates_active_idx").on(t.isActive)]
+);
+
+export const cardTemplateMedia = pgTable(
+  "card_template_media",
+  {
+    id: serial("id").primaryKey(),
+    templateId: integer("template_id")
+      .notNull()
+      .references(() => cardTemplates.id, { onDelete: "cascade" }),
+    position: integer("position").notNull().default(0),
+    fileName: text("file_name").notNull(),
+    mimeType: text("mime_type").notNull(),
+    sizeBytes: integer("size_bytes").notNull(),
+    bytes: bytea("bytes").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("card_template_media_template_idx").on(t.templateId, t.position)]
+);
 
 // ── Admin Users (NuPIdentity-linked) ────────────────────
 export const adminUsers = pgTable(

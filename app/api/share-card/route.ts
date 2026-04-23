@@ -4,6 +4,7 @@ import { and, count, eq, gte } from "drizzle-orm";
 import { db } from "../../../db";
 import { cardShares } from "../../../db/schema";
 import { getActiveShareInstance } from "../../../lib/share-card-config";
+import { getActiveCardTemplate, type ActiveTemplate } from "../../../lib/card-templates";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -17,7 +18,7 @@ const LIMIT_PER_MINUTE = 3;
 const LIMIT_PER_DAY = 10;
 const PHONE_COOLDOWN_MS = 60 * 60 * 1000; // 1h
 
-const CARD_CAPTION = `🟣 *Cartão Comercial — NuPtechs*
+const DEFAULT_CAPTION = `🟣 *Cartão Comercial — NuPtechs*
 
 *Silkeny Ferreira*
 Diretor Comercial
@@ -27,6 +28,14 @@ Diretor Comercial
 🌐 ${SITE_URL}/comercial
 
 _Engenharia de Software e Automação Empresarial._`;
+
+const DEFAULT_MEDIA = [
+  {
+    url: `${SITE_URL}/comercial/cartao_diretor_comercial.png`,
+    mimeType: "image/png",
+    fileName: "cartao-silkeny-nuptechs.png",
+  },
+];
 
 function clientIp(req: NextRequest): string {
   const xff = req.headers.get("x-forwarded-for");
@@ -146,44 +155,74 @@ async function evolutionFetch(path: string, body: unknown): Promise<EvolutionSen
   }
 }
 
-async function sendCard(numberDigits: string, instance: string): Promise<{
+async function sendCard(
+  numberDigits: string,
+  instance: string,
+  template: ActiveTemplate | null
+): Promise<{
   ok: boolean;
   messageIds: string[];
   error?: string;
 }> {
   const messageIds: string[] = [];
 
-  const contactRes = await evolutionFetch(`/message/sendContact/${instance}`, {
-    number: numberDigits,
-    contact: [
-      {
-        fullName: "Silkeny Ferreira",
-        wuid: "5562985507649",
-        phoneNumber: "+55 62 98550-7649",
-        organization: "NuPtechs",
-        email: "silkeny@nuptechs.com",
-        url: `${SITE_URL}/comercial`,
-      },
-    ],
-  });
-  if (contactRes.ok && contactRes.id) messageIds.push(contactRes.id);
+  const includeContact = template ? template.includeContact : true;
+  const caption = template && template.caption.trim() ? template.caption : DEFAULT_CAPTION;
+  const mediaList =
+    template && template.media.length > 0
+      ? template.media.map((m) => ({
+          url: `${SITE_URL}/api/card-media/${m.id}`,
+          mimeType: m.mimeType,
+          fileName: m.fileName,
+        }))
+      : DEFAULT_MEDIA;
 
-  const mediaRes = await evolutionFetch(`/message/sendMedia/${instance}`, {
-    number: numberDigits,
-    mediatype: "image",
-    mimetype: "image/png",
-    media: `${SITE_URL}/comercial/cartao_diretor_comercial.png`,
-    caption: CARD_CAPTION,
-    fileName: "cartao-silkeny-nuptechs.png",
-  });
-  if (mediaRes.ok && mediaRes.id) messageIds.push(mediaRes.id);
+  let anySuccess = false;
+  let firstError: string | undefined;
 
-  if (!contactRes.ok && !mediaRes.ok) {
-    return {
-      ok: false,
-      messageIds,
-      error: contactRes.error || mediaRes.error || "falha no envio",
-    };
+  if (includeContact) {
+    const contactRes = await evolutionFetch(`/message/sendContact/${instance}`, {
+      number: numberDigits,
+      contact: [
+        {
+          fullName: "Silkeny Ferreira",
+          wuid: "5562985507649",
+          phoneNumber: "+55 62 98550-7649",
+          organization: "NuPtechs",
+          email: "silkeny@nuptechs.com",
+          url: `${SITE_URL}/comercial`,
+        },
+      ],
+    });
+    if (contactRes.ok) {
+      anySuccess = true;
+      if (contactRes.id) messageIds.push(contactRes.id);
+    } else {
+      firstError ??= contactRes.error;
+    }
+  }
+
+  for (let i = 0; i < mediaList.length; i++) {
+    const m = mediaList[i]!;
+    // Only attach the caption to the first image (WhatsApp convention).
+    const mediaRes = await evolutionFetch(`/message/sendMedia/${instance}`, {
+      number: numberDigits,
+      mediatype: "image",
+      mimetype: m.mimeType,
+      media: m.url,
+      caption: i === 0 ? caption : "",
+      fileName: m.fileName,
+    });
+    if (mediaRes.ok) {
+      anySuccess = true;
+      if (mediaRes.id) messageIds.push(mediaRes.id);
+    } else {
+      firstError ??= mediaRes.error;
+    }
+  }
+
+  if (!anySuccess) {
+    return { ok: false, messageIds, error: firstError || "falha no envio" };
   }
 
   return { ok: true, messageIds };
@@ -248,7 +287,8 @@ export async function POST(req: NextRequest) {
     })
     .returning({ id: cardShares.id });
 
-  const send = await sendCard(normalized.e164Digits, activeInstance);
+  const activeTemplate = await getActiveCardTemplate();
+  const send = await sendCard(normalized.e164Digits, activeInstance, activeTemplate);
 
   if (pending) {
     await db

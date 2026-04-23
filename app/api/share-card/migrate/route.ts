@@ -51,6 +51,34 @@ export async function POST(req: NextRequest) {
       )
     `);
 
+    await db.execute(sql`
+      CREATE TABLE IF NOT EXISTS card_templates (
+        id serial PRIMARY KEY NOT NULL,
+        name text NOT NULL,
+        caption text DEFAULT '' NOT NULL,
+        include_contact boolean DEFAULT true NOT NULL,
+        is_active boolean DEFAULT false NOT NULL,
+        created_at timestamp DEFAULT now() NOT NULL,
+        updated_at timestamp DEFAULT now() NOT NULL,
+        created_by text
+      )
+    `);
+    await db.execute(sql`CREATE INDEX IF NOT EXISTS card_templates_active_idx ON card_templates (is_active)`);
+
+    await db.execute(sql`
+      CREATE TABLE IF NOT EXISTS card_template_media (
+        id serial PRIMARY KEY NOT NULL,
+        template_id integer NOT NULL REFERENCES card_templates(id) ON DELETE CASCADE,
+        position integer DEFAULT 0 NOT NULL,
+        file_name text NOT NULL,
+        mime_type text NOT NULL,
+        size_bytes integer NOT NULL,
+        bytes bytea NOT NULL,
+        created_at timestamp DEFAULT now() NOT NULL
+      )
+    `);
+    await db.execute(sql`CREATE INDEX IF NOT EXISTS card_template_media_template_idx ON card_template_media (template_id, position)`);
+
     return NextResponse.json({ ok: true });
   } catch (error) {
     const message = error instanceof Error ? error.message : "unknown";
