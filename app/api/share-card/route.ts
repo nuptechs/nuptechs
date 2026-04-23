@@ -108,6 +108,25 @@ async function checkRateLimit(
 
 type EvolutionSendResult = { ok: boolean; id?: string; error?: string };
 
+async function evolutionConnectionState(): Promise<"open" | "connecting" | "close" | "unknown"> {
+  try {
+    const res = await fetch(
+      `${EVOLUTION_API_URL}/instance/connectionState/${EVOLUTION_INSTANCE}`,
+      {
+        headers: { apikey: EVOLUTION_API_KEY },
+        signal: AbortSignal.timeout(5000),
+      }
+    );
+    if (!res.ok) return "unknown";
+    const data = (await res.json()) as { instance?: { state?: string } };
+    const state = data.instance?.state;
+    if (state === "open" || state === "connecting" || state === "close") return state;
+    return "unknown";
+  } catch {
+    return "unknown";
+  }
+}
+
 async function evolutionFetch(path: string, body: unknown): Promise<EvolutionSendResult> {
   try {
     const res = await fetch(`${EVOLUTION_API_URL}${path}`, {
@@ -197,6 +216,14 @@ export async function POST(req: NextRequest) {
 
   if (!EVOLUTION_API_URL || !EVOLUTION_API_KEY) {
     return NextResponse.json({ error: "WhatsApp não configurado" }, { status: 503 });
+  }
+
+  const connState = await evolutionConnectionState();
+  if (connState !== "open") {
+    return NextResponse.json(
+      { error: "WhatsApp temporariamente indisponível. Tente novamente em instantes." },
+      { status: 503 }
+    );
   }
 
   const phoneHash = hashPhone(normalized.e164Digits);
