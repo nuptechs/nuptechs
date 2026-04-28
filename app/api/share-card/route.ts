@@ -17,7 +17,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.nuptechs.com";
 
 const LIMIT_PER_MINUTE = 3;
 const LIMIT_PER_DAY = 10;
-const PHONE_COOLDOWN_MS = 60 * 60 * 1000; // 1h
+const PHONE_COOLDOWN_MS = 60 * 1000; // 1min (TEMP — testing; revert to 60 * 60 * 1000)
 
 const DEFAULT_CAPTION = `🟣 *NuPtechs — Engenharia que escala*
 
