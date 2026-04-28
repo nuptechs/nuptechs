@@ -17,6 +17,14 @@ export type ActiveTemplate = {
   contactPhone: string | null;
   contactEmail: string | null;
   contactOrg: string | null;
+  contactTitle: string | null;
+  contactSecondaryPhone: string | null;
+  contactAddress: string | null;
+  contactLinkedinUrl: string | null;
+  contactInstagramUrl: string | null;
+  contactWebsiteUrl: string | null;
+  contactPhotoBytes: Buffer | null;
+  contactPhotoMime: string | null;
   media: ActiveTemplateMedia[];
 };
 
@@ -51,6 +59,14 @@ export async function getActiveCardTemplate(): Promise<ActiveTemplate | null> {
       contactPhone: tpl.contactPhone ?? null,
       contactEmail: tpl.contactEmail ?? null,
       contactOrg: tpl.contactOrg ?? null,
+      contactTitle: tpl.contactTitle ?? null,
+      contactSecondaryPhone: tpl.contactSecondaryPhone ?? null,
+      contactAddress: tpl.contactAddress ?? null,
+      contactLinkedinUrl: tpl.contactLinkedinUrl ?? null,
+      contactInstagramUrl: tpl.contactInstagramUrl ?? null,
+      contactWebsiteUrl: tpl.contactWebsiteUrl ?? null,
+      contactPhotoBytes: tpl.contactPhotoBytes ?? null,
+      contactPhotoMime: tpl.contactPhotoMime ?? null,
       media,
     };
   } catch {

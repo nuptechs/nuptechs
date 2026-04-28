@@ -5,6 +5,7 @@ import { db } from "../../../db";
 import { cardShares } from "../../../db/schema";
 import { getActiveShareInstance } from "../../../lib/share-card-config";
 import { getActiveCardTemplate, type ActiveTemplate } from "../../../lib/card-templates";
+import { resolveContact, contactToVCard } from "../../../lib/contact-card";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -18,16 +19,11 @@ const LIMIT_PER_MINUTE = 3;
 const LIMIT_PER_DAY = 10;
 const PHONE_COOLDOWN_MS = 60 * 60 * 1000; // 1h
 
-const DEFAULT_CAPTION = `🟣 *Cartão Comercial — NuPtechs*
+const DEFAULT_CAPTION = `🟣 *NuPtechs — Engenharia que escala*
 
-*Silkeny Ferreira*
-Diretor Comercial
+Automação empresarial, ERP sob medida e IA aplicada a operações reais.
 
-📱 +55 (62) 98550-7649
-📧 silkeny@nuptechs.com
-🌐 ${SITE_URL}/comercial
-
-_Engenharia de Software e Automação Empresarial._`;
+_Salve o contato acima e fale comigo quando quiser conversar._`;
 
 const DEFAULT_MEDIA = [
   {
@@ -181,32 +177,64 @@ async function sendCard(
   let firstError: string | undefined;
 
   if (includeContact) {
-    const contactName = (template?.contactName || "").trim() || "Silkeny Ferreira";
-    const contactOrg = (template?.contactOrg || "").trim() || "NuPtechs";
-    const contactEmail = (template?.contactEmail || "").trim() || "silkeny@nuptechs.com";
-    const rawPhone = (template?.contactPhone || "").trim() || "+55 62 98550-7649";
-    const phoneDigits = rawPhone.replace(/\D/g, "") || "5562985507649";
-    // Pretty display: if we got only digits, reformat as +XX XX XXXXX-XXXX best effort.
-    const phoneDisplay = rawPhone.startsWith("+") || /\D/.test(rawPhone) ? rawPhone : `+${phoneDigits}`;
+    const contact = resolveContact(template, SITE_URL);
+    const hasRichFields =
+      !!contact.photo ||
+      !!contact.address ||
+      !!contact.linkedinUrl ||
+      !!contact.instagramUrl ||
+      !!contact.secondaryPhone;
 
-    const contactRes = await evolutionFetch(`/message/sendContact/${instance}`, {
-      number: numberDigits,
-      contact: [
-        {
-          fullName: contactName,
-          wuid: phoneDigits,
-          phoneNumber: phoneDisplay,
-          organization: contactOrg,
-          email: contactEmail,
-          url: `${SITE_URL}/comercial`,
-        },
-      ],
-    });
-    if (contactRes.ok) {
-      anySuccess = true;
-      if (contactRes.id) messageIds.push(contactRes.id);
-    } else {
-      firstError ??= contactRes.error;
+    let contactSent = false;
+
+    // Rich path: send vCard 3.0 (with PHOTO/ADR/social) as a document attachment.
+    // WhatsApp renders a .vcf attachment as a savable contact card with photo
+    // when opened. The plain sendContact JSON cannot carry a photo, so this is
+    // the only way to ship a "true business card".
+    if (hasRichFields) {
+      const vcard = contactToVCard(contact);
+      const base64 = Buffer.from(vcard, "utf8").toString("base64");
+      const safeName = contact.fullName.replace(/[^\w.-]+/g, "_") || "contato";
+      const docRes = await evolutionFetch(`/message/sendMedia/${instance}`, {
+        number: numberDigits,
+        mediatype: "document",
+        mimetype: "text/vcard",
+        media: base64,
+        fileName: `${safeName}.vcf`,
+      });
+      if (docRes.ok) {
+        anySuccess = true;
+        contactSent = true;
+        if (docRes.id) messageIds.push(docRes.id);
+      } else {
+        firstError ??= docRes.error;
+      }
+    }
+
+    // Always also send the native sendContact bubble (gives the in-chat
+    // "Add to contacts" CTA). Skipped only if the rich path already carried
+    // everything AND the rich attachment failed (we don't want to deliver a
+    // pauper card after a rich-card failure — better to surface the error).
+    if (!hasRichFields || contactSent) {
+      const contactRes = await evolutionFetch(`/message/sendContact/${instance}`, {
+        number: numberDigits,
+        contact: [
+          {
+            fullName: contact.fullName,
+            wuid: contact.primaryPhoneDigits,
+            phoneNumber: contact.primaryPhone,
+            organization: contact.org,
+            email: contact.email,
+            url: contact.websiteUrl,
+          },
+        ],
+      });
+      if (contactRes.ok) {
+        anySuccess = true;
+        if (contactRes.id) messageIds.push(contactRes.id);
+      } else {
+        firstError ??= contactRes.error;
+      }
     }
   }
 

@@ -35,6 +35,12 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     contactPhone?: string | null;
     contactEmail?: string | null;
     contactOrg?: string | null;
+    contactTitle?: string | null;
+    contactSecondaryPhone?: string | null;
+    contactAddress?: string | null;
+    contactLinkedinUrl?: string | null;
+    contactInstagramUrl?: string | null;
+    contactWebsiteUrl?: string | null;
   };
 
   const updates: Record<string, unknown> = { updatedAt: new Date() };
@@ -52,11 +58,17 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   if (typeof body.includeContact === "boolean") {
     updates.includeContact = body.includeContact;
   }
-  for (const [col, label, raw] of [
-    ["contactName", "Nome do contato", body.contactName],
-    ["contactPhone", "Telefone do contato", body.contactPhone],
-    ["contactEmail", "E-mail do contato", body.contactEmail],
-    ["contactOrg", "Empresa do contato", body.contactOrg],
+  for (const [col, label, raw, max] of [
+    ["contactName", "Nome do contato", body.contactName, 120],
+    ["contactPhone", "Telefone do contato", body.contactPhone, 120],
+    ["contactEmail", "E-mail do contato", body.contactEmail, 120],
+    ["contactOrg", "Empresa do contato", body.contactOrg, 120],
+    ["contactTitle", "Cargo do contato", body.contactTitle, 120],
+    ["contactSecondaryPhone", "Telefone secundário", body.contactSecondaryPhone, 120],
+    ["contactAddress", "Endereço", body.contactAddress, 240],
+    ["contactLinkedinUrl", "LinkedIn", body.contactLinkedinUrl, 240],
+    ["contactInstagramUrl", "Instagram", body.contactInstagramUrl, 240],
+    ["contactWebsiteUrl", "Website", body.contactWebsiteUrl, 240],
   ] as const) {
     if (raw === undefined) continue;
     if (raw === null) {
@@ -64,7 +76,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       continue;
     }
     const trimmed = String(raw).trim();
-    if (trimmed.length > 120)
+    if (trimmed.length > max)
       return NextResponse.json({ error: `${label} muito longo` }, { status: 400 });
     updates[col] = trimmed || null;
   }

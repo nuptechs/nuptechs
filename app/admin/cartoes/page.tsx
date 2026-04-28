@@ -20,6 +20,13 @@ type Template = {
   contactPhone: string | null;
   contactEmail: string | null;
   contactOrg: string | null;
+  contactTitle: string | null;
+  contactSecondaryPhone: string | null;
+  contactAddress: string | null;
+  contactLinkedinUrl: string | null;
+  contactInstagramUrl: string | null;
+  contactWebsiteUrl: string | null;
+  contactPhotoMime: string | null;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -36,6 +43,14 @@ type DraftState = {
   contactPhone: string;
   contactEmail: string;
   contactOrg: string;
+  contactTitle: string;
+  contactSecondaryPhone: string;
+  contactAddress: string;
+  contactLinkedinUrl: string;
+  contactInstagramUrl: string;
+  contactWebsiteUrl: string;
+  pendingPhoto: File | null;
+  existingPhotoMime: string | null;
   pendingFiles: File[]; // only for create, or to append on edit
   existingMedia: Media[]; // for edit mode
 };
@@ -49,6 +64,14 @@ const EMPTY_DRAFT: DraftState = {
   contactPhone: "",
   contactEmail: "",
   contactOrg: "",
+  contactTitle: "",
+  contactSecondaryPhone: "",
+  contactAddress: "",
+  contactLinkedinUrl: "",
+  contactInstagramUrl: "",
+  contactWebsiteUrl: "",
+  pendingPhoto: null,
+  existingPhotoMime: null,
   pendingFiles: [],
   existingMedia: [],
 };
@@ -125,6 +148,14 @@ export default function CartoesPage() {
       contactPhone: t.contactPhone ?? "",
       contactEmail: t.contactEmail ?? "",
       contactOrg: t.contactOrg ?? "",
+      contactTitle: t.contactTitle ?? "",
+      contactSecondaryPhone: t.contactSecondaryPhone ?? "",
+      contactAddress: t.contactAddress ?? "",
+      contactLinkedinUrl: t.contactLinkedinUrl ?? "",
+      contactInstagramUrl: t.contactInstagramUrl ?? "",
+      contactWebsiteUrl: t.contactWebsiteUrl ?? "",
+      pendingPhoto: null,
+      existingPhotoMime: t.contactPhotoMime ?? null,
       pendingFiles: [],
       existingMedia: [...t.media],
     });
@@ -193,7 +224,14 @@ export default function CartoesPage() {
         fd.append("contactPhone", draft.contactPhone);
         fd.append("contactEmail", draft.contactEmail);
         fd.append("contactOrg", draft.contactOrg);
+        fd.append("contactTitle", draft.contactTitle);
+        fd.append("contactSecondaryPhone", draft.contactSecondaryPhone);
+        fd.append("contactAddress", draft.contactAddress);
+        fd.append("contactLinkedinUrl", draft.contactLinkedinUrl);
+        fd.append("contactInstagramUrl", draft.contactInstagramUrl);
+        fd.append("contactWebsiteUrl", draft.contactWebsiteUrl);
         fd.append("activate", String(activateAfter));
+        if (draft.pendingPhoto) fd.append("photo", draft.pendingPhoto);
         for (const f of draft.pendingFiles) fd.append("files", f);
         // eslint-disable-next-line no-console
         console.log("[cartoes] POST /api/admin/card-templates", {
@@ -221,11 +259,30 @@ export default function CartoesPage() {
             contactPhone: draft.contactPhone || null,
             contactEmail: draft.contactEmail || null,
             contactOrg: draft.contactOrg || null,
+            contactTitle: draft.contactTitle || null,
+            contactSecondaryPhone: draft.contactSecondaryPhone || null,
+            contactAddress: draft.contactAddress || null,
+            contactLinkedinUrl: draft.contactLinkedinUrl || null,
+            contactInstagramUrl: draft.contactInstagramUrl || null,
+            contactWebsiteUrl: draft.contactWebsiteUrl || null,
           }),
         });
         if (!r.ok) {
           const j = await r.json().catch(() => ({}));
           throw new Error(`${j.error || "Falha ao salvar"} (HTTP ${r.status})`);
+        }
+
+        if (draft.pendingPhoto) {
+          const photoFd = new FormData();
+          photoFd.append("photo", draft.pendingPhoto);
+          const rp = await fetch(`/api/admin/card-templates/${draft.id}/photo`, {
+            method: "POST",
+            body: photoFd,
+          });
+          if (!rp.ok) {
+            const j = await rp.json().catch(() => ({}));
+            throw new Error(`${j.error || "Falha ao enviar foto"} (HTTP ${rp.status})`);
+          }
         }
 
         if (draft.pendingFiles.length > 0) {
@@ -759,15 +816,23 @@ function DraftEditor({
                   padding: 14,
                   display: "flex",
                   flexDirection: "column",
-                  gap: 10,
+                  gap: 12,
                   background: "rgba(255,255,255,0.02)",
                 }}
               >
-                <div style={{ fontSize: 13, fontWeight: 600 }}>Dados do vCard</div>
+                <div style={{ fontSize: 13, fontWeight: 600 }}>Cartão de visitas (vCard)</div>
                 <div style={{ fontSize: 12, opacity: 0.6, marginTop: -4 }}>
-                  Deixe em branco para usar o padrão (Silkeny Ferreira ·
-                  NuPtechs · +55 (62) 98550-7649 · silkeny@nuptechs.com).
+                  Quando há foto, redes ou endereço, o cartão é enviado como vCard
+                  rico no WhatsApp (com avatar, salvável no celular do destinatário).
+                  Deixe em branco para usar o padrão (Silkeny Ferreira · NuPtechs ·
+                  +55 (62) 98550-7649 · silkeny@nuptechs.com).
                 </div>
+
+                <PhotoUploader
+                  draft={draft}
+                  setDraft={setDraft}
+                />
+
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                   <label style={{ display: "block" }}>
                     <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>Nome</div>
@@ -779,6 +844,19 @@ function DraftEditor({
                         setDraft((d) => (d ? { ...d, contactName: e.target.value } : d))
                       }
                       placeholder="Silkeny Ferreira"
+                      style={inputStyle}
+                    />
+                  </label>
+                  <label style={{ display: "block" }}>
+                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>Cargo</div>
+                    <input
+                      type="text"
+                      value={draft.contactTitle}
+                      maxLength={120}
+                      onChange={(e) =>
+                        setDraft((d) => (d ? { ...d, contactTitle: e.target.value } : d))
+                      }
+                      placeholder="Diretor Comercial"
                       style={inputStyle}
                     />
                   </label>
@@ -796,7 +874,20 @@ function DraftEditor({
                     />
                   </label>
                   <label style={{ display: "block" }}>
-                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>Telefone</div>
+                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>E-mail</div>
+                    <input
+                      type="email"
+                      value={draft.contactEmail}
+                      maxLength={120}
+                      onChange={(e) =>
+                        setDraft((d) => (d ? { ...d, contactEmail: e.target.value } : d))
+                      }
+                      placeholder="silkeny@nuptechs.com"
+                      style={inputStyle}
+                    />
+                  </label>
+                  <label style={{ display: "block" }}>
+                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>Telefone (principal)</div>
                     <input
                       type="tel"
                       value={draft.contactPhone}
@@ -809,15 +900,67 @@ function DraftEditor({
                     />
                   </label>
                   <label style={{ display: "block" }}>
-                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>E-mail</div>
+                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>Telefone (secundário)</div>
                     <input
-                      type="email"
-                      value={draft.contactEmail}
+                      type="tel"
+                      value={draft.contactSecondaryPhone}
                       maxLength={120}
                       onChange={(e) =>
-                        setDraft((d) => (d ? { ...d, contactEmail: e.target.value } : d))
+                        setDraft((d) => (d ? { ...d, contactSecondaryPhone: e.target.value } : d))
                       }
-                      placeholder="silkeny@nuptechs.com"
+                      placeholder="(opcional)"
+                      style={inputStyle}
+                    />
+                  </label>
+                  <label style={{ gridColumn: "1 / -1", display: "block" }}>
+                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>Endereço</div>
+                    <input
+                      type="text"
+                      value={draft.contactAddress}
+                      maxLength={240}
+                      onChange={(e) =>
+                        setDraft((d) => (d ? { ...d, contactAddress: e.target.value } : d))
+                      }
+                      placeholder="Av. X, 123 — Goiânia/GO (opcional)"
+                      style={inputStyle}
+                    />
+                  </label>
+                  <label style={{ display: "block" }}>
+                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>LinkedIn</div>
+                    <input
+                      type="url"
+                      value={draft.contactLinkedinUrl}
+                      maxLength={240}
+                      onChange={(e) =>
+                        setDraft((d) => (d ? { ...d, contactLinkedinUrl: e.target.value } : d))
+                      }
+                      placeholder="https://linkedin.com/in/…"
+                      style={inputStyle}
+                    />
+                  </label>
+                  <label style={{ display: "block" }}>
+                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>Instagram</div>
+                    <input
+                      type="url"
+                      value={draft.contactInstagramUrl}
+                      maxLength={240}
+                      onChange={(e) =>
+                        setDraft((d) => (d ? { ...d, contactInstagramUrl: e.target.value } : d))
+                      }
+                      placeholder="https://instagram.com/…"
+                      style={inputStyle}
+                    />
+                  </label>
+                  <label style={{ gridColumn: "1 / -1", display: "block" }}>
+                    <div style={{ fontSize: 12, opacity: 0.75, marginBottom: 4 }}>Website</div>
+                    <input
+                      type="url"
+                      value={draft.contactWebsiteUrl}
+                      maxLength={240}
+                      onChange={(e) =>
+                        setDraft((d) => (d ? { ...d, contactWebsiteUrl: e.target.value } : d))
+                      }
+                      placeholder="https://www.nuptechs.com/comercial"
                       style={inputStyle}
                     />
                   </label>
@@ -945,38 +1088,7 @@ function DraftEditor({
             >
               <div style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 280, marginLeft: "auto" }}>
                 {draft.includeContact && (
-                  <div style={{ ...bubbleStyle, padding: 10 }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: 10,
-                        alignItems: "center",
-                        padding: 8,
-                        background: "rgba(255,255,255,0.06)",
-                        borderRadius: 8,
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: 40,
-                          height: 40,
-                          borderRadius: "50%",
-                          background: "#25D366",
-                          display: "grid",
-                          placeItems: "center",
-                          fontSize: 18,
-                          color: "#fff",
-                          fontWeight: 700,
-                        }}
-                      >
-                        S
-                      </div>
-                      <div style={{ fontSize: 13 }}>
-                        <div style={{ fontWeight: 600 }}>Silkeny Ferreira</div>
-                        <div style={{ opacity: 0.7, fontSize: 11 }}>NuPtechs · vCard</div>
-                      </div>
-                    </div>
-                  </div>
+                  <ContactPreviewBubble draft={draft} />
                 )}
 
                 {previewMediaUrls.length === 0 && (
@@ -1053,6 +1165,240 @@ function DraftEditor({
             {saving ? "Salvando…" : "Salvar e ativar"}
           </button>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function ContactPreviewBubble({ draft }: { draft: DraftState }) {
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  useEffect(() => {
+    if (draft.pendingPhoto) {
+      const u = URL.createObjectURL(draft.pendingPhoto);
+      setPhotoUrl(u);
+      return () => URL.revokeObjectURL(u);
+    }
+    if (draft.mode === "edit" && draft.existingPhotoMime && draft.id) {
+      setPhotoUrl(`/api/card-photo/${draft.id}?v=${Date.now()}`);
+      return;
+    }
+    setPhotoUrl(null);
+  }, [draft.pendingPhoto, draft.existingPhotoMime, draft.id, draft.mode]);
+
+  const name = draft.contactName.trim() || "Silkeny Ferreira";
+  const title = draft.contactTitle.trim() || "Diretor Comercial";
+  const org = draft.contactOrg.trim() || "NuPtechs";
+  const phone = draft.contactPhone.trim() || "+55 62 98550-7649";
+  const email = draft.contactEmail.trim() || "silkeny@nuptechs.com";
+  const initials = name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((p) => p[0])
+    .join("")
+    .toUpperCase();
+  const isRich =
+    !!photoUrl ||
+    !!draft.contactAddress.trim() ||
+    !!draft.contactLinkedinUrl.trim() ||
+    !!draft.contactInstagramUrl.trim() ||
+    !!draft.contactSecondaryPhone.trim();
+
+  return (
+    <div style={{ ...bubbleStyle, padding: 10 }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 10,
+          alignItems: "center",
+          padding: 10,
+          background: "rgba(255,255,255,0.06)",
+          borderRadius: 8,
+        }}
+      >
+        <div
+          style={{
+            width: 48,
+            height: 48,
+            borderRadius: "50%",
+            background: photoUrl ? "#000" : "#25D366",
+            display: "grid",
+            placeItems: "center",
+            fontSize: 16,
+            color: "#fff",
+            fontWeight: 700,
+            overflow: "hidden",
+            flexShrink: 0,
+          }}
+        >
+          {photoUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={photoUrl}
+              alt={name}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          ) : (
+            initials
+          )}
+        </div>
+        <div style={{ fontSize: 13, minWidth: 0, flex: 1 }}>
+          <div style={{ fontWeight: 600 }}>{name}</div>
+          <div style={{ opacity: 0.85, fontSize: 11 }}>
+            {title} · {org}
+          </div>
+          <div style={{ opacity: 0.7, fontSize: 11, marginTop: 2 }}>{phone}</div>
+          <div style={{ opacity: 0.7, fontSize: 11 }}>{email}</div>
+          {draft.contactAddress.trim() && (
+            <div style={{ opacity: 0.6, fontSize: 11, marginTop: 2 }}>
+              📍 {draft.contactAddress.trim()}
+            </div>
+          )}
+          {draft.contactLinkedinUrl.trim() && (
+            <div style={{ opacity: 0.6, fontSize: 11 }}>💼 LinkedIn</div>
+          )}
+          {draft.contactInstagramUrl.trim() && (
+            <div style={{ opacity: 0.6, fontSize: 11 }}>📷 Instagram</div>
+          )}
+        </div>
+      </div>
+      <div
+        style={{
+          fontSize: 10,
+          opacity: 0.6,
+          marginTop: 6,
+          textAlign: "center",
+          fontStyle: "italic",
+        }}
+      >
+        {isRich ? "vCard rico (anexo .vcf com foto)" : "vCard simples (sem foto)"}
+      </div>
+    </div>
+  );
+}
+
+function PhotoUploader({
+  draft,
+  setDraft,
+}: {
+  draft: DraftState;
+  setDraft: React.Dispatch<React.SetStateAction<DraftState | null>>;
+}) {
+  const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null);
+  const photoInputRef = useRef<HTMLInputElement>(null);
+  const [photoErr, setPhotoErr] = useState<string | null>(null);
+
+  // Build preview URL: pending file > existing photo on edit > nothing.
+  useEffect(() => {
+    if (draft.pendingPhoto) {
+      const url = URL.createObjectURL(draft.pendingPhoto);
+      setPhotoPreviewUrl(url);
+      return () => URL.revokeObjectURL(url);
+    }
+    if (draft.mode === "edit" && draft.existingPhotoMime && draft.id) {
+      setPhotoPreviewUrl(`/api/card-photo/${draft.id}?v=${Date.now()}`);
+      return;
+    }
+    setPhotoPreviewUrl(null);
+  }, [draft.pendingPhoto, draft.existingPhotoMime, draft.id, draft.mode]);
+
+  function onPickPhoto(file: File | null) {
+    setPhotoErr(null);
+    if (!file) return;
+    if (!["image/jpeg", "image/png"].includes(file.type)) {
+      setPhotoErr("Use JPEG ou PNG (WebP não é renderizado em alguns celulares).");
+      return;
+    }
+    if (file.size > 1024 * 1024) {
+      setPhotoErr("Foto excede 1 MB. Reduza antes de enviar.");
+      return;
+    }
+    setDraft((d) => (d ? { ...d, pendingPhoto: file } : d));
+  }
+
+  async function removePhoto() {
+    if (draft.mode === "edit" && draft.id && draft.existingPhotoMime && !draft.pendingPhoto) {
+      // Hit the API immediately so UI matches DB state.
+      const r = await fetch(`/api/admin/card-templates/${draft.id}/photo`, { method: "DELETE" });
+      if (!r.ok) {
+        setPhotoErr("Falha ao remover foto");
+        return;
+      }
+      setDraft((d) => (d ? { ...d, existingPhotoMime: null } : d));
+      return;
+    }
+    setDraft((d) => (d ? { ...d, pendingPhoto: null } : d));
+  }
+
+  return (
+    <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+      <div
+        onClick={() => photoInputRef.current?.click()}
+        style={{
+          width: 80,
+          height: 80,
+          borderRadius: "50%",
+          background: photoPreviewUrl ? "#000" : "rgba(255,255,255,0.05)",
+          border: "1px dashed rgba(255,255,255,0.18)",
+          display: "grid",
+          placeItems: "center",
+          cursor: "pointer",
+          overflow: "hidden",
+          flexShrink: 0,
+        }}
+        title="Clique para selecionar foto"
+      >
+        {photoPreviewUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={photoPreviewUrl}
+            alt="Foto do contato"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        ) : (
+          <span style={{ fontSize: 28, opacity: 0.55 }}>👤</span>
+        )}
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, marginBottom: 4 }}>
+          Foto do contato
+        </div>
+        <div style={{ fontSize: 11, opacity: 0.6, marginBottom: 8 }}>
+          JPEG ou PNG · até 1 MB · ideal 400×400 quadrada. Aparece como avatar
+          do cartão no WhatsApp do destinatário.
+        </div>
+        <div style={{ display: "flex", gap: 8 }}>
+          <button
+            type="button"
+            className="wa-btn wa-btn-secondary"
+            onClick={() => photoInputRef.current?.click()}
+            style={{ fontSize: 12, padding: "6px 12px" }}
+          >
+            {photoPreviewUrl ? "Trocar foto" : "Escolher foto"}
+          </button>
+          {photoPreviewUrl && (
+            <button
+              type="button"
+              className="wa-btn wa-btn-danger"
+              onClick={removePhoto}
+              style={{ fontSize: 12, padding: "6px 12px" }}
+            >
+              Remover
+            </button>
+          )}
+        </div>
+        {photoErr && (
+          <div style={{ fontSize: 12, color: "#fecaca", marginTop: 6 }}>{photoErr}</div>
+        )}
+        <input
+          ref={photoInputRef}
+          type="file"
+          accept="image/jpeg,image/png"
+          style={{ display: "none" }}
+          onChange={(e) => {
+            onPickPhoto(e.target.files?.[0] ?? null);
+            e.target.value = "";
+          }}
+        />
       </div>
     </div>
   );

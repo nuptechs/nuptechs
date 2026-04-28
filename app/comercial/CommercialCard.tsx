@@ -275,7 +275,7 @@ export default function CommercialCard() {
 
             {/* Action buttons */}
             <div className={styles.actions}>
-              <a href="/comercial/contato.vcf" download className={`${styles.actionBtn} ${styles.actionPrimary}`}>
+              <a href="/api/contato.vcf" download className={`${styles.actionBtn} ${styles.actionPrimary}`}>
                 <div className={styles.actionIcon}>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z" />
