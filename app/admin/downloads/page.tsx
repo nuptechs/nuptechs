@@ -19,10 +19,12 @@ const APPS: AppRelease[] = [
     name: "NuP Salon",
     version: "1.1.0",
     platform: "android",
-    description: "App do cliente — agendar cortes, ver fila, chat e promoções",
+    description:
+      "App do cliente — agendar, fila ao vivo, chat em tempo real, loja e pedidos, " +
+      "notificações push, indicação. Identidade NuPtechs.",
     downloadUrl: "/downloads/NuP-Salon-v1.1.0.apk",
-    size: "78 MB",
-    updatedAt: "2026-04-21",
+    size: "79 MB",
+    updatedAt: "2026-04-29",
     icon: "💇",
     available: true,
   },
