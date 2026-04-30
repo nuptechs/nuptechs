@@ -33,12 +33,14 @@ const APPS: AppRelease[] = [
     name: "NuP Salon Pro",
     version: "1.0.0",
     platform: "android",
-    description: "App do barbeiro — agenda, clientes, relatórios e gestão",
-    downloadUrl: null,
-    size: "~75 MB",
-    updatedAt: "—",
+    description:
+      "App do barbeiro — dashboard, agenda, fila ao vivo, comissões, " +
+      "portfólio, chat realtime e notificações push. Identidade NuPtechs.",
+    downloadUrl: "/downloads/NuP-Salon-Pro-v1.0.0.apk",
+    size: "81 MB",
+    updatedAt: "2026-04-30",
     icon: "✂️",
-    available: false,
+    available: true,
   },
   {
     name: "NuP Sales",
