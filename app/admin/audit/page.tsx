@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { AdminPageHeader } from "../components/AdminPageHeader";
+import { AdminEmptyState } from "../components/AdminEmptyState";
 
 interface AuditEntry {
   id: number;
@@ -61,23 +63,20 @@ export default function AuditPage() {
 
   return (
     <div className="admin-content">
-      <header className="admin-page-header">
-        <div>
-          <h1>Auditoria</h1>
-          <p className="admin-subtitle">Registro de todas as ações administrativas</p>
-        </div>
-      </header>
+      <AdminPageHeader
+        title="Auditoria"
+        subtitle="Registro de todas as ações administrativas"
+        breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Sistema" }, { label: "Auditoria" }]}
+      />
 
       {loading ? (
-        <div className="admin-card" style={{ padding: "3rem", textAlign: "center", color: "var(--muted)" }}>
-          Carregando...
-        </div>
+        <div className="admin-card admin-skeleton" style={{ height: 320 }} />
       ) : entries.length === 0 ? (
-        <div className="admin-empty-state">
-          <div className="admin-empty-icon">🔍</div>
-          <p>Nenhum registro de auditoria</p>
-          <p className="admin-subtle">Ações administrativas serão registradas aqui automaticamente.</p>
-        </div>
+        <AdminEmptyState
+          variant="search"
+          title="Nenhum registro de auditoria"
+          description="Ações administrativas serão registradas aqui automaticamente."
+        />
       ) : (
         <>
           <table className="admin-table">

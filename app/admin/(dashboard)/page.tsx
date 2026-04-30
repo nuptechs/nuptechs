@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Inbox, PenSquare, Calendar, Download } from "lucide-react";
+import { AdminPageHeader } from "../components/AdminPageHeader";
+import { AdminEmptyState } from "../components/AdminEmptyState";
 
 interface LeadStats {
   total: number;
@@ -79,12 +82,10 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="admin-content">
-        <header className="admin-page-header">
-          <div><h1>Dashboard</h1><p className="admin-subtitle">Visão geral do site NuPtechs</p></div>
-        </header>
+        <AdminPageHeader title="Dashboard" subtitle="Visão geral do site NuPtechs" />
         <div className="admin-stats-grid">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="admin-stat-card" style={{ minHeight: 90, opacity: 0.5 }} />
+            <div key={i} className="admin-stat-card admin-skeleton" style={{ minHeight: 90 }} />
           ))}
         </div>
       </div>
@@ -96,12 +97,49 @@ export default function AdminDashboard() {
 
   return (
     <div className="admin-content">
-      <header className="admin-page-header">
-        <div>
-          <h1>Dashboard</h1>
-          <p className="admin-subtitle">Visão geral do site NuPtechs</p>
-        </div>
-      </header>
+      <AdminPageHeader title="Dashboard" subtitle="Visão geral do site NuPtechs" />
+
+      {/* Quick actions */}
+      <div className="admin-quick-actions">
+        <Link href="/admin/leads?new=1" className="admin-quick-action">
+          <span className="admin-quick-action-icon">
+            <Inbox size={18} strokeWidth={1.75} />
+          </span>
+          <span className="admin-quick-action-body">
+            <span className="admin-quick-action-title">Novo lead</span>
+            <span className="admin-quick-action-hint">Registrar contato manual</span>
+          </span>
+        </Link>
+        <Link href="/admin/blog?new=1" className="admin-quick-action">
+          <span className="admin-quick-action-icon">
+            <PenSquare size={18} strokeWidth={1.75} />
+          </span>
+          <span className="admin-quick-action-body">
+            <span className="admin-quick-action-title">Novo post</span>
+            <span className="admin-quick-action-hint">Publicar no blog</span>
+          </span>
+        </Link>
+        <Link href="/admin/schedules" className="admin-quick-action">
+          <span className="admin-quick-action-icon">
+            <Calendar size={18} strokeWidth={1.75} />
+          </span>
+          <span className="admin-quick-action-body">
+            <span className="admin-quick-action-title">Agendamentos</span>
+            <span className="admin-quick-action-hint">
+              {scheduleStats?.pending ? `${scheduleStats.pending} pendente${scheduleStats.pending > 1 ? "s" : ""}` : "Calendário"}
+            </span>
+          </span>
+        </Link>
+        <Link href="/admin/downloads" className="admin-quick-action">
+          <span className="admin-quick-action-icon">
+            <Download size={18} strokeWidth={1.75} />
+          </span>
+          <span className="admin-quick-action-body">
+            <span className="admin-quick-action-title">Downloads</span>
+            <span className="admin-quick-action-hint">APKs dos apps</span>
+          </span>
+        </Link>
+      </div>
 
       {/* KPI Cards */}
       <div className="admin-stats-grid">
@@ -214,11 +252,11 @@ export default function AdminDashboard() {
           <Link href="/admin/leads" className="admin-btn admin-btn-ghost admin-btn-sm">Ver todos →</Link>
         </div>
         {recentLeads.length === 0 ? (
-          <div className="admin-empty-state">
-            <div className="admin-empty-icon">✉</div>
-            <p>Nenhum lead registrado</p>
-            <p className="admin-subtle">Leads aparecerão aqui quando visitantes preencherem o formulário de contato.</p>
-          </div>
+          <AdminEmptyState
+            variant="inbox"
+            title="Nenhum lead registrado"
+            description="Leads aparecerão aqui quando visitantes preencherem o formulário de contato."
+          />
         ) : (
           <table className="admin-table">
             <thead>

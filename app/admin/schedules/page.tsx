@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { AdminPageHeader } from "../components/AdminPageHeader";
+import { AdminEmptyState } from "../components/AdminEmptyState";
 
 interface Schedule {
   id: number;
@@ -108,12 +110,11 @@ export default function SchedulesPage() {
 
   return (
     <div className="admin-content">
-      <header className="admin-page-header">
-        <div>
-          <h1>Agendamentos</h1>
-          <p className="admin-subtitle">Solicitações de reunião recebidas</p>
-        </div>
-      </header>
+      <AdminPageHeader
+        title="Agendamentos"
+        subtitle="Solicitações de reunião recebidas"
+        breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Pipeline" }, { label: "Agendamentos" }]}
+      />
 
       {/* Stats */}
       {stats && (
@@ -164,15 +165,13 @@ export default function SchedulesPage() {
 
       {/* Table */}
       {loading ? (
-        <div className="admin-card" style={{ padding: "3rem", textAlign: "center", color: "var(--muted)" }}>
-          Carregando...
-        </div>
+        <div className="admin-card admin-skeleton" style={{ height: 320 }} />
       ) : items.length === 0 ? (
-        <div className="admin-empty-state">
-          <div className="admin-empty-icon">📅</div>
-          <p>{filter !== "all" || search ? "Nenhum agendamento encontrado" : "Nenhum agendamento registrado"}</p>
-          <p className="admin-subtle">Agendamentos aparecem aqui quando alguém solicita uma reunião.</p>
-        </div>
+        <AdminEmptyState
+          variant={filter !== "all" || search ? "search" : "calendar"}
+          title={filter !== "all" || search ? "Nenhum agendamento encontrado" : "Nenhum agendamento registrado"}
+          description="Agendamentos aparecem aqui quando alguém solicita uma reunião."
+        />
       ) : (
         <table className="admin-table">
           <thead>
