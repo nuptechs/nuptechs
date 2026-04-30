@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AdminPageHeader } from "../components/AdminPageHeader";
 
 interface AppRelease {
   name: string;
@@ -70,26 +71,19 @@ export default function DownloadsPage() {
   if (loading) {
     return (
       <div className="admin-content">
-        <header className="admin-page-header">
-          <div>
-            <h1>Downloads</h1>
-            <p className="admin-subtitle">Carregando...</p>
-          </div>
-        </header>
+        <AdminPageHeader title="Downloads" subtitle="Carregando..." />
+        <div className="admin-card admin-skeleton" style={{ height: 240 }} />
       </div>
     );
   }
 
   return (
     <div className="admin-content">
-      <header className="admin-page-header">
-        <div>
-          <h1>Downloads</h1>
-          <p className="admin-subtitle">
-            Apps móveis NuPTechs — baixe e instale diretamente
-          </p>
-        </div>
-      </header>
+      <AdminPageHeader
+        title="Downloads"
+        subtitle="Apps móveis NuPtechs — baixe e instale diretamente"
+        breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Distribuição" }, { label: "Downloads" }]}
+      />
 
       <div className="downloads-grid">
         {APPS.map((app) => (

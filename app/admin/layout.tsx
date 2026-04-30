@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { AdminSidebar } from "./components/AdminSidebar";
+import { CommandPalette } from "./components/CommandPalette";
 import "./admin.css";
 
 export const metadata: Metadata = {
@@ -17,6 +17,7 @@ export default function AdminLayout({
     <div className="admin-layout">
       <AdminSidebar />
       <main className="admin-main">{children}</main>
+      <CommandPalette />
     </div>
   );
 }

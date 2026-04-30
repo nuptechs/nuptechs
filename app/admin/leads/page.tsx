@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { AdminPageHeader } from "../components/AdminPageHeader";
+import { AdminEmptyState } from "../components/AdminEmptyState";
 
 interface Lead {
   id: number;
@@ -131,12 +133,11 @@ export default function LeadsPage() {
 
   return (
     <div className="admin-content">
-      <header className="admin-page-header">
-        <div>
-          <h1>Leads</h1>
-          <p className="admin-subtitle">Pipeline de contatos recebidos</p>
-        </div>
-      </header>
+      <AdminPageHeader
+        title="Leads"
+        subtitle="Pipeline de contatos recebidos"
+        breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Pipeline" }, { label: "Leads" }]}
+      />
 
       {/* Stats */}
       {stats && (
@@ -190,15 +191,13 @@ export default function LeadsPage() {
 
       {/* Table */}
       {loading ? (
-        <div className="admin-card" style={{ padding: "3rem", textAlign: "center", color: "var(--muted)" }}>
-          Carregando...
-        </div>
+        <div className="admin-card admin-skeleton" style={{ height: 320 }} />
       ) : leads.length === 0 ? (
-        <div className="admin-empty-state">
-          <div className="admin-empty-icon">✉</div>
-          <p>{filter !== "all" || search ? "Nenhum lead encontrado para esses filtros" : "Nenhum lead registrado"}</p>
-          <p className="admin-subtle">Leads aparecem aqui quando alguém preenche o formulário de contato.</p>
-        </div>
+        <AdminEmptyState
+          variant={filter !== "all" || search ? "search" : "inbox"}
+          title={filter !== "all" || search ? "Nenhum lead encontrado para esses filtros" : "Nenhum lead registrado"}
+          description="Leads aparecem aqui quando alguém preenche o formulário de contato."
+        />
       ) : (
         <table className="admin-table">
           <thead>

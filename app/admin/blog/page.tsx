@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback, useMemo } from "react";
+import { AdminPageHeader } from "../components/AdminPageHeader";
+import { AdminEmptyState } from "../components/AdminEmptyState";
 
 type BlogPostStatus = "published" | "draft" | "scheduled" | "archived";
 
@@ -178,22 +180,16 @@ export default function BlogAdminPage() {
     <div className="admin-content">
       {toast && <div className="admin-toast">{toast}</div>}
 
-      <header className="admin-page-header">
-        <div>
-          <h1>Blog</h1>
-          <p className="admin-subtitle">
-            Gestão de conteúdo, SEO e saúde editorial
-          </p>
-        </div>
-        <div style={{ display: "flex", gap: "0.5rem" }}>
-          <button
-            className="admin-btn admin-btn-secondary admin-btn-sm"
-            onClick={syncPosts}
-          >
+      <AdminPageHeader
+        title="Blog"
+        subtitle="Gestão de conteúdo, SEO e saúde editorial"
+        breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Conteúdo" }, { label: "Blog" }]}
+        actions={
+          <button className="admin-btn admin-btn-secondary admin-btn-sm" onClick={syncPosts}>
             ↻ Sincronizar fonte
           </button>
-        </div>
-      </header>
+        }
+      />
 
       {/* Stats */}
       {stats && (
@@ -272,17 +268,13 @@ export default function BlogAdminPage() {
 
           {/* Post list */}
           {loading ? (
-            <div className="admin-card" style={{ padding: "3rem", textAlign: "center", color: "var(--muted)" }}>
-              Carregando...
-            </div>
+            <div className="admin-card admin-skeleton" style={{ height: 320 }} />
           ) : posts.length === 0 ? (
-            <div className="admin-empty-state">
-              <div className="admin-empty-icon">📝</div>
-              <p>Nenhum post encontrado</p>
-              <p className="admin-subtle">
-                Clique em &quot;Sincronizar fonte&quot; para importar posts do código-fonte.
-              </p>
-            </div>
+            <AdminEmptyState
+              variant="edit"
+              title="Nenhum post encontrado"
+              description={'Clique em "Sincronizar fonte" para importar posts do código-fonte.'}
+            />
           ) : (
             <table className="admin-table">
               <thead>
