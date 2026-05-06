@@ -90,6 +90,16 @@ const nextConfig = {
       },
     ];
   },
+
+  // ── Rewrites ──────────────────────────────────────────
+  async rewrites() {
+    return [
+      // Demo estática Vue empacotada em /public/padaria/ — rota não-listada,
+      // bloqueada em robots e fora do sitemap.
+      { source: "/padaria", destination: "/padaria/index.html" },
+      { source: "/padaria/", destination: "/padaria/index.html" },
+    ];
+  },
 };
 
 module.exports = nextConfig;
