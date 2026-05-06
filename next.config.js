@@ -102,6 +102,8 @@ const nextConfig = {
       { source: "/salao/", destination: "/salao/index.html" },
       { source: "/sales", destination: "/sales/index.html" },
       { source: "/sales/", destination: "/sales/index.html" },
+      { source: "/igreja", destination: "/igreja/index.html" },
+      { source: "/igreja/", destination: "/igreja/index.html" },
     ];
   },
 };
