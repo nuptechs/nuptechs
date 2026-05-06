@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         // Allow all crawlers — including /_next/static/ for JS rendering
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/admin/", "/padaria", "/padaria/", "/salao", "/salao/"]
+        disallow: ["/api/", "/admin/", "/padaria", "/padaria/", "/salao", "/salao/", "/sales", "/sales/"]
       },
       {
         // Block AI training crawlers
