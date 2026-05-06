@@ -400,7 +400,7 @@ const Pages = {
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px">${p.services.map(s => `<span class="chip active" style="cursor:default">${s}</span>`).join('')}</div>
       <div class="section-head"><h2 class="section-title" style="font-size:18px">Contato</h2></div>
       <div class="contact-channels">
-        <a class="channel" data-action="wa" data-phone="${p.phone}" data-stop="1"><div class="channel-icon wa">${I.wa}</div><div class="channel-info"><div class="channel-label">WhatsApp</div><div class="channel-value">${p.phone}</div></div>${I.arrow}</a>
+        <a class="channel" data-action="wa" data-phone="${p.phone}"><div class="channel-icon wa">${I.wa}</div><div class="channel-info"><div class="channel-label">WhatsApp</div><div class="channel-value">${p.phone}</div></div>${I.arrow}</a>
         <a href="tel:${p.phone.replace(/\D/g, '')}" class="channel"><div class="channel-icon tel">${I.phone}</div><div class="channel-info"><div class="channel-label">Telefone</div><div class="channel-value">${p.phone}</div></div>${I.arrow}</a>
         <a href="mailto:${p.email}" class="channel channel-block"><div class="channel-icon mail">${I.mail}</div><div class="channel-info"><div class="channel-label">Email</div><div class="channel-value">${p.email}</div></div>${I.arrow}</a>
       </div>
@@ -424,7 +424,7 @@ const Pages = {
           <div class="section-head" style="margin-top:32px"><h2 class="section-title" style="font-size:18px">2. Forma de Pagamento</h2></div>
           <div class="method-section ${m === 'pix' ? 'selected' : ''}" data-action="set-method" data-method="pix">
             <div class="method-header"><h3 class="method-title">PIX</h3><div class="method-radio ${m === 'pix' ? 'checked' : ''}"></div></div>
-            ${m === 'pix' ? `<div class="pix-row"><div style="flex:1;min-width:0"><div class="pix-label">CHAVE (CNPJ)</div><div class="pix-key" id="pixKey">12.345.678/0001-90</div></div><button class="btn-copy" data-action="copy-pix" data-stop="1">${I.copy} COPIAR</button></div><div class="qr-block">${SVG.qrCode()}</div><p style="font-size:12px;color:var(--text-muted);text-align:center;margin:14px 0 0">Aponte a câmera do seu app de banco</p>` : ''}
+            ${m === 'pix' ? `<div class="pix-row"><div style="flex:1;min-width:0"><div class="pix-label">CHAVE (CNPJ)</div><div class="pix-key" id="pixKey">12.345.678/0001-90</div></div><button class="btn-copy" data-action="copy-pix">${I.copy} COPIAR</button></div><div class="qr-block">${SVG.qrCode()}</div><p style="font-size:12px;color:var(--text-muted);text-align:center;margin:14px 0 0">Aponte a câmera do seu app de banco</p>` : ''}
           </div>
           <div class="method-section ${m === 'card' ? 'selected' : ''}" data-action="set-method" data-method="card">
             <div class="method-header"><h3 class="method-title">CARTÃO DE CRÉDITO</h3><div class="method-radio ${m === 'card' ? 'checked' : ''}"></div></div>
@@ -920,6 +920,15 @@ document.addEventListener('touchend', (e) => {
     else if (dx < -50) navigateLightbox(1);
   }
 }, { passive: true });
+
+/* Image error fallback — se Unsplash cair, mostra gradiente em vez de img quebrada */
+document.addEventListener('error', (e) => {
+  const t = e.target;
+  if (t && t.tagName === 'IMG') {
+    t.style.display = 'none';
+    if (t.parentElement) t.parentElement.style.background = 'linear-gradient(135deg, var(--bg-elev-1), var(--bg-elev-2))';
+  }
+}, true);
 
 /* Init */
 const initialHash = window.location.hash.slice(1);
