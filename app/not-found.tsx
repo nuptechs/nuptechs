@@ -8,6 +8,52 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true }
 };
 
+const suggestions = [
+  {
+    href: "/#servicos",
+    label: "Serviços",
+    desc: "Automação, BI, apps e mais",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
+      </svg>
+    )
+  },
+  {
+    href: "/#produtos",
+    label: "Produtos",
+    desc: "Soluções prontas para implantar",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5v-9Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round"/>
+        <path d="m3.5 7.5 8.5 4.5 8.5-4.5M12 12v9" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round"/>
+      </svg>
+    )
+  },
+  {
+    href: "/blog",
+    label: "Blog",
+    desc: "Artigos técnicos e guias práticos",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 4h11l3 3v13H5V4Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round"/>
+        <path d="M8 10h8M8 14h8M8 18h5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
+      </svg>
+    )
+  },
+  {
+    href: "/#contato",
+    label: "Diagnóstico",
+    desc: "Grátis em 24h, sem compromisso",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.75"/>
+        <path d="M12 8v4l2.5 2.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
+      </svg>
+    )
+  }
+];
+
 export default function NotFound() {
   return (
     <>
@@ -27,7 +73,7 @@ export default function NotFound() {
         </div>
       </nav>
 
-      <main className="flex min-h-screen flex-col items-center justify-center px-6 pt-20 text-center">
+      <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col items-center justify-center px-6 pb-20 pt-32 text-center">
         <span
           className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[var(--muted)]"
           aria-hidden="true"
@@ -35,7 +81,7 @@ export default function NotFound() {
           Erro 404
         </span>
 
-        <h1 className="display-title mb-4 max-w-lg">
+        <h1 className="display-title mb-4">
           Página não<br />
           <em>encontrada</em>.
         </h1>
@@ -45,7 +91,7 @@ export default function NotFound() {
           NuPtechs pode fazer por você.
         </p>
 
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="mb-16 flex flex-wrap justify-center gap-3">
           <a href="/" className="btn btn-primary">
             Voltar ao início
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -57,22 +103,24 @@ export default function NotFound() {
           </a>
         </div>
 
-        <div className="mt-20 grid gap-4 sm:grid-cols-4 max-w-3xl">
-          {[
-            { href: "/#servicos",  label: "Serviços",   desc: "Automação, BI, apps e mais" },
-            { href: "/#produtos",  label: "Produtos",   desc: "Soluções prontas para implantar" },
-            { href: "/blog",       label: "Blog",       desc: "Artigos técnicos e guias práticos" },
-            { href: "/#contato",   label: "Diagnóstico",desc: "Grátis em 24h, sem compromisso" },
-          ].map((link) => (
+        <p className="mb-6 text-xs font-semibold uppercase tracking-widest text-[var(--muted)]">
+          Talvez você procurava
+        </p>
+
+        <div className="grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {suggestions.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="card card-sm group text-left transition-all hover:border-[var(--accent)]"
+              className="card card-sm group flex flex-col items-start text-left transition-all"
             >
-              <p className="mb-1 text-sm font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">
+              <span className="card-icon" aria-hidden="true">
+                {link.icon}
+              </span>
+              <p className="card-title mb-1 group-hover:text-[var(--accent)] transition-colors">
                 {link.label}
               </p>
-              <p className="text-xs text-[var(--muted)]">{link.desc}</p>
+              <p className="card-body">{link.desc}</p>
             </a>
           ))}
         </div>
