@@ -10,12 +10,14 @@ import { DrizzleAuditAdapter } from "./adapters/drizzle-audit.adapter";
 import { DrizzleAnalyticsAdapter } from "./adapters/drizzle-analytics.adapter";
 import { DrizzleSettingsAdapter } from "./adapters/drizzle-settings.adapter";
 import { DrizzleBlogAdapter } from "./adapters/drizzle-blog.adapter";
+import { DrizzleContractAdapter } from "./adapters/drizzle-contract.adapter";
 import type { LeadPort } from "./ports/lead.port";
 import type { SchedulePort } from "./ports/schedule.port";
 import type { AuditPort } from "./ports/audit.port";
 import type { AnalyticsPort } from "./ports/analytics.port";
 import type { SettingsPort } from "./ports/settings.port";
 import type { BlogPort } from "./ports/blog.port";
+import type { ContractPort } from "./ports/contract.port";
 
 export type Container = {
   leads: LeadPort;
@@ -24,6 +26,7 @@ export type Container = {
   analytics: AnalyticsPort;
   settings: SettingsPort;
   blog: BlogPort;
+  contracts: ContractPort;
 };
 
 let _container: Container | null = null;
@@ -37,6 +40,7 @@ export function getContainer(): Container {
       analytics: new DrizzleAnalyticsAdapter(),
       settings: new DrizzleSettingsAdapter(),
       blog: new DrizzleBlogAdapter(),
+      contracts: new DrizzleContractAdapter(),
     });
   }
   return _container;
