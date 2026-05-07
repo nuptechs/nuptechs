@@ -19,65 +19,141 @@
   <body>
     <div id="app"></div>
 
-    <!-- ===== Painel do Dono (overlay) — injetado por NuPtechs, isolado do app Vue ===== -->
-    <style id="__np-dono-css">
-      #__np-dono-fab{position:fixed;bottom:24px;right:24px;z-index:99998;display:flex;align-items:center;gap:8px;height:52px;padding:0 18px 0 14px;background:linear-gradient(135deg,#D29479,#B57256);color:#fff;border:none;border-radius:999px;cursor:pointer;box-shadow:0 8px 24px rgba(20,19,18,0.2),0 2px 6px rgba(20,19,18,0.1);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.04em;transition:transform .2s ease,box-shadow .2s ease}
-      #__np-dono-fab:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(20,19,18,0.25)}
-      #__np-dono-fab svg{width:20px;height:20px}
-      #__np-dono-fab .__lbl{display:none}
-      @media(min-width:640px){#__np-dono-fab .__lbl{display:inline}}
-      #__np-dono-overlay{position:fixed;inset:0;z-index:99999;background:rgba(20,19,18,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .3s ease}
-      #__np-dono-overlay.show{opacity:1;pointer-events:auto}
-      #__np-dono-sheet{position:fixed;inset:0;z-index:100000;background:#FAFAF7;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .42s cubic-bezier(0.22,0.61,0.36,1);will-change:transform}
-      #__np-dono-sheet.show{transform:translateY(0)}
-      @media(min-width:768px){
-        #__np-dono-sheet{inset:24px;border-radius:20px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.35);transform:scale(0.92);opacity:0;transition:transform .35s cubic-bezier(0.22,0.61,0.36,1),opacity .25s ease}
-        #__np-dono-sheet.show{transform:scale(1);opacity:1}
-      }
-      #__np-dono-close{position:absolute;top:14px;right:14px;z-index:2;width:44px;height:44px;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);border:1px solid #E5E3DA;border-radius:50%;cursor:pointer;display:grid;place-items:center;color:#141312;box-shadow:0 4px 12px rgba(0,0,0,0.1);transition:transform .2s ease,background .2s ease}
-      #__np-dono-close:hover{background:#fff;transform:rotate(90deg)}
-      #__np-dono-close svg{width:20px;height:20px}
-      #__np-dono-iframe{flex:1;width:100%;height:100%;border:none;background:#FAFAF7;display:block}
-      @media(prefers-reduced-motion:reduce){#__np-dono-sheet,#__np-dono-overlay{transition:none}}
-    </style>
-    <button id="__np-dono-fab" type="button" aria-label="Abrir painel do dono">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="4"/><line x1="12" y1="20" x2="12" y2="10"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      <span class="__lbl">Painel do Dono</span>
-    </button>
-    <div id="__np-dono-overlay"></div>
-    <div id="__np-dono-sheet" role="dialog" aria-modal="true" aria-label="Painel do Dono">
-      <button id="__np-dono-close" type="button" aria-label="Fechar painel">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-      <iframe id="__np-dono-iframe" title="Painel do Dono · Lume" src="about:blank" loading="lazy"></iframe>
-    </div>
+    <!-- ===== Painel do Dono — item de menu injetado, isolado do bundle Vue ===== -->
     <script>
       (function(){
-        var fab = document.getElementById('__np-dono-fab');
-        var overlay = document.getElementById('__np-dono-overlay');
-        var sheet = document.getElementById('__np-dono-sheet');
-        var iframe = document.getElementById('__np-dono-iframe');
-        var closeBtn = document.getElementById('__np-dono-close');
-        var loaded = false;
-        function open(){
-          if(!loaded){ iframe.src = '/sales/dono'; loaded = true; }
-          overlay.classList.add('show');
-          sheet.classList.add('show');
-          document.body.style.overflow = 'hidden';
+        var PANEL_LABEL = 'Painel do Dono';
+        var PANEL_URL = '/sales/dono?embed=1';
+        var ACTIVE_CLASSES = ['bg-bone-100', 'text-carbon-900'];
+        var INACTIVE_CLASS = 'text-bone-200/85';
+        var ICON_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem;height:1.25rem;flex-shrink:0"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>';
+
+        var panelEl = null, mainEl = null, active = false;
+        var injectedItems = [];
+
+        function findMain(){ return document.querySelector('main.flex-1') || document.querySelector('main'); }
+
+        function findSidebars(){
+          return Array.from(document.querySelectorAll('aside')).filter(function(a){
+            return a.querySelectorAll('button, a').length >= 5;
+          });
         }
-        function close(){
-          overlay.classList.remove('show');
-          sheet.classList.remove('show');
-          document.body.style.overflow = '';
+
+        function findItems(sidebar){
+          return Array.from(sidebar.querySelectorAll('button, a')).filter(function(el){
+            var txt = (el.textContent || '').trim();
+            return txt.length > 0 && txt.length < 50 && !el.dataset.npDono;
+          });
         }
-        fab.addEventListener('click', open);
-        closeBtn.addEventListener('click', close);
-        overlay.addEventListener('click', close);
-        document.addEventListener('keydown', function(e){
-          if(e.key === 'Escape' && sheet.classList.contains('show')) close();
-        });
-        // Atalho ?dono=1 abre direto
-        if(/[?&]dono=1\b/.test(location.search)) setTimeout(open, 400);
+
+        function showPanel(){
+          if (!panelEl){
+            panelEl = document.createElement('div');
+            panelEl.id = '__np-dono-panel';
+            panelEl.style.cssText = 'flex:1;width:100%;min-height:100vh;background:#FAFAF7';
+            panelEl.innerHTML = '<iframe src="' + PANEL_URL + '" title="Painel do Dono" style="width:100%;height:100vh;min-height:calc(100vh - 60px);border:none;display:block;background:#FAFAF7"></iframe>';
+          }
+          mainEl = findMain();
+          if (mainEl && !mainEl.dataset.npHidden){
+            mainEl.dataset.npHidden = '1';
+            mainEl.style.display = 'none';
+            mainEl.parentNode.insertBefore(panelEl, mainEl);
+          }
+          panelEl.style.display = 'block';
+          active = true;
+        }
+
+        function hidePanel(){
+          if (!active) return;
+          if (panelEl) panelEl.style.display = 'none';
+          if (mainEl){
+            mainEl.style.display = '';
+            delete mainEl.dataset.npHidden;
+            mainEl = null;
+          }
+          injectedItems.forEach(function(it){
+            ACTIVE_CLASSES.forEach(function(c){ it.classList.remove(c); });
+            it.classList.add(INACTIVE_CLASS);
+          });
+          active = false;
+        }
+
+        function applyActive(targetItem, allItems){
+          allItems.forEach(function(i){
+            ACTIVE_CLASSES.forEach(function(c){ i.classList.remove(c); });
+            if (!i.classList.contains(INACTIVE_CLASS)) i.classList.add(INACTIVE_CLASS);
+          });
+          ACTIVE_CLASSES.forEach(function(c){ targetItem.classList.add(c); });
+          targetItem.classList.remove(INACTIVE_CLASS);
+        }
+
+        function injectInto(sidebar){
+          if (sidebar.querySelector('[data-np-dono="1"]')) return;
+          var items = findItems(sidebar);
+          if (items.length < 5) return;
+          var template = items[items.length - 1];
+          var newItem = template.cloneNode(true);
+          newItem.dataset.npDono = '1';
+
+          var oldSvg = newItem.querySelector('svg');
+          if (oldSvg){
+            var temp = document.createElement('div');
+            temp.innerHTML = ICON_SVG;
+            oldSvg.parentNode.replaceChild(temp.firstChild, oldSvg);
+          }
+
+          var textNodes = [];
+          (function findTxt(el){
+            for (var i = 0; i < el.childNodes.length; i++){
+              var n = el.childNodes[i];
+              if (n.nodeType === 3 && n.textContent.trim()) textNodes.push(n);
+              else if (n.nodeType === 1) findTxt(n);
+            }
+          })(newItem);
+          if (textNodes.length) textNodes[textNodes.length - 1].textContent = PANEL_LABEL;
+
+          ACTIVE_CLASSES.forEach(function(c){ newItem.classList.remove(c); });
+          if (!newItem.classList.contains(INACTIVE_CLASS)) newItem.classList.add(INACTIVE_CLASS);
+
+          template.parentNode.insertBefore(newItem, template);
+          injectedItems.push(newItem);
+
+          newItem.addEventListener('click', function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            applyActive(newItem, items.concat([newItem]));
+            showPanel();
+            var drawer = document.querySelector('.fixed.inset-0.z-40.lg\\:hidden');
+            if (drawer){
+              var overlay = drawer.querySelector('.absolute.inset-0');
+              if (overlay) overlay.click();
+            }
+          }, true);
+        }
+
+        function injectAll(){ findSidebars().forEach(injectInto); }
+
+        document.addEventListener('click', function(e){
+          if (!active) return;
+          var target = e.target.closest('button, a');
+          if (!target || target.dataset.npDono) return;
+          if (target.closest('aside')) hidePanel();
+        }, true);
+
+        window.addEventListener('hashchange', function(){ if (active) hidePanel(); });
+
+        injectAll();
+        var obs = new MutationObserver(injectAll);
+        obs.observe(document.body, { childList: true, subtree: true });
+
+        if (/[?&]dono=1\b/.test(location.search)){
+          var tries = 0, iv = setInterval(function(){
+            tries++;
+            var item = document.querySelector('[data-np-dono="1"]');
+            if (item){ item.click(); clearInterval(iv); }
+            else if (tries > 50) clearInterval(iv);
+          }, 100);
+        }
       })();
     </script>
   </body>
