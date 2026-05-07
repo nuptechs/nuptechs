@@ -304,6 +304,21 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 const escape = (s) => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 /* ============================================================
+   ADMIN — helpers
+============================================================ */
+function adminHeader(title, subtitle, kind){
+  return `<div style="display:flex;align-items:center;gap:8px;margin:24px 0 16px"><button class="btn btn-ghost btn-sm" data-route="admin">${I.back} Voltar</button></div>
+    <header class="page-hero" style="padding-bottom:16px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;text-align:left">
+      <div>
+        <div class="eyebrow">Gestão</div>
+        <h1 class="page-title" style="text-align:left;font-size:clamp(26px,4vw,38px)">${title}</h1>
+        <p class="page-subtitle" style="margin:0;text-align:left">${subtitle}</p>
+      </div>
+      <button class="btn btn-primary" data-action="new-${kind}">${I.check} Novo ${kind}</button>
+    </header>`;
+}
+
+/* ============================================================
    PAGE TEMPLATES — todas usam .container; sem header próprio
 ============================================================ */
 const Pages = {
@@ -828,6 +843,145 @@ const Pages = {
     </div>`;
   },
 
+  /* ============================================================
+     GESTÃO DE CADASTROS — admin hub + 4 CRUDs
+  ============================================================ */
+  admin: () => {
+    const isPastor = state.user.current === 'pastor' || state.user.delegated.includes(state.user.current);
+    const cards = [
+      { id: 'eventos',    icon: 'cal',      title: 'Eventos',    desc: 'Cultos, vigílias, retiros, encontros',     count: state.events.length,    pastor: false, color: '#C9A961' },
+      { id: 'galeria',    icon: 'gallery',  title: 'Galeria',    desc: 'Fotos, vídeos e destaques',                count: state.galleryAlbums.fotos.length + state.galleryAlbums.videos.length + state.galleryAlbums.imagens.length, pastor: false, color: '#E5C77A' },
+      { id: 'campanhas',  icon: 'campaign', title: 'Campanhas',  desc: 'Mobilizações de oração, missões e ofertas', count: state.campaigns.length, pastor: true, color: '#4ADE80' },
+      { id: 'parceiros',  icon: 'people',   title: 'Parceiros',  desc: 'Profissionais e empresas da comunidade',    count: state.partners.length,  pastor: true, color: '#3B82F6' },
+    ];
+    return `<div class="page container">
+      <header class="page-hero">
+        <div class="eyebrow">Gestão</div>
+        <h1 class="page-title">Cadastros & Conteúdo</h1>
+        <p class="page-subtitle">Crie, edite e remova o conteúdo que aparece pra todos os membros. Líderes podem cuidar de Eventos e Galeria. Campanhas e Parceiros ficam com o pastor.</p>
+      </header>
+      <div class="grid grid-2">
+        ${cards.map(c => {
+          const locked = c.pastor && !isPastor;
+          return `<button class="admin-card ${locked ? 'locked' : ''}" ${locked ? '' : `data-route="admin-${c.id}"`}>
+            <div class="admin-card-head">
+              <div class="admin-card-icon" style="background:${c.color}26;color:${c.color}">${I[c.icon]}</div>
+              ${locked ? '<span class="admin-card-lock">PASTOR</span>' : `<span class="admin-card-count">${c.count} cadastrados</span>`}
+            </div>
+            <div class="admin-card-title">${c.title}</div>
+            <div class="admin-card-desc">${c.desc}</div>
+            ${locked ? '<div class="admin-card-foot muted">🔒 Acesso restrito ao pastor</div>' : `<div class="admin-card-foot">Gerenciar ${I.arrow}</div>`}
+          </button>`;
+        }).join('')}
+      </div>
+    </div>`;
+  },
+
+  adminEventos: () => `<div class="page container">
+    ${adminHeader('Eventos', 'Cultos, vigílias e encontros visíveis no app', 'evento')}
+    <div class="admin-list">
+      <div class="admin-row admin-head">
+        <div class="ar-tag">CATEGORIA</div>
+        <div class="ar-main">EVENTO</div>
+        <div class="ar-meta">DATA</div>
+        <div class="ar-actions"></div>
+      </div>
+      ${state.events.map(e => `
+        <div class="admin-row">
+          <div class="ar-tag"><span class="adm-pill">${e.tag}</span></div>
+          <div class="ar-main">
+            <div class="ar-title">${escape(e.title)}</div>
+            <div class="ar-sub">${escape(e.location)}</div>
+          </div>
+          <div class="ar-meta">${e.date}<br/><small>${e.time}</small></div>
+          <div class="ar-actions">
+            <button class="adm-btn" data-action="edit-event" data-id="${e.id}" title="Editar">${I.settings}</button>
+            <button class="adm-btn danger" data-action="delete-event" data-id="${e.id}" title="Excluir">${I.alert}</button>
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>`,
+
+  adminCampanhas: () => `<div class="page container">
+    ${adminHeader('Campanhas', 'Mobilizações ativas na igreja', 'campanha')}
+    <div class="admin-list">
+      <div class="admin-row admin-head">
+        <div class="ar-main">CAMPANHA</div>
+        <div class="ar-meta">PROGRESSO</div>
+        <div class="ar-actions"></div>
+      </div>
+      ${state.campaigns.map(c => `
+        <div class="admin-row">
+          <div class="ar-main">
+            <div class="ar-title">${escape(c.title)}</div>
+            <div class="ar-sub">${escape(c.period)} · ${escape(c.label)}</div>
+          </div>
+          <div class="ar-meta">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="flex:1;max-width:80px;height:6px;background:var(--bg-deep);border-radius:3px;overflow:hidden"><div style="height:100%;width:${c.percent}%;background:linear-gradient(90deg,var(--gold),var(--gold-bright))"></div></div>
+              <span style="font-family:'Cinzel',serif;color:var(--gold-bright);font-size:14px;font-weight:600">${c.percent}%</span>
+            </div>
+            <small>Meta: ${c.goal}</small>
+          </div>
+          <div class="ar-actions">
+            <button class="adm-btn" data-action="edit-campaign" data-id="${c.id}" title="Editar">${I.settings}</button>
+            <button class="adm-btn danger" data-action="delete-campaign" data-id="${c.id}" title="Excluir">${I.alert}</button>
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>`,
+
+  adminParceiros: () => `<div class="page container">
+    ${adminHeader('Parceiros', 'Profissionais e empresas da comunidade', 'parceiro')}
+    <div class="admin-list">
+      <div class="admin-row admin-head">
+        <div class="ar-tag">SIGLA</div>
+        <div class="ar-main">PARCEIRO</div>
+        <div class="ar-meta">CATEGORIA</div>
+        <div class="ar-actions"></div>
+      </div>
+      ${state.partners.map(p => `
+        <div class="admin-row">
+          <div class="ar-tag"><div class="adm-avatar">${p.initials}</div></div>
+          <div class="ar-main">
+            <div class="ar-title">${escape(p.name)}</div>
+            <div class="ar-sub">${escape(p.phone)} · ${escape(p.email)}</div>
+          </div>
+          <div class="ar-meta"><span class="adm-pill">${p.catLabel}</span></div>
+          <div class="ar-actions">
+            <button class="adm-btn" data-action="edit-partner" data-id="${p.id}" title="Editar">${I.settings}</button>
+            <button class="adm-btn danger" data-action="delete-partner" data-id="${p.id}" title="Excluir">${I.alert}</button>
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>`,
+
+  adminGaleria: () => {
+    const all = [
+      ...state.galleryAlbums.fotos.map(g => ({ ...g, album: 'Fotos' })),
+      ...state.galleryAlbums.videos.map(g => ({ ...g, album: 'Vídeos' })),
+      ...state.galleryAlbums.imagens.map(g => ({ ...g, album: 'Destaques' })),
+    ];
+    return `<div class="page container">
+      ${adminHeader('Galeria', 'Fotos, vídeos e destaques da igreja', 'item')}
+      <div class="admin-grid">
+        ${all.map(g => `
+          <div class="admin-tile">
+            <div class="adm-thumb">${SVG.gallery(g)}</div>
+            <div class="adm-tile-body">
+              <span class="adm-pill" style="margin-bottom:6px">${g.album}</span>
+              <div class="ar-title">${escape(g.title || '—')}</div>
+              <div class="ar-sub">${escape(g.subtitle || (g.video ? 'Vídeo' : 'Imagem'))}</div>
+            </div>
+            <div class="adm-tile-actions">
+              <button class="adm-btn" data-action="edit-gallery" data-id="${g.id}" title="Editar">${I.settings}</button>
+              <button class="adm-btn danger" data-action="delete-gallery" data-id="${g.id}" title="Excluir">${I.alert}</button>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  },
+
   contribSuccess: (amount) => `<div class="page container">
     <div class="success-wrap">
       <div class="success-icon">${I.check}</div>
@@ -889,6 +1043,18 @@ function render() {
   else if (name === 'contato') html = Pages.contato();
   else if (name === 'oracao') html = Pages.oracao();
   else if (name === 'lider') html = Pages.lider(params.id);
+  else if (name === 'admin' || name === 'admin-eventos' || name === 'admin-campanhas' || name === 'admin-parceiros' || name === 'admin-galeria') {
+    const isLeader = state.user.current === 'leader' || state.user.current === 'pastor' || state.user.delegated.includes(state.user.current);
+    const isPastor = state.user.current === 'pastor' || state.user.delegated.includes(state.user.current);
+    const pastorOnly = ['admin-campanhas', 'admin-parceiros'];
+    if (!isLeader || (pastorOnly.includes(name) && !isPastor)) {
+      html = `<div class="page container"><div class="success-wrap"><div class="eyebrow">Acesso Restrito</div><h1 class="page-title" style="font-size:28px">Sem permissão</h1><p style="color:var(--text-muted);line-height:1.7">Esta seção é restrita a ${pastorOnly.includes(name) ? 'pastor' : 'líderes'}. Troque o perfil no menu lateral para visualizar.</p><button class="btn btn-secondary btn-lg" style="margin-top:24px" data-route="home">${I.back} Voltar</button></div></div>`;
+    } else if (name === 'admin') html = Pages.admin();
+    else if (name === 'admin-eventos') html = Pages.adminEventos();
+    else if (name === 'admin-campanhas') html = Pages.adminCampanhas();
+    else if (name === 'admin-parceiros') html = Pages.adminParceiros();
+    else if (name === 'admin-galeria') html = Pages.adminGaleria();
+  }
   else if (name === 'pastor') {
     if (state.user.current === 'pastor' || state.user.delegated.includes(state.user.current)) {
       html = Pages.pastor();
@@ -1175,7 +1341,231 @@ const Actions = {
     closeModal();
     showToast(`Comunicado enviado para ${state.pastor.members.active} membros 📣`);
   },
+
+  /* ============================================================
+     CRUD — Eventos / Campanhas / Parceiros / Galeria
+  ============================================================ */
+  'new-evento':    () => openEventForm(null),
+  'edit-event':    (el) => openEventForm(state.events.find(x => x.id == el.dataset.id)),
+  'delete-event':  (el) => confirmDelete('evento', () => {
+    const id = +el.dataset.id;
+    state.events = state.events.filter(e => e.id !== id);
+    showToast('Evento excluído'); render();
+  }),
+  'save-event': () => {
+    const id = $('#fId').value;
+    const data = {
+      title: $('#fTitle').value.trim(),
+      tag: $('#fTag').value,
+      date: $('#fDate').value.trim(),
+      time: $('#fTime').value.trim(),
+      day: ($('#fDate').value.match(/\d+/) || ['01'])[0].padStart(2,'0'),
+      month: $('#fMonth').value,
+      location: $('#fLocation').value.trim(),
+      desc: $('#fDesc').value.trim(),
+      icon: $('#fTag').value === 'CULTO' ? 'cal' : $('#fTag').value === 'ORAÇÃO' ? 'pray' : $('#fTag').value === 'JOVENS' ? 'youth' : 'flower',
+      going: 0,
+    };
+    if (!data.title || !data.date) { showToast('Preencha título e data', true); return; }
+    if (id){
+      Object.assign(state.events.find(e => e.id == id), data);
+      showToast('Evento atualizado');
+    } else {
+      data.id = Date.now();
+      state.events.unshift(data);
+      showToast('Evento criado');
+    }
+    closeModal(); render();
+  },
+
+  'new-campanha':   () => openCampaignForm(null),
+  'edit-campaign':  (el) => openCampaignForm(state.campaigns.find(x => x.id == el.dataset.id)),
+  'delete-campaign':(el) => confirmDelete('campanha', () => {
+    const id = +el.dataset.id;
+    state.campaigns = state.campaigns.filter(c => c.id !== id);
+    showToast('Campanha excluída'); render();
+  }),
+  'save-campaign': () => {
+    const id = $('#fId').value;
+    const data = {
+      title: $('#fTitle').value.trim(),
+      period: $('#fPeriod').value.trim(),
+      desc: $('#fDesc').value.trim(),
+      percent: Math.max(0, Math.min(100, +$('#fPercent').value || 0)),
+      label: $('#fLabel').value.trim(),
+      goal: $('#fGoal').value.trim(),
+      img: $('#fImg').value,
+    };
+    if (!data.title) { showToast('Preencha o título', true); return; }
+    if (id){
+      Object.assign(state.campaigns.find(c => c.id == id), data);
+      showToast('Campanha atualizada');
+    } else {
+      data.id = Date.now();
+      state.campaigns.unshift(data);
+      showToast('Campanha criada');
+    }
+    closeModal(); render();
+  },
+
+  'new-parceiro':   () => openPartnerForm(null),
+  'edit-partner':   (el) => openPartnerForm(state.partners.find(x => x.id == el.dataset.id)),
+  'delete-partner': (el) => confirmDelete('parceiro', () => {
+    const id = +el.dataset.id;
+    state.partners = state.partners.filter(p => p.id !== id);
+    showToast('Parceiro excluído'); render();
+  }),
+  'save-partner': () => {
+    const id = $('#fId').value;
+    const cat = $('#fCat').value;
+    const catLabels = { saude: 'Saúde', juridico: 'Jurídico', beleza: 'Beleza', educacao: 'Educação', contabil: 'Contábil', alimentacao: 'Alimentação', automotivo: 'Automotivo' };
+    const name = $('#fName').value.trim();
+    const data = {
+      name,
+      initials: name.split(/\s+/).map(w => w[0]).slice(0,2).join('').toUpperCase() || '??',
+      cat,
+      catLabel: catLabels[cat] || 'Outros',
+      email: $('#fEmail').value.trim(),
+      phone: $('#fPhone').value.trim(),
+      desc: $('#fDesc').value.trim(),
+      services: $('#fServices').value.split(',').map(s => s.trim()).filter(Boolean),
+    };
+    if (!data.name || !data.phone) { showToast('Preencha nome e telefone', true); return; }
+    if (id){
+      Object.assign(state.partners.find(p => p.id == id), data);
+      showToast('Parceiro atualizado');
+    } else {
+      data.id = Date.now();
+      state.partners.unshift(data);
+      showToast('Parceiro cadastrado');
+    }
+    closeModal(); render();
+  },
+
+  'new-item':       () => openGalleryForm(null),
+  'edit-gallery':   (el) => {
+    const id = +el.dataset.id;
+    const all = [...state.galleryAlbums.fotos, ...state.galleryAlbums.videos, ...state.galleryAlbums.imagens];
+    openGalleryForm(all.find(g => g.id === id));
+  },
+  'delete-gallery': (el) => confirmDelete('item', () => {
+    const id = +el.dataset.id;
+    state.galleryAlbums.fotos    = state.galleryAlbums.fotos.filter(g => g.id !== id);
+    state.galleryAlbums.videos   = state.galleryAlbums.videos.filter(g => g.id !== id);
+    state.galleryAlbums.imagens  = state.galleryAlbums.imagens.filter(g => g.id !== id);
+    showToast('Item excluído'); render();
+  }),
+  'save-gallery': () => {
+    const id = $('#fId').value;
+    const album = $('#fAlbum').value;
+    const data = {
+      title: $('#fTitle').value.trim(),
+      subtitle: $('#fSubtitle').value.trim(),
+      color1: '#142844', color2: '#0A1628',
+    };
+    if (album === 'imagens'){ data.text = data.title.toUpperCase().slice(0, 8); data.color1 = '#C9A961'; data.color2 = '#0A1628'; }
+    else if (album === 'videos'){ data.video = true; }
+    else { data.shape = 'people'; }
+    if (!data.title) { showToast('Preencha o título', true); return; }
+    if (id){
+      const all = [state.galleryAlbums.fotos, state.galleryAlbums.videos, state.galleryAlbums.imagens];
+      for (const arr of all){
+        const it = arr.find(g => g.id == id);
+        if (it){ Object.assign(it, data); break; }
+      }
+      showToast('Item atualizado');
+    } else {
+      data.id = Date.now();
+      state.galleryAlbums[album].unshift(data);
+      showToast('Item adicionado à galeria');
+    }
+    closeModal(); render();
+  },
+
+  'confirm-delete': () => {
+    if (typeof Actions._pendingDelete === 'function') Actions._pendingDelete();
+    Actions._pendingDelete = null;
+    closeModal();
+  },
 };
+
+/* ============================================================
+   CRUD — formulários (modais)
+============================================================ */
+function confirmDelete(kind, fn){
+  Actions._pendingDelete = fn;
+  openModal('CONFIRMAR EXCLUSÃO',
+    `<p style="font-size:14px;line-height:1.6;color:var(--text-muted);margin:0">Tem certeza que deseja excluir este <strong style="color:var(--text)">${kind}</strong>? Essa ação não pode ser desfeita.</p>`,
+    `<button class="btn btn-primary" style="background:linear-gradient(135deg,#DC2626,#991B1B);color:#fff" data-action="confirm-delete">${I.alert} EXCLUIR</button><button class="btn btn-ghost" data-action="close-modal">CANCELAR</button>`);
+}
+
+function openEventForm(e){
+  const isEdit = !!e;
+  const v = e || { title: '', tag: 'CULTO', date: '', time: '', month: 'JUN', location: '', desc: '' };
+  openModal(isEdit ? 'EDITAR EVENTO' : 'NOVO EVENTO',
+    `<input type="hidden" id="fId" value="${e ? e.id : ''}"/>
+     <div class="field"><label>Título</label><input id="fTitle" type="text" value="${escape(v.title)}" placeholder="Ex: Culto da Família"/></div>
+     <div class="field"><label>Categoria</label><select id="fTag">${['CULTO','ORAÇÃO','JOVENS','MULHERES'].map(t => `<option ${v.tag === t ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
+     <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px"><div class="field"><label>Data</label><input id="fDate" type="text" value="${escape(v.date)}" placeholder="Ex: 25 de Maio"/></div><div class="field"><label>Mês (sigla)</label><select id="fMonth">${['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'].map(m => `<option ${v.month === m ? 'selected' : ''}>${m}</option>`).join('')}</select></div></div>
+     <div class="field"><label>Horário</label><input id="fTime" type="text" value="${escape(v.time)}" placeholder="Ex: 19h30"/></div>
+     <div class="field"><label>Local</label><input id="fLocation" type="text" value="${escape(v.location)}" placeholder="Ex: Templo Central"/></div>
+     <div class="field"><label>Descrição</label><textarea id="fDesc" placeholder="Detalhes do evento...">${escape(v.desc)}</textarea></div>`,
+    `<button class="btn btn-primary" data-action="save-event">${I.check} ${isEdit ? 'SALVAR' : 'CRIAR'}</button><button class="btn btn-ghost" data-action="close-modal">CANCELAR</button>`);
+}
+
+function openCampaignForm(c){
+  const isEdit = !!c;
+  const v = c || { title: '', period: '', desc: '', percent: 0, label: '', goal: '', img: 'oracao' };
+  openModal(isEdit ? 'EDITAR CAMPANHA' : 'NOVA CAMPANHA',
+    `<input type="hidden" id="fId" value="${c ? c.id : ''}"/>
+     <div class="field"><label>Título</label><input id="fTitle" type="text" value="${escape(v.title)}" placeholder="Ex: Campanha de Oração"/></div>
+     <div class="field"><label>Período</label><input id="fPeriod" type="text" value="${escape(v.period)}" placeholder="Ex: De 10 a 20 de Maio"/></div>
+     <div class="field"><label>Descrição</label><textarea id="fDesc">${escape(v.desc)}</textarea></div>
+     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+       <div class="field"><label>% Concluído</label><input id="fPercent" type="number" min="0" max="100" value="${v.percent}"/></div>
+       <div class="field"><label>Imagem</label><select id="fImg">${[['oracao','Oração'],['food','Alimento'],['mission','Missões'],['church','Templo']].map(([k,n]) => `<option value="${k}" ${v.img === k ? 'selected' : ''}>${n}</option>`).join('')}</select></div>
+     </div>
+     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+       <div class="field"><label>Label de progresso</label><input id="fLabel" type="text" value="${escape(v.label)}" placeholder="Ex: 2.340 orantes"/></div>
+       <div class="field"><label>Meta</label><input id="fGoal" type="text" value="${escape(v.goal)}" placeholder="Ex: R$ 50.000"/></div>
+     </div>`,
+    `<button class="btn btn-primary" data-action="save-campaign">${I.check} ${isEdit ? 'SALVAR' : 'CRIAR'}</button><button class="btn btn-ghost" data-action="close-modal">CANCELAR</button>`);
+}
+
+function openPartnerForm(p){
+  const isEdit = !!p;
+  const v = p || { name: '', cat: 'saude', email: '', phone: '', desc: '', services: [] };
+  const cats = [['saude','Saúde'],['juridico','Jurídico'],['beleza','Beleza'],['educacao','Educação'],['contabil','Contábil'],['alimentacao','Alimentação'],['automotivo','Automotivo']];
+  openModal(isEdit ? 'EDITAR PARCEIRO' : 'NOVO PARCEIRO',
+    `<input type="hidden" id="fId" value="${p ? p.id : ''}"/>
+     <div class="field"><label>Nome</label><input id="fName" type="text" value="${escape(v.name)}" placeholder="Ex: Clínica Saúde Vida"/></div>
+     <div class="field"><label>Categoria</label><select id="fCat">${cats.map(([k,n]) => `<option value="${k}" ${v.cat === k ? 'selected' : ''}>${n}</option>`).join('')}</select></div>
+     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+       <div class="field"><label>Telefone</label><input id="fPhone" type="text" value="${escape(v.phone)}" placeholder="(11) 98765-1234"/></div>
+       <div class="field"><label>Email</label><input id="fEmail" type="email" value="${escape(v.email)}" placeholder="contato@..."/></div>
+     </div>
+     <div class="field"><label>Descrição</label><textarea id="fDesc" placeholder="Apresentação do parceiro...">${escape(v.desc)}</textarea></div>
+     <div class="field"><label>Serviços (separe por vírgula)</label><input id="fServices" type="text" value="${escape(v.services.join(', '))}" placeholder="Ex: Clínica geral, Pediatria, Exames"/></div>`,
+    `<button class="btn btn-primary" data-action="save-partner">${I.check} ${isEdit ? 'SALVAR' : 'CRIAR'}</button><button class="btn btn-ghost" data-action="close-modal">CANCELAR</button>`);
+}
+
+function openGalleryForm(g){
+  const isEdit = !!g;
+  // descobre album do item existente
+  let curAlbum = 'fotos';
+  if (g){
+    if (state.galleryAlbums.videos.find(x => x.id === g.id)) curAlbum = 'videos';
+    else if (state.galleryAlbums.imagens.find(x => x.id === g.id)) curAlbum = 'imagens';
+  }
+  const v = g || { title: '', subtitle: '' };
+  openModal(isEdit ? 'EDITAR ITEM' : 'NOVO ITEM DA GALERIA',
+    `<input type="hidden" id="fId" value="${g ? g.id : ''}"/>
+     <div class="field"><label>Álbum</label><select id="fAlbum" ${isEdit ? 'disabled' : ''}>${[['fotos','Fotos'],['videos','Vídeos'],['imagens','Destaques']].map(([k,n]) => `<option value="${k}" ${curAlbum === k ? 'selected' : ''}>${n}</option>`).join('')}</select></div>
+     <div class="field"><label>Título</label><input id="fTitle" type="text" value="${escape(v.title || '')}" placeholder="Ex: Culto Domingo"/></div>
+     <div class="field"><label>Subtítulo / data</label><input id="fSubtitle" type="text" value="${escape(v.subtitle || '')}" placeholder="Ex: 12 de Maio"/></div>
+     <p style="font-size:11px;color:var(--text-muted);line-height:1.5;margin:8px 0 0">💡 No mockup, a imagem é gerada automaticamente. Em produção, aqui teria upload.</p>`,
+    `<button class="btn btn-primary" data-action="save-gallery">${I.check} ${isEdit ? 'SALVAR' : 'CRIAR'}</button><button class="btn btn-ghost" data-action="close-modal">CANCELAR</button>`);
+}
 
 /* ============================================================
    DRAWERS / MODALS / LIGHTBOX / TOAST / SEARCH
@@ -1234,9 +1624,16 @@ function renderDrawerMenu() {
        <button class="drawer-item ${state.route.name === 'pastor' ? 'active' : ''}" data-route="pastor" data-action="nav-from-drawer"><span class="restricted-dot"></span>${I.cross}<span class="drawer-item-label">Visão do Pastor</span>${I.arrow}</button>`
     : '';
 
+  // Gestão de cadastros — Líder vê (acesso restrito), Pastor vê tudo
+  const gestao = isLeader
+    ? `<div class="drawer-section">GESTÃO DE CADASTROS</div>
+       <button class="drawer-item ${state.route.name === 'admin' ? 'active' : ''}" data-route="admin" data-action="nav-from-drawer"><span class="restricted-dot" style="background:#3B82F6;box-shadow:0 0 8px rgba(59,130,246,0.6)"></span>${I.settings}<span class="drawer-item-label">Eventos, campanhas & mais</span>${I.arrow}</button>`
+    : '';
+
   $('#drawerBody').innerHTML = switcher
     + `<div class="drawer-section">NAVEGAÇÃO</div>`
     + items.filter(it => it.show).map(it => `<button class="drawer-item ${state.route.name === it.route ? 'active' : ''}" data-route="${it.route}" data-action="nav-from-drawer">${I[it.icon]}<span class="drawer-item-label">${it.label}</span>${I.arrow}</button>`).join('')
+    + gestao
     + restricted;
 }
 

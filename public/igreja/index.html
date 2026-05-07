@@ -670,6 +670,64 @@ input:focus,textarea:focus{outline:none;border-color:var(--gold)}
 .weekday-label{font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--text);text-transform:uppercase}
 .weekday-pct{font-size:10px;color:var(--text-muted);font-weight:500}
 
+/* ============================================================
+   ADMIN — gestão de cadastros
+============================================================ */
+.admin-card{background:linear-gradient(135deg,var(--bg-elev-1),var(--bg-elev-2));border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;text-align:left;cursor:pointer;transition:all .25s var(--ease);display:flex;flex-direction:column;gap:12px;width:100%;min-height:180px}
+.admin-card:hover:not(.locked){transform:translateY(-3px);border-color:var(--gold);box-shadow:var(--shadow-2)}
+.admin-card.locked{opacity:0.5;cursor:not-allowed}
+.admin-card-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.admin-card-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;flex-shrink:0}
+.admin-card-icon svg{width:26px;height:26px}
+.admin-card-count{font-size:11px;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;padding:5px 10px;background:var(--bg-deep);border:1px solid var(--border-soft);border-radius:999px}
+.admin-card-lock{font-size:10px;color:var(--gold-bright);letter-spacing:0.16em;font-weight:700;padding:5px 10px;background:rgba(229,199,122,0.12);border:1px solid var(--gold);border-radius:999px}
+.admin-card-title{font-family:'Cinzel',serif;font-size:22px;font-weight:600;letter-spacing:0.06em;color:var(--gold-bright);text-transform:uppercase;margin-top:auto}
+.admin-card-desc{font-size:13px;color:var(--text-muted);line-height:1.5;margin:0}
+.admin-card-foot{font-size:11px;color:var(--gold);letter-spacing:0.14em;font-weight:600;text-transform:uppercase;display:flex;align-items:center;gap:6px;margin-top:8px}
+.admin-card-foot svg{width:14px;height:14px;transition:transform .2s var(--ease)}
+.admin-card:hover:not(.locked) .admin-card-foot svg{transform:translateX(3px)}
+.admin-card-foot.muted{color:var(--text-muted)}
+
+/* Lista admin (eventos, campanhas, parceiros) */
+.admin-list{display:flex;flex-direction:column;gap:8px;margin-bottom:32px}
+.admin-row{display:grid;grid-template-columns:64px 1fr 110px 84px;gap:14px;align-items:center;padding:14px 16px;background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:var(--radius);transition:all .2s var(--ease)}
+.admin-row:hover:not(.admin-head){border-color:var(--border);background:var(--bg-elev-2)}
+.admin-row.admin-head{background:transparent;border:none;padding:8px 16px 4px;font-size:10px;letter-spacing:0.18em;color:var(--text-muted);text-transform:uppercase;font-weight:700}
+@media(max-width:640px){
+  .admin-row{grid-template-columns:1fr 84px;gap:10px}
+  .admin-row > .ar-tag,.admin-row > .ar-meta{display:none}
+  .admin-row.admin-head{display:none}
+}
+.ar-tag{display:flex;align-items:center}
+.ar-main{min-width:0}
+.ar-title{font-size:14px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ar-sub{font-size:11px;color:var(--text-muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ar-meta{font-size:12px;color:var(--text-muted);font-weight:500;line-height:1.4}
+.ar-meta small{font-size:10px;color:var(--text-dim)}
+.ar-actions{display:flex;gap:6px;justify-content:flex-end;flex-shrink:0}
+.adm-pill{display:inline-block;padding:3px 10px;background:var(--gold-soft);color:var(--gold-bright);border:1px solid var(--gold);border-radius:999px;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase}
+.adm-avatar{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold-bright));color:#1A1208;border-radius:10px;display:grid;place-items:center;font-weight:700;font-size:13px;font-family:'Cinzel',serif}
+.adm-btn{width:36px;height:36px;background:var(--bg-deep);border:1px solid var(--border-soft);border-radius:8px;color:var(--gold);display:grid;place-items:center;cursor:pointer;transition:all .2s var(--ease)}
+.adm-btn:hover{border-color:var(--gold);background:var(--gold-soft)}
+.adm-btn.danger{color:var(--danger)}
+.adm-btn.danger:hover{border-color:var(--danger);background:rgba(248,113,113,0.1)}
+.adm-btn svg{width:16px;height:16px}
+
+/* Grid de galeria admin */
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:32px}
+.admin-tile{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.admin-tile:hover{border-color:var(--border)}
+.adm-thumb{aspect-ratio:1;position:relative;overflow:hidden}
+.adm-thumb svg{width:100%;height:100%;display:block}
+.adm-tile-body{padding:12px;display:flex;flex-direction:column;gap:4px;min-height:78px}
+.adm-tile-body .ar-title{white-space:normal;font-size:13px}
+.adm-tile-actions{display:flex;gap:6px;padding:0 12px 12px;justify-content:flex-end}
+
+/* Form fields em modais */
+.field select{font-family:inherit;color:var(--text);background:var(--bg-deep);border:1px solid var(--border-soft);border-radius:10px;padding:11px 14px;font-size:14px;width:100%;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C9A961' stroke-width='2' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 12px center;background-size:18px;padding-right:38px}
+.field select:focus{outline:none;border-color:var(--gold)}
+.field select:disabled{opacity:0.5;cursor:not-allowed}
+
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
 </style>
 </head>
