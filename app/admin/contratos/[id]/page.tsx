@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback, use } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { AdminPageHeader } from "../../components/AdminPageHeader";
 import {
@@ -86,9 +86,9 @@ function brl(cents: number): string {
 export default function ContractDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }) {
-  const { id } = use(params);
+  const { id } = params;
   const router = useRouter();
   const [contract, setContract] = useState<Contract | null>(null);
   const [timeline, setTimeline] = useState<TimelineEntry[]>([]);
