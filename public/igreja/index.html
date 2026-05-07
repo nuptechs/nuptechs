@@ -655,6 +655,21 @@ input:focus,textarea:focus{outline:none;border-color:var(--gold)}
 .elect-row input{width:18px;height:18px;accent-color:var(--gold);margin:0;flex-shrink:0}
 .elect-row > div{flex:1;min-width:0}
 
+/* ============================================================
+   WEEKDAY BARS — distribuição da receita por dia da semana
+============================================================ */
+.weekday-bars{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;height:240px;padding:8px 0}
+@media(min-width:640px){.weekday-bars{gap:14px}}
+.weekday-col{display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;cursor:pointer;transition:transform .2s var(--ease)}
+.weekday-col:hover{transform:translateY(-2px)}
+.weekday-value{font-family:'Cinzel',serif;font-size:11px;color:var(--gold-bright);font-weight:600;letter-spacing:0.04em;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+@media(min-width:640px){.weekday-value{font-size:13px}}
+.weekday-bar-track{flex:1;width:100%;max-width:48px;background:var(--bg-deep);border-radius:6px 6px 0 0;display:flex;align-items:flex-end;overflow:hidden;border:1px solid var(--border-soft)}
+.weekday-bar-fill{width:100%;background:linear-gradient(180deg,var(--gold-bright),var(--gold));border-radius:6px 6px 0 0;transition:height 800ms var(--ease);min-height:4px}
+.weekday-col:hover .weekday-bar-fill{background:linear-gradient(180deg,#F5DCA0,var(--gold-bright))}
+.weekday-label{font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--text);text-transform:uppercase}
+.weekday-pct{font-size:10px;color:var(--text-muted);font-weight:500}
+
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
 </style>
 </head>
