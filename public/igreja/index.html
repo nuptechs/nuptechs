@@ -106,7 +106,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--gold)}
 @media (min-width:768px){.cta-mobile{display:none}.cta-desktop{display:flex}}
 
 .hamburger{display:flex}
-@media (min-width:1024px){.hamburger{display:none}}
+/* hamburguer sempre visível — drawer tem switcher de perfil + Painel Pastor */
 
 /* ============================================================
    MOBILE DRAWER (menu lateral)
@@ -573,14 +573,16 @@ input:focus,textarea:focus{outline:none;border-color:var(--gold)}
 /* ============================================================
    LEADER PROFILE PAGE
 ============================================================ */
-.leader-profile{display:flex;flex-direction:column;gap:24px;align-items:center;text-align:center;margin:24px 0 32px}
-@media (min-width:768px){.leader-profile{flex-direction:row;align-items:center;text-align:left;gap:32px}}
-.leader-cover{width:200px;height:200px;border-radius:50%;overflow:hidden;border:3px solid var(--gold);box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 0 8px rgba(201,169,97,0.08);flex-shrink:0;background:var(--bg-elev-2)}
-@media (min-width:768px){.leader-cover{width:240px;height:240px}}
-.leader-cover img{width:100%;height:100%;object-fit:cover;display:block}
-.leader-meta{flex:1}
-.leader-meta .leader-name{font-family:'Cinzel',serif;font-size:clamp(24px,4vw,36px);font-weight:600;letter-spacing:0.06em;color:var(--gold-bright);margin:14px 0 8px;text-transform:uppercase;line-height:1.2}
-.leader-yr{font-size:13px;color:var(--text-muted);margin:0;letter-spacing:0.04em;font-style:italic}
+.leader-hero{display:flex;flex-direction:column;gap:24px;margin:24px 0 24px}
+@media (min-width:768px){.leader-hero{display:grid;grid-template-columns:minmax(280px,360px) 1fr;gap:36px;align-items:start}}
+.leader-portrait{width:100%;max-width:360px;margin:0 auto;aspect-ratio:2/3;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--gold);box-shadow:0 18px 48px rgba(0,0,0,0.55),0 0 0 6px rgba(201,169,97,0.06);background:var(--bg-elev-2)}
+@media (min-width:768px){.leader-portrait{margin:0;max-width:none}}
+.leader-portrait img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.leader-meta{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.leader-meta .detail-tag{margin-bottom:6px}
+.leader-meta .leader-name{font-family:'Cinzel',serif;font-size:clamp(24px,4vw,36px);font-weight:600;letter-spacing:0.06em;color:var(--gold-bright);margin:6px 0 8px;text-transform:uppercase;line-height:1.2}
+.leader-yr{font-size:13px;color:var(--text-muted);margin:0 0 18px;letter-spacing:0.04em;font-style:italic}
+.leader-meta .leader-block{margin-bottom:0;width:100%}
 
 .leader-block{padding:28px 24px;background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:var(--radius-lg);margin-bottom:16px;position:relative}
 .leader-block.accent{background:linear-gradient(135deg,var(--bg-elev-1),var(--bg-elev-2));border-color:var(--gold)}
