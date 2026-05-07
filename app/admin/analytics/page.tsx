@@ -123,7 +123,7 @@ export default function AnalyticsPage() {
       </section>
 
       {/* Two columns: Top Pages + Referrers */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+      <div className="admin-grid-cols-2">
         {/* Top Pages */}
         <section className="admin-section">
           <div className="admin-section-header">

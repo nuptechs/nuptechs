@@ -478,12 +478,8 @@ export default function CartoesPage() {
 
       {!loading && templates.length > 0 && (
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-            gap: 16,
-            marginTop: 20,
-          }}
+          className="admin-grid-auto"
+          style={{ gap: 16, marginTop: 20 }}
         >
           {templates.map((t) => (
             <TemplateCard

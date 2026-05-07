@@ -110,7 +110,7 @@ export default function SettingsPage() {
         <div className="admin-section-header"><h2>Informações da Empresa</h2></div>
         <div className="admin-card">
           <div className="admin-card-body">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+            <div className="admin-grid-cols-2">
               <div className="admin-form-group">
                 <label className="admin-form-label">Nome da Empresa</label>
                 <input className="admin-input" value={settings.companyName} onChange={(e) => updateField("companyName", e.target.value)} />
@@ -137,7 +137,7 @@ export default function SettingsPage() {
         <div className="admin-section-header"><h2>Redes Sociais</h2></div>
         <div className="admin-card">
           <div className="admin-card-body">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem" }}>
+            <div className="admin-grid-cols-3">
               <div className="admin-form-group">
                 <label className="admin-form-label">LinkedIn</label>
                 <input className="admin-input" placeholder="https://linkedin.com/company/..." value={settings.socialLinkedin} onChange={(e) => updateField("socialLinkedin", e.target.value)} />
@@ -179,7 +179,7 @@ export default function SettingsPage() {
         <div className="admin-section-header"><h2>Integrações</h2></div>
         <div className="admin-card">
           <div className="admin-card-body">
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1rem" }}>
+            <div className="admin-grid-auto">
               {Object.entries(settings.integrations).map(([key, active]) => (
                 <div key={key} style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.75rem", background: "var(--surface-raised)", borderRadius: "0.5rem" }}>
                   <span style={{ width: 8, height: 8, borderRadius: "50%", background: active ? "#10b981" : "#ef4444", flexShrink: 0 }} />
