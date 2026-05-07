@@ -6,8 +6,9 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   LayoutGrid, Inbox, Calendar, MessageCircle, CreditCard,
   PenSquare, BarChart3, Download, ShieldAlert, Settings,
-  LogOut, ArrowLeft, FileText,
+  LogOut, ArrowLeft, FileText, X,
 } from "lucide-react";
+import { SIDEBAR_TOGGLE_EVENT } from "./MobileMenuButton";
 
 type RequiredPermission = "nuptechs:admin" | "nuptechs:content" | "nuptechs:viewer";
 
@@ -38,10 +39,38 @@ export function AdminSidebar() {
   const [user, setUser] = useState<{ name?: string; email?: string } | null>(null);
   const [permissions, setPermissions] = useState<string[]>([]);
   const [permissionsChanged, setPermissionsChanged] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [counts, setCounts] = useState<{ newLeads: number; pendingSchedules: number }>({
     newLeads: 0,
     pendingSchedules: 0,
   });
+
+  // Toggle via evento global (vindo do MobileMenuButton).
+  useEffect(() => {
+    const onToggle = () => setMobileOpen((o) => !o);
+    window.addEventListener(SIDEBAR_TOGGLE_EVENT, onToggle);
+    return () => window.removeEventListener(SIDEBAR_TOGGLE_EVENT, onToggle);
+  }, []);
+
+  // Fecha ao trocar de rota.
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  // Fecha em ESC + lock do scroll do body enquanto aberto.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [mobileOpen]);
 
   useEffect(() => {
     fetch("/api/auth/me")
@@ -187,13 +216,31 @@ export function AdminSidebar() {
       : "Visualizador";
 
   return (
-    <aside className="admin-sidebar">
+    <>
+      {/* Backdrop só aparece em mobile quando o drawer está aberto. */}
+      <div
+        className={`admin-sidebar-backdrop ${mobileOpen ? "is-visible" : ""}`}
+        aria-hidden="true"
+        onClick={() => setMobileOpen(false)}
+      />
+      <aside
+        className={`admin-sidebar ${mobileOpen ? "is-open" : ""}`}
+        aria-label="Navegação principal"
+      >
       <div className="admin-sidebar-header">
         <Link href="/admin" className="admin-logo" aria-label="NuPtechs Admin">
           <span className="admin-logo-mark" aria-hidden />
           <span className="admin-logo-text">NuPtechs</span>
           <span className="admin-logo-sub">Admin</span>
         </Link>
+        <button
+          type="button"
+          aria-label="Fechar menu"
+          className="admin-sidebar-close"
+          onClick={() => setMobileOpen(false)}
+        >
+          <X size={18} strokeWidth={1.75} />
+        </button>
       </div>
 
       {permissionsChanged && (
@@ -258,6 +305,7 @@ export function AdminSidebar() {
           <span>Voltar ao site</span>
         </Link>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }

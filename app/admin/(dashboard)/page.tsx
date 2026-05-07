@@ -172,7 +172,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Pipeline Overview + Sparkline */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "2.5rem" }}>
+      <div className="admin-grid-cols-2" style={{ marginBottom: "2.5rem" }}>
         {/* Lead Pipeline */}
         <div className="admin-card">
           <div className="admin-card-header">

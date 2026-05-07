@@ -133,6 +133,36 @@
 .admin-sidebar-header {
   padding: 14px 14px;
   border-bottom: 1px solid var(--ad-border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Botão "X" no header da sidebar — só visível quando drawer mobile está aberto. */
+.admin-sidebar-close {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  color: var(--ad-text);
+  border-radius: var(--ad-r-sm);
+  cursor: pointer;
+  transition: background var(--ad-tx);
+}
+.admin-sidebar-close:hover { background: var(--ad-action-soft); }
+
+/* Backdrop do drawer mobile — fica oculto fora de mobile. */
+.admin-sidebar-backdrop {
+  display: none;
+}
+
+/* Botão hambúrguer — fica oculto fora de mobile. */
+.admin-mobile-menu-btn {
+  display: none;
 }
 
 .admin-logo {
@@ -325,15 +355,170 @@
   padding: 32px 40px 64px;
 }
 
+/* ─── Mobile (≤ 768px) ──────────────────────────────────────────────────
+ * Sidebar deixa de ser fixa colada à esquerda e vira um drawer disparado
+ * pelo botão hambúrguer. O conteúdo ocupa 100% e ganha respiro vertical
+ * extra no topo (pra não ficar atrás do botão flutuante).
+ * ─────────────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .admin-sidebar { width: 64px; }
-  .admin-sidebar .admin-nav-item span:not(.admin-nav-icon) { display: none; }
-  .admin-sidebar .admin-nav-section,
-  .admin-sidebar .admin-user-info,
-  .admin-sidebar .admin-logo-text,
-  .admin-sidebar .admin-logo-sub { display: none; }
-  .admin-main { margin-left: 64px; }
-  .admin-content { padding: 24px 20px 48px; }
+  /* Sidebar = drawer */
+  .admin-sidebar {
+    width: 280px;
+    transform: translateX(-100%);
+    transition: transform 200ms cubic-bezier(0.32, 0.72, 0, 1);
+    z-index: 200;
+    box-shadow: var(--ad-sh-lg);
+  }
+  .admin-sidebar.is-open { transform: translateX(0); }
+  .admin-sidebar-close { display: inline-flex; }
+
+  /* Backdrop atrás do drawer */
+  .admin-sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 15, 15, 0.45);
+    backdrop-filter: blur(4px);
+    z-index: 199;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease;
+  }
+  .admin-sidebar-backdrop.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Botão hambúrguer flutuante (canto superior esquerdo) */
+  .admin-mobile-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    width: 40px;
+    height: 40px;
+    z-index: 150;
+    border: 1px solid var(--ad-border-2);
+    background: var(--ad-surface);
+    color: var(--ad-text);
+    border-radius: var(--ad-r-md);
+    cursor: pointer;
+    box-shadow: var(--ad-sh-sm);
+    transition: background var(--ad-tx);
+  }
+  .admin-mobile-menu-btn:hover { background: var(--ad-surface-2); }
+  .admin-mobile-menu-btn:active { transform: translateY(1px); }
+
+  /* Main passa a usar a largura toda + padding superior pra não colidir com o hambúrguer */
+  .admin-main { margin-left: 0; }
+  .admin-content { padding: 64px 16px 48px; }
+
+  /* Page header empilha em coluna; ações descem abaixo do título */
+  .admin-page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+  }
+  .admin-page-header h1 { font-size: 22px; }
+  .admin-subtitle { font-size: 13px; }
+  .admin-header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Stats: tighter, valores menores */
+  .admin-stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .admin-stat-card { padding: 14px; }
+  .admin-stat-value { font-size: 24px; }
+
+  /* Filtros: scroll horizontal sem quebra de linha */
+  .admin-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -16px 20px;
+    padding: 0 16px 4px;
+    scrollbar-width: none;
+  }
+  .admin-filters::-webkit-scrollbar { display: none; }
+  .admin-filter-chip { flex-shrink: 0; min-height: 36px; padding: 7px 14px; font-size: 13px; }
+
+  /* Search: ocupa toda a largura */
+  .admin-search { max-width: none; }
+  .admin-input { font-size: 16px; padding: 10px 14px; min-height: 44px; }
+  .admin-textarea { min-height: 96px; }
+
+  /* Tabelas: scroll horizontal limpo + células mais compactas */
+  .admin-table { font-size: 12.5px; }
+  .admin-table th,
+  .admin-table td { padding: 10px 12px; }
+  .admin-cell-truncate { max-width: 160px; }
+  .admin-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -16px;
+    padding: 0 16px;
+  }
+
+  /* Cards genéricos */
+  .admin-card-body { padding: 16px; }
+  .admin-card-header { padding: 12px 16px; }
+
+  /* Empty states sem padding excessivo */
+  .admin-empty-state { padding: 36px 20px; }
+  .admin-empty-state-rich { padding: 32px 20px; }
+
+  /* Drawer right-side (ex: novo lead/agendamento): full screen mobile */
+  .admin-drawer {
+    width: 100vw;
+    border-left: none;
+  }
+  .admin-drawer-header { padding: 14px 18px; }
+  .admin-drawer-body { padding: 18px; }
+  .admin-drawer-footer { padding: 14px 18px; }
+
+  /* Touch targets adequados (mín. 40px Apple HIG / 48px Material) */
+  .admin-btn { min-height: 40px; padding: 9px 14px; font-size: 13.5px; }
+  .admin-btn-sm { min-height: 32px; padding: 5px 11px; }
+  .admin-btn-icon { min-height: 36px; min-width: 36px; padding: 7px; }
+  .admin-nav-item { padding: 9px 12px; min-height: 40px; }
+
+  /* Tabs: scroll horizontal */
+  .admin-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+  }
+  .admin-tabs::-webkit-scrollbar { display: none; }
+  .admin-tab { flex-shrink: 0; }
+
+  /* Breadcrumbs menores */
+  .admin-breadcrumbs { font-size: 12px; }
+
+  /* Status badges um tiquinho maiores em mobile pra ler melhor */
+  .admin-badge { font-size: 11.5px; padding: 3px 9px; }
+}
+
+/* ─── Mobile pequeno (≤ 480px) ─────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .admin-content { padding: 60px 14px 48px; }
+  .admin-page-header h1 { font-size: 20px; }
+  .admin-page-header { gap: 12px; margin-bottom: 20px; }
+  /* Botões do header esticam — ações principais ficam alcançáveis com o polegar */
+  .admin-header-actions .admin-btn { flex: 1 1 calc(50% - 4px); }
+  .admin-stats-grid { grid-template-columns: 1fr 1fr; }
+  .admin-stat-value { font-size: 22px; }
+  .admin-stat-card { padding: 12px 14px; }
 }
 
 /* ─── Page Header ────────────────────────────────────────────────────── */
@@ -370,6 +555,19 @@
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+/* ─── Grid utilitário responsivo ─────────────────────────────────────────
+ * Use no lugar de `style={{ gridTemplateColumns: "1fr 1fr" }}` —
+ * desktop respeita N colunas, mobile sempre vira coluna única.
+ * ─────────────────────────────────────────────────────────────────────── */
+.admin-grid-cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.admin-grid-cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+.admin-grid-auto   { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+@media (max-width: 640px) {
+  .admin-grid-cols-2,
+  .admin-grid-cols-3 { grid-template-columns: 1fr; gap: 0.75rem; }
+  .admin-grid-auto   { grid-template-columns: 1fr; gap: 0.75rem; }
 }
 
 /* ─── Stat Cards ─────────────────────────────────────────────────────── */

@@ -245,7 +245,7 @@ export default function NewContractPage() {
           <div className="contract-row">
             <label>
               <span>Tipo</span>
-              <div style={{ display: "flex", gap: 12 }}>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <label className="contract-radio">
                   <input
                     type="radio"

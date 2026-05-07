@@ -439,7 +439,7 @@ export default function BlogAdminPage() {
 
             <div className="admin-drawer-body">
               {/* Post info grid */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem", marginBottom: "1.5rem" }}>
+              <div className="admin-grid-cols-2" style={{ gap: "0.75rem", marginBottom: "1.5rem" }}>
                 <div>
                   <label style={{ fontSize: "0.6875rem", color: "var(--muted)", textTransform: "uppercase" }}>
                     Slug

@@ -250,7 +250,7 @@ export default function LeadsPage() {
             <div className="admin-drawer-body">
               {/* Contact Info */}
               <div style={{ marginBottom: "1.5rem" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                <div className="admin-grid-cols-2" style={{ gap: "0.75rem" }}>
                   <div>
                     <div style={{ fontSize: "0.6875rem", color: "var(--muted)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "0.25rem" }}>Email</div>
                     <a href={`mailto:${selectedLead.email}`} className="admin-link" style={{ fontSize: "0.875rem" }}>{selectedLead.email}</a>
