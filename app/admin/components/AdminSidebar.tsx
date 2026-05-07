@@ -6,7 +6,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   LayoutGrid, Inbox, Calendar, MessageCircle, CreditCard,
   PenSquare, BarChart3, Download, ShieldAlert, Settings,
-  LogOut, ArrowLeft,
+  LogOut, ArrowLeft, FileText,
 } from "lucide-react";
 
 type RequiredPermission = "nuptechs:admin" | "nuptechs:content" | "nuptechs:viewer";
@@ -117,6 +117,12 @@ export function AdminSidebar() {
           label: "Cartões",
           icon: <CreditCard {...iconProps} />,
           requiredPermission: "nuptechs:admin",
+        },
+        {
+          href: "/admin/contratos",
+          label: "Contratos",
+          icon: <FileText {...iconProps} />,
+          requiredPermission: "nuptechs:content",
         },
       ],
     },
