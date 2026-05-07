@@ -195,7 +195,12 @@ export async function getSession() {
 
 export async function destroySession() {
   const cookieStore = await cookies();
-  cookieStore.delete(COOKIE_NAME);
+  const cookieDomain = getCookieDomain();
+  cookieStore.delete({
+    name: COOKIE_NAME,
+    path: "/",
+    ...(cookieDomain && { domain: cookieDomain }),
+  });
 }
 
 // ─── Permission definitions ────────────────────────────
