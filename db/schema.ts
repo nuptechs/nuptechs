@@ -273,3 +273,106 @@ export const adminUsers = pgTable(
   },
   (t) => [index("admin_users_profile_idx").on(t.profileId)]
 );
+
+// ── Contratos SaaS ──────────────────────────────────────
+// Catálogo de sistemas oferecidos como SaaS (gerenciável via UI; default seedado).
+export const contractSystems = pgTable(
+  "contract_systems",
+  {
+    id: serial("id").primaryKey(),
+    slug: text("slug").notNull().unique(), // ex: "barbearia", "padaria"
+    name: text("name").notNull(),
+    description: text("description"),
+    isActive: boolean("is_active").default(true).notNull(),
+    sortOrder: integer("sort_order").default(0).notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => [index("contract_systems_active_idx").on(t.isActive)]
+);
+
+// Contrato fechado pelo comercial.
+export const contracts = pgTable(
+  "contracts",
+  {
+    id: serial("id").primaryKey(),
+    publicToken: text("public_token").notNull().unique(),
+
+    status: text("status", {
+      enum: ["draft", "sent", "signed", "active", "cancelled", "expired"],
+    })
+      .default("draft")
+      .notNull(),
+
+    // ─── Dados da CONTRATANTE ──────────────────────────
+    clientType: text("client_type", { enum: ["pj", "pf"] }).default("pj").notNull(),
+    clientName: text("client_name").notNull(),
+    clientFantasyName: text("client_fantasy_name"),
+    clientDocument: text("client_document").notNull(), // somente dígitos
+    clientEmail: text("client_email"),
+    clientPhone: text("client_phone"),
+    clientAddress: text("client_address"),
+    clientNumber: text("client_number"),
+    clientComplement: text("client_complement"),
+    clientNeighborhood: text("client_neighborhood"),
+    clientCity: text("client_city"),
+    clientState: text("client_state"),
+    clientZip: text("client_zip"),
+
+    representativeName: text("representative_name"),
+    representativeRg: text("representative_rg"),
+    representativeCpf: text("representative_cpf"),
+    representativeRole: text("representative_role"),
+
+    // Sistemas contratados — slugs do catálogo contractSystems
+    systems: jsonb("systems").$type<string[]>().default([]).notNull(),
+    customSystem: text("custom_system"),
+
+    // Valores e prazos
+    monthlyValueCents: integer("monthly_value_cents").notNull(),
+    paymentDay: integer("payment_day").notNull().default(10),
+    loyaltyMonths: integer("loyalty_months").notNull().default(12),
+    earlyTerminationFeeMonths: integer("early_termination_fee_months").notNull().default(3),
+    customizationDeadlineDays: integer("customization_deadline_days").notNull().default(7),
+
+    // Datas de ciclo
+    signedAt: timestamp("signed_at"),
+    startDate: timestamp("start_date"),
+    loyaltyEndDate: timestamp("loyalty_end_date"),
+
+    // Auditoria
+    createdBy: text("created_by").notNull(),
+    createdByName: text("created_by_name"),
+    notes: text("notes"),
+
+    // Snapshot de cláusulas (versionamento futuro)
+    clausesSnapshot: jsonb("clauses_snapshot"),
+
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => [
+    index("contracts_status_idx").on(t.status),
+    index("contracts_token_idx").on(t.publicToken),
+    index("contracts_doc_idx").on(t.clientDocument),
+    index("contracts_created_by_idx").on(t.createdBy),
+  ]
+);
+
+// Timeline de eventos do contrato (criação, envio, visualização, assinatura)
+export const contractTimeline = pgTable(
+  "contract_timeline",
+  {
+    id: serial("id").primaryKey(),
+    contractId: integer("contract_id")
+      .notNull()
+      .references(() => contracts.id, { onDelete: "cascade" }),
+    action: text("action").notNull(),
+    detail: text("detail"),
+    performedBy: text("performed_by"),
+    performedByName: text("performed_by_name"),
+    metadata: jsonb("metadata"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("contract_timeline_contract_idx").on(t.contractId)]
+);

@@ -4,3 +4,4 @@ export { AuditPort, type AuditEntry, type AuditAction, type AuditFilters } from 
 export { AnalyticsPort, type AnalyticsOverview, type PageStat, type DailyStat, type ReferrerStat } from "./analytics.port";
 export { SettingsPort, type SiteSettings } from "./settings.port";
 export { BlogPort, type BlogPost, type BlogPostStatus, type BlogFilters, type BlogStats, type BlogContentHealth } from "./blog.port";
+export { ContractPort, type Contract, type ContractStatus, type ContractClientType, type ContractFilters, type ContractStats, type ContractSystem, type ContractCreateInput, type ContractTimelineEntry } from "./contract.port";
