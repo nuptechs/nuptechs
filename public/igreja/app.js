@@ -85,13 +85,91 @@ const state = {
     ],
   },
   leaders: [
-    { initials: 'ML', name: 'Mar. Luísa', role: 'Louvor' },
-    { initials: 'PA', name: 'Pra. Ana', role: 'Intercessão' },
-    { initials: 'CR', name: 'Dc. Carlos', role: 'Diaconato' },
-    { initials: 'MR', name: 'Pr. Marco', role: 'Crianças' },
-    { initials: 'RS', name: 'Lid. Rita', role: 'Jovens' },
-    { initials: 'EB', name: 'Lid. Elias', role: 'Música' },
+    { id: 1, initials: 'ML', name: 'Mar. Luísa Lopes', role: 'Louvor', photo: '1562337404-3044c84ac061', years: 8, phone: '(11) 98765-1010',
+      testimony: 'Cheguei à Getsêmani em 2018 ferida e sem voz para cantar. O Senhor restaurou meu louvor e hoje conduzo a equipe que ministra todo domingo. Cada som é uma oferta — e cada culto, uma carta de amor a quem precisa de cura.',
+      message: 'Se você ama louvor, vem servir comigo. Não importa se você canta como anjo ou quase desafina — Deus quer o coração antes da técnica. Aqui é casa.' },
+    { id: 2, initials: 'PA', name: 'Pra. Ana Mendes', role: 'Intercessão', photo: '1769636930016-5d9f0ca653aa', years: 12, phone: '(11) 98765-2020',
+      testimony: 'Há 12 anos sustentando esta igreja em oração — madrugada após madrugada. Vi famílias restauradas, casamentos que pareciam sem volta sendo refeitos, e milagres que só Deus sabe. A oração é o trabalho mais silencioso e o mais poderoso.',
+      message: 'Tem alguém que precisa de oração agora? Me escreve. Toda quarta às 5h da manhã estamos no templo intercedendo por nomes — o seu pode estar lá.' },
+    { id: 3, initials: 'CR', name: 'Dc. Carlos Ribeiro', role: 'Diaconato', photo: '1522529599102-193c0d76b5b6', years: 6, phone: '(11) 98765-3030',
+      testimony: 'Comecei como o irmão que arrumava as cadeiras antes do culto. Hoje coordeno o diaconato. O serviço me ensinou que a igreja é sustentada pelos invisíveis — quem chega cedo, quem fica até tarde, quem cuida sem ninguém ver.',
+      message: 'Servir não tem holofote. Tem alegria. Se você quer fazer parte do que faz a igreja acontecer por trás dos panos, conta comigo.' },
+    { id: 4, initials: 'MR', name: 'Pr. Marco Ribeiro', role: 'Crianças', photo: '1769636929261-e913ed023c83', years: 10, phone: '(11) 98765-4040',
+      testimony: 'Os pequenos não são "o futuro da igreja" — são a igreja, agora. Há 10 anos cuido das nossas crianças, e cada vez que vejo uma delas orar com fé pura, lembro de Mateus 18:3.',
+      message: 'Pais, traga seus filhos. Aqui eles vão aprender que Deus é divertido, próximo e real. Trabalhamos com leveza e propósito.' },
+    { id: 5, initials: 'RS', name: 'Lid. Rita Souza', role: 'Jovens', photo: '1581714161666-dade083654ae', years: 4, phone: '(11) 98765-5050',
+      testimony: 'Fui salva aqui aos 17 anos, num retiro de jovens. Hoje, 4 anos depois, lidero a juventude que me acolheu. A geração Z precisa de Cristo do mesmo jeito que toda geração precisou — só que com perguntas novas. E nós temos respostas.',
+      message: 'Jovens — cês não vão pra balada esse fim de semana? Aparece aqui. Tem Deus, tem amizade de verdade, tem cura, tem propósito. Sexta às 19h30.' },
+    { id: 6, initials: 'EB', name: 'Lid. Elias Barros', role: 'Música', photo: '1614276101470-329e78630ece', years: 5, phone: '(11) 98765-6060',
+      testimony: 'Comecei tocando violão no fundo do templo. Hoje arranjo todas as músicas dos cultos. A música é meu idioma de oração — e ver a banda crescer, formar novos músicos, é minha maior alegria.',
+      message: 'Músicos da igreja: ensaio terça às 19h. Se você toca algum instrumento e quer servir, me chama. Tem espaço, tem mentoria, tem família.' },
   ],
+
+  /* ============================================================
+     PERFIS DE ACESSO (mockup): Membro / Líder / Pastor
+     Pastor pode "compartilhar acessos" com líderes (delegação).
+  ============================================================ */
+  user: {
+    current: 'member',
+    profiles: {
+      member:  { id: 'member',  name: 'Maria Silva',       role: 'Membro',              initials: 'MS', badge: 'Membro' },
+      leader:  { id: 'leader',  name: 'Mar. Luísa Lopes',  role: 'Líder de Louvor',     initials: 'ML', badge: 'Líder',  leaderId: 1 },
+      pastor:  { id: 'pastor',  name: 'Pr. João Ferreira', role: 'Pastor Responsável',  initials: 'JF', badge: 'Pastor', photo: '1690430979952-b2fe90150f44' },
+    },
+    delegated: [],
+  },
+
+  /* ============================================================
+     DADOS DA ÁREA DO PASTOR
+  ============================================================ */
+  pastor: {
+    // Receita mensal nos últimos 12 meses (R$ mil)
+    finance: {
+      monthly: [12.0, 13.5, 14.2, 13.8, 15.4, 16.1, 14.9, 17.2, 16.5, 18.3, 17.8, 19.2],
+      months: ['Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
+      currentMonth: 19200,
+      prevMonth: 17800,
+      breakdown: [
+        { label: 'Dízimos',   value: 145000, color: '#C9A961', pct: 71 },
+        { label: 'Ofertas',   value: 38000,  color: '#E5C77A', pct: 19 },
+        { label: 'Missões',   value: 12500,  color: '#4ADE80', pct: 6 },
+        { label: 'Projetos',  value: 8200,   color: '#3B82F6', pct: 4 },
+      ],
+      totalYear: 203700,
+      expensesYear: 142000,
+      reserve: 61700,
+    },
+    members: {
+      total: 487,
+      active: 421,
+      newThisMonth: 12,
+      attendanceAvg: 78, // %
+      birthdays: [
+        { name: 'José Almeida', day: 8, age: 54 },
+        { name: 'Carla Souza', day: 12, age: 38 },
+        { name: 'Pedro Lima', day: 17, age: 27 },
+        { name: 'Helena Castro', day: 22, age: 65 },
+        { name: 'Tiago Rocha', day: 28, age: 19 },
+      ],
+    },
+    upcoming: [
+      { day: '07', month: 'MAI', title: 'Aconselhamento — Casal Souza', time: '14h', type: 'pastoral' },
+      { day: '08', month: 'MAI', title: 'Reunião de líderes', time: '20h', type: 'meeting' },
+      { day: '09', month: 'MAI', title: 'Visita pastoral — Hospital Santa Marta', time: '09h', type: 'visit' },
+      { day: '12', month: 'MAI', title: 'Pregação culto domingo', time: '10h e 19h', type: 'preach' },
+    ],
+    topLeaders: [
+      { id: 2, name: 'Pra. Ana Mendes', area: 'Intercessão', score: 98 },
+      { id: 5, name: 'Lid. Rita Souza', area: 'Jovens', score: 94 },
+      { id: 1, name: 'Mar. Luísa Lopes', area: 'Louvor', score: 91 },
+      { id: 4, name: 'Pr. Marco Ribeiro', area: 'Crianças', score: 88 },
+    ],
+    candidatesForLeader: [
+      { name: 'Roberta Castro', area: 'Acolhimento', months: 18 },
+      { name: 'Felipe Andrade', area: 'Audiovisual', months: 24 },
+      { name: 'Juliana Mendes', area: 'Mulheres', months: 12 },
+    ],
+  },
 };
 
 /* ============================================================
@@ -258,7 +336,7 @@ const Pages = {
             </div>
             <div class="section-head" style="margin-top:32px"><h2 class="section-title">Lideranças</h2></div>
             <div class="leaders">
-              ${state.leaders.map(l => `<button class="leader" data-action="leader-info" data-name="${escape(l.name)}" data-role="${escape(l.role)}"><div class="leader-avatar">${l.initials}</div><div class="leader-name">${l.name}</div><div class="leader-role">${l.role}</div></button>`).join('')}
+              ${state.leaders.map(l => `<button class="leader" data-route="lider" data-id="${l.id}"><div class="leader-photo"><img src="https://images.unsplash.com/photo-${l.photo}?w=200&q=80&auto=format&fit=crop&crop=faces" alt="${escape(l.name)}" loading="lazy"/></div><div class="leader-name">${l.name.split(' ').slice(0, 2).join(' ')}</div><div class="leader-role">${l.role}</div></button>`).join('')}
             </div>
           </div>
           <aside>
@@ -493,6 +571,171 @@ const Pages = {
     </div>
   </div>`,
 
+  lider: (id) => {
+    const l = state.leaders.find(x => x.id == id);
+    if (!l) return Pages.home();
+    return `<div class="page container">
+      <div style="margin-top:24px"><button class="btn btn-ghost btn-sm" data-action="back">${I.back} Voltar</button></div>
+      <div class="leader-profile">
+        <div class="leader-cover">
+          <img src="https://images.unsplash.com/photo-${l.photo}?w=900&q=85&auto=format&fit=crop&crop=faces" alt="${l.name}" loading="lazy"/>
+        </div>
+        <div class="leader-meta">
+          <span class="detail-tag">${l.role}</span>
+          <h1 class="leader-name">${l.name}</h1>
+          <p class="leader-yr">${l.years} anos servindo a Igreja Getsêmani</p>
+        </div>
+      </div>
+
+      <div class="leader-block">
+        <div class="leader-block-icon">${I.book}</div>
+        <h3 class="leader-block-title">Testemunho</h3>
+        <p class="leader-block-text">${escape(l.testimony)}</p>
+      </div>
+
+      <div class="leader-block accent">
+        <div class="leader-block-icon">${I.heart}</div>
+        <h3 class="leader-block-title">Uma palavra de ${l.name.split(' ')[0]} ${l.name.split(' ')[1] || ''}</h3>
+        <p class="leader-block-text">"${escape(l.message)}"</p>
+      </div>
+
+      <div class="detail-actions" style="margin-top:24px">
+        <button class="btn btn-primary" data-action="wa" data-phone="${l.phone}">${I.wa} Falar no WhatsApp</button>
+        <button class="btn btn-secondary" data-action="share-leader" data-id="${l.id}">${I.share} Compartilhar Perfil</button>
+      </div>
+    </div>`;
+  },
+
+  pastor: () => {
+    const p = state.pastor;
+    const f = p.finance;
+    const max = Math.max(...f.monthly);
+    const w = 760, h = 200, pad = 32;
+    const stepX = (w - pad * 2) / (f.monthly.length - 1);
+    const points = f.monthly.map((v, i) => `${(pad + i * stepX).toFixed(1)},${(h - pad - ((v / max) * (h - pad * 2))).toFixed(1)}`);
+    const linePath = `M ${points.join(' L ')}`;
+    const areaPath = `${linePath} L ${pad + (f.monthly.length - 1) * stepX},${h - pad} L ${pad},${h - pad} Z`;
+    const monthDots = f.monthly.map((v, i) => {
+      const x = pad + i * stepX, y = h - pad - ((v / max) * (h - pad * 2));
+      return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="#E5C77A"/>`;
+    }).join('');
+    const monthLabels = f.months.map((m, i) => {
+      const x = pad + i * stepX;
+      return `<text x="${x.toFixed(1)}" y="${h - 8}" text-anchor="middle" fill="#5C6F8E" font-size="10" font-family="Inter">${m}</text>`;
+    }).join('');
+
+    // Donut breakdown
+    const total = f.breakdown.reduce((s, b) => s + b.value, 0);
+    let cumPct = 0;
+    const donut = f.breakdown.map(b => {
+      const pct = b.value / total;
+      const startA = cumPct * 2 * Math.PI - Math.PI / 2;
+      cumPct += pct;
+      const endA = cumPct * 2 * Math.PI - Math.PI / 2;
+      const large = pct > 0.5 ? 1 : 0;
+      const cx = 90, cy = 90, r = 72;
+      const x1 = cx + r * Math.cos(startA), y1 = cy + r * Math.sin(startA);
+      const x2 = cx + r * Math.cos(endA), y2 = cy + r * Math.sin(endA);
+      return `<path d="M${cx},${cy} L${x1.toFixed(1)},${y1.toFixed(1)} A${r},${r} 0 ${large} 1 ${x2.toFixed(1)},${y2.toFixed(1)} Z" fill="${b.color}"/>`;
+    }).join('');
+
+    const moneyBR = (n) => 'R$ ' + n.toLocaleString('pt-BR', { minimumFractionDigits: 0 });
+    const growth = ((f.currentMonth - f.prevMonth) / f.prevMonth) * 100;
+
+    return `<div class="page container">
+      <header class="page-hero">
+        <div class="eyebrow">Painel Pastoral</div>
+        <h1 class="page-title">Visão do Pastor</h1>
+        <p class="page-subtitle">Indicadores de saúde da igreja, receita, lideranças e compromissos pastorais. <strong>Acesso restrito.</strong></p>
+      </header>
+
+      <!-- KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi"><div class="kpi-icon" style="background:rgba(74,222,128,0.12);color:#4ADE80">${I.heart}</div><div class="kpi-info"><div class="kpi-label">Receita do mês</div><div class="kpi-value">${moneyBR(f.currentMonth)}</div><div class="kpi-delta ${growth >= 0 ? 'up' : 'down'}">${growth >= 0 ? '↑' : '↓'} ${Math.abs(growth).toFixed(1)}% vs mês anterior</div></div></div>
+        <div class="kpi"><div class="kpi-icon" style="background:rgba(201,169,97,0.12);color:#C9A961">${I.people}</div><div class="kpi-info"><div class="kpi-label">Membros ativos</div><div class="kpi-value">${p.members.active}</div><div class="kpi-delta up">${p.members.newThisMonth} novos no mês</div></div></div>
+        <div class="kpi"><div class="kpi-icon" style="background:rgba(59,130,246,0.12);color:#3B82F6">${I.cal}</div><div class="kpi-info"><div class="kpi-label">Frequência média</div><div class="kpi-value">${p.members.attendanceAvg}%</div><div class="kpi-delta up">↑ 3% últimas 4 semanas</div></div></div>
+        <div class="kpi"><div class="kpi-icon" style="background:rgba(229,199,122,0.12);color:#E5C77A">${I.pray}</div><div class="kpi-info"><div class="kpi-label">Pedidos de oração</div><div class="kpi-value">${state.prayers.length}</div><div class="kpi-delta">8 respondidos esta semana</div></div></div>
+      </div>
+
+      <!-- Gráfico de receita -->
+      <div class="section">
+        <div class="section-head"><h2 class="section-title" style="font-size:18px">Receita — últimos 12 meses</h2><span class="section-link">Total ano: <strong style="color:var(--gold-bright);margin-left:4px">${moneyBR(f.totalYear)}</strong></span></div>
+        <div class="chart-card">
+          <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block">
+            <defs>
+              <linearGradient id="areaG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#C9A961" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#C9A961" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            ${[0,1,2,3].map(i => `<line x1="${pad}" x2="${w-pad}" y1="${pad + i * (h - pad*2)/3}" y2="${pad + i * (h - pad*2)/3}" stroke="rgba(245,235,211,0.05)" stroke-width="1"/>`).join('')}
+            <path d="${areaPath}" fill="url(#areaG)"/>
+            <path d="${linePath}" fill="none" stroke="#E5C77A" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+            ${monthDots}
+            ${monthLabels}
+          </svg>
+        </div>
+      </div>
+
+      <!-- Breakdown + Próximos compromissos -->
+      <div class="layout layout-with-sidebar" style="margin-top:32px">
+        <div>
+          <div class="section-head"><h2 class="section-title" style="font-size:18px">Origem da receita</h2></div>
+          <div class="breakdown-card">
+            <div class="donut-wrap">
+              <svg viewBox="0 0 180 180" style="width:160px;height:160px">${donut}<circle cx="90" cy="90" r="42" fill="var(--bg-elev-1)"/><text x="90" y="86" text-anchor="middle" fill="var(--text-muted)" font-size="9" font-family="Inter" letter-spacing="2">TOTAL</text><text x="90" y="103" text-anchor="middle" fill="var(--gold-bright)" font-size="14" font-family="Cinzel" font-weight="600">${moneyBR(total).replace('R$ ', '')}</text></svg>
+            </div>
+            <div class="breakdown-legend">
+              ${f.breakdown.map(b => `<div class="legend-row"><span class="legend-dot" style="background:${b.color}"></span><span class="legend-label">${b.label}</span><span class="legend-val">${moneyBR(b.value)}</span><span class="legend-pct">${b.pct}%</span></div>`).join('')}
+            </div>
+          </div>
+        </div>
+        <aside>
+          <div class="section-head"><h2 class="section-title" style="font-size:18px">Próximos compromissos</h2></div>
+          <div class="schedule">
+            ${p.upcoming.map(u => `<div class="schedule-row"><div class="sch-date"><div class="sch-day">${u.day}</div><div class="sch-month">${u.month}</div></div><div class="sch-info"><div class="sch-title">${u.title}</div><div class="sch-meta">${u.time} · ${u.type}</div></div></div>`).join('')}
+          </div>
+        </aside>
+      </div>
+
+      <!-- Top líderes + Aniversariantes -->
+      <div class="layout layout-with-sidebar" style="margin-top:32px">
+        <div>
+          <div class="section-head"><h2 class="section-title" style="font-size:18px">Lideranças mais engajadas</h2></div>
+          <div class="rank-list">
+            ${p.topLeaders.map((l, i) => `<button class="rank-row" data-route="lider" data-id="${l.id}"><div class="rank-num">${i+1}</div><div class="rank-info"><div class="rank-name">${l.name}</div><div class="rank-area">${l.area}</div></div><div class="rank-score"><div class="rank-bar"><div class="rank-fill" style="width:${l.score}%"></div></div><div class="rank-pct">${l.score}</div></div></button>`).join('')}
+          </div>
+        </div>
+        <aside>
+          <div class="section-head"><h2 class="section-title" style="font-size:18px">Aniversariantes do mês</h2></div>
+          <div class="bday-list">
+            ${p.members.birthdays.map(b => `<div class="bday-row"><div class="bday-day">${b.day}</div><div class="bday-info"><div class="bday-name">${b.name}</div><div class="bday-age">${b.age} anos</div></div><button class="bday-wa" data-action="bday-wa" data-name="${escape(b.name)}" aria-label="Parabenizar ${escape(b.name)}">${I.wa}</button></div>`).join('')}
+          </div>
+        </aside>
+      </div>
+
+      <!-- Resumo financeiro fechado -->
+      <div class="section">
+        <div class="section-head"><h2 class="section-title" style="font-size:18px">Resumo financeiro do ano</h2></div>
+        <div class="grid grid-3">
+          <div class="kpi"><div class="kpi-icon" style="background:rgba(74,222,128,0.12);color:#4ADE80">↑</div><div class="kpi-info"><div class="kpi-label">Receita total</div><div class="kpi-value">${moneyBR(f.totalYear)}</div></div></div>
+          <div class="kpi"><div class="kpi-icon" style="background:rgba(248,113,113,0.12);color:#F87171">↓</div><div class="kpi-info"><div class="kpi-label">Despesas</div><div class="kpi-value">${moneyBR(f.expensesYear)}</div></div></div>
+          <div class="kpi"><div class="kpi-icon" style="background:rgba(201,169,97,0.12);color:#C9A961">${I.cross}</div><div class="kpi-info"><div class="kpi-label">Reserva</div><div class="kpi-value" style="color:var(--gold-bright)">${moneyBR(f.reserve)}</div></div></div>
+        </div>
+      </div>
+
+      <!-- Ações pastorais -->
+      <div class="section">
+        <div class="section-head"><h2 class="section-title" style="font-size:18px">Ações pastorais</h2></div>
+        <div class="grid grid-3">
+          <button class="action-card" data-action="elect-leader"><div class="action-icon">${I.cross}</div><div class="action-title">Eleger nova liderança</div><div class="action-desc">Promova um membro a líder de área</div></button>
+          <button class="action-card" data-action="share-access"><div class="action-icon">${I.user}</div><div class="action-title">Compartilhar meus acessos</div><div class="action-desc">Delegue super-acesso a um líder</div></button>
+          <button class="action-card" data-action="broadcast"><div class="action-icon">${I.bell}</div><div class="action-title">Comunicado em massa</div><div class="action-desc">Mensagem WhatsApp para todos</div></button>
+        </div>
+      </div>
+    </div>`;
+  },
+
   contribSuccess: (amount) => `<div class="page container">
     <div class="success-wrap">
       <div class="success-icon">${I.check}</div>
@@ -553,12 +796,37 @@ function render() {
   else if (name === 'galeria') html = Pages.galeria();
   else if (name === 'contato') html = Pages.contato();
   else if (name === 'oracao') html = Pages.oracao();
+  else if (name === 'lider') html = Pages.lider(params.id);
+  else if (name === 'pastor') {
+    if (state.user.current === 'pastor' || state.user.delegated.includes(state.user.current)) {
+      html = Pages.pastor();
+    } else {
+      html = `<div class="page container"><div class="success-wrap"><div class="eyebrow">Acesso Restrito</div><h1 class="page-title" style="font-size:28px">Área do Pastor</h1><p style="color:var(--text-muted);line-height:1.7">Esta seção é exclusiva do pastor responsável (ou de líderes a quem ele delegou acesso). Troque o perfil no menu lateral para visualizar.</p><button class="btn btn-secondary btn-lg" style="margin-top:24px" data-route="home">${I.back} Voltar para o Início</button></div></div>`;
+    }
+  }
   else if (name === 'contribSuccess') html = Pages.contribSuccess(params.amount || 50);
   else html = Pages.home();
   main.innerHTML = html;
 
   // Active state no menu desktop
   $$('#mainNav a').forEach(a => a.classList.toggle('active', a.dataset.route === name));
+
+  // Link Pastor no nav desktop (só se autorizado)
+  const nav = $('#mainNav');
+  let pastorLink = $('#navPastorLink');
+  const canSeePastor = state.user.current === 'pastor' || state.user.delegated.includes(state.user.current);
+  if (canSeePastor && !pastorLink) {
+    pastorLink = document.createElement('a');
+    pastorLink.id = 'navPastorLink';
+    pastorLink.href = '#pastor';
+    pastorLink.dataset.route = 'pastor';
+    pastorLink.style.color = 'var(--gold-bright)';
+    pastorLink.innerHTML = '★ Pastor';
+    nav.appendChild(pastorLink);
+  } else if (!canSeePastor && pastorLink) {
+    pastorLink.remove();
+  }
+  if (pastorLink) pastorLink.classList.toggle('active', name === 'pastor');
 
   // Bell badge
   updateBell();
@@ -739,6 +1007,82 @@ const Actions = {
     else { p.amen++; p.amenedByMe = true; showToast('Amém! Sua oração foi registrada 🙏'); }
     render();
   },
+
+  /* === Perfis & permissões === */
+  'set-profile': (el) => {
+    state.user.current = el.dataset.profile;
+    closeDrawers();
+    const labels = { member: 'membro', leader: 'líder', pastor: 'pastor' };
+    showToast(`Visualizando como ${labels[el.dataset.profile]}`);
+    render();
+  },
+
+  /* === Líder === */
+  'share-leader': async (el) => {
+    const l = state.leaders.find(x => x.id == el.dataset.id);
+    const txt = `${l.name} — ${l.role} na Igreja Getsêmani.\n\n"${l.message}"`;
+    if (navigator.share) { try { await navigator.share({ title: l.name, text: txt }); } catch {} }
+    else { await navigator.clipboard.writeText(txt); showToast('Perfil copiado'); }
+  },
+
+  /* === Pastor === */
+  'bday-wa': (el) => {
+    const name = el.dataset.name.split(' ')[0];
+    const msg = encodeURIComponent(`Olá ${name}! O pastor João e toda a Igreja Getsêmani te desejam um feliz aniversário! 🎉 Que o Senhor abençoe sua vida hoje e sempre. 🙏`);
+    window.open(`https://wa.me/?text=${msg}`, '_blank');
+  },
+  'elect-leader': () => {
+    const candidates = state.pastor.candidatesForLeader;
+    openModal('ELEGER NOVA LIDERANÇA',
+      `<p style="font-size:13px;color:var(--text-muted);line-height:1.6;margin:0 0 16px">Membros ativos com mais tempo de casa, sugeridos para liderança. Marque para promover.</p>
+       <div style="display:flex;flex-direction:column;gap:10px">
+         ${candidates.map((c, i) => `<label class="elect-row"><input type="checkbox" data-cidx="${i}" /><div><div style="font-weight:600;font-size:14px">${escape(c.name)}</div><div style="font-size:11px;color:var(--text-muted)">${c.area} · ${c.months} meses servindo</div></div></label>`).join('')}
+       </div>`,
+      `<button class="btn btn-primary" data-action="confirm-elect">${I.check} CONFIRMAR ELEIÇÃO</button><button class="btn btn-ghost" data-action="close-modal">CANCELAR</button>`);
+  },
+  'confirm-elect': () => {
+    const checked = $$('.elect-row input:checked').length;
+    closeModal();
+    if (checked === 0) { showToast('Nenhum candidato selecionado', true); return; }
+    showToast(`${checked} ${checked === 1 ? 'líder eleito' : 'líderes eleitos'} com sucesso 🙌`);
+  },
+  'share-access': () => {
+    const isShared = state.user.delegated.includes('leader');
+    openModal('COMPARTILHAR MEUS ACESSOS',
+      `<p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin:0 0 16px">Delegue seus poderes de pastor a um líder de confiança. Ele terá acesso ao painel pastoral, finanças e gestão. Use com sabedoria.</p>
+       <div style="display:flex;flex-direction:column;gap:10px">
+         ${state.leaders.map(l => `<label class="elect-row"><input type="radio" name="delegate" data-leader-id="${l.id}" ${l.id === 1 && isShared ? 'checked' : ''}/><div style="display:flex;align-items:center;gap:10px"><div class="leader-avatar" style="width:40px;height:40px;font-size:14px;background-image:url('https://images.unsplash.com/photo-${l.photo}?w=80&q=80&auto=format&fit=crop&crop=faces');background-size:cover;background-position:center"></div><div><div style="font-weight:600;font-size:13px">${escape(l.name)}</div><div style="font-size:11px;color:var(--text-muted)">${l.role}</div></div></div></label>`).join('')}
+       </div>`,
+      `<button class="btn btn-primary" data-action="confirm-share">${I.check} DELEGAR ACESSO</button>${isShared ? `<button class="btn btn-secondary" data-action="revoke-share">REVOGAR</button>` : ''}<button class="btn btn-ghost" data-action="close-modal">CANCELAR</button>`);
+  },
+  'confirm-share': () => {
+    const sel = $('input[name="delegate"]:checked');
+    closeModal();
+    if (!sel) { showToast('Selecione um líder', true); return; }
+    const leader = state.leaders.find(l => l.id == sel.dataset.leaderId);
+    if (!state.user.delegated.includes('leader')) state.user.delegated.push('leader');
+    showToast(`${leader.name} agora tem acesso pastoral`);
+    render();
+  },
+  'revoke-share': () => {
+    state.user.delegated = state.user.delegated.filter(d => d !== 'leader');
+    closeModal();
+    showToast('Acesso pastoral revogado');
+    render();
+  },
+  'broadcast': () => {
+    openModal('COMUNICADO EM MASSA',
+      `<p style="font-size:13px;color:var(--text-muted);line-height:1.6;margin:0 0 16px">Enviar mensagem por WhatsApp para <strong style="color:var(--gold-bright)">${state.pastor.members.active} membros ativos</strong>.</p>
+       <div class="field"><label>Mensagem</label><textarea id="bcMsg" placeholder="Sua mensagem para a igreja..."></textarea></div>
+       <label class="checkbox-row"><input type="checkbox" id="bcUrgent" /> <span>Marcar como urgente (envio imediato)</span></label>`,
+      `<button class="btn btn-primary" data-action="send-broadcast">${I.bell} ENVIAR PARA TODOS</button><button class="btn btn-ghost" data-action="close-modal">CANCELAR</button>`);
+  },
+  'send-broadcast': () => {
+    const msg = $('#bcMsg').value.trim();
+    if (!msg) { showToast('Escreva a mensagem', true); return; }
+    closeModal();
+    showToast(`Comunicado enviado para ${state.pastor.members.active} membros 📣`);
+  },
 };
 
 /* ============================================================
@@ -759,18 +1103,49 @@ function closeDrawers() {
 }
 
 function renderDrawerMenu() {
+  const u = state.user.profiles[state.user.current];
+  const isPastor = state.user.current === 'pastor';
+  const isLeader = state.user.current === 'leader' || isPastor;
+  const hasDelegated = state.user.delegated.includes(state.user.current);
+
   const items = [
-    { route: 'home', icon: 'cross', label: 'Início' },
-    { route: 'eventos', icon: 'cal', label: 'Eventos' },
-    { route: 'palavra', icon: 'book', label: 'Palavra Pastoral' },
-    { route: 'campanhas', icon: 'campaign', label: 'Campanhas' },
-    { route: 'parceiros', icon: 'people', label: 'Parceiros' },
-    { route: 'oracao', icon: 'pray', label: 'Pedidos de Oração' },
-    { route: 'contribuicoes', icon: 'heart', label: 'Contribuir' },
-    { route: 'galeria', icon: 'gallery', label: 'Galeria' },
-    { route: 'contato', icon: 'contact', label: 'Contato (NuPtechs)' },
+    { route: 'home', icon: 'cross', label: 'Início', show: true },
+    { route: 'eventos', icon: 'cal', label: 'Eventos', show: true },
+    { route: 'palavra', icon: 'book', label: 'Palavra Pastoral', show: true },
+    { route: 'campanhas', icon: 'campaign', label: 'Campanhas', show: true },
+    { route: 'parceiros', icon: 'people', label: 'Parceiros', show: true },
+    { route: 'oracao', icon: 'pray', label: 'Pedidos de Oração', show: true },
+    { route: 'contribuicoes', icon: 'heart', label: 'Contribuir', show: true },
+    { route: 'galeria', icon: 'gallery', label: 'Galeria', show: true },
+    { route: 'contato', icon: 'contact', label: 'Contato (NuPtechs)', show: true },
   ];
-  $('#drawerBody').innerHTML = items.map(it => `<button class="drawer-item ${state.route.name === it.route ? 'active' : ''}" data-route="${it.route}" data-action="nav-from-drawer">${I[it.icon]}<span class="drawer-item-label">${it.label}</span>${I.arrow}</button>`).join('');
+
+  // Profile switcher (mockup) + Painel Pastor (se autorizado)
+  const switcher = `<div class="profile-switcher">
+    <div class="profile-current">
+      <div class="profile-avatar ${isPastor ? 'pastor' : isLeader ? 'leader' : 'member'}">${u.photo ? `<img src="https://images.unsplash.com/photo-${u.photo}?w=120&q=80&auto=format&fit=crop&crop=faces" alt="${escape(u.name)}"/>` : u.initials}</div>
+      <div class="profile-info">
+        <div class="profile-name">${u.name}</div>
+        <div class="profile-role"><span class="profile-badge ${u.id}">${u.badge}</span></div>
+      </div>
+    </div>
+    <div class="profile-switch-label">Visualizar como (demo):</div>
+    <div class="profile-options">
+      <button class="profile-opt ${state.user.current === 'member' ? 'active' : ''}" data-action="set-profile" data-profile="member">Membro</button>
+      <button class="profile-opt ${state.user.current === 'leader' ? 'active' : ''}" data-action="set-profile" data-profile="leader">Líder</button>
+      <button class="profile-opt ${state.user.current === 'pastor' ? 'active' : ''}" data-action="set-profile" data-profile="pastor">Pastor</button>
+    </div>
+  </div>`;
+
+  const restricted = (isPastor || hasDelegated)
+    ? `<div class="drawer-section">${isPastor ? 'PAINEL PASTORAL' : 'ACESSO DELEGADO'}</div>
+       <button class="drawer-item ${state.route.name === 'pastor' ? 'active' : ''}" data-route="pastor" data-action="nav-from-drawer"><span class="restricted-dot"></span>${I.cross}<span class="drawer-item-label">Visão do Pastor</span>${I.arrow}</button>`
+    : '';
+
+  $('#drawerBody').innerHTML = switcher
+    + `<div class="drawer-section">NAVEGAÇÃO</div>`
+    + items.filter(it => it.show).map(it => `<button class="drawer-item ${state.route.name === it.route ? 'active' : ''}" data-route="${it.route}" data-action="nav-from-drawer">${I[it.icon]}<span class="drawer-item-label">${it.label}</span>${I.arrow}</button>`).join('')
+    + restricted;
 }
 
 function renderNotifications() {
