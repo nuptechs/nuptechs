@@ -86,23 +86,23 @@ const state = {
   },
   leaders: [
     { id: 1, initials: 'ML', name: 'Mar. Luísa Lopes', role: 'Louvor', photo: '1562337404-3044c84ac061', years: 8, phone: '(11) 98765-1010',
-      testimony: 'Cheguei à Getsêmani em 2018 ferida e sem voz para cantar. O Senhor restaurou meu louvor e hoje conduzo a equipe que ministra todo domingo. Cada som é uma oferta — e cada culto, uma carta de amor a quem precisa de cura.',
-      message: 'Se você ama louvor, vem servir comigo. Não importa se você canta como anjo ou quase desafina — Deus quer o coração antes da técnica. Aqui é casa.' },
+      testimony: 'Cheguei à Getsêmani em 2018 ferida e sem voz para cantar — depois de uma temporada difícil, achei que nunca mais subiria num altar. No primeiro culto que assisti, sentei na última fileira e chorei do começo ao fim. O Senhor me visitou ali, no silêncio, e foi me restaurando aos poucos: primeiro a esperança, depois a fé, e por fim o louvor. Hoje, oito anos depois, conduzo a equipe que ministra todo domingo. Cada som é uma oferta — e cada culto, uma carta de amor a quem ainda precisa ouvir que existe cura.',
+      message: 'Se você ama louvor, vem servir comigo. Não importa se você canta como anjo ou quase desafina — Deus quer o coração antes da técnica. Aqui é casa: tem ensaio, tem mentoria, tem acolhimento. Tem espaço pra você crescer, errar e recomeçar quantas vezes precisar. "Cantai ao Senhor um cântico novo" não é sobre afinação — é sobre coração novo. Vem.' },
     { id: 2, initials: 'PA', name: 'Pra. Ana Mendes', role: 'Intercessão', photo: '1769636930016-5d9f0ca653aa', years: 12, phone: '(11) 98765-2020',
-      testimony: 'Há 12 anos sustentando esta igreja em oração — madrugada após madrugada. Vi famílias restauradas, casamentos que pareciam sem volta sendo refeitos, e milagres que só Deus sabe. A oração é o trabalho mais silencioso e o mais poderoso.',
-      message: 'Tem alguém que precisa de oração agora? Me escreve. Toda quarta às 5h da manhã estamos no templo intercedendo por nomes — o seu pode estar lá.' },
+      testimony: 'Há doze anos sustentando esta igreja em oração — madrugada após madrugada, joelho no carpete frio, antes do galo cantar. Comecei sozinha, com um caderno gasto e uma garrafa térmica. Hoje somos um grupo de quarenta intercessores que cobre cada líder, cada família, cada projeto da casa. Vi famílias restauradas, casamentos que pareciam sem volta sendo refeitos, dependentes químicos sendo libertos — e milagres silenciosos que só Deus sabe. Porque oração é o trabalho mais discreto e o mais poderoso. Tiago 5:16 não é poesia: é manual de batalha.',
+      message: 'Tem alguém que precisa de oração agora? Me escreve. Toda quarta às 5h da manhã estamos no templo intercedendo por nomes — o seu pode estar lá. Não precisa explicar muito, só me passa o nome e a situação. E se você sente o chamado pra interceder com a gente, vem na quarta. Tem café quente, tem manta, tem irmãs que vão te ensinar a orar do jeito que mexe o céu — sem fórmula, com fé.' },
     { id: 3, initials: 'CR', name: 'Dc. Carlos Ribeiro', role: 'Diaconato', photo: '1522529599102-193c0d76b5b6', years: 6, phone: '(11) 98765-3030',
-      testimony: 'Comecei como o irmão que arrumava as cadeiras antes do culto. Hoje coordeno o diaconato. O serviço me ensinou que a igreja é sustentada pelos invisíveis — quem chega cedo, quem fica até tarde, quem cuida sem ninguém ver.',
-      message: 'Servir não tem holofote. Tem alegria. Se você quer fazer parte do que faz a igreja acontecer por trás dos panos, conta comigo.' },
+      testimony: 'Comecei como o irmão que arrumava as cadeiras antes do culto e desligava as luzes depois que todo mundo ia embora. Seis anos depois, coordeno o diaconato — uma equipe de vinte e dois servos invisíveis que fazem a igreja acontecer. O serviço me ensinou que a Getsêmani não é sustentada pelos holofotes do palco: é sustentada por quem chega cedo pra ligar o som, por quem fica até tarde pra recolher a oferta, por quem cuida sem ninguém ver. Atos 6 ensina que diaconato é função de fé e Espírito Santo — não de currículo. E disso eu vivo todo domingo.',
+      message: 'Servir não tem holofote. Tem alegria — e tem propósito. Se você quer fazer parte do que faz a igreja acontecer por trás dos panos, conta comigo. Acolhimento, segurança, limpeza, montagem, transporte de irmãos idosos — tem espaço pra todo dom e toda agenda. Comecei como o Carlos das cadeiras. Você pode começar como o irmão dos cumprimentos na porta. Deus exalta quem se humilha — e a igreja celebra quem serve em silêncio.' },
     { id: 4, initials: 'MR', name: 'Pr. Marco Ribeiro', role: 'Crianças', photo: '1769636929261-e913ed023c83', years: 10, phone: '(11) 98765-4040',
-      testimony: 'Os pequenos não são "o futuro da igreja" — são a igreja, agora. Há 10 anos cuido das nossas crianças, e cada vez que vejo uma delas orar com fé pura, lembro de Mateus 18:3.',
-      message: 'Pais, traga seus filhos. Aqui eles vão aprender que Deus é divertido, próximo e real. Trabalhamos com leveza e propósito.' },
+      testimony: 'Os pequenos não são "o futuro da igreja" — são a igreja, agora. Há dez anos cuido das nossas crianças, e cada vez que vejo uma delas orar com fé pura, lembro de Mateus 18:3: "se não vos converterdes e vos fizerdes como crianças, de modo nenhum entrareis no reino dos céus". Já tive criança de cinco anos me ensinando o que é confiança em Deus. Já vi adolescente que entrou aqui aos seis virar líder de jovens, casar na igreja, batizar o próprio filho. Esse trabalho planta raízes que duram a vida toda — e às vezes várias gerações.',
+      message: 'Pais, traga seus filhos. Aqui eles vão aprender que Deus é divertido, próximo e real — não um senhor distante de barba branca. Trabalhamos com leveza, propósito e currículo bíblico estruturado por faixa etária. Tem teatro, música, lanche, abraço — e Palavra de verdade. Se você sente o chamado de servir com crianças, vem conversar comigo: cada voluntário passa por formação e acompanhamento. Plantar no coração de uma criança hoje é colher em toda a vida dela.' },
     { id: 5, initials: 'RS', name: 'Lid. Rita Souza', role: 'Jovens', photo: '1581714161666-dade083654ae', years: 4, phone: '(11) 98765-5050',
-      testimony: 'Fui salva aqui aos 17 anos, num retiro de jovens. Hoje, 4 anos depois, lidero a juventude que me acolheu. A geração Z precisa de Cristo do mesmo jeito que toda geração precisou — só que com perguntas novas. E nós temos respostas.',
-      message: 'Jovens — cês não vão pra balada esse fim de semana? Aparece aqui. Tem Deus, tem amizade de verdade, tem cura, tem propósito. Sexta às 19h30.' },
+      testimony: 'Fui salva aqui aos dezessete anos, num retiro de jovens, depois de quase desistir da vida. Estava no chão emocional, cheia de perguntas que ninguém respondia em casa, e foi numa madrugada de oração que Cristo me alcançou — não com sermão, mas com abraço. Hoje, quatro anos depois, lidero a juventude que me acolheu. A geração Z precisa de Cristo do mesmo jeito que toda geração precisou — só que com perguntas novas sobre identidade, ansiedade, redes, propósito. E a Bíblia tem resposta. Pra todas. Sem rodeio e sem julgamento.',
+      message: 'Jovens — cês não vão pra balada esse fim de semana? Aparece aqui. Tem Deus, tem amizade de verdade (sem máscara, sem filtro), tem espaço pra fazer pergunta difícil sem ser julgado. Tem cura pra ansiedade, tem propósito pra quem se sente perdido, tem gente igual a você que também tá descobrindo. Sexta às 19h30. Se você quer só assistir o primeiro, ok — vem assistir. Se quer ir além, a gente caminha junto. Jeremias 29:11 é pra você. Ainda hoje.' },
     { id: 6, initials: 'EB', name: 'Lid. Elias Barros', role: 'Música', photo: '1614276101470-329e78630ece', years: 5, phone: '(11) 98765-6060',
-      testimony: 'Comecei tocando violão no fundo do templo. Hoje arranjo todas as músicas dos cultos. A música é meu idioma de oração — e ver a banda crescer, formar novos músicos, é minha maior alegria.',
-      message: 'Músicos da igreja: ensaio terça às 19h. Se você toca algum instrumento e quer servir, me chama. Tem espaço, tem mentoria, tem família.' },
+      testimony: 'Comecei tocando violão no fundo do templo, sozinho, durante o ensaio de domingo de manhã, antes de qualquer um chegar. Cinco anos depois, arranjo todas as músicas dos cultos e coordeno uma banda de doze músicos. A música é meu idioma de oração — quando eu não consigo falar com Deus, eu toco. E ver a banda crescer, formar novos baterista, baixista, tecladista, vê-los servindo com excelência, é minha maior alegria. Salmo 33:3 fala em "tocar bem, com voz alta de júbilo" — porque excelência também é adoração.',
+      message: 'Músicos da igreja: ensaio terça às 19h. Se você toca algum instrumento e quer servir, me chama. Tem espaço, tem mentoria de música e teoria, tem família que ensaia junto e ora junto. Não importa o nível: se você só sabe três acordes, a gente te ensina o quarto. O que pesa é compromisso, não talento bruto. Vem trazer seu som — Deus cabe em qualquer estilo, qualquer instrumento, qualquer geração.' },
   ],
 
   /* ============================================================
@@ -123,12 +123,36 @@ const state = {
      DADOS DA ÁREA DO PASTOR
   ============================================================ */
   pastor: {
-    // Receita mensal nos últimos 12 meses (R$ mil)
+    // Receita: visões diária / semanal / mensal
     finance: {
+      // Mensal — últimos 12 meses (R$ mil)
       monthly: [12.0, 13.5, 14.2, 13.8, 15.4, 16.1, 14.9, 17.2, 16.5, 18.3, 17.8, 19.2],
       months: ['Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
       currentMonth: 19200,
       prevMonth: 17800,
+
+      // Semanal — últimas 8 semanas (R$)
+      weekly8: [4180, 4350, 4290, 4520, 4640, 4480, 4870, 4750],
+      weekLabels: ['S-7', 'S-6', 'S-5', 'S-4', 'S-3', 'S-2', 'Sem. ant.', 'Esta'],
+      currentWeek: 4750,
+      prevWeek: 4870,
+
+      // Diário — últimos 30 dias (R$)
+      daily30: [612, 580, 645, 720, 850, 1180, 940, 510, 620, 670, 740, 810, 1080, 920, 540, 620, 680, 730, 870, 1140, 980, 540, 620, 690, 740, 880, 1180, 980, 560, 720],
+      currentDay: 720,
+      prevDay: 560,
+
+      // Distribuição típica por dia da semana (% do total semanal)
+      weekDayDistribution: [
+        { day: 'Dom', pct: 32, value: 1520 }, // culto domingo — pico
+        { day: 'Seg', pct: 6,  value: 285 },
+        { day: 'Ter', pct: 7,  value: 332 },
+        { day: 'Qua', pct: 14, value: 665 }, // culto oração
+        { day: 'Qui', pct: 7,  value: 332 },
+        { day: 'Sex', pct: 16, value: 760 }, // culto jovens
+        { day: 'Sáb', pct: 18, value: 856 },
+      ],
+
       breakdown: [
         { label: 'Dízimos',   value: 145000, color: '#C9A961', pct: 71 },
         { label: 'Ofertas',   value: 38000,  color: '#E5C77A', pct: 19 },
@@ -576,21 +600,22 @@ const Pages = {
     if (!l) return Pages.home();
     return `<div class="page container">
       <div style="margin-top:24px"><button class="btn btn-ghost btn-sm" data-action="back">${I.back} Voltar</button></div>
-      <div class="leader-profile">
-        <div class="leader-cover">
-          <img src="https://images.unsplash.com/photo-${l.photo}?w=900&q=85&auto=format&fit=crop&crop=faces" alt="${l.name}" loading="lazy"/>
+
+      <div class="leader-hero">
+        <div class="leader-portrait">
+          <img src="https://images.unsplash.com/photo-${l.photo}?w=720&h=1080&q=85&auto=format&fit=crop" alt="${l.name}" loading="lazy"/>
         </div>
         <div class="leader-meta">
           <span class="detail-tag">${l.role}</span>
           <h1 class="leader-name">${l.name}</h1>
           <p class="leader-yr">${l.years} anos servindo a Igreja Getsêmani</p>
-        </div>
-      </div>
 
-      <div class="leader-block">
-        <div class="leader-block-icon">${I.book}</div>
-        <h3 class="leader-block-title">Testemunho</h3>
-        <p class="leader-block-text">${escape(l.testimony)}</p>
+          <div class="leader-block">
+            <div class="leader-block-icon">${I.book}</div>
+            <h3 class="leader-block-title">Testemunho</h3>
+            <p class="leader-block-text">${escape(l.testimony)}</p>
+          </div>
+        </div>
       </div>
 
       <div class="leader-block accent">
@@ -609,20 +634,60 @@ const Pages = {
   pastor: () => {
     const p = state.pastor;
     const f = p.finance;
-    const max = Math.max(...f.monthly);
-    const w = 760, h = 200, pad = 32;
-    const stepX = (w - pad * 2) / (f.monthly.length - 1);
-    const points = f.monthly.map((v, i) => `${(pad + i * stepX).toFixed(1)},${(h - pad - ((v / max) * (h - pad * 2))).toFixed(1)}`);
-    const linePath = `M ${points.join(' L ')}`;
-    const areaPath = `${linePath} L ${pad + (f.monthly.length - 1) * stepX},${h - pad} L ${pad},${h - pad} Z`;
-    const monthDots = f.monthly.map((v, i) => {
-      const x = pad + i * stepX, y = h - pad - ((v / max) * (h - pad * 2));
-      return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="#E5C77A"/>`;
-    }).join('');
-    const monthLabels = f.months.map((m, i) => {
-      const x = pad + i * stepX;
-      return `<text x="${x.toFixed(1)}" y="${h - 8}" text-anchor="middle" fill="#5C6F8E" font-size="10" font-family="Inter">${m}</text>`;
-    }).join('');
+
+    // Gerador genérico de line chart SVG
+    const buildLineChart = (data, labels, gradId, labelEvery = 1) => {
+      const max = Math.max(...data);
+      const min = Math.min(...data);
+      const range = max - min || max;
+      const w = 760, h = 200, pad = 32;
+      const stepX = data.length > 1 ? (w - pad * 2) / (data.length - 1) : 0;
+      const norm = (v) => h - pad - ((v - min) / range) * (h - pad * 2 - 8);
+      const pts = data.map((v, i) => `${(pad + i * stepX).toFixed(1)},${norm(v).toFixed(1)}`);
+      const line = `M ${pts.join(' L ')}`;
+      const area = `${line} L ${(pad + (data.length - 1) * stepX).toFixed(1)},${h - pad} L ${pad},${h - pad} Z`;
+      const grid = [0, 1, 2, 3].map(i => `<line x1="${pad}" x2="${w - pad}" y1="${pad + i * (h - pad * 2) / 3}" y2="${pad + i * (h - pad * 2) / 3}" stroke="rgba(245,235,211,0.05)" stroke-width="1"/>`).join('');
+      const dots = data.map((v, i) => {
+        const x = pad + i * stepX, y = norm(v);
+        const isLast = i === data.length - 1;
+        return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${isLast ? 4 : 2.5}" fill="${isLast ? '#E5C77A' : '#C9A961'}" ${isLast ? 'stroke="#0A1628" stroke-width="2"' : ''}/>`;
+      }).join('');
+      const labelEls = labels.map((l, i) => {
+        if (i % labelEvery !== 0 && i !== labels.length - 1) return '';
+        const x = pad + i * stepX;
+        return `<text x="${x.toFixed(1)}" y="${h - 8}" text-anchor="middle" fill="#5C6F8E" font-size="10" font-family="Inter">${l}</text>`;
+      }).join('');
+      return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block">
+        <defs>
+          <linearGradient id="${gradId}" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#C9A961" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#C9A961" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        ${grid}
+        <path d="${area}" fill="url(#${gradId})"/>
+        <path d="${line}" fill="none" stroke="#E5C77A" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        ${dots}
+        ${labelEls}
+      </svg>`;
+    };
+
+    // Daily 30 dias — labels: D1, D5, D10, D15, D20, D25, D30
+    const dailyLabels = f.daily30.map((_, i) => (i % 5 === 0 || i === f.daily30.length - 1) ? `D${i + 1}` : '');
+    const dailyChart = buildLineChart(f.daily30, dailyLabels, 'gradDaily', 1);
+    // Weekly 8 semanas
+    const weeklyChart = buildLineChart(f.weekly8, f.weekLabels, 'gradWeekly', 1);
+    // Monthly 12 meses
+    const monthlyChart = buildLineChart(f.monthly, f.months, 'gradMonthly', 1);
+
+    // Picos por período
+    const dailyMax = Math.max(...f.daily30);
+    const dailyMaxIdx = f.daily30.indexOf(dailyMax);
+    const weeklyMax = Math.max(...f.weekly8);
+    const weeklyMaxIdx = f.weekly8.indexOf(weeklyMax);
+
+    // Distribuição por dia da semana
+    const wdMax = Math.max(...f.weekDayDistribution.map(d => d.pct));
 
     // Donut breakdown
     const total = f.breakdown.reduce((s, b) => s + b.value, 0);
@@ -657,23 +722,50 @@ const Pages = {
         <div class="kpi"><div class="kpi-icon" style="background:rgba(229,199,122,0.12);color:#E5C77A">${I.pray}</div><div class="kpi-info"><div class="kpi-label">Pedidos de oração</div><div class="kpi-value">${state.prayers.length}</div><div class="kpi-delta">8 respondidos esta semana</div></div></div>
       </div>
 
-      <!-- Gráfico de receita -->
+      <!-- Receita: 3 cards de período + gráfico com abas -->
       <div class="section">
-        <div class="section-head"><h2 class="section-title" style="font-size:18px">Receita — últimos 12 meses</h2><span class="section-link">Total ano: <strong style="color:var(--gold-bright);margin-left:4px">${moneyBR(f.totalYear)}</strong></span></div>
+        <div class="section-head"><h2 class="section-title" style="font-size:18px">Receita</h2><span class="section-link">Total ano: <strong style="color:var(--gold-bright);margin-left:4px">${moneyBR(f.totalYear)}</strong></span></div>
+
+        <!-- 3 cards: Hoje · Esta semana · Este mês -->
+        <div class="grid grid-3" style="margin-bottom:20px">
+          <div class="kpi"><div class="kpi-icon" style="background:rgba(74,222,128,0.12);color:#4ADE80">${I.heart}</div><div class="kpi-info"><div class="kpi-label">Hoje</div><div class="kpi-value">${moneyBR(f.currentDay)}</div><div class="kpi-delta ${f.currentDay >= f.prevDay ? 'up' : 'down'}">${f.currentDay >= f.prevDay ? '↑' : '↓'} ${Math.abs(((f.currentDay - f.prevDay) / f.prevDay) * 100).toFixed(0)}% vs. ontem</div></div></div>
+          <div class="kpi"><div class="kpi-icon" style="background:rgba(229,199,122,0.12);color:#E5C77A">${I.cal}</div><div class="kpi-info"><div class="kpi-label">Esta semana</div><div class="kpi-value">${moneyBR(f.currentWeek)}</div><div class="kpi-delta ${f.currentWeek >= f.prevWeek ? 'up' : 'down'}">${f.currentWeek >= f.prevWeek ? '↑' : '↓'} ${Math.abs(((f.currentWeek - f.prevWeek) / f.prevWeek) * 100).toFixed(1)}% vs. anterior</div></div></div>
+          <div class="kpi"><div class="kpi-icon" style="background:rgba(201,169,97,0.12);color:#C9A961">${I.book}</div><div class="kpi-info"><div class="kpi-label">Este mês</div><div class="kpi-value">${moneyBR(f.currentMonth)}</div><div class="kpi-delta ${f.currentMonth >= f.prevMonth ? 'up' : 'down'}">${f.currentMonth >= f.prevMonth ? '↑' : '↓'} ${Math.abs(((f.currentMonth - f.prevMonth) / f.prevMonth) * 100).toFixed(1)}% vs. mês ant.</div></div></div>
+        </div>
+
+        <!-- Tabs de período -->
+        <div class="tabs" style="margin-bottom:16px;max-width:480px"><button class="tab" data-tab="rec-day">Diário · 30d</button><button class="tab active" data-tab="rec-week">Semanal · 8 sem</button><button class="tab" data-tab="rec-month">Mensal · 12 m</button></div>
+
+        <div id="rec-day" class="tab-panel">
+          <div class="chart-card">${dailyChart}</div>
+          <p style="font-size:12px;color:var(--text-muted);margin:14px 0 0;line-height:1.6">💡 <strong style="color:var(--gold-bright)">Pico:</strong> dia ${dailyMaxIdx + 1} arrecadou <strong>${moneyBR(dailyMax)}</strong> — provavelmente um domingo de culto. Os domingos puxam a média da semana.</p>
+        </div>
+
+        <div id="rec-week" class="tab-panel active">
+          <div class="chart-card">${weeklyChart}</div>
+          <p style="font-size:12px;color:var(--text-muted);margin:14px 0 0;line-height:1.6">💡 <strong style="color:var(--gold-bright)">Tendência:</strong> 8 semanas de leve crescimento (R$ 4.180 → R$ 4.750). Pico foi a <strong>${f.weekLabels[weeklyMaxIdx]}</strong> com <strong>${moneyBR(weeklyMax)}</strong>.</p>
+        </div>
+
+        <div id="rec-month" class="tab-panel">
+          <div class="chart-card">${monthlyChart}</div>
+          <p style="font-size:12px;color:var(--text-muted);margin:14px 0 0;line-height:1.6">💡 <strong style="color:var(--gold-bright)">Tendência:</strong> Crescimento contínuo de Junho/2025 (R$ 12k) a Maio/2026 (<strong>${moneyBR(f.currentMonth)}</strong>) — alta de ${(((f.currentMonth - f.monthly[0] * 1000) / (f.monthly[0] * 1000)) * 100).toFixed(0)}% em 12 meses.</p>
+        </div>
+      </div>
+
+      <!-- Distribuição por dia da semana -->
+      <div class="section">
+        <div class="section-head"><h2 class="section-title" style="font-size:18px">Receita por dia da <em>semana</em></h2><span class="section-link">Média semanal</span></div>
         <div class="chart-card">
-          <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block">
-            <defs>
-              <linearGradient id="areaG" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#C9A961" stop-opacity="0.4"/>
-                <stop offset="100%" stop-color="#C9A961" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            ${[0,1,2,3].map(i => `<line x1="${pad}" x2="${w-pad}" y1="${pad + i * (h - pad*2)/3}" y2="${pad + i * (h - pad*2)/3}" stroke="rgba(245,235,211,0.05)" stroke-width="1"/>`).join('')}
-            <path d="${areaPath}" fill="url(#areaG)"/>
-            <path d="${linePath}" fill="none" stroke="#E5C77A" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-            ${monthDots}
-            ${monthLabels}
-          </svg>
+          <div class="weekday-bars">
+            ${f.weekDayDistribution.map(d => `
+              <div class="weekday-col" title="${d.day}: ${moneyBR(d.value)} · ${d.pct}%">
+                <div class="weekday-value">${moneyBR(d.value)}</div>
+                <div class="weekday-bar-track"><div class="weekday-bar-fill" style="height:${(d.pct / wdMax) * 100}%"></div></div>
+                <div class="weekday-label">${d.day}</div>
+                <div class="weekday-pct">${d.pct}%</div>
+              </div>`).join('')}
+          </div>
+          <p style="font-size:12px;color:var(--text-muted);margin:18px 0 0;line-height:1.6">💡 <strong style="color:var(--gold-bright)">Insight:</strong> Domingo concentra <strong>32% da arrecadação semanal</strong>. Quarta (oração) e sexta (jovens) também são fortes. Segunda e terça são os dias mais fracos — vale considerar campanha de PIX recorrente para estabilizar.</p>
         </div>
       </div>
 
