@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#F8F5EE" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Painel do Dono · Bicho Bom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --bg:#F8F5EE;
+  --surface:#FFFFFF;
+  --surface-2:#EFEADE;
+  --border:#E2DCCB;
+  --text:#142028;
+  --text-muted:#5C6770;
+  --text-dim:#9DA3A8;
+  --teal:#15616D;          /* azul-petróleo principal */
+  --teal-dark:#0E4651;
+  --mustard:#E0A435;       /* amarelo-mostarda */
+  --mustard-dark:#B07F1F;
+  --rose:#C97B7B;          /* rosa pet */
+  --warning:#E0A435;
+  --danger:#C2473A;
+  --success:#5E8B6E;
+  --info:#4F6D8C;
+  --shadow-sm:0 1px 2px rgba(20,32,40,0.04),0 1px 3px rgba(20,32,40,0.06);
+  --shadow:0 4px 12px rgba(20,32,40,0.05),0 2px 4px rgba(20,32,40,0.04);
+  --shadow-lg:0 12px 32px rgba(20,32,40,0.08),0 4px 12px rgba(20,32,40,0.06);
+  --radius-sm:8px; --radius:14px; --radius-lg:20px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --container:1280px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100dvh}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;padding:0}
+button:focus-visible,a:focus-visible{outline:2px solid var(--teal);outline-offset:2px;border-radius:6px}
+a{color:inherit;text-decoration:none}
+.container{max-width:var(--container);margin:0 auto;padding:0 16px}
+@media(min-width:768px){.container{padding:0 24px}}
+
+/* HEADER */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(248,245,238,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center}
+.site-header-inner{width:100%;max-width:var(--container);margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:12px}
+@media(min-width:768px){.site-header-inner{padding:0 24px}}
+.brand{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.brand-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--teal),var(--teal-dark));display:grid;place-items:center;color:#fff;flex-shrink:0;box-shadow:var(--shadow-sm)}
+.brand-mark svg{width:20px;height:20px}
+.brand-name{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:var(--teal-dark);letter-spacing:-0.01em;line-height:1}
+.brand-pill{font-size:9px;letter-spacing:0.2em;color:var(--mustard-dark);text-transform:uppercase;font-weight:700;padding:4px 10px;background:rgba(224,164,53,0.14);border:1px solid rgba(224,164,53,0.32);border-radius:999px}
+.header-meta{font-size:12px;color:var(--text-muted);display:none}
+@media(min-width:1024px){.header-meta{display:block}}
+.header-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;color:var(--text-muted);transition:all .2s var(--ease);background:transparent}
+.icon-btn:hover{background:var(--surface-2);color:var(--text)}
+.icon-btn svg{width:18px;height:18px}
+.user-chip{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;background:var(--surface);border:1px solid var(--border);border-radius:999px;cursor:pointer;transition:all .2s var(--ease)}
+.user-chip:hover{box-shadow:var(--shadow-sm)}
+.user-chip-avatar{width:28px;height:28px;background:linear-gradient(135deg,var(--mustard),var(--mustard-dark));color:white;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12px;font-family:'Fraunces',serif}
+.user-chip-name{font-size:12px;font-weight:600;color:var(--text)}
+.user-chip-name small{color:var(--text-muted);font-weight:400;font-size:10px;letter-spacing:0.06em;text-transform:uppercase}
+
+/* MAIN */
+.main{padding:32px 0 64px}
+@media(min-width:768px){.main{padding:48px 0 80px}}
+
+.page-hero{margin-bottom:32px}
+.eyebrow{display:inline-block;font-size:11px;letter-spacing:0.22em;color:var(--mustard-dark);text-transform:uppercase;margin-bottom:10px;font-weight:700}
+.page-title{font-family:'Fraunces',serif;font-size:clamp(32px,5vw,48px);font-weight:600;color:var(--text);margin:0 0 8px;letter-spacing:-0.02em;line-height:1.1}
+.page-title em{font-style:italic;color:var(--teal-dark);font-weight:500}
+.page-subtitle{font-size:15px;color:var(--text-muted);max-width:580px;margin:0;line-height:1.6}
+
+/* PERIOD SELECTOR */
+.period-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.period-tabs{display:flex;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:4px;box-shadow:var(--shadow-sm)}
+.period-tab{padding:8px 14px;font-size:12px;font-weight:600;color:var(--text-muted);border-radius:8px;transition:all .2s var(--ease);letter-spacing:0.04em}
+.period-tab:hover{color:var(--text)}
+.period-tab.active{background:var(--text);color:var(--bg)}
+.period-meta{font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:6px}
+
+/* KPIS */
+.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:32px}
+@media(min-width:768px){.kpi-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
+.kpi{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);transition:all .25s var(--ease);position:relative}
+.kpi:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.kpi-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.kpi-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center}
+.kpi-icon svg{width:18px;height:18px}
+.kpi-icon.teal{background:rgba(21,97,109,0.12);color:var(--teal-dark)}
+.kpi-icon.mustard{background:rgba(224,164,53,0.14);color:var(--mustard-dark)}
+.kpi-icon.rose{background:rgba(201,123,123,0.14);color:var(--rose)}
+.kpi-icon.success{background:rgba(94,139,110,0.14);color:var(--success)}
+.kpi-trend{font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;display:inline-flex;align-items:center;gap:3px}
+.kpi-trend.up{background:rgba(94,139,110,0.14);color:var(--success)}
+.kpi-trend.down{background:rgba(194,71,58,0.10);color:var(--danger)}
+.kpi-label{font-size:11px;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.kpi-value{font-family:'Fraunces',serif;font-size:32px;font-weight:600;color:var(--text);line-height:1;letter-spacing:-0.02em}
+.kpi-sub{font-size:11px;color:var(--text-muted);margin-top:6px}
+@media(min-width:768px){.kpi-value{font-size:38px}}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm)}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.card-title{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--text);margin:0 0 4px;letter-spacing:-0.01em}
+.card-title em{font-style:italic;color:var(--teal-dark);font-weight:500}
+.card-sub{font-size:12px;color:var(--text-muted)}
+.card-action{font-size:11px;color:var(--teal-dark);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+.card-action:hover{color:var(--text)}
+.card-action svg{width:12px;height:12px}
+
+/* LAYOUT */
+.layout-grid{display:grid;gap:20px;grid-template-columns:1fr;margin-bottom:32px}
+@media(min-width:1024px){.layout-grid{grid-template-columns:2fr 1fr}}
+
+/* CHART */
+.chart-summary{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.chart-big{font-family:'Fraunces',serif;font-size:42px;font-weight:600;color:var(--text);line-height:1;letter-spacing:-0.02em}
+.chart-currency{font-size:14px;color:var(--text-muted);font-family:Inter;font-weight:500}
+.chart-trend{font-size:12px;font-weight:600;color:var(--success);display:flex;align-items:center;gap:4px}
+.chart-trend svg{width:14px;height:14px}
+.chart-wrap{position:relative;width:100%;overflow:hidden}
+.chart-wrap svg{width:100%;height:auto;display:block}
+
+/* BARS */
+.bars-mini{display:flex;align-items:flex-end;gap:6px;height:80px;padding:0 4px;margin-top:14px}
+@media(min-width:640px){.bars-mini{gap:8px}}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;min-width:0}
+.bar-fill{width:100%;background:linear-gradient(180deg,var(--teal),var(--teal-dark));border-radius:4px 4px 0 0;transition:opacity .2s var(--ease)}
+.bar-col:hover .bar-fill{opacity:0.8}
+.bar-label{font-size:9px;color:var(--text-dim);font-weight:600;letter-spacing:0.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;text-align:center}
+
+/* DONUT */
+.donut-card{display:flex;flex-direction:column;gap:18px;align-items:center}
+@media(min-width:640px){.donut-card{flex-direction:row;align-items:flex-start}}
+.donut-svg{flex-shrink:0;width:160px;height:160px}
+.donut-svg svg{width:100%;height:100%}
+.donut-legend{flex:1;width:100%;display:flex;flex-direction:column;gap:10px}
+.legend-row{display:grid;grid-template-columns:14px 1fr auto;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.legend-row:last-child{border-bottom:none}
+.legend-dot{width:12px;height:12px;border-radius:3px}
+.legend-name{font-weight:500}
+.legend-pct{color:var(--text-muted);font-size:11px;font-weight:600}
+
+/* TOP ITEMS */
+.product-list{display:flex;flex-direction:column;gap:10px}
+.product-row{display:flex;align-items:center;gap:14px;padding:12px;background:var(--surface-2);border-radius:10px;transition:all .2s var(--ease)}
+.product-row:hover{background:var(--bg)}
+.product-rank{width:28px;height:28px;background:var(--surface);border:1px solid var(--border);border-radius:50%;display:grid;place-items:center;font-family:'Fraunces',serif;font-size:13px;font-weight:600;color:var(--teal-dark);flex-shrink:0}
+.product-info{flex:1;min-width:0}
+.product-name{font-size:13px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.product-meta{font-size:11px;color:var(--text-muted);margin-top:2px}
+.product-value{text-align:right;flex-shrink:0}
+.product-amount{font-family:'Fraunces',serif;font-size:16px;color:var(--text);font-weight:600}
+.product-qty{font-size:10px;color:var(--text-dim);letter-spacing:0.04em;text-transform:uppercase;font-weight:600}
+
+/* ALERTS */
+.alert-list{display:flex;flex-direction:column;gap:8px}
+.alert-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;border:1px solid}
+.alert-row.warning{background:rgba(224,164,53,0.06);border-color:rgba(224,164,53,0.24)}
+.alert-row.danger{background:rgba(194,71,58,0.06);border-color:rgba(194,71,58,0.24)}
+.alert-icon{flex-shrink:0;width:32px;height:32px;border-radius:8px;display:grid;place-items:center}
+.alert-row.warning .alert-icon{background:rgba(224,164,53,0.14);color:var(--warning)}
+.alert-row.danger .alert-icon{background:rgba(194,71,58,0.14);color:var(--danger)}
+.alert-icon svg{width:16px;height:16px}
+.alert-body{flex:1;min-width:0}
+.alert-name{font-size:13px;font-weight:600;color:var(--text)}
+.alert-desc{font-size:11px;color:var(--text-muted);margin-top:1px}
+.alert-cta{font-size:11px;font-weight:600;color:var(--teal-dark);flex-shrink:0;text-transform:uppercase;letter-spacing:0.06em}
+
+/* HEATMAP */
+.heatmap{display:grid;grid-template-columns:auto repeat(12,1fr);gap:3px;margin-top:14px}
+.heat-label{font-size:9px;color:var(--text-dim);font-weight:600;display:flex;align-items:center;justify-content:flex-end;padding-right:6px}
+.heat-cell{aspect-ratio:1;border-radius:3px;background:var(--surface-2);transition:all .15s var(--ease);cursor:pointer;position:relative}
+.heat-cell:hover{transform:scale(1.2);z-index:1;outline:2px solid var(--teal)}
+.heat-axis{display:flex;gap:3px;margin-top:4px;padding-left:32px}
+.heat-axis span{flex:1;font-size:9px;color:var(--text-dim);text-align:center;font-weight:600}
+
+/* COMPARE */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(min-width:480px){.compare-grid{grid-template-columns:repeat(3,1fr)}}
+.compare-cell{padding:14px;background:var(--surface-2);border-radius:10px}
+.compare-label{font-size:10px;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.compare-value{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--text);line-height:1}
+.compare-delta{font-size:11px;font-weight:600;margin-top:4px}
+.compare-delta.up{color:var(--success)}
+.compare-delta.down{color:var(--danger)}
+
+/* SECTION */
+.section{margin-bottom:24px}
+.section-title{font-family:'Fraunces',serif;font-size:26px;font-weight:600;margin:0 0 4px;letter-spacing:-0.01em}
+.section-title em{font-style:italic;color:var(--teal-dark);font-weight:500}
+.section-sub{font-size:13px;color:var(--text-muted);margin:0 0 18px}
+
+.full-row{display:grid;gap:20px;grid-template-columns:1fr;margin-bottom:32px}
+@media(min-width:768px){.full-row{grid-template-columns:1fr 1fr}}
+@media(min-width:1024px){.full-row.three{grid-template-columns:repeat(3,1fr)}}
+
+/* WOW: PRÓXIMOS RETORNOS — pets agendados pra voltar */
+.pet-list{display:flex;flex-direction:column;gap:10px}
+.pet-row{display:flex;align-items:center;gap:12px;padding:12px;background:var(--surface-2);border-radius:10px;transition:all .2s var(--ease)}
+.pet-row:hover{background:var(--bg);box-shadow:var(--shadow-sm)}
+.pet-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--mustard),var(--mustard-dark));display:grid;place-items:center;flex-shrink:0;font-family:'Fraunces',serif;font-size:18px;color:#fff;font-weight:600;border:2px solid var(--surface);box-shadow:var(--shadow-sm)}
+.pet-avatar.teal{background:linear-gradient(135deg,var(--teal),var(--teal-dark))}
+.pet-avatar.rose{background:linear-gradient(135deg,#D89C9C,var(--rose))}
+.pet-info{flex:1;min-width:0}
+.pet-name{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pet-tag{font-size:9px;color:var(--text-muted);background:var(--surface);border:1px solid var(--border);padding:2px 7px;border-radius:999px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600}
+.pet-meta{font-size:11px;color:var(--text-muted);margin-top:3px}
+.pet-due{font-size:11px;font-weight:600;text-align:right;flex-shrink:0}
+.pet-due.urgent{color:var(--danger)}
+.pet-due.soon{color:var(--mustard-dark)}
+.pet-due.ok{color:var(--success)}
+.pet-due small{display:block;font-weight:400;font-size:9px;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dim);margin-top:2px}
+.send-row{display:flex;justify-content:flex-end;margin-top:12px}
+.send-btn{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:8px 14px;background:var(--teal-dark);color:#fff;border-radius:8px;display:inline-flex;align-items:center;gap:6px;transition:all .2s var(--ease)}
+.send-btn:hover{background:var(--teal);transform:translateY(-1px);box-shadow:var(--shadow)}
+.send-btn svg{width:13px;height:13px}
+
+/* WOW: VACINAS */
+.vacc-list{display:flex;flex-direction:column;gap:8px}
+.vacc-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface)}
+.vacc-row.urgent{border-color:rgba(194,71,58,0.3);background:rgba(194,71,58,0.04)}
+.vacc-row.soon{border-color:rgba(224,164,53,0.3);background:rgba(224,164,53,0.04)}
+.vacc-pill{font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;flex-shrink:0;min-width:50px;text-align:center}
+.vacc-pill.v10{background:rgba(21,97,109,0.12);color:var(--teal-dark)}
+.vacc-pill.raiva{background:rgba(94,139,110,0.14);color:var(--success)}
+.vacc-pill.giard{background:rgba(201,123,123,0.14);color:var(--rose)}
+.vacc-pill.tosse{background:rgba(79,109,140,0.14);color:var(--info)}
+.vacc-info{flex:1;min-width:0}
+.vacc-pet{font-size:13px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vacc-when{font-size:11px;color:var(--text-muted);margin-top:2px}
+.vacc-when strong{color:var(--text)}
+.vacc-cta{font-size:11px;font-weight:700;color:var(--teal-dark);letter-spacing:0.06em;text-transform:uppercase;flex-shrink:0}
+
+/* WOW: ANIVERSARIANTES */
+.bday-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:480px){.bday-list{grid-template-columns:repeat(3,1fr)}}
+.bday-card{padding:12px;background:linear-gradient(135deg,rgba(224,164,53,0.08),rgba(224,164,53,0.02));border:1px solid rgba(224,164,53,0.24);border-radius:10px;display:flex;align-items:center;gap:10px}
+.bday-emoji{font-size:24px;line-height:1;flex-shrink:0}
+.bday-info{flex:1;min-width:0}
+.bday-pet{font-size:12px;font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bday-when{font-size:10px;color:var(--mustard-dark);margin-top:2px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase}
+
+/* MINI INSIGHT */
+.insight-strip{margin-top:14px;padding:10px 14px;background:var(--surface-2);border-radius:10px;font-size:12px;color:var(--text-muted);line-height:1.5;display:flex;gap:10px;align-items:flex-start}
+.insight-strip strong{color:var(--text)}
+.insight-strip::before{content:'★';color:var(--mustard-dark);font-size:14px;flex-shrink:0;line-height:1.4}
+
+/* FOOTER */
+.site-footer{margin-top:64px;padding:32px 0;border-top:1px solid var(--border);font-size:12px;color:var(--text-muted)}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-inner a{color:var(--teal-dark);font-weight:600}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,80px);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:999px;font-size:13px;font-weight:500;z-index:1000;opacity:0;transition:all .3s var(--ease);box-shadow:var(--shadow-lg);pointer-events:none;max-width:90vw}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+body.embed .site-header,body.embed .site-footer{display:none}
+body.embed .main{padding-top:0}
+body.embed .page-hero{padding-top:24px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 9.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm4-3a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm5 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm4 3a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm-6.5 2c-3 0-6 2.5-6 5.5 0 1.7 1.3 3 3 3 1 0 1.5-.5 3-.5s2 .5 3 .5c1.7 0 3-1.3 3-3 0-3-3-5.5-6-5.5Z"/></svg>
+      </span>
+      <span class="brand-name">Bicho Bom</span>
+      <span class="brand-pill">Painel do Dono</span>
+    </div>
+    <span class="header-meta" id="todayLabel"></span>
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="Exportar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Imprimir">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      </button>
+      <div class="user-chip">
+        <div class="user-chip-avatar">CV</div>
+        <div class="user-chip-name">Camila V.<br/><small>DONA</small></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="container">
+
+    <header class="page-hero">
+      <div class="eyebrow">Visão do dono</div>
+      <h1 class="page-title">Como sua loja vai <em>hoje</em>.</h1>
+      <p class="page-subtitle">Faturamento, banhos &amp; tosas, vacinas vencendo e os pets que mais amam o Bicho Bom — tudo num só lugar, em tempo real.</p>
+    </header>
+
+    <div class="period-bar">
+      <div class="period-tabs" id="periodTabs">
+        <button class="period-tab" data-period="day">Hoje</button>
+        <button class="period-tab" data-period="week">Semana</button>
+        <button class="period-tab active" data-period="month">Mês</button>
+        <button class="period-tab" data-period="year">Ano</button>
+      </div>
+      <span class="period-meta" id="periodMeta">Maio · 1 a 7</span>
+    </div>
+
+    <div class="kpi-grid" id="kpiGrid"></div>
+
+    <div class="layout-grid">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Faturamento <em>diário</em></h3>
+            <p class="card-sub">Últimos 30 dias · evolução real vs meta</p>
+          </div>
+          <button class="card-action">Ver detalhes
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="chart-summary">
+          <div><span class="chart-currency">R$</span><span class="chart-big" id="chartTotal">62.840</span></div>
+          <span class="chart-trend">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            +14,2% vs mês anterior
+          </span>
+        </div>
+        <div class="chart-wrap" id="lineChartWrap"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Mix de <em>receita</em></h3>
+            <p class="card-sub">Por linha de serviço · mês</p>
+          </div>
+        </div>
+        <div class="donut-card" id="donutWrap"></div>
+      </div>
+    </div>
+
+    <div class="full-row">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Faturamento <em>semanal</em></h3>
+            <p class="card-sub">Últimas 12 semanas</p>
+          </div>
+        </div>
+        <div class="bars-mini" id="weekBars"></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Faturamento <em>mensal</em></h3>
+            <p class="card-sub">Últimos 12 meses</p>
+          </div>
+        </div>
+        <div class="bars-mini" id="monthBars"></div>
+      </div>
+    </div>
+
+    <div class="layout-grid">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">O que mais <em>fatura</em></h3>
+            <p class="card-sub">Top 5 serviços e produtos do mês</p>
+          </div>
+          <button class="card-action">Ver tudo
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="product-list" id="productList"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Atenção, <em>dona!</em></h3>
+            <p class="card-sub">Estoque, retornos e fidelidade</p>
+          </div>
+        </div>
+        <div class="alert-list" id="alertList"></div>
+      </div>
+    </div>
+
+    <div class="full-row">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Quando o salão <em>enche</em></h3>
+            <p class="card-sub">Mapa de calor · seg a sáb · 8h às 20h</p>
+          </div>
+        </div>
+        <div id="heatmap"></div>
+        <div class="insight-strip"><span><strong>Insight:</strong> Sábado entre 10h e 14h é o pico — 41% dos atendimentos da semana acontecem nesse intervalo. Vale dobrar a equipe de banho.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Comparativo <em>anual</em></h3>
+            <p class="card-sub">Este ano vs ano passado · mês corrente</p>
+          </div>
+        </div>
+        <div class="compare-grid">
+          <div class="compare-cell">
+            <div class="compare-label">2025</div>
+            <div class="compare-value">R$ 51.4k</div>
+            <div class="compare-delta">Mesmo mês</div>
+          </div>
+          <div class="compare-cell" style="background:rgba(21,97,109,0.08);border:1px solid rgba(21,97,109,0.24)">
+            <div class="compare-label">2026</div>
+            <div class="compare-value" style="color:var(--teal-dark)">R$ 62.8k</div>
+            <div class="compare-delta up">↑ 22,1%</div>
+          </div>
+          <div class="compare-cell">
+            <div class="compare-label">Meta</div>
+            <div class="compare-value">R$ 70k</div>
+            <div class="compare-delta">90% atingido</div>
+          </div>
+        </div>
+        <div style="margin-top:18px;padding:14px;background:var(--surface-2);border-radius:10px">
+          <div style="font-size:12px;color:var(--text-muted);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px">Projeção fim do mês</div>
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+            <span style="font-family:'Fraunces',serif;font-size:28px;color:var(--text);font-weight:600">R$ 71.200</span>
+            <span class="chart-trend">acima da meta em R$ 1.200</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============== INTELIGÊNCIA — diferenciais do segmento ============== -->
+    <div class="section">
+      <h2 class="section-title">Inteligência da sua <em>loja</em></h2>
+      <p class="section-sub">O que nenhum sistema comum vê: o relacionamento com cada pet.</p>
+    </div>
+
+    <div class="full-row three">
+      <!-- WOW 1: PRÓXIMOS RETORNOS -->
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title" style="font-size:20px">Pets <em>esperando</em> banho</h3>
+            <p class="card-sub">Previstos pra voltar nesta semana com base no histórico</p>
+          </div>
+        </div>
+        <div class="pet-list" id="returnList"></div>
+        <div class="send-row">
+          <button class="send-btn" onclick="window.toastMsg('WhatsApp disparado para 12 tutores')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            Convidar todos
+          </button>
+        </div>
+      </div>
+
+      <!-- WOW 2: VACINAS VENCENDO -->
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title" style="font-size:20px">Carteira <em>de vacinas</em></h3>
+            <p class="card-sub">Vencendo nos próximos 30 dias</p>
+          </div>
+        </div>
+        <div class="vacc-list" id="vaccList"></div>
+        <div class="insight-strip" style="margin-top:14px"><span><strong>R$ 1.840</strong> em vacinas previstas se todos retornarem. Disparar lembrete via WhatsApp converte 7 em 10.</span></div>
+      </div>
+
+      <!-- WOW 3: ANIVERSARIANTES -->
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title" style="font-size:20px">Aniversariantes <em>do mês</em></h3>
+            <p class="card-sub">9 pets fazendo aniversário em maio</p>
+          </div>
+        </div>
+        <div class="bday-list" id="bdayList"></div>
+        <div class="insight-strip" style="margin-top:14px"><span><strong>Campanha automática:</strong> mensagem com 15% no banho do mês de aniversário. 6 em 10 voltam no mês — converte em R$ 480/mês de receita extra.</span></div>
+      </div>
+    </div>
+
+    <!-- INDICADORES -->
+    <div class="section">
+      <h2 class="section-title">Outros <em>indicadores</em></h2>
+      <p class="section-sub">Ritmo do salão em números diretos.</p>
+    </div>
+    <div class="full-row three">
+      <div class="card">
+        <div class="card-head"><div><h3 class="card-title" style="font-size:18px">Ticket médio</h3><p class="card-sub">Por atendimento · mês</p></div></div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+          <span style="font-family:'Fraunces',serif;font-size:38px;color:var(--text);font-weight:600"><span style="font-size:14px;color:var(--text-muted);font-family:Inter">R$</span> 142</span>
+          <span class="chart-trend">+R$ 11 vs mês anterior</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.5">Tutores estão levando ração premium e aceitando hidratação no combo. Cross-sell funcionando.</div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h3 class="card-title" style="font-size:18px">Pets <em>ativos</em></h3><p class="card-sub">Atendidos nos últimos 90 dias</p></div></div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+          <span style="font-family:'Fraunces',serif;font-size:38px;color:var(--text);font-weight:600">312</span>
+          <span class="chart-trend">↑ 28 vs mês anterior</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.5">Base saudável. Acima de 90 dias sem voltar é hora de campanha de retorno.</div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h3 class="card-title" style="font-size:18px">Recorrência</h3><p class="card-sub">% que volta em 45 dias</p></div></div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+          <span style="font-family:'Fraunces',serif;font-size:38px;color:var(--text);font-weight:600">68%</span>
+          <span style="font-size:11px;color:var(--text-muted);font-weight:600">tutores fiéis</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.5">Excelente — clientes fiéis trazem 78% do faturamento. O programa de fidelidade (10ª tosa grátis) está rodando.</div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>Painel Bicho Bom · demonstração</span>
+    <span>Desenvolvido por <a href="https://nuptechs.com">NuPtechs</a></span>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DATA = {
+  day:   { faturamento: 'R$ 3.140', atend: '24', pets: '218', novos: '3',  trend: { faturamento: 9,  atend: 6,  pets: 1,  novos: 2 } },
+  week:  { faturamento: 'R$ 16.480', atend: '128', pets: '256', novos: '11', trend: { faturamento: 12, atend: 8,  pets: 3,  novos: 5 } },
+  month: { faturamento: 'R$ 62.840', atend: '498', pets: '312', novos: '38', trend: { faturamento: 14, atend: 11, pets: 7,  novos: 9 } },
+  year:  { faturamento: 'R$ 612.300', atend: '5.821', pets: '484', novos: '312', trend: { faturamento: 21, atend: 17, pets: 14, novos: 22 } },
+};
+const days30 = [1600,1900,1500,1700,2300,3800,2900,1700,1500,1400,1900,2400,4100,3000,1600,1900,1600,2000,2200,4500,3200,1900,1700,1900,2100,2500,4600,3500,1800,3140];
+const week12 = [12.4, 13.2, 12.8, 14.6, 14.0, 15.4, 15.8, 13.9, 13.1, 14.6, 15.2, 16.48];
+const month12 = [44.3, 47.5, 50.1, 51.8, 49.6, 53.2, 56.4, 51.7, 54.8, 57.6, 55.2, 62.84];
+const monthLabels = ['Jun','Jul','Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai'];
+
+const products = [
+  { name: 'Banho + Tosa Higiênica · Médio', cat: 'Banho & Tosa',     amount: 'R$ 8.910', qty: '198 atend.' },
+  { name: 'Tosa na Máquina · Pequeno',      cat: 'Banho & Tosa',     amount: 'R$ 5.620', qty: '124 atend.' },
+  { name: 'Vacina V10 (1ª dose)',           cat: 'Veterinário',      amount: 'R$ 4.380', qty: '52 doses'  },
+  { name: 'Ração Premier Adulto 15kg',      cat: 'Loja · Cães',      amount: 'R$ 3.870', qty: '21 unid.'  },
+  { name: 'Hospedagem · diária',            cat: 'Hotel',            amount: 'R$ 3.240', qty: '36 diárias' },
+];
+
+const payments = [
+  { name: 'Banho & Tosa',     pct: 47, color: '#15616D' },
+  { name: 'Loja (ração+acessórios)', pct: 28, color: '#E0A435' },
+  { name: 'Veterinário & Vacinas',   pct: 18, color: '#5E8B6E' },
+  { name: 'Hotel & Day Care',        pct: 7,  color: '#C97B7B' },
+];
+
+const alerts = [
+  { kind: 'danger',  name: 'Ração Premier Adulto 15kg',  desc: 'Restam 3 sacos. Vende 21/mês — repor agora.', cta: 'Pedir' },
+  { kind: 'warning', name: 'Antipulgas Bravecto · médio', desc: '6 unid. — produto puxa venda casada (banho)', cta: 'Pedir' },
+  { kind: 'warning', name: '14 pets sem retorno há 60 dias', desc: 'Disparar campanha de retorno via WhatsApp', cta: 'Engajar' },
+  { kind: 'warning', name: '8 vacinas vencem em 7 dias', desc: 'R$ 940 em receita previsível se todos voltarem', cta: 'Avisar' },
+];
+
+// WOW 1: Pets previstos pra retornar (banho cíclico cada 21-30d)
+const returnPets = [
+  { initial:'M', name:'Mel',     tag:'Shih Tzu',         tutor:'Patrícia · 99182-2410', last:'há 28 dias', due:'Atrasou 4d', state:'urgent', color:'mustard' },
+  { initial:'T', name:'Thor',    tag:'Golden',           tutor:'Marcelo · 98322-7740',  last:'há 25 dias', due:'Hoje',      state:'urgent', color:'teal' },
+  { initial:'L', name:'Luna',    tag:'Maltês',           tutor:'Ana · 99664-1102',      last:'há 22 dias', due:'Em 2 dias', state:'soon',   color:'rose' },
+  { initial:'B', name:'Bento',   tag:'Yorkshire',        tutor:'Rafael · 99220-5589',   last:'há 21 dias', due:'Em 4 dias', state:'soon',   color:'mustard' },
+  { initial:'A', name:'Amora',   tag:'Spitz Alemão',     tutor:'Júlia · 98101-3320',    last:'há 20 dias', due:'Em 5 dias', state:'soon',   color:'teal' },
+  { initial:'P', name:'Pingo',   tag:'Poodle',           tutor:'Carlos · 99711-2284',   last:'há 19 dias', due:'Em 7 dias', state:'ok',     color:'rose' },
+];
+
+const vacc = [
+  { tag:'V10',     pet:'Mel · Shih Tzu',          when:'vence em 4 dias',  state:'urgent' },
+  { tag:'RAIVA',   pet:'Thor · Golden',           when:'vence em 6 dias',  state:'urgent' },
+  { tag:'GIARDIA', pet:'Luna · Maltês',           when:'vence em 12 dias', state:'soon'   },
+  { tag:'V10',     pet:'Bento · Yorkshire',       when:'vence em 18 dias', state:'soon'   },
+  { tag:'TOSSE',   pet:'Amora · Spitz',           when:'vence em 21 dias', state:'soon'   },
+  { tag:'V10',     pet:'Pingo · Poodle',          when:'vence em 26 dias', state:'soon'   },
+];
+
+const bdays = [
+  { emoji:'🐶', name:'Bento, 3 anos',   when:'12 de maio' },
+  { emoji:'🐱', name:'Frida, 2 anos',   when:'14 de maio' },
+  { emoji:'🐶', name:'Thor, 5 anos',    when:'18 de maio' },
+  { emoji:'🐶', name:'Mel, 4 anos',     when:'22 de maio' },
+  { emoji:'🐱', name:'Lola, 1 ano',     when:'24 de maio' },
+  { emoji:'🐶', name:'Pipoca, 7 anos',  when:'27 de maio' },
+];
+
+const $  = (s, ctx=document) => ctx.querySelector(s);
+const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
+
+function showToast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function renderKPIs(period='month'){
+  const d = DATA[period];
+  const cfg = [
+    { label:'Faturamento', value: d.faturamento, sub:'no período',     icon:'teal',    iconSvg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>', trend:d.trend.faturamento },
+    { label:'Atendimentos', value: d.atend, sub:'banho · tosa · vet',   icon:'mustard', iconSvg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 9.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm4-3a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm5 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm4 3a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/><path d="M12 11.5c-3 0-6 2.5-6 5.5 0 1.7 1.3 3 3 3 1 0 1.5-.5 3-.5s2 .5 3 .5c1.7 0 3-1.3 3-3 0-3-3-5.5-6-5.5Z"/></svg>', trend:d.trend.atend },
+    { label:'Pets ativos', value: d.pets, sub:'cadastrados · 90d',     icon:'rose',    iconSvg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>', trend:d.trend.pets },
+    { label:'Novos tutores', value: d.novos, sub:'cadastrados',        icon:'success', iconSvg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>', trend:d.trend.novos },
+  ];
+  $('#kpiGrid').innerHTML = cfg.map(k => `
+    <div class="kpi">
+      <div class="kpi-head">
+        <div class="kpi-icon ${k.icon}">${k.iconSvg}</div>
+        <span class="kpi-trend up">↑ ${k.trend}%</span>
+      </div>
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-value">${k.value}</div>
+      <div class="kpi-sub">${k.sub}</div>
+    </div>`).join('');
+}
+
+function renderLineChart(){
+  const data = days30;
+  const max = Math.max(...data) * 1.1;
+  const w = 800, h = 220, padX = 8, padTop = 16, padBot = 28;
+  const stepX = (w - padX*2) / (data.length - 1);
+  const points = data.map((v,i) => `${(padX + i*stepX).toFixed(1)},${(h - padBot - (v/max)*(h-padTop-padBot)).toFixed(1)}`);
+  const linePath = `M ${points.join(' L ')}`;
+  const areaPath = `${linePath} L ${(padX + (data.length-1)*stepX).toFixed(1)},${h-padBot} L ${padX},${h-padBot} Z`;
+  const grid = [0,1,2,3].map(i => `<line x1="${padX}" x2="${w-padX}" y1="${padTop + i*(h-padTop-padBot)/3}" y2="${padTop + i*(h-padTop-padBot)/3}" stroke="#E2DCCB" stroke-width="1"/>`).join('');
+  const dots = data.map((v,i) => {
+    const x = padX + i*stepX, y = h - padBot - (v/max)*(h-padTop-padBot);
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${i===data.length-1?4:0}" fill="#0E4651"/>`;
+  }).join('');
+  const xLabels = [0, 9, 19, 29].map(i => `<text x="${(padX + i*stepX).toFixed(1)}" y="${h-8}" text-anchor="middle" font-size="10" fill="#9DA3A8" font-family="Inter">D${i+1}</text>`).join('');
+
+  $('#lineChartWrap').innerHTML = `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">
+    <defs><linearGradient id="bb-area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#15616D" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#15616D" stop-opacity="0"/>
+    </linearGradient></defs>
+    ${grid}
+    <path d="${areaPath}" fill="url(#bb-area)"/>
+    <path d="${linePath}" fill="none" stroke="#0E4651" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    ${dots}
+    ${xLabels}
+  </svg>`;
+}
+
+function renderBars(elId, data, labels){
+  const max = Math.max(...data);
+  $(elId).innerHTML = data.map((v,i) => `
+    <div class="bar-col" title="${labels[i]}: R$ ${v}k">
+      <div class="bar-fill" style="height:${(v/max)*60+10}px"></div>
+      <div class="bar-label">${labels[i]}</div>
+    </div>`).join('');
+}
+
+function renderDonut(){
+  let cumPct = 0;
+  const cx = 80, cy = 80, r = 64, rIn = 40;
+  const slices = payments.map(p => {
+    const pct = p.pct/100;
+    const startA = cumPct * 2*Math.PI - Math.PI/2;
+    cumPct += pct;
+    const endA = cumPct * 2*Math.PI - Math.PI/2;
+    const large = pct > 0.5 ? 1 : 0;
+    const x1 = cx + r*Math.cos(startA), y1 = cy + r*Math.sin(startA);
+    const x2 = cx + r*Math.cos(endA), y2 = cy + r*Math.sin(endA);
+    const x3 = cx + rIn*Math.cos(endA), y3 = cy + rIn*Math.sin(endA);
+    const x4 = cx + rIn*Math.cos(startA), y4 = cy + rIn*Math.sin(startA);
+    return `<path d="M${x1.toFixed(1)},${y1.toFixed(1)} A${r},${r} 0 ${large} 1 ${x2.toFixed(1)},${y2.toFixed(1)} L${x3.toFixed(1)},${y3.toFixed(1)} A${rIn},${rIn} 0 ${large} 0 ${x4.toFixed(1)},${y4.toFixed(1)} Z" fill="${p.color}"/>`;
+  }).join('');
+
+  $('#donutWrap').innerHTML = `
+    <div class="donut-svg">
+      <svg viewBox="0 0 160 160">
+        ${slices}
+        <text x="80" y="78" text-anchor="middle" font-size="9" fill="#5C6770" font-family="Inter" letter-spacing="2">RECEITA</text>
+        <text x="80" y="94" text-anchor="middle" font-size="14" fill="#142028" font-family="Fraunces" font-weight="600">B&amp;T lidera</text>
+      </svg>
+    </div>
+    <div class="donut-legend">
+      ${payments.map(p => `<div class="legend-row"><div class="legend-dot" style="background:${p.color}"></div><div class="legend-name">${p.name}</div><div class="legend-pct">${p.pct}%</div></div>`).join('')}
+    </div>`;
+}
+
+function renderProducts(){
+  $('#productList').innerHTML = products.map((p,i) => `
+    <div class="product-row">
+      <div class="product-rank">${i+1}</div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-meta">${p.cat}</div>
+      </div>
+      <div class="product-value">
+        <div class="product-amount">${p.amount}</div>
+        <div class="product-qty">${p.qty}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderAlerts(){
+  const icons = {
+    warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    danger:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+  };
+  $('#alertList').innerHTML = alerts.map(a => `
+    <div class="alert-row ${a.kind}">
+      <div class="alert-icon">${icons[a.kind]}</div>
+      <div class="alert-body">
+        <div class="alert-name">${a.name}</div>
+        <div class="alert-desc">${a.desc}</div>
+      </div>
+      <button class="alert-cta" onclick="event.preventDefault(); window.toastMsg('${a.cta}: ação registrada')">${a.cta}</button>
+    </div>`).join('');
+}
+
+function renderHeatmap(){
+  const days = ['Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const hours = ['8','9','10','11','12','13','14','15','16','17','18','19'];
+  // pet shop pattern: manhã pesada (banho), pico sábado de manhã/tarde, terça mais fraca
+  const grid = days.map((d, di) => hours.map((h, hi) => {
+    let base = 0.18;
+    if (hi >= 1 && hi <= 5) base += 0.32; // manhã
+    if (hi >= 6 && hi <= 8) base += 0.14;
+    if (di === 5 && hi >= 1 && hi <= 5) base += 0.32; // sábado manhã
+    if (di === 4 && hi >= 6) base += 0.10; // sex tarde
+    if (di === 1) base -= 0.06; // ter mais fraca
+    return Math.max(0.05, Math.min(1, base + Math.random() * 0.12));
+  }));
+
+  const heatColor = (v) => {
+    const r = Math.round(239 - (239-21) * v);
+    const g = Math.round(234 - (234-97) * v);
+    const b = Math.round(222 - (222-109) * v);
+    return `rgb(${r},${g},${b})`;
+  };
+
+  const html = days.map((d, di) => `
+    <div class="heat-label">${d}</div>
+    ${hours.map((h, hi) => `<div class="heat-cell" style="background:${heatColor(grid[di][hi])}" title="${d} ${h}h: ${(grid[di][hi]*100).toFixed(0)}% pico"></div>`).join('')}
+  `).join('');
+
+  const axis = `<div class="heat-axis">${hours.map(h => `<span>${h}h</span>`).join('')}</div>`;
+  $('#heatmap').innerHTML = `<div class="heatmap">${html}</div>${axis}`;
+}
+
+function renderReturns(){
+  $('#returnList').innerHTML = returnPets.map(p => `
+    <div class="pet-row">
+      <div class="pet-avatar ${p.color}">${p.initial}</div>
+      <div class="pet-info">
+        <div class="pet-name">${p.name} <span class="pet-tag">${p.tag}</span></div>
+        <div class="pet-meta">${p.tutor} · último banho ${p.last}</div>
+      </div>
+      <div class="pet-due ${p.state}">${p.due}<small>previsto</small></div>
+    </div>`).join('');
+}
+
+function renderVacc(){
+  $('#vaccList').innerHTML = vacc.map(v => `
+    <div class="vacc-row ${v.state}">
+      <div class="vacc-pill ${v.tag.toLowerCase().slice(0,5)}">${v.tag}</div>
+      <div class="vacc-info">
+        <div class="vacc-pet">${v.pet}</div>
+        <div class="vacc-when">${v.when}</div>
+      </div>
+      <button class="vacc-cta" onclick="event.preventDefault(); window.toastMsg('Lembrete enviado para o tutor de ${v.pet.split(' ·')[0]}')">Avisar</button>
+    </div>`).join('');
+}
+
+function renderBdays(){
+  $('#bdayList').innerHTML = bdays.map(b => `
+    <div class="bday-card">
+      <div class="bday-emoji">${b.emoji}</div>
+      <div class="bday-info">
+        <div class="bday-pet">${b.name}</div>
+        <div class="bday-when">${b.when}</div>
+      </div>
+    </div>`).join('');
+}
+
+function bindPeriodTabs(){
+  $('#periodTabs').addEventListener('click', e => {
+    const btn = e.target.closest('.period-tab');
+    if (!btn) return;
+    $$('.period-tab').forEach(b => b.classList.toggle('active', b === btn));
+    renderKPIs(btn.dataset.period);
+    const labels = { day: 'Hoje · ' + new Date().toLocaleDateString('pt-BR'), week: 'Semana atual · 1 a 7 de Mai', month: 'Maio · 1 a 7', year: 'Ano de 2026' };
+    $('#periodMeta').textContent = labels[btn.dataset.period];
+    showToast(`Período atualizado: ${btn.textContent}`);
+  });
+}
+
+window.toastMsg = showToast;
+if (/[?&]embed=1\b/.test(location.search)) document.body.classList.add('embed');
+const today = new Date();
+$('#todayLabel').textContent = today.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+
+renderKPIs('month');
+renderLineChart();
+renderBars('#weekBars', week12, ['S1','S2','S3','S4','S5','S6','S7','S8','S9','S10','S11','S12']);
+renderBars('#monthBars', month12, monthLabels);
+renderDonut();
+renderProducts();
+renderAlerts();
+renderHeatmap();
+renderReturns();
+renderVacc();
+renderBdays();
+bindPeriodTabs();
+</script>
+</body>
+</html>
