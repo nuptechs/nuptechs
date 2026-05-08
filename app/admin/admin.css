@@ -113,6 +113,14 @@
   color: var(--ad-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Safety net mobile: previne overflow horizontal por filhos largos */
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
+.admin-main {
+  max-width: 100vw;
+  overflow-x: clip;
 }
 
 /* ─── Sidebar ────────────────────────────────────────────────────────── */
@@ -460,51 +468,71 @@
 
   /* Main passa a usar a largura toda — a topbar (sticky) já reserva o topo. */
   .admin-main { margin-left: 0; }
-  .admin-content { padding: 20px 16px 48px; }
+  .admin-content { padding: 20px 16px 48px; min-width: 0; }
 
-  /* Page header empilha em coluna; ações descem abaixo do título */
+  /* Page header: filhos flex precisam de min-width:0 pra não estourar
+   * (texto longo dentro de flex-child sem essa regra cria overflow horizontal). */
   .admin-page-header {
     flex-direction: column;
     align-items: stretch;
-    gap: 14px;
-    margin-bottom: 24px;
-    padding-bottom: 18px;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
   }
-  .admin-page-header h1 { font-size: 22px; }
-  .admin-subtitle { font-size: 13px; }
-  .admin-header-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  .admin-page-header > div { min-width: 0; }
+  .admin-page-header h1 {
+    font-size: 22px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.2;
   }
+  .admin-subtitle {
+    font-size: 13px;
+    overflow-wrap: anywhere;
+    max-width: none;
+  }
+  .admin-header-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 
-  /* Stats: tighter, valores menores */
+  /* ── Stats em layout horizontal "row card" — visual mais limpo, label
+   *    fica destacada acima e o número fica grande à direita. ───────── */
   .admin-stats-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 8px;
-    margin-bottom: 28px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
   }
-  .admin-stat-card { padding: 14px; }
-  .admin-stat-value { font-size: 24px; }
+  .admin-stat-card {
+    padding: 14px 14px;
+    gap: 4px;
+    min-width: 0;
+  }
+  .admin-stat-card .admin-stat-label {
+    font-size: 12px;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+  .admin-stat-value { font-size: 22px; }
 
-  /* Filtros: scroll horizontal sem quebra de linha */
+  /* Filtros: scroll horizontal sem quebra. Sem margin negativo — fica
+   * contido dentro do .admin-content (evita overflow lateral da página). */
   .admin-filters {
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin: 0 -16px 20px;
-    padding: 0 16px 4px;
+    margin: 0 0 18px;
+    padding: 2px 0 4px;
     scrollbar-width: none;
   }
   .admin-filters::-webkit-scrollbar { display: none; }
   .admin-filter-chip { flex-shrink: 0; min-height: 36px; padding: 7px 14px; font-size: 13px; }
 
-  /* Search: ocupa toda a largura */
+  /* Search ocupa toda a largura, inputs com font-size 16 (evita zoom iOS) */
   .admin-search { max-width: none; }
-  .admin-input { font-size: 16px; padding: 10px 14px; min-height: 44px; }
+  .admin-input { font-size: 16px; padding: 11px 14px; min-height: 44px; }
   .admin-textarea { min-height: 96px; }
 
-  /* Tabelas: scroll horizontal limpo + células mais compactas */
+  /* Tabelas: wrap rola horizontal ISOLADO — sem margin negativo, fica
+   * dentro do conteúdo, e a tabela maior (min-width 720px do contratos.css)
+   * scrolla só no eixo do wrap, não da página. */
   .admin-table { font-size: 12.5px; }
   .admin-table th,
   .admin-table td { padding: 10px 12px; }
@@ -512,32 +540,29 @@
   .admin-table-wrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin: 0 -16px;
-    padding: 0 16px;
+    max-width: 100%;
   }
 
-  /* Cards genéricos */
+  /* Cards genéricos com padding mais ajustado */
   .admin-card-body { padding: 16px; }
   .admin-card-header { padding: 12px 16px; }
+  .admin-card { min-width: 0; }
 
-  /* Empty states sem padding excessivo */
+  /* Empty states sem padding exagerado */
   .admin-empty-state { padding: 36px 20px; }
   .admin-empty-state-rich { padding: 32px 20px; }
 
-  /* Drawer right-side (ex: novo lead/agendamento): full screen mobile */
-  .admin-drawer {
-    width: 100vw;
-    border-left: none;
-  }
+  /* Drawers right-side: fullscreen */
+  .admin-drawer { width: 100vw; border-left: none; }
   .admin-drawer-header { padding: 14px 18px; }
   .admin-drawer-body { padding: 18px; }
   .admin-drawer-footer { padding: 14px 18px; }
 
-  /* Touch targets adequados (mín. 40px Apple HIG / 48px Material) */
+  /* Touch targets confortáveis */
   .admin-btn { min-height: 40px; padding: 9px 14px; font-size: 13.5px; }
   .admin-btn-sm { min-height: 32px; padding: 5px 11px; }
   .admin-btn-icon { min-height: 36px; min-width: 36px; padding: 7px; }
-  .admin-nav-item { padding: 9px 12px; min-height: 40px; }
+  .admin-nav-item { padding: 10px 12px; min-height: 42px; font-size: 14px; }
 
   /* Tabs: scroll horizontal */
   .admin-tabs {
@@ -549,23 +574,24 @@
   .admin-tabs::-webkit-scrollbar { display: none; }
   .admin-tab { flex-shrink: 0; }
 
-  /* Breadcrumbs menores */
-  .admin-breadcrumbs { font-size: 12px; }
+  /* Breadcrumbs compactos */
+  .admin-breadcrumbs { font-size: 12px; overflow-wrap: anywhere; }
 
-  /* Status badges um tiquinho maiores em mobile pra ler melhor */
+  /* Status badges legíveis */
   .admin-badge { font-size: 11.5px; padding: 3px 9px; }
 }
 
 /* ─── Mobile pequeno (≤ 480px) ─────────────────────────────────────────── */
 @media (max-width: 480px) {
   .admin-content { padding: 16px 14px 48px; }
-  .admin-page-header h1 { font-size: 20px; }
-  .admin-page-header { gap: 12px; margin-bottom: 20px; }
-  /* Botões do header esticam — ações principais ficam alcançáveis com o polegar */
+  .admin-page-header h1 { font-size: 21px; }
+  .admin-page-header { gap: 10px; margin-bottom: 18px; }
   .admin-header-actions .admin-btn { flex: 1 1 calc(50% - 4px); }
-  .admin-stats-grid { grid-template-columns: 1fr 1fr; }
-  .admin-stat-value { font-size: 22px; }
-  .admin-stat-card { padding: 12px 14px; }
+  /* Stats: 2x2 mantém layout previsível mesmo com 4 cards */
+  .admin-stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .admin-stat-value { font-size: 20px; }
+  .admin-stat-card { padding: 12px 13px; }
+  .admin-stat-card .admin-stat-label { font-size: 11.5px; }
 }
 
 /* ─── Page Header ────────────────────────────────────────────────────── */
