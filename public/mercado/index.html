@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#FBF9F2" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Mercadinho da Esquina · Sistema</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --bg:#FBF9F2;
+  --surface:#FFFFFF;
+  --surface-2:#F2EFE3;
+  --surface-3:#E6E2CF;
+  --border:#E0DCC9;
+  --text:#0F1F18;
+  --text-muted:#586860;
+  --text-dim:#9AA59E;
+  --green:#1F7A4D;
+  --green-dark:#0E5236;
+  --orange:#E8843A;
+  --orange-dark:#B85F1E;
+  --plum:#7C3F66;
+  --warning:#E8843A;
+  --danger:#C84030;
+  --success:#1F7A4D;
+  --shadow-sm:0 1px 2px rgba(15,31,24,0.04),0 1px 3px rgba(15,31,24,0.06);
+  --shadow:0 4px 12px rgba(15,31,24,0.05),0 2px 4px rgba(15,31,24,0.04);
+  --shadow-lg:0 12px 32px rgba(15,31,24,0.10),0 4px 12px rgba(15,31,24,0.06);
+  --radius-sm:8px; --radius:12px; --radius-lg:16px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --sidebar:240px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100dvh;display:flex}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;padding:0}
+button:focus-visible,a:focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:6px}
+a{color:inherit;text-decoration:none}
+input,select,textarea{font-family:inherit;font-size:14px}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);background:var(--green-dark);color:#fff;padding:18px 12px;flex-shrink:0;display:flex;flex-direction:column;gap:14px;height:100dvh;position:sticky;top:0;overflow-y:auto}
+.sb-brand{display:flex;align-items:center;gap:10px;padding:6px 8px}
+.sb-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--orange),var(--orange-dark));display:grid;place-items:center;color:#fff;flex-shrink:0;box-shadow:var(--shadow-sm)}
+.sb-mark svg{width:20px;height:20px}
+.sb-name{font-family:'DM Serif Display',serif;font-size:18px;line-height:1.05;letter-spacing:-0.005em}
+.sb-tag{font-size:9px;letter-spacing:0.16em;color:rgba(255,255,255,0.55);text-transform:uppercase;font-weight:700;margin-top:3px}
+.sb-nav{display:flex;flex-direction:column;gap:3px}
+.sb-section{font-size:9px;letter-spacing:0.20em;color:rgba(255,255,255,0.40);text-transform:uppercase;font-weight:700;padding:14px 10px 6px}
+.sb-link{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:8px;font-size:13px;font-weight:700;color:rgba(255,255,255,0.85);transition:all .15s var(--ease);position:relative}
+.sb-link:hover{background:rgba(255,255,255,0.06);color:#fff}
+.sb-link.active{background:rgba(232,132,58,0.15);color:#fff}
+.sb-link.active::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:3px;background:var(--orange);border-radius:0 4px 4px 0}
+.sb-link svg{width:17px;height:17px;flex-shrink:0;opacity:0.85}
+.sb-link.active svg{opacity:1;color:var(--orange)}
+.sb-link .badge{margin-left:auto;background:var(--orange);color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:999px}
+.sb-foot{margin-top:auto;padding:14px 10px;border-top:1px solid rgba(255,255,255,0.10);font-size:11px;color:rgba(255,255,255,0.55);line-height:1.55}
+.sb-user{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sb-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--orange-dark));color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px;font-family:'DM Serif Display',serif}
+.sb-user-name{color:#fff;font-weight:700;font-size:12px;line-height:1.2}
+.sb-user-role{color:rgba(255,255,255,0.50);font-size:9px;letter-spacing:0.10em;text-transform:uppercase;font-weight:700}
+
+.mobile-bar{display:none;position:sticky;top:0;z-index:30;padding:12px 16px;background:var(--bg);border-bottom:1px solid var(--border);align-items:center;gap:12px}
+.mobile-toggle{width:38px;height:38px;display:grid;place-items:center;border-radius:8px;color:var(--green-dark);background:var(--surface);border:1px solid var(--border)}
+.mobile-toggle svg{width:18px;height:18px}
+.mobile-brand{font-family:'DM Serif Display',serif;font-size:18px;color:var(--green-dark);flex:1}
+@media(max-width:900px){
+  .sidebar{position:fixed;top:0;left:0;z-index:40;transform:translateX(-100%);transition:transform .25s var(--ease)}
+  body.nav-open .sidebar{transform:translateX(0);box-shadow:var(--shadow-lg)}
+  .mobile-bar{display:flex}
+  body.nav-open::before{content:'';position:fixed;inset:0;background:rgba(15,31,24,0.40);z-index:35}
+}
+
+/* MAIN */
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;background:rgba(251,249,242,0.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+@media(max-width:900px){.topbar{top:62px}}
+.topbar-left{display:flex;flex-direction:column;gap:2px;min-width:0}
+.topbar-eyebrow{font-size:10px;letter-spacing:0.16em;color:var(--orange-dark);text-transform:uppercase;font-weight:800}
+.topbar-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);letter-spacing:-0.01em;line-height:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar-title em{font-style:italic;color:var(--green-dark)}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.topbar-btn{padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:0.02em;color:var(--text-muted);background:var(--surface);border:1px solid var(--border);transition:all .15s var(--ease);display:inline-flex;align-items:center;gap:6px}
+.topbar-btn:hover{color:var(--text);border-color:var(--text-muted)}
+.topbar-btn.primary{color:#fff;background:var(--green-dark);border-color:var(--green-dark)}
+.topbar-btn.primary:hover{background:var(--green)}
+.topbar-btn svg{width:13px;height:13px}
+.topbar-search{flex:1;max-width:340px;position:relative;display:none}
+@media(min-width:768px){.topbar-search{display:block}}
+.topbar-search input{width:100%;padding:9px 12px 9px 34px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:13px;color:var(--text)}
+.topbar-search input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(31,122,77,0.10)}
+.topbar-search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--text-dim)}
+
+.content{padding:24px;flex:1;min-width:0}
+@media(min-width:768px){.content{padding:24px 32px 64px}}
+
+.view{display:none}
+.view.active{display:block}
+.view.active.no-padding{padding:0;margin:-24px}
+@media(min-width:768px){.view.active.no-padding{margin:-24px -32px -64px}}
+
+.section-row{display:grid;gap:16px;grid-template-columns:1fr;margin-bottom:24px}
+@media(min-width:1024px){.section-row.split{grid-template-columns:2fr 1fr}}
+@media(min-width:768px){.section-row.three{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:768px){.section-row.four{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:768px){.section-row.two{grid-template-columns:repeat(2,1fr)}}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm)}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.card-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);margin:0 0 2px;letter-spacing:-0.01em}
+.card-title em{font-style:italic;color:var(--green-dark)}
+.card-sub{font-size:11px;color:var(--text-muted)}
+.card-action{font-size:11px;color:var(--green-dark);font-weight:700;letter-spacing:0.06em;text-transform:uppercase;display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+.card-action:hover{color:var(--text)}
+
+.stat-card{padding:18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+.stat-icon{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;margin-bottom:12px}
+.stat-icon svg{width:17px;height:17px}
+.stat-icon.green{background:rgba(31,122,77,0.12);color:var(--green-dark)}
+.stat-icon.orange{background:rgba(232,132,58,0.14);color:var(--orange-dark)}
+.stat-icon.plum{background:rgba(124,63,102,0.12);color:var(--plum)}
+.stat-icon.danger{background:rgba(200,64,48,0.10);color:var(--danger)}
+.stat-label{font-size:10px;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;font-weight:700;margin-bottom:5px}
+.stat-value{font-family:'DM Serif Display',serif;font-size:30px;color:var(--text);line-height:1;letter-spacing:-0.02em}
+.stat-sub{font-size:11px;color:var(--text-muted);margin-top:5px;line-height:1.45}
+
+/* ====== FRENTE DE CAIXA (PDV) ====== */
+.pdv-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:-24px;padding:24px;height:calc(100dvh - 110px);min-height:600px}
+@media(min-width:768px){.pdv-grid{margin:-24px -32px -64px;padding:24px 32px;grid-template-columns:1fr 380px}}
+
+.pdv-products{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;overflow:hidden}
+.pdv-products-head{padding:14px 16px;border-bottom:1px solid var(--border);background:var(--surface-2);display:flex;gap:10px;align-items:center}
+.pdv-search{position:relative;flex:1}
+.pdv-search input{width:100%;padding:10px 14px 10px 38px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:13px}
+.pdv-search input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(31,122,77,0.10)}
+.pdv-search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--text-dim)}
+.pdv-barcode-btn{padding:10px 14px;background:var(--green-dark);color:#fff;border-radius:8px;font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;display:flex;align-items:center;gap:6px;cursor:pointer}
+.pdv-barcode-btn:hover{background:var(--green)}
+.pdv-barcode-btn svg{width:14px;height:14px}
+.pdv-cats{display:flex;gap:6px;padding:10px 16px;overflow-x:auto;border-bottom:1px solid var(--border)}
+.pdv-cat{padding:6px 12px;font-size:11px;font-weight:700;color:var(--text-muted);background:var(--surface-2);border-radius:999px;letter-spacing:0.04em;cursor:pointer;flex-shrink:0;transition:all .15s var(--ease)}
+.pdv-cat.active{background:var(--green-dark);color:#fff}
+.pdv-list-products{display:flex;flex-direction:column;gap:0;overflow-y:auto;flex:1}
+.pdv-prod-row{display:grid;grid-template-columns:90px 1fr 80px 90px;gap:12px;align-items:center;padding:11px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:all .12s var(--ease)}
+.pdv-prod-row:hover{background:var(--surface-2)}
+.pdv-prod-emoji{font-size:24px;line-height:1;text-align:center}
+.pdv-prod-name{font-size:13px;font-weight:700;color:var(--text)}
+.pdv-prod-cat{font-size:10px;color:var(--text-muted);margin-top:1px;letter-spacing:0.04em;font-weight:700;text-transform:uppercase}
+.pdv-prod-stock{font-size:11px;color:var(--text-muted);font-weight:700;text-align:right}
+.pdv-prod-stock.low{color:var(--danger)}
+.pdv-prod-price{font-family:'DM Serif Display',serif;font-size:16px;color:var(--green-dark);text-align:right;letter-spacing:-0.01em}
+
+.pdv-cart{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;overflow:hidden}
+.pdv-cart-head{padding:16px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff}
+.pdv-cart-eyebrow{font-size:9px;letter-spacing:0.18em;color:rgba(255,255,255,0.65);text-transform:uppercase;font-weight:800;margin-bottom:4px}
+.pdv-cart-title{font-family:'DM Serif Display',serif;font-size:22px;line-height:1.1;margin:0 0 6px;letter-spacing:-0.01em}
+.pdv-cart-client{font-size:12px;color:rgba(255,255,255,0.85);display:flex;align-items:center;gap:8px}
+.pdv-cart-client-mark{width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,0.18);display:grid;place-items:center;font-weight:800;font-size:9px;color:#fff;letter-spacing:0.04em}
+.pdv-cart-items{padding:10px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;min-height:200px}
+.pdv-cart-item{display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px 11px;background:var(--surface-2);border-radius:6px}
+.pdv-cart-item-name{font-size:12px;font-weight:700;color:var(--text);line-height:1.3}
+.pdv-cart-item-meta{font-size:10px;color:var(--text-muted);margin-top:2px;font-weight:600}
+.pdv-cart-item-price{font-family:'DM Serif Display',serif;font-size:13px;color:var(--text);text-align:right;letter-spacing:-0.01em}
+.pdv-cart-item-qty{font-size:9px;color:var(--text-muted);font-weight:700;letter-spacing:0.04em;margin-top:2px}
+
+.pdv-cart-summary{padding:14px 16px;background:var(--surface-2);border-top:1px solid var(--border)}
+.pdv-summary-line{display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);font-weight:700;margin-bottom:6px}
+.pdv-summary-line.total{font-size:13px;color:var(--text);padding-top:8px;border-top:1px solid var(--border);margin-top:6px;align-items:baseline}
+.pdv-summary-line.total .v{font-family:'DM Serif Display',serif;font-size:28px;color:var(--green-dark);letter-spacing:-0.02em;line-height:1}
+.pdv-pay-btns{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:10px;border-top:1px solid var(--border)}
+.pdv-pay-btn{padding:10px 4px;border-radius:6px;background:var(--surface-2);font-size:10px;font-weight:800;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;text-align:center;border:1px solid transparent;cursor:pointer}
+.pdv-pay-btn.active{background:#fff;border-color:var(--green-dark);color:var(--green-dark);box-shadow:var(--shadow-sm)}
+.pdv-finalize{margin:0 10px 10px;padding:13px;background:var(--green-dark);color:#fff;border-radius:8px;font-size:13px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .15s var(--ease)}
+.pdv-finalize:hover{background:var(--green)}
+.pdv-finalize svg{width:14px;height:14px}
+
+/* ====== VALIDADE & ETIQUETAS ====== */
+.val-summary-row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:18px}
+@media(min-width:640px){.val-summary-row{grid-template-columns:repeat(4,1fr)}}
+
+.val-card-grid{display:grid;grid-template-columns:1fr;gap:8px}
+@media(min-width:768px){.val-card-grid{grid-template-columns:repeat(2,1fr)}}
+
+.val-card{padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);transition:all .15s var(--ease);display:flex;align-items:center;gap:12px}
+.val-card.urgent{border-color:rgba(200,64,48,0.32);background:rgba(200,64,48,0.03)}
+.val-card.soon{border-color:rgba(232,132,58,0.32);background:rgba(232,132,58,0.03)}
+.val-icon{width:54px;height:54px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;font-size:28px;flex-shrink:0}
+.val-info{flex:1;min-width:0}
+.val-product{font-size:13px;font-weight:700;color:var(--text);line-height:1.3}
+.val-due{font-size:11px;color:var(--text-muted);margin-top:3px;font-weight:600}
+.val-card.urgent .val-due{color:var(--danger)}
+.val-loss{text-align:right;flex-shrink:0}
+.val-loss-num{font-family:'DM Serif Display',serif;font-size:16px;color:var(--text);letter-spacing:-0.01em}
+.val-loss-lbl{font-size:9px;color:var(--text-dim);letter-spacing:0.06em;text-transform:uppercase;font-weight:700;margin-top:1px}
+.val-action-btn{margin-left:8px;padding:8px 12px;font-size:10px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:var(--green-dark);background:var(--surface-2);border-radius:5px;cursor:pointer;border:1px solid transparent;flex-shrink:0}
+.val-action-btn:hover{background:var(--green-dark);color:#fff;border-color:var(--green-dark)}
+
+/* ====== REPOSIÇÃO ====== */
+.rep-table{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.rep-row{display:grid;grid-template-columns:1fr 80px 80px 80px 110px;gap:14px;align-items:center;padding:11px 16px;border-bottom:1px solid var(--border)}
+.rep-row.head{background:var(--surface-2);font-size:10px;letter-spacing:0.10em;text-transform:uppercase;font-weight:800;color:var(--text-muted)}
+.rep-row:last-child{border-bottom:none}
+.rep-row:not(.head):hover{background:var(--surface-2)}
+.rep-row.critical{border-left:3px solid var(--danger);padding-left:13px;background:rgba(200,64,48,0.03)}
+.rep-row.warning{border-left:3px solid var(--orange);padding-left:13px;background:rgba(232,132,58,0.02)}
+.rep-name{font-size:13px;font-weight:700;color:var(--text)}
+.rep-cat{font-size:10px;color:var(--text-muted);margin-top:1px;letter-spacing:0.04em;font-weight:700;text-transform:uppercase}
+.rep-num{font-family:'DM Serif Display',serif;font-size:14px;color:var(--text);text-align:right;letter-spacing:-0.01em}
+.rep-num.danger{color:var(--danger)}
+.rep-num.warn{color:var(--warning)}
+.rep-num.success{color:var(--success)}
+.rep-suggested{padding:5px 10px;background:var(--green-dark);color:#fff;border-radius:5px;font-size:11px;font-weight:800;text-align:center;cursor:pointer;letter-spacing:0.04em}
+.rep-suggested:hover{background:var(--green)}
+
+/* ====== FIDELIDADE ====== */
+.fid-summary-row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:18px}
+@media(min-width:640px){.fid-summary-row{grid-template-columns:repeat(4,1fr)}}
+
+.client-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.client-card{padding:18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .15s var(--ease);position:relative;overflow:hidden}
+.client-card.vip{border-left:3px solid var(--orange)}
+.client-card.gold{border-left:3px solid #C49A48}
+.client-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.client-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.client-avatar{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-dark));color:#fff;display:grid;place-items:center;font-family:'DM Serif Display',serif;font-size:18px;font-weight:600;flex-shrink:0}
+.client-avatar.orange{background:linear-gradient(135deg,var(--orange),var(--orange-dark))}
+.client-avatar.plum{background:linear-gradient(135deg,var(--plum),#5C2A4D)}
+.client-name{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-0.01em;line-height:1.1}
+.client-tier{font-size:9px;color:var(--orange-dark);letter-spacing:0.10em;text-transform:uppercase;font-weight:800;margin-top:3px}
+.client-detail{padding:10px;background:var(--surface-2);border-radius:8px;font-size:11px;color:var(--text-muted);line-height:1.55;margin-bottom:10px}
+.client-detail strong{color:var(--text);display:block;font-size:12px;margin-bottom:2px}
+.client-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-top:10px;border-top:1px solid var(--border)}
+.client-stat{text-align:left}
+.client-stat-v{font-family:'DM Serif Display',serif;font-size:14px;color:var(--text);letter-spacing:-0.01em;line-height:1}
+.client-stat-l{font-size:9px;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;font-weight:800;margin-top:2px}
+.client-points{margin-top:12px;padding:10px;background:linear-gradient(135deg,rgba(232,132,58,0.10),rgba(232,132,58,0.02));border-radius:8px;display:flex;justify-content:space-between;align-items:center}
+.client-points-lbl{font-size:10px;color:var(--orange-dark);letter-spacing:0.06em;text-transform:uppercase;font-weight:800}
+.client-points-v{font-family:'DM Serif Display',serif;font-size:18px;color:var(--orange-dark)}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,80px);background:var(--green-dark);color:#fff;padding:12px 20px;border-radius:999px;font-size:13px;font-weight:600;z-index:1000;opacity:0;transition:all .3s var(--ease);box-shadow:var(--shadow-lg);pointer-events:none;max-width:90vw}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+.dono-frame{width:100%;border:none;display:block;background:#FBF9F2;height:calc(100dvh - 110px);min-height:600px}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sb-brand">
+    <span class="sb-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h2.5l1.7 11.3a2 2 0 0 0 2 1.7H18a2 2 0 0 0 2-1.7l1.3-7.3H7.2"/><circle cx="10" cy="20" r="1.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="20" r="1.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    </span>
+    <div>
+      <div class="sb-name">Mercadinho<br/>da Esquina</div>
+      <div class="sb-tag">Bairro · desde 1992</div>
+    </div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-section">Caixa</div>
+    <a href="#" class="sb-link active" data-view="pdv">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      Frente de Caixa
+    </a>
+    <div class="sb-section">Estoque</div>
+    <a href="#" class="sb-link" data-view="validade">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Validade<span class="badge">37</span>
+    </a>
+    <a href="#" class="sb-link" data-view="reposicao">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      Reposição<span class="badge">9</span>
+    </a>
+    <div class="sb-section">Cliente</div>
+    <a href="#" class="sb-link" data-view="fidelidade">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Fidelidade
+    </a>
+    <div class="sb-section">Análise</div>
+    <a href="#" class="sb-link" data-view="dono">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Painel do Dono
+    </a>
+  </nav>
+  <div class="sb-foot">
+    <div class="sb-user">
+      <div class="sb-avatar">DP</div>
+      <div>
+        <div class="sb-user-name">Dona Paula</div>
+        <div class="sb-user-role">Dona · Caixa 01</div>
+      </div>
+    </div>
+    Mercadinho · v3.4 · Bairro
+  </div>
+</aside>
+
+<div class="main">
+
+  <div class="mobile-bar">
+    <button class="mobile-toggle" id="navToggle" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="mobile-brand">Mercadinho</div>
+  </div>
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-eyebrow" id="topEyebrow">Caixa</div>
+      <div class="topbar-title" id="topTitle">Frente de <em>Caixa</em></div>
+    </div>
+    <div class="topbar-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Buscar produto, código ou cliente..." />
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn" onclick="toast('Caixa Paula · operadora ativa')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg>
+        Caixa 01
+      </button>
+      <button class="topbar-btn primary" onclick="toast('Nova venda iniciada')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Nova venda
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ====== FRENTE DE CAIXA (PDV) ====== -->
+    <section class="view active no-padding" id="view-pdv">
+      <div class="pdv-grid">
+        <div class="pdv-products">
+          <div class="pdv-products-head">
+            <div class="pdv-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" placeholder="Código de barras ou nome..." autofocus />
+            </div>
+            <button class="pdv-barcode-btn" onclick="toast('Aguardando leitor')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5v14M7 5v14M11 5v14M15 5v14M19 5v14"/></svg>
+              Leitor
+            </button>
+          </div>
+          <div class="pdv-cats">
+            <button class="pdv-cat active">TUDO</button>
+            <button class="pdv-cat">MERCEARIA</button>
+            <button class="pdv-cat">BEBIDAS</button>
+            <button class="pdv-cat">FLV</button>
+            <button class="pdv-cat">LATICÍNIOS</button>
+            <button class="pdv-cat">PADARIA</button>
+            <button class="pdv-cat">LIMPEZA</button>
+            <button class="pdv-cat">FRIOS</button>
+          </div>
+          <div class="pdv-list-products" id="pdvProducts"></div>
+        </div>
+
+        <div class="pdv-cart">
+          <div class="pdv-cart-head">
+            <div class="pdv-cart-eyebrow">CUPOM Nº 04823 · 14h32</div>
+            <h3 class="pdv-cart-title">Maria Aparecida S.</h3>
+            <div class="pdv-cart-client">
+              <div class="pdv-cart-client-mark">CPF</div>
+              <span>14 visitas no mês · cliente fidelidade GOLD · 2.840 pts</span>
+            </div>
+          </div>
+          <div class="pdv-cart-items" id="cartItems"></div>
+          <div class="pdv-cart-summary">
+            <div class="pdv-summary-line"><span>Subtotal · 12 itens</span><span id="subtotal">R$ 187,60</span></div>
+            <div class="pdv-summary-line"><span>Desconto fidelidade GOLD (3%)</span><span style="color:var(--success)">−R$ 5,63</span></div>
+            <div class="pdv-summary-line total"><span>Total</span><span class="v" id="total">R$ 181,97</span></div>
+          </div>
+          <div class="pdv-pay-btns">
+            <button class="pdv-pay-btn active">PIX</button>
+            <button class="pdv-pay-btn">DÉBITO</button>
+            <button class="pdv-pay-btn">CRÉDITO</button>
+            <button class="pdv-pay-btn">DINH</button>
+          </div>
+          <button class="pdv-finalize" onclick="toast('Cupom emitido · cliente acumulou 18 pontos')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Finalizar &amp; Imprimir
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== VALIDADE & ETIQUETAS ====== -->
+    <section class="view" id="view-validade">
+      <div class="val-summary-row">
+        <div class="stat-card" style="border-left:3px solid var(--danger)">
+          <div class="stat-icon danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg></div>
+          <div class="stat-label" style="color:var(--danger)">Vence ≤ 3 dias</div>
+          <div class="stat-value">12</div>
+          <div class="stat-sub">R$ 280 em risco</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid var(--warning)">
+          <div class="stat-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></div>
+          <div class="stat-label" style="color:var(--warning)">Vence 4-7 dias</div>
+          <div class="stat-value">25</div>
+          <div class="stat-sub">R$ 1.140 a vencer</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid var(--plum)">
+          <div class="stat-icon plum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+          <div class="stat-label">Total monitorado</div>
+          <div class="stat-value">487</div>
+          <div class="stat-sub">SKUs com data sensível</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid var(--success)">
+          <div class="stat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="stat-label">Quebra evitada</div>
+          <div class="stat-value">R$ 2.180</div>
+          <div class="stat-sub">Mês passado · promoção</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:18px">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Produtos vencendo · <em>etiquetas de promoção</em></h3>
+            <p class="card-sub">Imprimir etiqueta com 30% off + push WhatsApp pra fidelidade</p>
+          </div>
+          <button class="topbar-btn primary" onclick="toast('25 etiquetas geradas e enviadas para impressão')" style="display:inline-flex">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Imprimir etiquetas
+          </button>
+        </div>
+        <div class="val-card-grid" id="valGrid"></div>
+      </div>
+    </section>
+
+    <!-- ====== REPOSIÇÃO ====== -->
+    <section class="view" id="view-reposicao">
+      <div class="section-row four" style="margin-bottom:18px">
+        <div class="stat-card" style="border-left:3px solid var(--danger)">
+          <div class="stat-label" style="color:var(--danger)">Em ruptura</div>
+          <div class="stat-value">9</div>
+          <div class="stat-sub">Top 5 do mês incluídos</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid var(--warning)">
+          <div class="stat-label">Estoque baixo</div>
+          <div class="stat-value">28</div>
+          <div class="stat-sub">Repor em 7d</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid var(--plum)">
+          <div class="stat-label">Pedido sugerido</div>
+          <div class="stat-value">R$ 8.4k</div>
+          <div class="stat-sub">2 fornecedores · entrega 3d</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid var(--success)">
+          <div class="stat-label">Venda perdida</div>
+          <div class="stat-value">R$ 3.840</div>
+          <div class="stat-sub">Estimada no mês · ruptura</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Sugestão de <em>pedido</em></h3>
+            <p class="card-sub">Calculado pelo histórico de venda + lead time + estoque atual</p>
+          </div>
+          <button class="topbar-btn primary" onclick="toast('Pedido enviado para 2 fornecedores')" style="display:inline-flex">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Enviar tudo aos fornecedores
+          </button>
+        </div>
+        <div class="rep-table">
+          <div class="rep-row head">
+            <div>PRODUTO</div>
+            <div style="text-align:right">ESTOQUE</div>
+            <div style="text-align:right">VENDE/MÊS</div>
+            <div style="text-align:right">DURA</div>
+            <div style="text-align:center">SUGESTÃO</div>
+          </div>
+          <div id="repList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== FIDELIDADE ====== -->
+    <section class="view" id="view-fidelidade">
+      <div class="fid-summary-row">
+        <div class="stat-card" style="border-left:3px solid var(--green)">
+          <div class="stat-label">Cadastrados</div>
+          <div class="stat-value">1.412</div>
+          <div class="stat-sub">CPF na nota · este mês</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid var(--orange)">
+          <div class="stat-label" style="color:var(--orange-dark)">VIP Gold</div>
+          <div class="stat-value">142</div>
+          <div class="stat-sub">10% da base · 64% receita</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid var(--plum)">
+          <div class="stat-label">Pontos ativos</div>
+          <div class="stat-value">418k</div>
+          <div class="stat-sub">Cashback total acumulado</div>
+        </div>
+        <div class="stat-card" style="border-left:3px solid #C49A48">
+          <div class="stat-label">Conversão</div>
+          <div class="stat-value">41%</div>
+          <div class="stat-sub">Cupons com CPF / total</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:18px">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Top clientes do <em>mês</em></h3>
+            <p class="card-sub">Ordenado por valor gasto · clique para detalhes</p>
+          </div>
+          <button class="topbar-btn primary" onclick="toast('Promoção VIP enviada para 142 clientes Gold')" style="display:inline-flex">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            Campanha VIP
+          </button>
+        </div>
+        <div class="client-cards" id="cliCards"></div>
+      </div>
+    </section>
+
+    <!-- ====== PAINEL DO DONO ====== -->
+    <section class="view no-padding" id="view-dono">
+      <iframe class="dono-frame" src="/mercado/dono?embed=1" title="Painel do Dono" loading="lazy"></iframe>
+    </section>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $  = (s, ctx=document) => ctx.querySelector(s);
+const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove('show'),2200); }
+window.toastMsg = toast;
+
+const VIEW_TITLES = {
+  pdv:{e:'Caixa',          t:'Frente de <em>Caixa</em>'},
+  validade:{e:'Validade',  t:'Validade &amp; <em>Etiquetas</em>'},
+  reposicao:{e:'Reposição', t:'Reposição <em>sugerida</em>'},
+  fidelidade:{e:'Fidelidade',t:'Programa de <em>fidelidade</em>'},
+  dono:{e:'Análise',        t:'Painel do <em>Dono</em>'},
+};
+$$('.sb-link').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault();
+  const v = a.dataset.view;
+  $$('.sb-link').forEach(x => x.classList.toggle('active', x === a));
+  $$('.view').forEach(s => s.classList.toggle('active', s.id === 'view-'+v));
+  $('#topEyebrow').textContent = VIEW_TITLES[v].e;
+  $('#topTitle').innerHTML = VIEW_TITLES[v].t;
+  document.body.classList.remove('nav-open');
+  window.scrollTo(0,0);
+}));
+$('#navToggle').addEventListener('click', () => document.body.classList.toggle('nav-open'));
+
+// PRODUTOS
+const PRODUCTS = [
+  {emoji:'🍚', name:'Arroz Camil tipo 1 · 5kg',     cat:'MERCEARIA',  stock:'326',  price:'28,90'},
+  {emoji:'🥫', name:'Feijão carioca · 1kg',          cat:'MERCEARIA',  stock:'562',  price:'9,90'},
+  {emoji:'🫒', name:'Óleo soja Liza · 900ml',        cat:'MERCEARIA',  stock:'248',  price:'7,49'},
+  {emoji:'🍶', name:'Açúcar União refinado · 1kg',  cat:'MERCEARIA',  stock:'12',   price:'4,89', low:true},
+  {emoji:'🥤', name:'Coca-Cola 2L PET',              cat:'BEBIDAS',    stock:'0',    price:'9,99', low:true},
+  {emoji:'🥤', name:'Guaraná Antártica 2L',          cat:'BEBIDAS',    stock:'42',   price:'8,49'},
+  {emoji:'🍺', name:'Cerveja Skol lata 350ml',       cat:'BEBIDAS',    stock:'186',  price:'3,79'},
+  {emoji:'🥛', name:'Leite Italac integral 1L',     cat:'LATICÍNIOS', stock:'1.210',price:'4,79'},
+  {emoji:'🧀', name:'Queijo prato fatiado 200g',    cat:'LATICÍNIOS', stock:'8',    price:'12,90', low:true},
+  {emoji:'🥛', name:'Iogurte Vigor morango 170g',   cat:'LATICÍNIOS', stock:'18',   price:'3,49'},
+  {emoji:'🍞', name:'Pão de forma Wickbold 500g',   cat:'PADARIA',    stock:'12',   price:'7,99'},
+  {emoji:'🥖', name:'Pão francês · kg',              cat:'PADARIA',    stock:'14',   price:'14,90'},
+  {emoji:'🍎', name:'Maçã gala · kg',                cat:'FLV',        stock:'24',   price:'8,99'},
+  {emoji:'🥬', name:'Alface crespa · maço',          cat:'FLV',        stock:'28',   price:'3,89'},
+  {emoji:'🍌', name:'Banana prata · kg',             cat:'FLV',        stock:'22',   price:'5,49'},
+  {emoji:'🧹', name:'Sabão em pó OMO · 1kg',         cat:'LIMPEZA',    stock:'34',   price:'14,90'},
+  {emoji:'🧴', name:'Detergente Ypê · 500ml',        cat:'LIMPEZA',    stock:'186',  price:'2,89'},
+  {emoji:'🍖', name:'Linguiça Sadia · 500g',         cat:'FRIOS',      stock:'48',   price:'18,90'},
+];
+$('#pdvProducts').innerHTML = PRODUCTS.map(p => `
+  <div class="pdv-prod-row" onclick="window.toastMsg('${p.name} · 1 unid. adicionado')">
+    <div class="pdv-prod-emoji">${p.emoji}</div>
+    <div>
+      <div class="pdv-prod-name">${p.name}</div>
+      <div class="pdv-prod-cat">${p.cat}</div>
+    </div>
+    <div class="pdv-prod-stock ${p.low?'low':''}">${p.stock} unid</div>
+    <div class="pdv-prod-price">R$ ${p.price}</div>
+  </div>
+`).join('');
+
+// CART
+const CART = [
+  {name:'Arroz Camil tipo 1 · 5kg',     meta:'unid · R$ 28,90',  qty:'1',   price:'28,90'},
+  {name:'Feijão carioca · 1kg',          meta:'unid · R$ 9,90',   qty:'2',   price:'19,80'},
+  {name:'Leite Italac integral 1L',     meta:'unid · R$ 4,79',   qty:'4',   price:'19,16'},
+  {name:'Pão francês',                   meta:'kg · R$ 14,90/kg', qty:'0,650 kg', price:'9,69'},
+  {name:'Banana prata',                  meta:'kg · R$ 5,49/kg',  qty:'1,840 kg', price:'10,10'},
+  {name:'Maçã gala',                     meta:'kg · R$ 8,99/kg',  qty:'1,250 kg', price:'11,24'},
+  {name:'Iogurte Vigor morango 170g',   meta:'unid · R$ 3,49',   qty:'4',   price:'13,96'},
+  {name:'Sabão em pó OMO · 1kg',         meta:'unid · R$ 14,90',  qty:'1',   price:'14,90'},
+  {name:'Detergente Ypê · 500ml',        meta:'unid · R$ 2,89',   qty:'2',   price:'5,78'},
+];
+$('#cartItems').innerHTML = CART.map(c => `
+  <div class="pdv-cart-item">
+    <div>
+      <div class="pdv-cart-item-name">${c.name}</div>
+      <div class="pdv-cart-item-meta">${c.meta}</div>
+      <div class="pdv-cart-item-qty">${c.qty}</div>
+    </div>
+    <div class="pdv-cart-item-price">R$ ${c.price}</div>
+  </div>
+`).join('');
+
+$$('.pdv-cat').forEach(c => c.addEventListener('click', () => {
+  $$('.pdv-cat').forEach(x => x.classList.toggle('active', x === c));
+}));
+$$('.pdv-pay-btn').forEach(p => p.addEventListener('click', () => {
+  $$('.pdv-pay-btn').forEach(x => x.classList.toggle('active', x === p));
+}));
+
+// VALIDADE
+const VAL = [
+  {state:'urgent', emoji:'🍞', name:'Pão de forma Wickbold · 500g',  due:'Vence em 2 dias · 12 unid.',  loss:'R$ 96',  lossLbl:'em risco'},
+  {state:'urgent', emoji:'🥛', name:'Iogurte Vigor 170g · morango',   due:'Vence em 3 dias · 18 unid.',  loss:'R$ 64',  lossLbl:'em risco'},
+  {state:'urgent', emoji:'🧀', name:'Queijo prato fatiado · 200g',    due:'Vence em 3 dias · 8 unid.',   loss:'R$ 102', lossLbl:'em risco'},
+  {state:'urgent', emoji:'🍮', name:'Pudim Royal sabor baunilha',     due:'Vence em 3 dias · 14 unid.',  loss:'R$ 84',  lossLbl:'em risco'},
+  {state:'soon',   emoji:'🥚', name:'Ovos brancos 30 unid.',           due:'Vence em 5 dias · 14 caixas', loss:'R$ 218', lossLbl:'a vencer'},
+  {state:'soon',   emoji:'🍌', name:'Banana prata · kg',                due:'Aparência 5 dias · 22 kg',    loss:'R$ 178', lossLbl:'a vencer'},
+  {state:'soon',   emoji:'🥬', name:'Alface crespa · maço',             due:'Aparência 4 dias · 28 maços', loss:'R$ 108', lossLbl:'a vencer'},
+  {state:'soon',   emoji:'🍅', name:'Tomate italiano · kg',             due:'Aparência 6 dias · 18 kg',    loss:'R$ 124', lossLbl:'a vencer'},
+];
+$('#valGrid').innerHTML = VAL.map(v => `
+  <div class="val-card ${v.state}">
+    <div class="val-icon">${v.emoji}</div>
+    <div class="val-info">
+      <div class="val-product">${v.name}</div>
+      <div class="val-due">${v.due}</div>
+    </div>
+    <div class="val-loss">
+      <div class="val-loss-num">${v.loss}</div>
+      <div class="val-loss-lbl">${v.lossLbl}</div>
+    </div>
+    <button class="val-action-btn" onclick="window.toastMsg('${v.name} · etiqueta 30% off gerada')">30% off</button>
+  </div>
+`).join('');
+
+// REPOSIÇÃO
+const REP = [
+  {state:'critical',name:'Coca-Cola 2L PET',              cat:'BEBIDAS · TOP 2',     stock:'0',   stockCls:'danger', sells:'784/m', dura:'0d', duraCls:'danger', sugg:'Pedir 280 unid.'},
+  {state:'critical',name:'Açúcar União refinado · 1kg',   cat:'MERCEARIA · TOP 8',   stock:'12',  stockCls:'danger', sells:'342/m', dura:'1d', duraCls:'danger', sugg:'Pedir 180 unid.'},
+  {state:'critical',name:'Sabão em pó OMO · 1kg',         cat:'LIMPEZA · TOP 12',    stock:'34',  stockCls:'danger', sells:'164/m', dura:'6d', duraCls:'warn',   sugg:'Pedir 80 unid.'},
+  {state:'critical',name:'Margarina Doriana · 500g',      cat:'LATICÍNIOS · TOP 14', stock:'18',  stockCls:'danger', sells:'128/m', dura:'4d', duraCls:'warn',   sugg:'Pedir 60 unid.'},
+  {state:'critical',name:'Refri Guaraná Antártica · 2L',  cat:'BEBIDAS · TOP 16',    stock:'42',  stockCls:'warn',   sells:'186/m', dura:'7d', duraCls:'warn',   sugg:'Pedir 120 unid.'},
+  {state:'warning', name:'Queijo prato fatiado · 200g',   cat:'LATICÍNIOS · TOP 20', stock:'8',   stockCls:'danger', sells:'88/m',  dura:'3d', duraCls:'danger', sugg:'Pedir 60 unid.'},
+  {state:'warning', name:'Manteiga Aviação · 200g',       cat:'LATICÍNIOS',          stock:'24',  stockCls:'warn',   sells:'78/m',  dura:'9d', duraCls:'warn',   sugg:'Pedir 50 unid.'},
+  {state:'warning', name:'Iogurte Vigor 170g · morango',  cat:'LATICÍNIOS',          stock:'18',  stockCls:'warn',   sells:'64/m',  dura:'8d', duraCls:'warn',   sugg:'Pedir 45 unid.'},
+  {state:'warning', name:'Achocolatado Toddy 400g',       cat:'MERCEARIA',           stock:'14',  stockCls:'warn',   sells:'52/m',  dura:'8d', duraCls:'warn',   sugg:'Pedir 40 unid.'},
+];
+$('#repList').innerHTML = REP.map(r => `
+  <div class="rep-row ${r.state}" onclick="window.toastMsg('Detalhes de ${r.name}')">
+    <div>
+      <div class="rep-name">${r.name}</div>
+      <div class="rep-cat">${r.cat}</div>
+    </div>
+    <div class="rep-num ${r.stockCls}">${r.stock}</div>
+    <div class="rep-num">${r.sells}</div>
+    <div class="rep-num ${r.duraCls}">${r.dura}</div>
+    <button class="rep-suggested" onclick="event.stopPropagation();window.toastMsg('${r.sugg} adicionado ao pedido')">${r.sugg}</button>
+  </div>
+`).join('');
+
+// FIDELIDADE
+const CLIENTS = [
+  {init:'M', color:'green',  name:'Maria Aparecida S.',   tier:'GOLD VIP', detail:'14 visitas no mês · pão+leite todo dia · 2 anos de fidelidade', spent:'R$ 1.840', visits:'14 v.', avg:'R$ 131',  pts:'2.840 pts'},
+  {init:'J', color:'orange', name:'João Bento (Sr.)',     tier:'GOLD',     detail:'9 visitas · compra grande dia 5 e 25 (recebimento de salário)',   spent:'R$ 1.420', visits:'9 v.',  avg:'R$ 158',  pts:'2.140 pts'},
+  {init:'C', color:'plum',   name:'Cláudia R. Souza',     tier:'GOLD',     detail:'12 visitas · família grande · forte em FLV e padaria',           spent:'R$ 1.180', visits:'12 v.', avg:'R$ 98',   pts:'1.880 pts'},
+  {init:'R', color:'green',  name:'Bar do Roberto',       tier:'PJ',       detail:'CNPJ · 8 visitas · bebidas em volume · pagamento à vista',        spent:'R$ 980',   visits:'8 v.',  avg:'R$ 122',  pts:'1.460 pts'},
+  {init:'L', color:'orange', name:'Lúcia M. Ferreira',    tier:'GOLD',     detail:'11 visitas · idosa · fidelidade alta · prefere atendimento Paula', spent:'R$ 870',   visits:'11 v.', avg:'R$ 79',   pts:'1.310 pts'},
+  {init:'F', color:'plum',   name:'Felipe T. Albuquerque',tier:'PRATA',    detail:'6 visitas · compra concentrada · novo cliente (3 meses)',         spent:'R$ 740',   visits:'6 v.',  avg:'R$ 123',  pts:'1.110 pts'},
+];
+$('#cliCards').innerHTML = CLIENTS.map(c => `
+  <div class="client-card ${c.tier==='GOLD'||c.tier==='GOLD VIP'?'gold':''} ${c.tier==='GOLD VIP'?'vip':''}" onclick="window.toastMsg('Ficha de ${c.name}')">
+    <div class="client-head">
+      <div class="client-avatar ${c.color}">${c.init}</div>
+      <div>
+        <div class="client-name">${c.name}</div>
+        <div class="client-tier">${c.tier}</div>
+      </div>
+    </div>
+    <div class="client-detail"><strong>Histórico</strong>${c.detail}</div>
+    <div class="client-stats-grid">
+      <div class="client-stat"><div class="client-stat-v">${c.spent}</div><div class="client-stat-l">total mês</div></div>
+      <div class="client-stat"><div class="client-stat-v">${c.visits}</div><div class="client-stat-l">visitas</div></div>
+      <div class="client-stat"><div class="client-stat-v">${c.avg}</div><div class="client-stat-l">ticket méd.</div></div>
+    </div>
+    <div class="client-points">
+      <div class="client-points-lbl">Pontos · 1% cashback</div>
+      <div class="client-points-v">${c.pts}</div>
+    </div>
+  </div>
+`).join('');
+
+</script>
+</body>
+</html>
