@@ -160,8 +160,12 @@
   display: none;
 }
 
-/* Botão hambúrguer — fica oculto fora de mobile. */
+/* Botão hambúrguer e topbar mobile — ocultos em desktop. */
 .admin-mobile-menu-btn {
+  display: none;
+}
+
+.admin-mobile-topbar {
   display: none;
 }
 
@@ -389,31 +393,74 @@
     pointer-events: auto;
   }
 
-  /* Botão hambúrguer flutuante (canto superior esquerdo) */
+  /* Topbar mobile sticky (hambúrguer + marca) — fica acima do conteúdo
+   * sem flutuar sobre ele. Reserva o próprio espaço, então o
+   * AdminPageHeader nunca aparece atrás do botão. */
+  .admin-mobile-topbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 52px;
+    padding: 0 10px 0 8px;
+    background: rgba(255, 255, 255, 0.85);
+    border-bottom: 1px solid var(--ad-border);
+    position: sticky;
+    top: 0;
+    z-index: 150;
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+  }
+  .dark .admin-mobile-topbar { background: rgba(10, 10, 12, 0.85); }
+
+  .admin-mobile-topbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--ad-text);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .admin-mobile-topbar-brand .admin-logo-mark {
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+  }
+  .admin-mobile-topbar-brand .admin-logo-mark::after { font-size: 12px; }
+  .admin-mobile-topbar-sub {
+    color: var(--ad-gold);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--ad-gold-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 2px;
+  }
+
+  /* Hambúrguer agora vive dentro da topbar (fluxo normal, não fixed). */
   .admin-mobile-menu-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    top: 12px;
-    left: 12px;
     width: 40px;
     height: 40px;
-    z-index: 150;
-    border: 1px solid var(--ad-border-2);
-    background: var(--ad-surface);
+    border: none;
+    background: transparent;
     color: var(--ad-text);
-    border-radius: var(--ad-r-md);
+    border-radius: var(--ad-r-sm);
     cursor: pointer;
-    box-shadow: var(--ad-sh-sm);
     transition: background var(--ad-tx);
+    flex-shrink: 0;
   }
-  .admin-mobile-menu-btn:hover { background: var(--ad-surface-2); }
+  .admin-mobile-menu-btn:hover { background: var(--ad-action-soft); }
   .admin-mobile-menu-btn:active { transform: translateY(1px); }
 
-  /* Main passa a usar a largura toda + padding superior pra não colidir com o hambúrguer */
+  /* Main passa a usar a largura toda — a topbar (sticky) já reserva o topo. */
   .admin-main { margin-left: 0; }
-  .admin-content { padding: 64px 16px 48px; }
+  .admin-content { padding: 20px 16px 48px; }
 
   /* Page header empilha em coluna; ações descem abaixo do título */
   .admin-page-header {
@@ -511,7 +558,7 @@
 
 /* ─── Mobile pequeno (≤ 480px) ─────────────────────────────────────────── */
 @media (max-width: 480px) {
-  .admin-content { padding: 60px 14px 48px; }
+  .admin-content { padding: 16px 14px 48px; }
   .admin-page-header h1 { font-size: 20px; }
   .admin-page-header { gap: 12px; margin-bottom: 20px; }
   /* Botões do header esticam — ações principais ficam alcançáveis com o polegar */
