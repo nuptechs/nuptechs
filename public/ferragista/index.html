@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#F5F5F2" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Casa Forte · Sistema</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Roboto+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --bg:#F5F5F2;
+  --surface:#FFFFFF;
+  --surface-2:#ECECE7;
+  --surface-3:#E2E2DD;
+  --border:#D9D9D2;
+  --text:#171717;
+  --text-muted:#5A5A56;
+  --text-dim:#9A9A93;
+  --steel:#3A3A38;
+  --steel-dark:#1F1F1E;
+  --orange:#E25A1B;
+  --orange-dark:#B23F0E;
+  --blue:#2D5C8F;
+  --warning:#D49019;
+  --danger:#C03A2B;
+  --success:#3D7A4E;
+  --shadow-sm:0 1px 2px rgba(23,23,23,0.05),0 1px 3px rgba(23,23,23,0.06);
+  --shadow:0 4px 12px rgba(23,23,23,0.05),0 2px 4px rgba(23,23,23,0.04);
+  --shadow-lg:0 12px 32px rgba(23,23,23,0.10),0 4px 12px rgba(23,23,23,0.06);
+  --radius-sm:6px; --radius:8px; --radius-lg:12px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --sidebar:240px;
+  --mono:'Roboto Mono',ui-monospace,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{font-family:'Manrope',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100dvh;display:flex}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;padding:0}
+button:focus-visible,a:focus-visible{outline:2px solid var(--orange);outline-offset:2px;border-radius:4px}
+a{color:inherit;text-decoration:none}
+input,select,textarea{font-family:inherit;font-size:14px}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);background:var(--steel-dark);color:#fff;padding:18px 12px;flex-shrink:0;display:flex;flex-direction:column;gap:14px;height:100dvh;position:sticky;top:0;overflow-y:auto}
+.sb-brand{display:flex;align-items:center;gap:10px;padding:6px 8px}
+.sb-mark{width:36px;height:36px;border-radius:6px;background:var(--orange-dark);display:grid;place-items:center;color:#fff;flex-shrink:0;position:relative;overflow:hidden}
+.sb-mark svg{width:18px;height:18px;position:relative;z-index:1}
+.sb-mark::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 50%,rgba(255,255,255,0.18) 50%)}
+.sb-name{font-size:18px;font-weight:800;letter-spacing:-0.02em;line-height:1;text-transform:uppercase}
+.sb-name .accent{color:var(--orange)}
+.sb-tag{font-size:9px;letter-spacing:0.16em;color:rgba(255,255,255,0.50);text-transform:uppercase;font-weight:700;margin-top:3px;font-family:var(--mono)}
+.sb-nav{display:flex;flex-direction:column;gap:2px}
+.sb-section{font-size:9px;letter-spacing:0.20em;color:rgba(255,255,255,0.40);text-transform:uppercase;font-weight:800;padding:14px 10px 6px;font-family:var(--mono)}
+.sb-link{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:6px;font-size:13px;font-weight:700;color:rgba(255,255,255,0.80);transition:all .15s var(--ease);position:relative}
+.sb-link:hover{background:rgba(255,255,255,0.06);color:#fff}
+.sb-link.active{background:rgba(226,90,27,0.12);color:#fff}
+.sb-link.active::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:3px;background:var(--orange);border-radius:0 4px 4px 0}
+.sb-link svg{width:17px;height:17px;flex-shrink:0;opacity:0.85}
+.sb-link.active svg{opacity:1;color:var(--orange)}
+.sb-link .badge{margin-left:auto;background:var(--orange);color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;font-family:var(--mono)}
+.sb-foot{margin-top:auto;padding:14px 10px;border-top:1px solid rgba(255,255,255,0.10);font-size:11px;color:rgba(255,255,255,0.55);line-height:1.55;font-family:var(--mono)}
+.sb-user{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sb-avatar{width:32px;height:32px;border-radius:6px;background:var(--orange-dark);color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px;font-family:Manrope;letter-spacing:0.02em}
+.sb-user-name{color:#fff;font-weight:700;font-size:12px;line-height:1.2;font-family:Manrope}
+.sb-user-role{color:rgba(255,255,255,0.50);font-size:9px;letter-spacing:0.10em;text-transform:uppercase;font-weight:700}
+
+.mobile-bar{display:none;position:sticky;top:0;z-index:30;padding:12px 16px;background:var(--bg);border-bottom:1px solid var(--border);align-items:center;gap:12px}
+.mobile-toggle{width:38px;height:38px;display:grid;place-items:center;border-radius:6px;color:var(--steel-dark);background:var(--surface);border:1px solid var(--border)}
+.mobile-toggle svg{width:18px;height:18px}
+.mobile-brand{font-size:16px;font-weight:800;color:var(--steel-dark);flex:1;text-transform:uppercase;letter-spacing:-0.01em}
+@media(max-width:900px){
+  .sidebar{position:fixed;top:0;left:0;z-index:40;transform:translateX(-100%);transition:transform .25s var(--ease)}
+  body.nav-open .sidebar{transform:translateX(0);box-shadow:var(--shadow-lg)}
+  .mobile-bar{display:flex}
+  body.nav-open::before{content:'';position:fixed;inset:0;background:rgba(31,31,30,0.40);z-index:35}
+}
+
+/* MAIN */
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;background:rgba(245,245,242,0.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+@media(max-width:900px){.topbar{top:62px}}
+.topbar-left{display:flex;flex-direction:column;gap:2px;min-width:0}
+.topbar-eyebrow{font-size:10px;letter-spacing:0.16em;color:var(--orange-dark);text-transform:uppercase;font-weight:800;font-family:var(--mono)}
+.topbar-title{font-size:20px;font-weight:800;color:var(--text);letter-spacing:-0.02em;line-height:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.topbar-btn{padding:9px 14px;border-radius:6px;font-size:11px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-muted);background:var(--surface);border:1px solid var(--border);transition:all .15s var(--ease);display:inline-flex;align-items:center;gap:6px;font-family:var(--mono)}
+.topbar-btn:hover{color:var(--text);border-color:var(--steel)}
+.topbar-btn.primary{color:#fff;background:var(--steel-dark);border-color:var(--steel-dark);font-family:Manrope}
+.topbar-btn.primary:hover{background:var(--steel)}
+.topbar-btn svg{width:13px;height:13px}
+.topbar-search{flex:1;max-width:380px;position:relative;display:none}
+@media(min-width:768px){.topbar-search{display:block}}
+.topbar-search input{width:100%;padding:9px 12px 9px 34px;border-radius:6px;border:1px solid var(--border);background:var(--surface);font-size:13px;color:var(--text);font-family:var(--mono);font-weight:600}
+.topbar-search input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(226,90,27,0.10)}
+.topbar-search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--text-dim)}
+
+.content{padding:24px;flex:1;min-width:0}
+@media(min-width:768px){.content{padding:24px 32px 64px}}
+
+.view{display:none}
+.view.active{display:block}
+.view.active.no-padding{padding:0;margin:-24px}
+@media(min-width:768px){.view.active.no-padding{margin:-24px -32px -64px}}
+
+.section-row{display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:20px}
+@media(min-width:1024px){.section-row.split{grid-template-columns:2fr 1fr}}
+@media(min-width:768px){.section-row.three{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:768px){.section-row.four{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:768px){.section-row.two{grid-template-columns:repeat(2,1fr)}}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-sm)}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.card-title{font-size:16px;font-weight:800;color:var(--text);margin:0 0 2px;letter-spacing:-0.01em}
+.card-title em{font-style:normal;color:var(--orange-dark)}
+.card-sub{font-size:11px;color:var(--text-muted)}
+.card-action{font-size:10px;color:var(--orange-dark);font-weight:800;letter-spacing:0.06em;text-transform:uppercase;display:inline-flex;align-items:center;gap:4px;cursor:pointer;font-family:var(--mono)}
+.card-action:hover{color:var(--text)}
+
+.stat-card{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);border-left:3px solid var(--steel)}
+.stat-card.orange{border-left-color:var(--orange)}
+.stat-card.blue{border-left-color:var(--blue)}
+.stat-card.success{border-left-color:var(--success)}
+.stat-card.danger{border-left-color:var(--danger)}
+.stat-icon{width:30px;height:30px;border-radius:5px;display:grid;place-items:center;margin-bottom:10px}
+.stat-icon svg{width:15px;height:15px}
+.stat-icon.steel{background:rgba(31,31,30,0.08);color:var(--steel-dark)}
+.stat-icon.orange{background:rgba(226,90,27,0.10);color:var(--orange-dark)}
+.stat-icon.blue{background:rgba(45,92,143,0.10);color:var(--blue)}
+.stat-icon.success{background:rgba(61,122,78,0.10);color:var(--success)}
+.stat-icon.danger{background:rgba(192,58,43,0.10);color:var(--danger)}
+.stat-label{font-size:10px;color:var(--text-muted);letter-spacing:0.10em;text-transform:uppercase;font-weight:800;margin-bottom:5px;font-family:var(--mono)}
+.stat-value{font-size:28px;font-weight:800;color:var(--text);line-height:1;letter-spacing:-0.03em}
+.stat-sub{font-size:11px;color:var(--text-muted);margin-top:5px;line-height:1.45}
+
+/* ====== PDV BALCÃO ====== */
+.pdv-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:-24px;padding:24px;height:calc(100dvh - 110px);min-height:600px}
+@media(min-width:768px){.pdv-grid{margin:-24px -32px -64px;padding:24px 32px;grid-template-columns:1fr 380px}}
+
+.pdv-products{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;overflow:hidden}
+.pdv-products-head{padding:16px;border-bottom:1px solid var(--border);background:var(--surface-2);display:flex;gap:10px;align-items:center}
+.pdv-search{position:relative;flex:1}
+.pdv-search input{width:100%;padding:11px 14px 11px 38px;border-radius:6px;border:1px solid var(--border);background:var(--surface);font-size:13px;font-weight:600;font-family:var(--mono)}
+.pdv-search input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(226,90,27,0.10)}
+.pdv-search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--text-dim)}
+.pdv-barcode-btn{padding:11px 14px;background:var(--steel-dark);color:#fff;border-radius:6px;font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;display:flex;align-items:center;gap:6px;font-family:var(--mono);cursor:pointer}
+.pdv-barcode-btn:hover{background:var(--steel)}
+.pdv-barcode-btn svg{width:14px;height:14px}
+.pdv-cats{display:flex;gap:5px;padding:10px 16px;overflow-x:auto;border-bottom:1px solid var(--border);background:var(--surface)}
+.pdv-cat{padding:6px 12px;font-size:10px;font-weight:800;color:var(--text-muted);background:var(--surface-2);border-radius:4px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;flex-shrink:0;font-family:var(--mono)}
+.pdv-cat.active{background:var(--steel-dark);color:var(--orange)}
+.pdv-list-products{display:flex;flex-direction:column;gap:0;overflow-y:auto;flex:1}
+.pdv-prod-row{display:grid;grid-template-columns:80px 1fr 100px 80px;gap:12px;align-items:center;padding:11px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:all .12s var(--ease)}
+.pdv-prod-row:hover{background:var(--surface-2)}
+.pdv-prod-code{font-size:11px;color:var(--text-muted);font-weight:700;letter-spacing:0.04em;font-family:var(--mono)}
+.pdv-prod-name{font-size:13px;font-weight:700;color:var(--text)}
+.pdv-prod-cat{font-size:10px;color:var(--text-muted);margin-top:1px;font-weight:600;letter-spacing:0.04em;font-family:var(--mono)}
+.pdv-prod-stock{font-size:11px;color:var(--text-muted);font-weight:700;text-align:right;font-family:var(--mono);letter-spacing:0.02em}
+.pdv-prod-stock.low{color:var(--danger)}
+.pdv-prod-price{font-size:14px;font-weight:800;color:var(--orange-dark);text-align:right;font-family:var(--mono);letter-spacing:-0.01em}
+
+.pdv-cart{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;overflow:hidden}
+.pdv-cart-head{padding:16px;border-bottom:1px solid var(--border);background:var(--steel-dark);color:#fff}
+.pdv-cart-eyebrow{font-size:9px;letter-spacing:0.18em;color:rgba(255,255,255,0.55);text-transform:uppercase;font-weight:800;margin-bottom:4px;font-family:var(--mono)}
+.pdv-cart-title{font-size:18px;font-weight:800;line-height:1.1;margin:0 0 8px;letter-spacing:-0.01em;text-transform:uppercase}
+.pdv-cart-client{font-size:11px;color:rgba(255,255,255,0.85);display:flex;align-items:center;gap:8px;font-family:var(--mono)}
+.pdv-cart-client-mark{width:22px;height:22px;border-radius:4px;background:var(--orange);display:grid;place-items:center;font-weight:800;font-size:9px;color:#fff;letter-spacing:0.04em}
+.pdv-cart-items{padding:10px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;min-height:180px}
+.pdv-cart-item{display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px 11px;background:var(--surface-2);border-radius:5px;border-left:2px solid var(--orange-dark)}
+.pdv-cart-item-name{font-size:12px;font-weight:700;color:var(--text);line-height:1.3}
+.pdv-cart-item-meta{font-size:10px;color:var(--text-muted);margin-top:2px;font-family:var(--mono);font-weight:600}
+.pdv-cart-item-price{font-size:13px;font-weight:800;color:var(--text);text-align:right;font-family:var(--mono);letter-spacing:-0.01em}
+.pdv-cart-item-qty{font-size:9px;color:var(--text-muted);font-weight:700;letter-spacing:0.06em;font-family:var(--mono);margin-top:2px}
+
+.pdv-cart-summary{padding:14px 16px;background:var(--surface-2);border-top:1px solid var(--border)}
+.pdv-summary-line{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:6px;font-family:var(--mono);letter-spacing:0.02em;text-transform:uppercase}
+.pdv-summary-line.total{font-size:11px;color:var(--text);padding-top:8px;border-top:1px solid var(--border);margin-top:6px;align-items:baseline}
+.pdv-summary-line.total .v{font-size:24px;color:var(--orange-dark);font-weight:800;font-family:var(--mono);letter-spacing:-0.02em;line-height:1;text-transform:none}
+.pdv-pay-btns{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:10px;border-top:1px solid var(--border)}
+.pdv-pay-btn{padding:9px 4px;border-radius:5px;background:var(--surface-2);font-size:9px;font-weight:800;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;text-align:center;border:1px solid transparent;cursor:pointer;font-family:var(--mono)}
+.pdv-pay-btn.active{background:var(--steel-dark);color:var(--orange);border-color:var(--steel-dark)}
+.pdv-finalize{margin:0 10px 10px;padding:13px;background:var(--orange-dark);color:#fff;border-radius:6px;font-size:12px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .15s var(--ease);font-family:var(--mono)}
+.pdv-finalize:hover{background:var(--orange)}
+.pdv-finalize svg{width:14px;height:14px}
+
+/* ====== CREDIÁRIO (FIADO) ====== */
+.fiado-hero{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+@media(min-width:640px){.fiado-hero{grid-template-columns:repeat(4,1fr)}}
+.fiado-hero-card{padding:18px;background:var(--steel-dark);color:#fff;border-radius:var(--radius)}
+.fiado-hero-card.danger{background:linear-gradient(135deg,var(--danger),#9A2D20)}
+.fiado-hero-card.warning{background:linear-gradient(135deg,#9A7515,#6B5210)}
+.fiado-hero-card.success{background:linear-gradient(135deg,var(--success),#2A5A38)}
+.fiado-hero-lbl{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;font-weight:800;color:rgba(255,255,255,0.65);font-family:var(--mono);margin-bottom:6px}
+.fiado-hero-val{font-size:26px;font-weight:800;color:var(--orange);letter-spacing:-0.02em;font-family:var(--mono);line-height:1}
+.fiado-hero-card.danger .fiado-hero-val,.fiado-hero-card.warning .fiado-hero-val,.fiado-hero-card.success .fiado-hero-val{color:#fff}
+.fiado-hero-detail{font-size:11px;color:rgba(255,255,255,0.70);margin-top:5px;line-height:1.45}
+
+.fiado-list{display:flex;flex-direction:column;gap:6px}
+.fiado-row{display:grid;grid-template-columns:1fr 100px 90px auto;gap:14px;align-items:center;padding:12px 14px;border:1px solid var(--border);border-radius:6px;background:var(--surface);transition:all .15s var(--ease);border-left:3px solid var(--steel)}
+.fiado-row:hover{box-shadow:var(--shadow-sm);border-left-color:var(--orange)}
+.fiado-row.overdue{border-left-color:var(--danger);background:rgba(192,58,43,0.04)}
+.fiado-row.due-soon{border-left-color:var(--warning);background:rgba(212,144,25,0.04)}
+.fiado-name{font-size:13px;font-weight:800;color:var(--text);letter-spacing:-0.005em}
+.fiado-tag{font-size:10px;color:var(--text-muted);font-family:var(--mono);letter-spacing:0.04em;margin-top:2px;text-transform:uppercase;font-weight:600}
+.fiado-amount{font-size:14px;font-weight:800;color:var(--text);font-family:var(--mono);text-align:right;letter-spacing:-0.01em}
+.fiado-amount-lbl{font-size:9px;color:var(--text-dim);font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;font-weight:700;text-align:right;margin-top:2px}
+.fiado-days{font-size:10px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;font-family:var(--mono);padding:5px 8px;border-radius:4px;text-align:center}
+.fiado-days.green{background:rgba(61,122,78,0.10);color:var(--success)}
+.fiado-days.yellow{background:rgba(212,144,25,0.10);color:var(--warning)}
+.fiado-days.red{background:rgba(192,58,43,0.12);color:var(--danger)}
+.fiado-actions{display:flex;gap:5px}
+.fiado-act-btn{padding:6px 9px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-muted);background:var(--surface-2);border-radius:4px;font-family:var(--mono);cursor:pointer;border:1px solid transparent}
+.fiado-act-btn:hover{background:var(--steel-dark);color:var(--orange);border-color:var(--steel-dark)}
+
+/* ====== ESTOQUE ====== */
+.stk-toolbar{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:18px}
+@media(min-width:640px){.stk-toolbar{grid-template-columns:1fr auto auto auto}}
+.stk-search{position:relative}
+.stk-search input{width:100%;padding:10px 14px 10px 38px;border-radius:6px;border:1px solid var(--border);background:var(--surface);font-size:13px;font-family:var(--mono);font-weight:600}
+.stk-search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--text-dim)}
+
+.stk-table{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.stk-row{display:grid;grid-template-columns:80px 1fr 100px 80px 90px 80px;gap:14px;align-items:center;padding:11px 14px;border-bottom:1px solid var(--border)}
+.stk-row.head{background:var(--surface-2);font-size:9px;letter-spacing:0.10em;text-transform:uppercase;font-weight:800;color:var(--text-muted);font-family:var(--mono);padding:10px 14px}
+.stk-row:last-child{border-bottom:none}
+.stk-row:not(.head):hover{background:var(--surface-2)}
+.stk-code{font-size:11px;color:var(--text-muted);font-weight:700;font-family:var(--mono);letter-spacing:0.04em}
+.stk-name{font-size:13px;font-weight:700;color:var(--text)}
+.stk-cat{font-size:10px;color:var(--text-muted);margin-top:1px;letter-spacing:0.04em;font-family:var(--mono);font-weight:600;text-transform:uppercase}
+.stk-stock{font-size:13px;font-weight:800;color:var(--text);font-family:var(--mono);text-align:right;letter-spacing:-0.01em}
+.stk-stock.low{color:var(--danger)}
+.stk-stock.warn{color:var(--warning)}
+.stk-abc{font-size:11px;font-weight:800;letter-spacing:0.06em;text-align:center;padding:4px 8px;border-radius:4px;font-family:var(--mono);width:30px}
+.stk-abc.a{background:var(--orange-dark);color:#fff}
+.stk-abc.b{background:var(--blue);color:#fff}
+.stk-abc.c{background:var(--steel);color:#fff}
+.stk-margin{font-size:13px;font-weight:800;color:var(--success);font-family:var(--mono);text-align:right;letter-spacing:-0.01em}
+.stk-margin.med{color:var(--warning)}
+.stk-margin.low{color:var(--danger)}
+.stk-price{font-size:13px;font-weight:800;color:var(--text);font-family:var(--mono);text-align:right;letter-spacing:-0.01em}
+
+.abc-bars{display:flex;flex-direction:column;gap:12px;padding:6px 0}
+.abc-row{display:grid;grid-template-columns:24px 1fr 80px;gap:10px;align-items:center}
+.abc-letter{width:24px;height:24px;border-radius:3px;display:grid;place-items:center;font-size:13px;font-weight:800;color:#fff;font-family:var(--mono)}
+.abc-letter.a{background:var(--orange-dark)}
+.abc-letter.b{background:var(--blue)}
+.abc-letter.c{background:var(--steel)}
+.abc-bar-wrap{position:relative;background:var(--surface-2);border-radius:3px;height:24px;overflow:hidden}
+.abc-bar-fill{position:absolute;top:0;left:0;height:100%;border-radius:3px;display:flex;align-items:center;padding:0 10px;color:#fff;font-size:10px;font-weight:800;font-family:var(--mono);letter-spacing:0.06em;transition:width .6s var(--ease)}
+.abc-bar-fill.a{background:linear-gradient(90deg,var(--orange),var(--orange-dark))}
+.abc-bar-fill.b{background:linear-gradient(90deg,var(--blue),#1F4267)}
+.abc-bar-fill.c{background:linear-gradient(90deg,var(--steel),var(--steel-dark))}
+.abc-stat{text-align:right}
+.abc-skus{font-size:13px;font-weight:800;color:var(--text);font-family:var(--mono);line-height:1}
+.abc-skus-lbl{font-size:8px;color:var(--text-muted);letter-spacing:0.10em;text-transform:uppercase;font-weight:800;font-family:var(--mono);margin-top:2px}
+
+/* ====== CLIENTES PRO ====== */
+.cli-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.cli-card{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);transition:all .15s var(--ease);cursor:pointer;border-left:3px solid var(--steel)}
+.cli-card:hover{box-shadow:var(--shadow-lg);border-color:var(--steel)}
+.cli-card.vip{border-left-color:var(--orange)}
+.cli-card.overdue{border-left-color:var(--danger)}
+.cli-head-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.cli-mark{width:42px;height:42px;border-radius:6px;background:var(--steel-dark);color:var(--orange);display:grid;place-items:center;font-weight:800;font-size:14px;flex-shrink:0;font-family:var(--mono);letter-spacing:0.02em}
+.cli-card.vip .cli-mark{background:var(--orange-dark);color:#fff}
+.cli-name{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-0.01em;line-height:1.1}
+.cli-type{font-size:9px;color:var(--text-muted);letter-spacing:0.10em;text-transform:uppercase;font-weight:800;margin-top:3px;font-family:var(--mono)}
+.cli-detail{font-size:11px;color:var(--text-muted);line-height:1.55;margin-bottom:10px;font-family:var(--mono);font-weight:600;letter-spacing:0.02em}
+.cli-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-top:10px;border-top:1px solid var(--border)}
+.cli-stat{text-align:left}
+.cli-stat-v{font-size:14px;font-weight:800;color:var(--text);font-family:var(--mono);line-height:1;letter-spacing:-0.01em}
+.cli-stat-l{font-size:8px;color:var(--text-muted);letter-spacing:0.10em;text-transform:uppercase;font-weight:800;font-family:var(--mono);margin-top:2px}
+.cli-stat-v.danger{color:var(--danger)}
+.cli-stat-v.success{color:var(--success)}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,80px);background:var(--steel-dark);color:#fff;padding:12px 20px;border-radius:6px;font-size:13px;font-weight:700;z-index:1000;opacity:0;transition:all .3s var(--ease);box-shadow:var(--shadow-lg);pointer-events:none;max-width:90vw;border-left:3px solid var(--orange);font-family:var(--mono);letter-spacing:0.02em}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+.dono-frame{width:100%;border:none;display:block;background:#F5F5F2;height:calc(100dvh - 110px);min-height:600px}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sb-brand">
+    <span class="sb-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 4 6v6c0 5 3.5 9.4 8 10 4.5-.6 8-5 8-10V6l-8-4Z"/></svg>
+    </span>
+    <div>
+      <div class="sb-name">Casa<span class="accent">Forte</span></div>
+      <div class="sb-tag">Materiais · Desde 1987</div>
+    </div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-section">Operação</div>
+    <a href="#" class="sb-link active" data-view="pdv">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      PDV · Balcão
+    </a>
+    <a href="#" class="sb-link" data-view="fiado">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18"/><circle cx="12" cy="15" r="2"/></svg>
+      Crediário<span class="badge">8</span>
+    </a>
+    <div class="sb-section">Cadastros</div>
+    <a href="#" class="sb-link" data-view="estoque">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      Estoque
+    </a>
+    <a href="#" class="sb-link" data-view="clientes">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Clientes Pro
+    </a>
+    <div class="sb-section">Análise</div>
+    <a href="#" class="sb-link" data-view="dono">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Painel do Dono
+    </a>
+  </nav>
+  <div class="sb-foot">
+    <div class="sb-user">
+      <div class="sb-avatar">JS</div>
+      <div>
+        <div class="sb-user-name">João Silva</div>
+        <div class="sb-user-role">Dono · Matriz</div>
+      </div>
+    </div>
+    Casa Forte · v3.1 · Centro
+  </div>
+</aside>
+
+<div class="main">
+
+  <div class="mobile-bar">
+    <button class="mobile-toggle" id="navToggle" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="mobile-brand">CASA FORTE</div>
+  </div>
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-eyebrow" id="topEyebrow">PDV</div>
+      <div class="topbar-title" id="topTitle">PDV · Balcão de venda</div>
+    </div>
+    <div class="topbar-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Buscar produto, código ou cliente..." />
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn" onclick="toast('Fechando turno...')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Caixa
+      </button>
+      <button class="topbar-btn primary" onclick="toast('Nova venda iniciada')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Nova Venda
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ====== PDV ====== -->
+    <section class="view active no-padding" id="view-pdv">
+      <div class="pdv-grid">
+        <div class="pdv-products">
+          <div class="pdv-products-head">
+            <div class="pdv-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" placeholder="Código de barras ou nome..." autofocus />
+            </div>
+            <button class="pdv-barcode-btn" onclick="toast('Aguardando leitor de código de barras')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5v14M7 5v14M11 5v14M15 5v14M19 5v14"/></svg>
+              Leitor
+            </button>
+          </div>
+          <div class="pdv-cats">
+            <button class="pdv-cat active">TODOS</button>
+            <button class="pdv-cat">CIMENTO/ARG.</button>
+            <button class="pdv-cat">HIDRÁULICA</button>
+            <button class="pdv-cat">ELÉTRICA</button>
+            <button class="pdv-cat">FERRAMENTAS</button>
+            <button class="pdv-cat">TINTAS</button>
+            <button class="pdv-cat">ACABAMENTO</button>
+            <button class="pdv-cat">AGREGADOS</button>
+          </div>
+          <div class="pdv-list-products" id="pdvProducts"></div>
+        </div>
+
+        <div class="pdv-cart">
+          <div class="pdv-cart-head">
+            <div class="pdv-cart-eyebrow">VENDA Nº 0142</div>
+            <h3 class="pdv-cart-title">Construtora Vaz</h3>
+            <div class="pdv-cart-client">
+              <div class="pdv-cart-client-mark">PJ</div>
+              <span>CNPJ · faturamento 30/60 · saldo R$ 6.480 vencido</span>
+            </div>
+          </div>
+          <div class="pdv-cart-items" id="cartItems"></div>
+          <div class="pdv-cart-summary">
+            <div class="pdv-summary-line"><span>Subtotal</span><span id="subtotal">R$ 1.842,50</span></div>
+            <div class="pdv-summary-line"><span>Desconto cliente PJ (3%)</span><span style="color:var(--success)">−R$ 55,28</span></div>
+            <div class="pdv-summary-line total"><span>Total</span><span class="v" id="total">R$ 1.787,22</span></div>
+          </div>
+          <div class="pdv-pay-btns">
+            <button class="pdv-pay-btn">PIX</button>
+            <button class="pdv-pay-btn">DÉBITO</button>
+            <button class="pdv-pay-btn">DINH</button>
+            <button class="pdv-pay-btn active">FIADO</button>
+          </div>
+          <button class="pdv-finalize" onclick="toast('Venda lançada no fiado · saldo atualizado')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Finalizar Venda
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== CREDIÁRIO ====== -->
+    <section class="view" id="view-fiado">
+      <div class="fiado-hero">
+        <div class="fiado-hero-card">
+          <div class="fiado-hero-lbl">Total em aberto</div>
+          <div class="fiado-hero-val">R$ 47.820</div>
+          <div class="fiado-hero-detail">42 clientes ativos · DSO médio 28 dias</div>
+        </div>
+        <div class="fiado-hero-card danger">
+          <div class="fiado-hero-lbl">Vencido +30d</div>
+          <div class="fiado-hero-val">R$ 12.420</div>
+          <div class="fiado-hero-detail">8 clientes · disparar cobrança</div>
+        </div>
+        <div class="fiado-hero-card warning">
+          <div class="fiado-hero-lbl">Vence em 7d</div>
+          <div class="fiado-hero-val">R$ 8.640</div>
+          <div class="fiado-hero-detail">11 clientes · lembrete prévio</div>
+        </div>
+        <div class="fiado-hero-card success">
+          <div class="fiado-hero-lbl">Recebido mês</div>
+          <div class="fiado-hero-val">R$ 38.290</div>
+          <div class="fiado-hero-detail">+12% vs mês anterior</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Saldos em <em>aberto</em></h3>
+            <p class="card-sub">Ordenado por urgência · clique para detalhes</p>
+          </div>
+          <button class="topbar-btn primary" onclick="toast('Cobrança em massa enviada para 8 clientes')" style="display:inline-flex">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            Cobrar todos vencidos
+          </button>
+        </div>
+        <div class="fiado-list" id="fiadoList"></div>
+      </div>
+    </section>
+
+    <!-- ====== ESTOQUE ====== -->
+    <section class="view" id="view-estoque">
+      <div class="section-row split">
+        <div>
+          <div class="section-row two" style="margin-bottom:18px">
+            <div class="stat-card orange">
+              <div class="stat-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+              <div class="stat-label">SKUs ativos</div>
+              <div class="stat-value">2.928</div>
+              <div class="stat-sub">412 classe A · 876 B · 1.640 C</div>
+            </div>
+            <div class="stat-card danger">
+              <div class="stat-icon danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg></div>
+              <div class="stat-label">Em ruptura</div>
+              <div class="stat-value">14</div>
+              <div class="stat-sub">7 classe A · pedir hoje</div>
+            </div>
+          </div>
+          <div class="stk-toolbar">
+            <div class="stk-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" placeholder="Buscar produto ou código..." />
+            </div>
+            <button class="topbar-btn">CLASSE A</button>
+            <button class="topbar-btn">RUPTURA</button>
+            <button class="topbar-btn primary" onclick="toast('Pedido para fornecedor sugerido')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Sugerir pedido
+            </button>
+          </div>
+
+          <div class="stk-table">
+            <div class="stk-row head">
+              <div>CÓD.</div>
+              <div>PRODUTO</div>
+              <div>ESTOQUE</div>
+              <div>ABC</div>
+              <div>MARG.</div>
+              <div>PREÇO</div>
+            </div>
+            <div id="stkList"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="card-head">
+              <div>
+                <h3 class="card-title">Curva <em>ABC</em></h3>
+                <p class="card-sub">Distribuição do faturamento por SKU</p>
+              </div>
+            </div>
+            <div class="abc-bars">
+              <div class="abc-row"><div class="abc-letter a">A</div><div class="abc-bar-wrap"><div class="abc-bar-fill a" style="width:78%">78%</div></div><div class="abc-stat"><div class="abc-skus">412</div><div class="abc-skus-lbl">14% SKUs</div></div></div>
+              <div class="abc-row"><div class="abc-letter b">B</div><div class="abc-bar-wrap"><div class="abc-bar-fill b" style="width:16%">16%</div></div><div class="abc-stat"><div class="abc-skus">876</div><div class="abc-skus-lbl">30% SKUs</div></div></div>
+              <div class="abc-row"><div class="abc-letter c">C</div><div class="abc-bar-wrap"><div class="abc-bar-fill c" style="width:6%">6%</div></div><div class="abc-stat"><div class="abc-skus">1640</div><div class="abc-skus-lbl">56% SKUs</div></div></div>
+            </div>
+            <div style="margin-top:14px;padding:10px 12px;background:var(--surface-2);border-radius:6px;border-left:3px solid var(--orange);font-size:11px;color:var(--text-muted);line-height:1.5">
+              <strong style="color:var(--text)">!</strong> 1.640 SKUs C ocupam 56% das prateleiras e respondem por 6% das vendas. Vale revisar capital parado.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <h3 class="card-title">Em <em>ruptura</em></h3>
+                <p class="card-sub">7 alta rotatividade</p>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="padding:10px;background:rgba(192,58,43,0.05);border-left:3px solid var(--danger);border-radius:5px"><div style="font-size:12px;font-weight:800;color:var(--text)">Cimento CP-II 50kg</div><div style="font-size:10px;color:var(--text-muted);font-family:var(--mono);margin-top:2px;font-weight:600">38 sacos · vende 462/mês · classe A · pedir 380</div></div>
+              <div style="padding:10px;background:rgba(192,58,43,0.05);border-left:3px solid var(--danger);border-radius:5px"><div style="font-size:12px;font-weight:800;color:var(--text)">Tubo PVC 100mm esgoto</div><div style="font-size:10px;color:var(--text-muted);font-family:var(--mono);margin-top:2px;font-weight:600">12 unid · vende 84/mês · classe A · pedir 80</div></div>
+              <div style="padding:10px;background:rgba(212,144,25,0.05);border-left:3px solid var(--warning);border-radius:5px"><div style="font-size:12px;font-weight:800;color:var(--text)">Tinta acrílica branco 18L</div><div style="font-size:10px;color:var(--text-muted);font-family:var(--mono);margin-top:2px;font-weight:600">8 latas · vende 38/mês · classe A · pedir 30</div></div>
+              <div style="padding:10px;background:rgba(212,144,25,0.05);border-left:3px solid var(--warning);border-radius:5px"><div style="font-size:12px;font-weight:800;color:var(--text)">Cabo flex 2,5mm rolo 100m</div><div style="font-size:10px;color:var(--text-muted);font-family:var(--mono);margin-top:2px;font-weight:600">4 rolos · vende 18/mês · classe B · pedir 14</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== CLIENTES PRO ====== -->
+    <section class="view" id="view-clientes">
+      <div class="section-row four" style="margin-bottom:18px">
+        <div class="stat-card orange">
+          <div class="stat-label">Total cadastrados</div>
+          <div class="stat-value">218</div>
+          <div class="stat-sub">42 ativos no mês</div>
+        </div>
+        <div class="stat-card success">
+          <div class="stat-label">Faturamento PJ</div>
+          <div class="stat-value">R$ 142k</div>
+          <div class="stat-sub">65% do total · maio</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-label">Profissionais</div>
+          <div class="stat-value">94</div>
+          <div class="stat-sub">Pedreiros, encan., elet., marc.</div>
+        </div>
+        <div class="stat-card danger">
+          <div class="stat-label">Inadimplentes</div>
+          <div class="stat-value">8</div>
+          <div class="stat-sub">3,7% da base · dentro do esp.</div>
+        </div>
+      </div>
+
+      <div class="stk-toolbar">
+        <div class="stk-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Buscar cliente, CNPJ ou ramo..." />
+        </div>
+        <button class="topbar-btn">PJ</button>
+        <button class="topbar-btn">PROFISSIONAL</button>
+        <button class="topbar-btn primary" onclick="toast('Cadastro de novo cliente')">+ Novo</button>
+      </div>
+
+      <div class="cli-grid" id="cliGrid"></div>
+    </section>
+
+    <!-- ====== PAINEL DO DONO ====== -->
+    <section class="view no-padding" id="view-dono">
+      <iframe class="dono-frame" src="/ferragista/dono?embed=1" title="Painel do Dono" loading="lazy"></iframe>
+    </section>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $  = (s, ctx=document) => ctx.querySelector(s);
+const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove('show'),2200); }
+window.toastMsg = toast;
+
+const VIEW_TITLES = {
+  pdv:{e:'PDV',           t:'PDV · Balcão de venda'},
+  fiado:{e:'Crediário',   t:'Crediário · Saldos em aberto'},
+  estoque:{e:'Estoque',   t:'Estoque · 2.928 SKUs'},
+  clientes:{e:'Clientes', t:'Clientes Pro · 218 cadastrados'},
+  dono:{e:'Análise',      t:'Painel do Dono'},
+};
+$$('.sb-link').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault();
+  const v = a.dataset.view;
+  $$('.sb-link').forEach(x => x.classList.toggle('active', x === a));
+  $$('.view').forEach(s => s.classList.toggle('active', s.id === 'view-'+v));
+  $('#topEyebrow').textContent = VIEW_TITLES[v].e;
+  $('#topTitle').textContent = VIEW_TITLES[v].t;
+  document.body.classList.remove('nav-open');
+  window.scrollTo(0,0);
+}));
+$('#navToggle').addEventListener('click', () => document.body.classList.toggle('nav-open'));
+
+// ============== PDV PRODUTOS ==============
+const PRODUCTS = [
+  {code:'CIM-001', name:'Cimento CP-II 50kg · Votoran',           cat:'CIMENTO',    stock:38,   stockS:'sacos',  price:'32,90'},
+  {code:'CIM-014', name:'Argamassa colante AC-II 20kg',            cat:'CIMENTO',    stock:142,  stockS:'sacos',  price:'24,80'},
+  {code:'HID-201', name:'Tubo PVC marrom 25mm · 6m',                cat:'HIDRÁULICA',stock:328,  stockS:'unid',   price:'29,40'},
+  {code:'HID-208', name:'Tubo PVC esgoto 100mm · 6m',               cat:'HIDRÁULICA',stock:12,   stockS:'unid',   price:'68,90', low:true},
+  {code:'HID-340', name:'Joelho PVC 25mm marrom',                   cat:'HIDRÁULICA',stock:840,  stockS:'unid',   price:'2,40'},
+  {code:'HID-412', name:'Cola PVC 75g · Tigre',                     cat:'HIDRÁULICA',stock:62,   stockS:'unid',   price:'18,90'},
+  {code:'ELE-118', name:'Cabo flex 2,5mm² · rolo 100m',             cat:'ELÉTRICA',   stock:4,    stockS:'rolos',  price:'298,00', low:true},
+  {code:'ELE-204', name:'Disjuntor 25A · Schneider',                cat:'ELÉTRICA',   stock:34,   stockS:'unid',   price:'34,80'},
+  {code:'ELE-308', name:'Tomada 2P+T 10A branca',                   cat:'ELÉTRICA',   stock:218,  stockS:'unid',   price:'12,40'},
+  {code:'FER-410', name:'Furadeira impacto Bosch GSB 13RE',         cat:'FERRAMENTAS',stock:24,   stockS:'unid',   price:'389,00'},
+  {code:'FER-502', name:'Martelo unha · cabo madeira 27mm',         cat:'FERRAMENTAS',stock:46,   stockS:'unid',   price:'42,90'},
+  {code:'FER-618', name:'Trena 5m profissional · Tramontina',       cat:'FERRAMENTAS',stock:88,   stockS:'unid',   price:'28,40'},
+  {code:'TIN-720', name:'Tinta acrílica branco 18L · Suvinil',      cat:'TINTAS',     stock:8,    stockS:'latas',  price:'248,00', low:true},
+  {code:'TIN-734', name:'Selador acrílico 18L · Coral',             cat:'TINTAS',     stock:18,   stockS:'latas',  price:'168,00'},
+  {code:'AGR-810', name:'Areia média · m³',                          cat:'AGREGADOS', stock:48,   stockS:'m³',     price:'88,00'},
+  {code:'AGR-820', name:'Brita nº1 · m³',                            cat:'AGREGADOS', stock:32,   stockS:'m³',     price:'92,00'},
+];
+$('#pdvProducts').innerHTML = PRODUCTS.map(p => `
+  <div class="pdv-prod-row" onclick="window.toastMsg('${p.name} adicionado · 1 unid.')">
+    <div class="pdv-prod-code">${p.code}</div>
+    <div>
+      <div class="pdv-prod-name">${p.name}</div>
+      <div class="pdv-prod-cat">${p.cat}</div>
+    </div>
+    <div class="pdv-prod-stock ${p.low?'low':''}">${p.stock} ${p.stockS}</div>
+    <div></div>
+    <div class="pdv-prod-price">R$ ${p.price}</div>
+  </div>
+`).join('');
+
+// ============== CART ==============
+const CART = [
+  {name:'Cimento CP-II 50kg · Votoran',          meta:'CIM-001',   qty:'24 sacos',  price:'789,60'},
+  {name:'Tubo PVC marrom 25mm · 6m',              meta:'HID-201',   qty:'18 unid',   price:'529,20'},
+  {name:'Joelho PVC 25mm marrom',                 meta:'HID-340',   qty:'45 unid',   price:'108,00'},
+  {name:'Areia média · m³',                        meta:'AGR-810',   qty:'4 m³',      price:'352,00'},
+  {name:'Cola PVC 75g · Tigre',                    meta:'HID-412',   qty:'3 unid',    price:'56,70'},
+  {name:'Cabo flex 2,5mm² rolo 100m',              meta:'ELE-118',   qty:'1 rolo',    price:'298,00'},
+];
+$('#cartItems').innerHTML = CART.map(c => `
+  <div class="pdv-cart-item">
+    <div>
+      <div class="pdv-cart-item-name">${c.name}</div>
+      <div class="pdv-cart-item-meta">${c.meta}</div>
+      <div class="pdv-cart-item-qty">${c.qty}</div>
+    </div>
+    <div class="pdv-cart-item-price">R$ ${c.price}</div>
+  </div>
+`).join('');
+
+$$('.pdv-cat').forEach(c => c.addEventListener('click', () => {
+  $$('.pdv-cat').forEach(x => x.classList.toggle('active', x === c));
+}));
+$$('.pdv-pay-btn').forEach(p => p.addEventListener('click', () => {
+  $$('.pdv-pay-btn').forEach(x => x.classList.toggle('active', x === p));
+}));
+
+// ============== FIADO ==============
+const FIADO = [
+  {name:'Construtora Vaz',         tag:'CNPJ · Cliente desde 2018 · 30/60',   amount:'R$ 6.480',  days:'+47d', state:'red',    overdue:true},
+  {name:'Pedreiro Edson Costa',    tag:'CPF · 99710-2284 · Vila Olímpia',     amount:'R$ 1.890',  days:'+38d', state:'red',    overdue:true},
+  {name:'Eletrotécnica Silva &amp; Filhos',tag:'CNPJ · Reforma centro · 30d',        amount:'R$ 3.420',  days:'+32d', state:'red',    overdue:true},
+  {name:'Marcenaria Lopes',        tag:'CNPJ · 30/60 · ramo: móveis sob med.',amount:'R$ 4.320',  days:'+22d', state:'yellow', overdue:false, dueSoon:true},
+  {name:'Encanador Marquinhos',    tag:'CPF · 96540-1107 · cliente 6 anos',   amount:'R$ 640',    days:'+18d', state:'yellow', overdue:false, dueSoon:true},
+  {name:'Reforma Edif. Aurora',     tag:'OBRA · contrato 50d · gerente Paulo',amount:'R$ 12.840', days:'14d',  state:'green'},
+  {name:'Eletricista Toninho',     tag:'CPF · 98441-2316 · 11 anos cliente',  amount:'R$ 980',    days:'9d',   state:'green'},
+  {name:'Construtora Tavora',      tag:'CNPJ · obra residencial · 30d',       amount:'R$ 8.640',  days:'5d',   state:'green'},
+];
+$('#fiadoList').innerHTML = FIADO.map(f => `
+  <div class="fiado-row ${f.overdue?'overdue':f.dueSoon?'due-soon':''}">
+    <div>
+      <div class="fiado-name">${f.name}</div>
+      <div class="fiado-tag">${f.tag}</div>
+    </div>
+    <div>
+      <div class="fiado-amount">${f.amount}</div>
+      <div class="fiado-amount-lbl">em aberto</div>
+    </div>
+    <div class="fiado-days ${f.state}">${f.days}</div>
+    <div class="fiado-actions">
+      <button class="fiado-act-btn" onclick="window.toastMsg('WhatsApp enviado para ${f.name}')">WhatsApp</button>
+      <button class="fiado-act-btn" onclick="window.toastMsg('Pagamento registrado')">Receber</button>
+    </div>
+  </div>
+`).join('');
+
+// ============== ESTOQUE ==============
+const STOCK = [
+  {code:'CIM-001', name:'Cimento CP-II 50kg Votoran', cat:'CIMENTO',    stock:'38',  unit:'sacos', abc:'A', mrg:'22%', price:'32,90', low:true},
+  {code:'CIM-014', name:'Argamassa AC-II 20kg',        cat:'CIMENTO',    stock:'142', unit:'sacos', abc:'A', mrg:'24%', price:'24,80'},
+  {code:'HID-201', name:'Tubo PVC marrom 25mm 6m',     cat:'HIDRÁULICA', stock:'328', unit:'unid',  abc:'A', mrg:'38%', price:'29,40'},
+  {code:'HID-208', name:'Tubo PVC esgoto 100mm 6m',    cat:'HIDRÁULICA', stock:'12',  unit:'unid',  abc:'A', mrg:'34%', price:'68,90', low:true},
+  {code:'HID-340', name:'Joelho PVC 25mm marrom',      cat:'HIDRÁULICA', stock:'840', unit:'unid',  abc:'B', mrg:'42%', price:'2,40'},
+  {code:'HID-412', name:'Cola PVC 75g Tigre',           cat:'HIDRÁULICA', stock:'62',  unit:'unid',  abc:'A', mrg:'36%', price:'18,90'},
+  {code:'ELE-118', name:'Cabo flex 2,5mm² rolo 100m',  cat:'ELÉTRICA',   stock:'4',   unit:'rolos', abc:'B', mrg:'31%', price:'298,00', low:true},
+  {code:'ELE-204', name:'Disjuntor 25A Schneider',     cat:'ELÉTRICA',   stock:'34',  unit:'unid',  abc:'B', mrg:'28%', price:'34,80'},
+  {code:'FER-410', name:'Furadeira Bosch GSB 13RE',    cat:'FERRAMENTAS',stock:'24',  unit:'unid',  abc:'A', mrg:'33%', price:'389,00'},
+  {code:'FER-502', name:'Martelo unha cabo madeira',   cat:'FERRAMENTAS',stock:'46',  unit:'unid',  abc:'B', mrg:'29%', price:'42,90'},
+  {code:'TIN-720', name:'Tinta acrílica branco 18L',   cat:'TINTAS',     stock:'8',   unit:'latas', abc:'A', mrg:'19%', price:'248,00', low:true, mrgLow:true},
+  {code:'TIN-734', name:'Selador acrílico 18L',         cat:'TINTAS',     stock:'18',  unit:'latas', abc:'B', mrg:'21%', price:'168,00', mrgMed:true},
+  {code:'AGR-810', name:'Areia média m³',               cat:'AGREGADOS',  stock:'48',  unit:'m³',    abc:'A', mrg:'14%', price:'88,00', mrgLow:true},
+  {code:'AGR-820', name:'Brita nº1 m³',                 cat:'AGREGADOS',  stock:'32',  unit:'m³',    abc:'A', mrg:'14%', price:'92,00', mrgLow:true},
+];
+$('#stkList').innerHTML = STOCK.map(s => {
+  const stockCls = s.low ? 'low' : (s.warn ? 'warn' : '');
+  const mrgCls = s.mrgLow ? 'low' : (s.mrgMed ? 'med' : '');
+  return `<div class="stk-row" onclick="window.toastMsg('Detalhes de ${s.name}')">
+    <div class="stk-code">${s.code}</div>
+    <div>
+      <div class="stk-name">${s.name}</div>
+      <div class="stk-cat">${s.cat}</div>
+    </div>
+    <div class="stk-stock ${stockCls}">${s.stock} ${s.unit}</div>
+    <div class="stk-abc ${s.abc.toLowerCase()}">${s.abc}</div>
+    <div class="stk-margin ${mrgCls}">${s.mrg}</div>
+    <div class="stk-price">R$ ${s.price}</div>
+  </div>`;
+}).join('');
+
+// ============== CLIENTES ==============
+const CLIENTS = [
+  {init:'CV', vip:true,  name:'Construtora Vaz',           type:'CNPJ · 30/60',    detail:'08 anos cliente · obras residenciais',           rev:'R$ 14.4k', month:'18 com.', balance:'R$ 6.480', balCls:'danger', overdue:true},
+  {init:'EC', vip:false, name:'Pedreiro Edson Costa',       type:'CPF · Profissional', detail:'Vila Olímpia · 6 obras simultâneas',           rev:'R$ 4.2k',  month:'8 com.',  balance:'R$ 1.890', balCls:'danger', overdue:true},
+  {init:'ES', vip:false, name:'Eletrotécnica Silva',        type:'CNPJ · 30d',       detail:'Reforma comercial · 12 funcionários',          rev:'R$ 8.8k',  month:'14 com.', balance:'R$ 3.420', balCls:'danger', overdue:true},
+  {init:'ML', vip:true,  name:'Marcenaria Lopes',           type:'CNPJ · 30/60',    detail:'Móveis sob medida · 16 anos cliente',          rev:'R$ 18.6k', month:'22 com.', balance:'R$ 4.320', balCls:''},
+  {init:'EM', vip:false, name:'Encanador Marquinhos',       type:'CPF · Profissional', detail:'Cliente desde 2019 · pagamento em dia',     rev:'R$ 2.4k',  month:'6 com.',  balance:'R$ 640',   balCls:''},
+  {init:'EA', vip:true,  name:'Reforma Edif. Aurora',       type:'OBRA · 50d',       detail:'Contrato fechado · 50 dias · gerente Paulo',   rev:'R$ 24.8k', month:'42 com.', balance:'R$ 12.840',balCls:''},
+  {init:'CT', vip:true,  name:'Construtora Tavora',         type:'CNPJ · 30d',       detail:'Obra residencial 12 unidades',                 rev:'R$ 16.4k', month:'19 com.', balance:'R$ 8.640', balCls:''},
+  {init:'ET', vip:false, name:'Eletricista Toninho',        type:'CPF · Profissional', detail:'11 anos cliente · profissional VIP',         rev:'R$ 3.2k',  month:'9 com.',  balance:'R$ 980',   balCls:''},
+  {init:'PV', vip:false, name:'Pintor Valdemar',            type:'CPF · Profissional', detail:'Pinturas residenciais · pagamento à vista',  rev:'R$ 1.8k',  month:'4 com.',  balance:'R$ 0',     balCls:'success'},
+];
+$('#cliGrid').innerHTML = CLIENTS.map(c => `
+  <div class="cli-card ${c.vip?'vip':''} ${c.overdue?'overdue':''}" onclick="window.toastMsg('Ficha de ${c.name}')">
+    <div class="cli-head-row">
+      <div class="cli-mark">${c.init}</div>
+      <div>
+        <div class="cli-name">${c.name}</div>
+        <div class="cli-type">${c.type}</div>
+      </div>
+    </div>
+    <div class="cli-detail">${c.detail}</div>
+    <div class="cli-stats">
+      <div class="cli-stat"><div class="cli-stat-v">${c.rev}</div><div class="cli-stat-l">faturado mês</div></div>
+      <div class="cli-stat"><div class="cli-stat-v">${c.month}</div><div class="cli-stat-l">compras</div></div>
+      <div class="cli-stat"><div class="cli-stat-v ${c.balCls}">${c.balance}</div><div class="cli-stat-l">saldo aberto</div></div>
+    </div>
+  </div>
+`).join('');
+
+</script>
+</body>
+</html>
