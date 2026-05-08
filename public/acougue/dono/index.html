@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#FAF6EE" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Painel do Dono · Brasa &amp; Sal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --bg:#FAF6EE;
+  --surface:#FFFFFF;
+  --surface-2:#F1ECDF;
+  --border:#E5DECC;
+  --text:#1F1413;
+  --text-muted:#6A584F;
+  --text-dim:#A4948A;
+  --burgundy:#7B1F2C;       /* vinho/bordô principal */
+  --burgundy-dark:#561217;
+  --char:#2A1E1A;           /* carvão */
+  --copper:#B8623C;         /* cobre / brasa */
+  --gold:#C49A48;           /* dourado */
+  --warning:#C49A48;
+  --danger:#A03222;
+  --success:#5C7A4D;
+  --shadow-sm:0 1px 2px rgba(31,20,19,0.05),0 1px 3px rgba(31,20,19,0.07);
+  --shadow:0 4px 12px rgba(31,20,19,0.06),0 2px 4px rgba(31,20,19,0.05);
+  --shadow-lg:0 12px 32px rgba(31,20,19,0.10),0 4px 12px rgba(31,20,19,0.07);
+  --radius-sm:8px; --radius:14px; --radius-lg:20px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --container:1280px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100dvh}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;padding:0}
+button:focus-visible,a:focus-visible{outline:2px solid var(--burgundy);outline-offset:2px;border-radius:6px}
+a{color:inherit;text-decoration:none}
+.container{max-width:var(--container);margin:0 auto;padding:0 16px}
+@media(min-width:768px){.container{padding:0 24px}}
+
+/* HEADER */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(250,246,238,0.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center}
+.site-header-inner{width:100%;max-width:var(--container);margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:12px}
+@media(min-width:768px){.site-header-inner{padding:0 24px}}
+.brand{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.brand-mark{width:38px;height:38px;border-radius:8px;background:var(--char);display:grid;place-items:center;color:var(--gold);flex-shrink:0;box-shadow:var(--shadow-sm)}
+.brand-mark svg{width:20px;height:20px}
+.brand-name{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;color:var(--char);letter-spacing:-0.005em;line-height:1;font-style:italic}
+.brand-amp{color:var(--burgundy);font-style:normal}
+.brand-pill{font-size:9px;letter-spacing:0.20em;color:var(--burgundy);text-transform:uppercase;font-weight:700;padding:4px 10px;background:rgba(123,31,44,0.08);border:1px solid rgba(123,31,44,0.32);border-radius:999px}
+.header-meta{font-size:12px;color:var(--text-muted);display:none}
+@media(min-width:1024px){.header-meta{display:block}}
+.header-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;color:var(--text-muted);transition:all .2s var(--ease);background:transparent}
+.icon-btn:hover{background:var(--surface-2);color:var(--text)}
+.icon-btn svg{width:18px;height:18px}
+.user-chip{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;background:var(--surface);border:1px solid var(--border);border-radius:999px;cursor:pointer;transition:all .2s var(--ease)}
+.user-chip:hover{box-shadow:var(--shadow-sm)}
+.user-chip-avatar{width:28px;height:28px;background:linear-gradient(135deg,var(--burgundy),var(--burgundy-dark));color:#fff;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12px;font-family:'Playfair Display',serif;font-style:italic}
+.user-chip-name{font-size:12px;font-weight:600;color:var(--text)}
+.user-chip-name small{color:var(--text-muted);font-weight:400;font-size:10px;letter-spacing:0.06em;text-transform:uppercase}
+
+/* MAIN */
+.main{padding:32px 0 64px}
+@media(min-width:768px){.main{padding:48px 0 80px}}
+
+.page-hero{margin-bottom:32px}
+.eyebrow{display:inline-block;font-size:11px;letter-spacing:0.22em;color:var(--burgundy);text-transform:uppercase;margin-bottom:10px;font-weight:700}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,48px);font-weight:600;color:var(--text);margin:0 0 8px;letter-spacing:-0.02em;line-height:1.1}
+.page-title em{font-style:italic;color:var(--burgundy)}
+.page-subtitle{font-size:15px;color:var(--text-muted);max-width:580px;margin:0;line-height:1.6}
+
+.period-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.period-tabs{display:flex;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:4px;box-shadow:var(--shadow-sm)}
+.period-tab{padding:8px 14px;font-size:12px;font-weight:600;color:var(--text-muted);border-radius:8px;transition:all .2s var(--ease);letter-spacing:0.04em}
+.period-tab:hover{color:var(--text)}
+.period-tab.active{background:var(--char);color:var(--bg)}
+.period-meta{font-size:12px;color:var(--text-muted)}
+
+/* KPIS */
+.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:32px}
+@media(min-width:768px){.kpi-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
+.kpi{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);transition:all .25s var(--ease)}
+.kpi:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.kpi-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.kpi-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center}
+.kpi-icon svg{width:18px;height:18px}
+.kpi-icon.burgundy{background:rgba(123,31,44,0.10);color:var(--burgundy)}
+.kpi-icon.copper{background:rgba(184,98,60,0.12);color:var(--copper)}
+.kpi-icon.gold{background:rgba(196,154,72,0.14);color:var(--gold)}
+.kpi-icon.success{background:rgba(92,122,77,0.14);color:var(--success)}
+.kpi-trend{font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;display:inline-flex;align-items:center;gap:3px}
+.kpi-trend.up{background:rgba(92,122,77,0.14);color:var(--success)}
+.kpi-trend.down{background:rgba(160,50,34,0.10);color:var(--danger)}
+.kpi-label{font-size:11px;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.kpi-value{font-family:'Playfair Display',serif;font-size:32px;font-weight:600;color:var(--text);line-height:1;letter-spacing:-0.02em}
+.kpi-sub{font-size:11px;color:var(--text-muted);margin-top:6px}
+@media(min-width:768px){.kpi-value{font-size:38px}}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm)}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.card-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--text);margin:0 0 4px;letter-spacing:-0.01em}
+.card-title em{font-style:italic;color:var(--burgundy)}
+.card-sub{font-size:12px;color:var(--text-muted)}
+.card-action{font-size:11px;color:var(--burgundy);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+.card-action:hover{color:var(--text)}
+.card-action svg{width:12px;height:12px}
+
+.layout-grid{display:grid;gap:20px;grid-template-columns:1fr;margin-bottom:32px}
+@media(min-width:1024px){.layout-grid{grid-template-columns:2fr 1fr}}
+
+/* CHART */
+.chart-summary{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.chart-big{font-family:'Playfair Display',serif;font-size:42px;font-weight:600;color:var(--text);line-height:1;letter-spacing:-0.02em}
+.chart-currency{font-size:14px;color:var(--text-muted);font-family:Inter;font-weight:500}
+.chart-trend{font-size:12px;font-weight:600;color:var(--success);display:flex;align-items:center;gap:4px}
+.chart-trend svg{width:14px;height:14px}
+.chart-wrap{position:relative;width:100%;overflow:hidden}
+.chart-wrap svg{width:100%;height:auto;display:block}
+
+.bars-mini{display:flex;align-items:flex-end;gap:6px;height:80px;padding:0 4px;margin-top:14px}
+@media(min-width:640px){.bars-mini{gap:8px}}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;min-width:0}
+.bar-fill{width:100%;background:linear-gradient(180deg,var(--copper),var(--burgundy));border-radius:4px 4px 0 0;transition:opacity .2s var(--ease)}
+.bar-col:hover .bar-fill{opacity:0.8}
+.bar-label{font-size:9px;color:var(--text-dim);font-weight:600;letter-spacing:0.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;text-align:center}
+
+.donut-card{display:flex;flex-direction:column;gap:18px;align-items:center}
+@media(min-width:640px){.donut-card{flex-direction:row;align-items:flex-start}}
+.donut-svg{flex-shrink:0;width:160px;height:160px}
+.donut-svg svg{width:100%;height:100%}
+.donut-legend{flex:1;width:100%;display:flex;flex-direction:column;gap:10px}
+.legend-row{display:grid;grid-template-columns:14px 1fr auto;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.legend-row:last-child{border-bottom:none}
+.legend-dot{width:12px;height:12px;border-radius:3px}
+.legend-name{font-weight:500}
+.legend-pct{color:var(--text-muted);font-size:11px;font-weight:600}
+
+/* TOP CORTES */
+.product-list{display:flex;flex-direction:column;gap:10px}
+.product-row{display:flex;align-items:center;gap:14px;padding:12px;background:var(--surface-2);border-radius:10px;transition:all .2s var(--ease)}
+.product-row:hover{background:var(--bg)}
+.product-rank{width:28px;height:28px;background:var(--surface);border:1px solid var(--border);border-radius:50%;display:grid;place-items:center;font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--burgundy);flex-shrink:0;font-style:italic}
+.product-info{flex:1;min-width:0}
+.product-name{font-size:13px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.product-meta{font-size:11px;color:var(--text-muted);margin-top:2px}
+.product-value{text-align:right;flex-shrink:0}
+.product-amount{font-family:'Playfair Display',serif;font-size:16px;color:var(--text);font-weight:600}
+.product-qty{font-size:10px;color:var(--text-dim);letter-spacing:0.04em;text-transform:uppercase;font-weight:600}
+
+/* ALERTS */
+.alert-list{display:flex;flex-direction:column;gap:8px}
+.alert-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;border:1px solid}
+.alert-row.warning{background:rgba(196,154,72,0.06);border-color:rgba(196,154,72,0.30)}
+.alert-row.danger{background:rgba(160,50,34,0.06);border-color:rgba(160,50,34,0.30)}
+.alert-icon{flex-shrink:0;width:32px;height:32px;border-radius:8px;display:grid;place-items:center}
+.alert-row.warning .alert-icon{background:rgba(196,154,72,0.16);color:var(--warning)}
+.alert-row.danger .alert-icon{background:rgba(160,50,34,0.14);color:var(--danger)}
+.alert-icon svg{width:16px;height:16px}
+.alert-body{flex:1;min-width:0}
+.alert-name{font-size:13px;font-weight:600;color:var(--text)}
+.alert-desc{font-size:11px;color:var(--text-muted);margin-top:1px}
+.alert-cta{font-size:11px;font-weight:600;color:var(--burgundy);flex-shrink:0;text-transform:uppercase;letter-spacing:0.06em}
+
+/* HEATMAP */
+.heatmap{display:grid;grid-template-columns:auto repeat(12,1fr);gap:3px;margin-top:14px}
+.heat-label{font-size:9px;color:var(--text-dim);font-weight:600;display:flex;align-items:center;justify-content:flex-end;padding-right:6px}
+.heat-cell{aspect-ratio:1;border-radius:3px;background:var(--surface-2);transition:all .15s var(--ease);cursor:pointer;position:relative}
+.heat-cell:hover{transform:scale(1.2);z-index:1;outline:2px solid var(--burgundy)}
+.heat-axis{display:flex;gap:3px;margin-top:4px;padding-left:32px}
+.heat-axis span{flex:1;font-size:9px;color:var(--text-dim);text-align:center;font-weight:600}
+
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(min-width:480px){.compare-grid{grid-template-columns:repeat(3,1fr)}}
+.compare-cell{padding:14px;background:var(--surface-2);border-radius:10px}
+.compare-cell.highlight{background:rgba(123,31,44,0.06);border:1px solid rgba(123,31,44,0.28)}
+.compare-label{font-size:10px;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.compare-value{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--text);line-height:1}
+.compare-cell.highlight .compare-value{color:var(--burgundy)}
+.compare-delta{font-size:11px;font-weight:600;margin-top:4px}
+.compare-delta.up{color:var(--success)}
+.compare-delta.down{color:var(--danger)}
+
+/* SECTION */
+.section{margin-bottom:24px}
+.section-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;margin:0 0 4px;letter-spacing:-0.01em}
+.section-title em{font-style:italic;color:var(--burgundy)}
+.section-sub{font-size:13px;color:var(--text-muted);margin:0 0 18px}
+
+.full-row{display:grid;gap:20px;grid-template-columns:1fr;margin-bottom:32px}
+@media(min-width:768px){.full-row{grid-template-columns:1fr 1fr}}
+@media(min-width:1024px){.full-row.three{grid-template-columns:repeat(3,1fr)}}
+
+/* WOW: QUEBRA TÉCNICA */
+.quebra-hero{padding:18px;background:linear-gradient(135deg,var(--char),#3D2A24);color:#fff;border-radius:var(--radius);margin-bottom:14px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.quebra-block{display:flex;flex-direction:column}
+.quebra-lbl{font-size:10px;color:rgba(255,255,255,0.6);letter-spacing:0.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.quebra-val{font-family:'Playfair Display',serif;font-size:30px;font-weight:600;color:var(--gold);letter-spacing:-0.02em;line-height:1}
+.quebra-val.green{color:#9CC084}
+.quebra-detail{font-size:11px;color:rgba(255,255,255,0.7);margin-top:4px}
+
+.quebra-bars{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.quebra-row{display:grid;grid-template-columns:140px 1fr 70px;gap:12px;align-items:center;padding:8px 0}
+.quebra-name{font-size:12px;font-weight:600;color:var(--text)}
+.quebra-bar-wrap{position:relative;height:8px;background:var(--surface-2);border-radius:2px;overflow:hidden}
+.quebra-bar-fill{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--copper),var(--burgundy));border-radius:2px;transition:width .6s var(--ease)}
+.quebra-pct{font-size:13px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;text-align:right}
+
+/* WOW: MARGEM POR CORTE */
+.cut-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.cut-card{padding:14px;background:var(--surface-2);border-radius:10px;border:1px solid transparent}
+.cut-card.top{background:linear-gradient(135deg,rgba(123,31,44,0.06),rgba(123,31,44,0.02));border-color:rgba(123,31,44,0.24)}
+.cut-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px}
+.cut-stats{display:flex;justify-content:space-between;align-items:flex-end;gap:8px}
+.cut-margin{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;color:var(--burgundy);letter-spacing:-0.02em;line-height:1}
+.cut-vol{text-align:right;font-size:10px;color:var(--text-muted);letter-spacing:0.04em;text-transform:uppercase;font-weight:600}
+.cut-vol strong{display:block;color:var(--text);font-size:13px;font-family:'Playfair Display',serif;font-weight:600;font-style:italic;margin-bottom:1px;text-transform:none;letter-spacing:0}
+
+/* WOW: VALIDADE */
+.validade-list{display:flex;flex-direction:column;gap:6px}
+.val-row{display:grid;grid-template-columns:60px 1fr auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface)}
+.val-row.urgent{border-color:rgba(160,50,34,0.32);background:rgba(160,50,34,0.04)}
+.val-row.soon{border-color:rgba(196,154,72,0.32);background:rgba(196,154,72,0.04)}
+.val-days{text-align:center;padding:6px 4px;border-radius:6px;font-weight:700;font-size:11px;letter-spacing:0.04em}
+.val-days .num{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;display:block;line-height:1}
+.val-days .lbl{font-size:8px;letter-spacing:0.10em;text-transform:uppercase;font-weight:700;display:block;margin-top:2px}
+.val-row.urgent .val-days{background:rgba(160,50,34,0.14);color:var(--danger)}
+.val-row.soon .val-days{background:rgba(196,154,72,0.16);color:var(--warning)}
+.val-row.ok .val-days{background:rgba(92,122,77,0.14);color:var(--success)}
+.val-name{font-size:12px;font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.val-meta{font-size:10px;color:var(--text-muted);margin-top:2px;letter-spacing:0.03em}
+.val-cta{font-size:11px;font-weight:700;color:var(--burgundy);text-transform:uppercase;letter-spacing:0.06em;flex-shrink:0}
+
+/* WOW: PRÉ-PEDIDOS */
+.encomenda-list{display:flex;flex-direction:column;gap:8px}
+.enc-row{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:10px;background:var(--surface-2);border-left:3px solid var(--copper);transition:all .15s var(--ease)}
+.enc-row:hover{background:var(--bg);box-shadow:var(--shadow-sm)}
+.enc-row.tomorrow{border-left-color:var(--burgundy)}
+.enc-day{display:flex;flex-direction:column;align-items:center;justify-content:center;width:46px;flex-shrink:0;background:var(--surface);border-radius:8px;padding:6px 0;border:1px solid var(--border)}
+.enc-day .d{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;line-height:1;color:var(--burgundy)}
+.enc-day .m{font-size:9px;letter-spacing:0.10em;color:var(--text-muted);text-transform:uppercase;font-weight:700;margin-top:2px}
+.enc-info{flex:1;min-width:0}
+.enc-client{font-size:13px;font-weight:700;color:var(--text)}
+.enc-detail{font-size:11px;color:var(--text-muted);margin-top:2px;line-height:1.4}
+.enc-amount{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--burgundy);text-align:right;flex-shrink:0}
+
+.insight-strip{margin-top:14px;padding:11px 14px;background:var(--surface-2);border-radius:10px;font-size:12px;color:var(--text-muted);line-height:1.55;display:flex;gap:10px;align-items:flex-start;border-left:3px solid var(--copper)}
+.insight-strip strong{color:var(--text)}
+.insight-strip::before{content:'★';color:var(--burgundy);font-size:13px;flex-shrink:0;line-height:1.4}
+
+/* FOOTER */
+.site-footer{margin-top:64px;padding:32px 0;border-top:1px solid var(--border);font-size:12px;color:var(--text-muted)}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-inner a{color:var(--burgundy);font-weight:600}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,80px);background:var(--char);color:var(--bg);padding:12px 20px;border-radius:999px;font-size:13px;font-weight:500;z-index:1000;opacity:0;transition:all .3s var(--ease);box-shadow:var(--shadow-lg);pointer-events:none;max-width:90vw}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+body.embed .site-header,body.embed .site-footer{display:none}
+body.embed .main{padding-top:0}
+body.embed .page-hero{padding-top:24px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-2 0-3.5 1-4 3-1-.5-3.5-.5-4 1.5-.5 2 1 3 1 4-2 1-2 4 0 5 0 1.5 1.5 3 4 2 .5 1.5 2 2.5 3 2.5s2.5-1 3-2.5c2.5 1 4-.5 4-2 2-1 2-4 0-5 0-1 1.5-2 1-4-.5-2-3-2-4-1.5-.5-2-2-3-4-3Zm0 4a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2Z"/></svg>
+      </span>
+      <span class="brand-name">Brasa <span class="brand-amp">&amp;</span> Sal</span>
+      <span class="brand-pill">Painel do Dono</span>
+    </div>
+    <span class="header-meta" id="todayLabel"></span>
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="Exportar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Imprimir">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      </button>
+      <div class="user-chip">
+        <div class="user-chip-avatar">SO</div>
+        <div class="user-chip-name">Seu Otávio<br/><small>DONO</small></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="container">
+
+    <header class="page-hero">
+      <div class="eyebrow">Visão do dono</div>
+      <h1 class="page-title">Da carcaça ao <em>balcão</em>.</h1>
+      <p class="page-subtitle">Faturamento, quilo vendido, perdas, margem por corte e os pré-pedidos do fim de semana — tudo controlado, sem perda escondida no rendimento.</p>
+    </header>
+
+    <div class="period-bar">
+      <div class="period-tabs" id="periodTabs">
+        <button class="period-tab" data-period="day">Hoje</button>
+        <button class="period-tab" data-period="week">Semana</button>
+        <button class="period-tab active" data-period="month">Mês</button>
+        <button class="period-tab" data-period="year">Ano</button>
+      </div>
+      <span class="period-meta" id="periodMeta">Maio · 1 a 7</span>
+    </div>
+
+    <div class="kpi-grid" id="kpiGrid"></div>
+
+    <div class="layout-grid">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Faturamento <em>diário</em></h3>
+            <p class="card-sub">Últimos 30 dias · pico fim de semana</p>
+          </div>
+          <button class="card-action">Ver detalhes
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="chart-summary">
+          <div><span class="chart-currency">R$</span> <span class="chart-big" id="chartTotal">128.640</span></div>
+          <span class="chart-trend">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            +11,3% vs mês anterior
+          </span>
+        </div>
+        <div class="chart-wrap" id="lineChartWrap"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Mix de <em>vendas</em></h3>
+            <p class="card-sub">Por linha · em quilos · mês</p>
+          </div>
+        </div>
+        <div class="donut-card" id="donutWrap"></div>
+      </div>
+    </div>
+
+    <div class="full-row">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Faturamento <em>semanal</em></h3>
+            <p class="card-sub">Últimas 12 semanas</p>
+          </div>
+        </div>
+        <div class="bars-mini" id="weekBars"></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Faturamento <em>mensal</em></h3>
+            <p class="card-sub">Últimos 12 meses</p>
+          </div>
+        </div>
+        <div class="bars-mini" id="monthBars"></div>
+      </div>
+    </div>
+
+    <div class="layout-grid">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Cortes que <em>mais saem</em></h3>
+            <p class="card-sub">Top 5 do mês</p>
+          </div>
+          <button class="card-action">Ver tudo
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="product-list" id="productList"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Atenção, <em>seu Otávio!</em></h3>
+            <p class="card-sub">Validade, perdas e estoque</p>
+          </div>
+        </div>
+        <div class="alert-list" id="alertList"></div>
+      </div>
+    </div>
+
+    <div class="full-row">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Quando o açougue <em>enche</em></h3>
+            <p class="card-sub">Mapa de calor · seg a sáb · 7h às 19h</p>
+          </div>
+        </div>
+        <div id="heatmap"></div>
+        <div class="insight-strip"><span><strong>Insight:</strong> Sexta tarde + sábado manhã concentram <strong>52%</strong> do faturamento da semana — efeito churrasco. Reforçar dois balconistas e fazer pré-corte na quinta.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Comparativo <em>anual</em></h3>
+            <p class="card-sub">Este ano vs ano passado · mês corrente</p>
+          </div>
+        </div>
+        <div class="compare-grid">
+          <div class="compare-cell">
+            <div class="compare-label">2025</div>
+            <div class="compare-value">R$ 112k</div>
+            <div class="compare-delta">Mesmo mês</div>
+          </div>
+          <div class="compare-cell highlight">
+            <div class="compare-label">2026</div>
+            <div class="compare-value">R$ 128k</div>
+            <div class="compare-delta up">↑ 14,3%</div>
+          </div>
+          <div class="compare-cell">
+            <div class="compare-label">Meta</div>
+            <div class="compare-value">R$ 140k</div>
+            <div class="compare-delta">92% atingido</div>
+          </div>
+        </div>
+        <div style="margin-top:18px;padding:14px;background:var(--surface-2);border-radius:10px">
+          <div style="font-size:12px;color:var(--text-muted);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px">Projeção fim do mês</div>
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+            <span style="font-family:'Playfair Display',serif;font-size:28px;color:var(--text);font-weight:600">R$ 142.300</span>
+            <span class="chart-trend">acima da meta em R$ 2.300</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============== INTELIGÊNCIA ============== -->
+    <div class="section">
+      <h2 class="section-title">Inteligência da <em>operação</em></h2>
+      <p class="section-sub">A perda invisível que come 6% do faturamento de um açougue mal medido — agora visível.</p>
+    </div>
+
+    <!-- WOW 1: QUEBRA TÉCNICA -->
+    <div class="card" style="margin-bottom:32px">
+      <div class="card-head">
+        <div>
+          <h3 class="card-title">Quebra <em>técnica</em> do mês</h3>
+          <p class="card-sub">Diferença entre kg recebidos e kg vendidos · por corte</p>
+        </div>
+        <button class="card-action">Histórico
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="quebra-hero">
+        <div class="quebra-block">
+          <div class="quebra-lbl">Quebra do mês</div>
+          <div class="quebra-val">3,2%</div>
+          <div class="quebra-detail">≈ 38 kg de R$ 1.860 em perdas reais</div>
+        </div>
+        <div class="quebra-block">
+          <div class="quebra-lbl">Mês anterior</div>
+          <div class="quebra-val green">−1,1 p.p.</div>
+          <div class="quebra-detail">Era 4,3%. Você recuperou R$ 640 só nesse ajuste.</div>
+        </div>
+      </div>
+      <div class="quebra-bars">
+        <div class="quebra-row"><div class="quebra-name">Bovino · dianteiro</div><div class="quebra-bar-wrap"><div class="quebra-bar-fill" style="width:84%"></div></div><div class="quebra-pct">4,8%</div></div>
+        <div class="quebra-row"><div class="quebra-name">Bovino · traseiro</div><div class="quebra-bar-wrap"><div class="quebra-bar-fill" style="width:46%"></div></div><div class="quebra-pct">2,6%</div></div>
+        <div class="quebra-row"><div class="quebra-name">Suíno</div><div class="quebra-bar-wrap"><div class="quebra-bar-fill" style="width:54%"></div></div><div class="quebra-pct">3,1%</div></div>
+        <div class="quebra-row"><div class="quebra-name">Frango</div><div class="quebra-bar-wrap"><div class="quebra-bar-fill" style="width:30%"></div></div><div class="quebra-pct">1,7%</div></div>
+        <div class="quebra-row"><div class="quebra-name">Linguiça artesanal</div><div class="quebra-bar-wrap"><div class="quebra-bar-fill" style="width:18%"></div></div><div class="quebra-pct">1,0%</div></div>
+      </div>
+      <div class="insight-strip" style="margin-top:18px"><span><strong>Dianteiro está em 4,8%</strong> — quase 2 p.p. acima da média. Provavelmente o desossador novo está deixando carne presa no osso. 30 minutos de revisão do processo recuperam ~R$ 480/mês.</span></div>
+    </div>
+
+    <!-- WOW 2 + 3: MARGEM POR CORTE + PRÉ-PEDIDOS -->
+    <div class="full-row">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Margem <em>por corte</em></h3>
+            <p class="card-sub">Onde o lucro de verdade entra · mês</p>
+          </div>
+        </div>
+        <div class="cut-grid">
+          <div class="cut-card top">
+            <div class="cut-name">Picanha</div>
+            <div class="cut-stats">
+              <div class="cut-margin">42%</div>
+              <div class="cut-vol"><strong>184 kg</strong>R$ 14.720</div>
+            </div>
+          </div>
+          <div class="cut-card top">
+            <div class="cut-name">Maminha</div>
+            <div class="cut-stats">
+              <div class="cut-margin">38%</div>
+              <div class="cut-vol"><strong>132 kg</strong>R$ 7.260</div>
+            </div>
+          </div>
+          <div class="cut-card">
+            <div class="cut-name">Alcatra</div>
+            <div class="cut-stats">
+              <div class="cut-margin">31%</div>
+              <div class="cut-vol"><strong>218 kg</strong>R$ 9.810</div>
+            </div>
+          </div>
+          <div class="cut-card">
+            <div class="cut-name">Costela</div>
+            <div class="cut-stats">
+              <div class="cut-margin">28%</div>
+              <div class="cut-vol"><strong>164 kg</strong>R$ 5.740</div>
+            </div>
+          </div>
+          <div class="cut-card">
+            <div class="cut-name">Patinho</div>
+            <div class="cut-stats">
+              <div class="cut-margin">22%</div>
+              <div class="cut-vol"><strong>146 kg</strong>R$ 5.110</div>
+            </div>
+          </div>
+          <div class="cut-card">
+            <div class="cut-name">Músculo</div>
+            <div class="cut-stats">
+              <div class="cut-margin">14%</div>
+              <div class="cut-vol"><strong>92 kg</strong>R$ 1.840</div>
+            </div>
+          </div>
+        </div>
+        <div class="insight-strip" style="margin-top:14px"><span><strong>Picanha + maminha</strong> são só 11% do volume mas 26% da margem. Posicione na vitrine principal e ofereça combo "kit churrasco" — converte 7 em 10 abordagens.</span></div>
+      </div>
+
+      <!-- WOW 4: PRÉ-PEDIDOS -->
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Pré-pedidos <em>WhatsApp</em></h3>
+            <p class="card-sub">Encomendas pra retirada do fim de semana</p>
+          </div>
+        </div>
+        <div class="encomenda-list" id="encList"></div>
+        <div class="insight-strip" style="margin-top:14px"><span><strong>R$ 4.180</strong> em 14 pedidos pré-confirmados. Meta sugere fechar em 22 pedidos até sexta — disparar lembrete na quinta às 18h converte 3-4 a mais.</span></div>
+      </div>
+    </div>
+
+    <!-- WOW 4: VALIDADE PRÓXIMA -->
+    <div class="card" style="margin-bottom:32px">
+      <div class="card-head">
+        <div>
+          <h3 class="card-title">Validade <em>próxima</em></h3>
+          <p class="card-sub">Cortes embalados a vácuo · vencendo nos próximos 7 dias</p>
+        </div>
+        <button class="card-action">Marcar para promoção
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="validade-list" id="valList"></div>
+    </div>
+
+    <!-- INDICADORES -->
+    <div class="section">
+      <h2 class="section-title">Outros <em>indicadores</em></h2>
+      <p class="section-sub">Ritmo do açougue em números diretos.</p>
+    </div>
+    <div class="full-row three">
+      <div class="card">
+        <div class="card-head"><div><h3 class="card-title" style="font-size:18px">Ticket médio</h3><p class="card-sub">Por venda · mês</p></div></div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+          <span style="font-family:'Playfair Display',serif;font-size:38px;color:var(--text);font-weight:600"><span style="font-size:14px;color:var(--text-muted);font-family:Inter">R$</span> 86</span>
+          <span class="chart-trend">+R$ 6 vs mês anterior</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.55">Subiu — combos churrasco e expansão de linha de embutidos artesanais empurram o ticket.</div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h3 class="card-title" style="font-size:18px">Kg <em>vendidos</em></h3><p class="card-sub">Mês corrente</p></div></div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+          <span style="font-family:'Playfair Display',serif;font-size:38px;color:var(--text);font-weight:600">1.184<span style="font-size:14px;color:var(--text-muted);font-family:Inter;font-weight:400;margin-left:4px">kg</span></span>
+          <span class="chart-trend">↑ 8% vs mês anterior</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.55">Crescimento orgânico. Picanha e linguiça caseira puxam o volume.</div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h3 class="card-title" style="font-size:18px">Recorrência</h3><p class="card-sub">% que volta em 30d</p></div></div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+          <span style="font-family:'Playfair Display',serif;font-size:38px;color:var(--text);font-weight:600">71%</span>
+          <span style="font-size:11px;color:var(--text-muted);font-weight:600">clientes fiéis</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.55">Bairro tradicional — relação direta com o balconista. Pré-pedido no WhatsApp blinda a recorrência.</div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>Painel Brasa &amp; Sal · demonstração</span>
+    <span>Desenvolvido por <a href="https://nuptechs.com">NuPtechs</a></span>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DATA = {
+  day:   { faturamento: 'R$ 6.480', kg: '58', ticket: 'R$ 78', quebra: '3,2%', trend: { faturamento: 7,  kg: 4, ticket: 3, quebra: -1 } },
+  week:  { faturamento: 'R$ 32.180', kg: '298', ticket: 'R$ 82', quebra: '3,2%', trend: { faturamento: 9,  kg: 7, ticket: 5, quebra: -1 } },
+  month: { faturamento: 'R$ 128.640', kg: '1.184', ticket: 'R$ 86', quebra: '3,2%', trend: { faturamento: 11, kg: 8, ticket: 7, quebra: -1 } },
+  year:  { faturamento: 'R$ 1.412k', kg: '13.214', ticket: 'R$ 84', quebra: '3,5%', trend: { faturamento: 16, kg: 12, ticket: 9, quebra: -1 } },
+};
+// Padrão açougue: pico sexta + sábado, segunda fraca
+const days30 = [2900,3100,3400,3800,5800,8100,3200,3000,3300,3500,3900,5900,8400,3300,3100,3400,3500,4000,6100,8800,3300,3200,3500,3800,4100,6300,8700,3400,4200,6480];
+const week12 = [24.6, 26.4, 25.8, 28.4, 27.6, 29.8, 30.4, 27.2, 28.8, 30.6, 29.4, 32.18];
+const month12 = [88.4, 96.2, 102.8, 99.4, 108.6, 114.2, 122.8, 110.6, 116.4, 121.8, 118.4, 128.64];
+const monthLabels = ['Jun','Jul','Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai'];
+
+const products = [
+  { name: 'Picanha bovina · 1ª qualidade', cat: 'Bovino · traseiro',  amount: 'R$ 14.720', qty: '184 kg' },
+  { name: 'Costela bovina',                 cat: 'Bovino · dianteiro', amount: 'R$ 9.810',  qty: '218 kg' },
+  { name: 'Linguiça artesanal toscana',     cat: 'Embutidos · casa',   amount: 'R$ 8.640',  qty: '186 kg' },
+  { name: 'Frango caipira inteiro',         cat: 'Aves',               amount: 'R$ 7.860',  qty: '264 kg' },
+  { name: 'Maminha bovina',                 cat: 'Bovino · traseiro',  amount: 'R$ 7.260',  qty: '132 kg' },
+];
+
+const payments = [
+  { name: 'Bovino traseiro (nobre)',    pct: 38, color: '#7B1F2C' },
+  { name: 'Bovino dianteiro',           pct: 24, color: '#B8623C' },
+  { name: 'Embutidos artesanais',       pct: 14, color: '#2A1E1A' },
+  { name: 'Aves',                       pct: 13, color: '#C49A48' },
+  { name: 'Suíno',                      pct: 11, color: '#A4948A' },
+];
+
+const alerts = [
+  { kind: 'danger',  name: 'Picanha vácuo · vence em 2 dias', desc: '6 kg em câmara — separar para promoção 25% off', cta: 'Marcar' },
+  { kind: 'warning', name: 'Linguiça toscana · estoque baixo', desc: 'Restam 14 kg · vende 186/mês — fabricar lote', cta: 'Produzir' },
+  { kind: 'warning', name: 'Quebra dianteiro acima da média', desc: '4,8% (média 2,6%) · revisar processo de desossa', cta: 'Investigar' },
+  { kind: 'warning', name: '14 pré-pedidos para sábado',       desc: 'R$ 4.180 já confirmados · R$ 1.680 pendentes',  cta: 'Reforçar' },
+];
+
+// WOW: Pré-pedidos
+const enc = [
+  { d:'10', m:'sex', client:'Marcos T. · 99182-2210', detail:'Costela 4kg + linguiça toscana 1kg + pão de alho', amount:'R$ 380', tomorrow:false },
+  { d:'10', m:'sex', client:'Mariana V. · 99441-1102', detail:'Picanha 1,8kg · ponto preferido: tampa preservada', amount:'R$ 296', tomorrow:false },
+  { d:'11', m:'sáb', client:'Família Souza · 98202-7740', detail:'Kit churrasco completo (4 pessoas)', amount:'R$ 248', tomorrow:true },
+  { d:'11', m:'sáb', client:'Rogério P. · 99662-1488', detail:'Maminha 1,2kg + frango caipira 2 pç', amount:'R$ 218', tomorrow:true },
+  { d:'11', m:'sáb', client:'Cláudia R. · 98770-3322', detail:'Picanha + alcatra (corte fino) + cebolinha', amount:'R$ 320', tomorrow:true },
+  { d:'12', m:'dom', client:'Bar do Tonho · 99110-5588', detail:'Costelinha suína 6kg (uso comercial)', amount:'R$ 240', tomorrow:false },
+];
+
+// WOW: Validade próxima (vácuo)
+const validades = [
+  { days:2, lbl:'dias',  state:'urgent', name:'Picanha vácuo 1,2kg · lote 04/05',  meta:'Câmara A · 6 unid · custo R$ 348' },
+  { days:3, lbl:'dias',  state:'urgent', name:'Maminha vácuo 800g · lote 04/05',   meta:'Câmara A · 4 unid · custo R$ 184'  },
+  { days:5, lbl:'dias',  state:'soon',   name:'Filé mignon vácuo 600g · lote 03/05',meta:'Câmara B · 8 unid · custo R$ 472' },
+  { days:6, lbl:'dias',  state:'soon',   name:'Alcatra completa vácuo · lote 03/05',meta:'Câmara B · 5 unid · custo R$ 280' },
+];
+
+const $  = (s, ctx=document) => ctx.querySelector(s);
+const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
+
+function showToast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function renderKPIs(period='month'){
+  const d = DATA[period];
+  const cfg = [
+    { label:'Faturamento', value: d.faturamento, sub:'no período',          icon:'burgundy', iconSvg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>', trend:d.trend.faturamento, dir:'up' },
+    { label:'Quilo vendido', value: d.kg + ' kg', sub:'volume real',        icon:'copper',   iconSvg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><circle cx="12" cy="13" r="3"/></svg>', trend:d.trend.kg, dir:'up' },
+    { label:'Ticket médio', value: d.ticket,     sub:'por venda',           icon:'gold',     iconSvg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>', trend:d.trend.ticket, dir:'up' },
+    { label:'Quebra técnica', value: d.quebra,    sub:'do faturamento',     icon:'success',  iconSvg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>', trend:Math.abs(d.trend.quebra), dir:d.trend.quebra<0?'up':'down' },
+  ];
+  $('#kpiGrid').innerHTML = cfg.map(k => {
+    const arrow = k.dir === 'up' ? '↑' : '↓';
+    const cls = k.dir === 'up' ? 'up' : 'down';
+    return `
+    <div class="kpi">
+      <div class="kpi-head">
+        <div class="kpi-icon ${k.icon}">${k.iconSvg}</div>
+        <span class="kpi-trend ${cls}">${arrow} ${k.trend}${k.label==='Quebra técnica'?' p.p.':'%'}</span>
+      </div>
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-value">${k.value}</div>
+      <div class="kpi-sub">${k.sub}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderLineChart(){
+  const data = days30;
+  const max = Math.max(...data) * 1.1;
+  const w = 800, h = 220, padX = 8, padTop = 16, padBot = 28;
+  const stepX = (w - padX*2) / (data.length - 1);
+  const points = data.map((v,i) => `${(padX + i*stepX).toFixed(1)},${(h - padBot - (v/max)*(h-padTop-padBot)).toFixed(1)}`);
+  const linePath = `M ${points.join(' L ')}`;
+  const areaPath = `${linePath} L ${(padX + (data.length-1)*stepX).toFixed(1)},${h-padBot} L ${padX},${h-padBot} Z`;
+  const grid = [0,1,2,3].map(i => `<line x1="${padX}" x2="${w-padX}" y1="${padTop + i*(h-padTop-padBot)/3}" y2="${padTop + i*(h-padTop-padBot)/3}" stroke="#E5DECC" stroke-width="1"/>`).join('');
+  const dots = data.map((v,i) => {
+    const x = padX + i*stepX, y = h - padBot - (v/max)*(h-padTop-padBot);
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${i===data.length-1?4:0}" fill="#7B1F2C"/>`;
+  }).join('');
+  const xLabels = [0, 9, 19, 29].map(i => `<text x="${(padX + i*stepX).toFixed(1)}" y="${h-8}" text-anchor="middle" font-size="10" fill="#A4948A" font-family="Inter">D${i+1}</text>`).join('');
+  $('#lineChartWrap').innerHTML = `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">
+    <defs><linearGradient id="bs-area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7B1F2C" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#7B1F2C" stop-opacity="0"/>
+    </linearGradient></defs>
+    ${grid}
+    <path d="${areaPath}" fill="url(#bs-area)"/>
+    <path d="${linePath}" fill="none" stroke="#7B1F2C" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    ${dots}
+    ${xLabels}
+  </svg>`;
+}
+
+function renderBars(elId, data, labels){
+  const max = Math.max(...data);
+  $(elId).innerHTML = data.map((v,i) => `
+    <div class="bar-col" title="${labels[i]}: R$ ${v}k">
+      <div class="bar-fill" style="height:${(v/max)*60+10}px"></div>
+      <div class="bar-label">${labels[i]}</div>
+    </div>`).join('');
+}
+
+function renderDonut(){
+  let cumPct = 0;
+  const cx = 80, cy = 80, r = 64, rIn = 40;
+  const slices = payments.map(p => {
+    const pct = p.pct/100;
+    const startA = cumPct * 2*Math.PI - Math.PI/2;
+    cumPct += pct;
+    const endA = cumPct * 2*Math.PI - Math.PI/2;
+    const large = pct > 0.5 ? 1 : 0;
+    const x1 = cx + r*Math.cos(startA), y1 = cy + r*Math.sin(startA);
+    const x2 = cx + r*Math.cos(endA), y2 = cy + r*Math.sin(endA);
+    const x3 = cx + rIn*Math.cos(endA), y3 = cy + rIn*Math.sin(endA);
+    const x4 = cx + rIn*Math.cos(startA), y4 = cy + rIn*Math.sin(startA);
+    return `<path d="M${x1.toFixed(1)},${y1.toFixed(1)} A${r},${r} 0 ${large} 1 ${x2.toFixed(1)},${y2.toFixed(1)} L${x3.toFixed(1)},${y3.toFixed(1)} A${rIn},${rIn} 0 ${large} 0 ${x4.toFixed(1)},${y4.toFixed(1)} Z" fill="${p.color}"/>`;
+  }).join('');
+
+  $('#donutWrap').innerHTML = `
+    <div class="donut-svg">
+      <svg viewBox="0 0 160 160">
+        ${slices}
+        <text x="80" y="78" text-anchor="middle" font-size="9" fill="#6A584F" font-family="Inter" letter-spacing="2">RECEITA</text>
+        <text x="80" y="94" text-anchor="middle" font-size="14" fill="#1F1413" font-family="Playfair Display" font-weight="600" font-style="italic">Traseiro 38%</text>
+      </svg>
+    </div>
+    <div class="donut-legend">
+      ${payments.map(p => `<div class="legend-row"><div class="legend-dot" style="background:${p.color}"></div><div class="legend-name">${p.name}</div><div class="legend-pct">${p.pct}%</div></div>`).join('')}
+    </div>`;
+}
+
+function renderProducts(){
+  $('#productList').innerHTML = products.map((p,i) => `
+    <div class="product-row">
+      <div class="product-rank">${i+1}</div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-meta">${p.cat}</div>
+      </div>
+      <div class="product-value">
+        <div class="product-amount">${p.amount}</div>
+        <div class="product-qty">${p.qty}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderAlerts(){
+  const icons = {
+    warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    danger:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+  };
+  $('#alertList').innerHTML = alerts.map(a => `
+    <div class="alert-row ${a.kind}">
+      <div class="alert-icon">${icons[a.kind]}</div>
+      <div class="alert-body">
+        <div class="alert-name">${a.name}</div>
+        <div class="alert-desc">${a.desc}</div>
+      </div>
+      <button class="alert-cta" onclick="event.preventDefault(); window.toastMsg('${a.cta}: ação registrada')">${a.cta}</button>
+    </div>`).join('');
+}
+
+function renderHeatmap(){
+  const days = ['Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const hours = ['7','8','9','10','11','12','13','14','15','16','17','18'];
+  // Açougue: sexta tarde + sábado manhã = pico churrasco
+  const grid = days.map((d, di) => hours.map((h, hi) => {
+    let base = 0.16;
+    if (hi >= 2 && hi <= 5) base += 0.28; // manhã
+    if (di === 4 && hi >= 7) base += 0.32; // sex tarde
+    if (di === 5 && hi <= 5) base += 0.42; // sáb manhã pico
+    if (di === 0) base -= 0.10;
+    return Math.max(0.05, Math.min(1, base + Math.random() * 0.10));
+  }));
+  const heatColor = (v) => {
+    const r = Math.round(241 - (241-123) * v);
+    const g = Math.round(236 - (236-31) * v);
+    const b = Math.round(223 - (223-44) * v);
+    return `rgb(${r},${g},${b})`;
+  };
+  const html = days.map((d, di) => `
+    <div class="heat-label">${d}</div>
+    ${hours.map((h, hi) => `<div class="heat-cell" style="background:${heatColor(grid[di][hi])}" title="${d} ${h}h: ${(grid[di][hi]*100).toFixed(0)}% pico"></div>`).join('')}
+  `).join('');
+  const axis = `<div class="heat-axis">${hours.map(h => `<span>${h}h</span>`).join('')}</div>`;
+  $('#heatmap').innerHTML = `<div class="heatmap">${html}</div>${axis}`;
+}
+
+function renderEnc(){
+  $('#encList').innerHTML = enc.map(e => `
+    <div class="enc-row ${e.tomorrow?'tomorrow':''}">
+      <div class="enc-day"><div class="d">${e.d}</div><div class="m">${e.m}</div></div>
+      <div class="enc-info">
+        <div class="enc-client">${e.client}</div>
+        <div class="enc-detail">${e.detail}</div>
+      </div>
+      <div class="enc-amount">${e.amount}</div>
+    </div>`).join('');
+}
+
+function renderVal(){
+  $('#valList').innerHTML = validades.map(v => `
+    <div class="val-row ${v.state}">
+      <div class="val-days"><span class="num">${v.days}</span><span class="lbl">${v.lbl}</span></div>
+      <div>
+        <div class="val-name">${v.name}</div>
+        <div class="val-meta">${v.meta}</div>
+      </div>
+      <button class="val-cta" onclick="event.preventDefault(); window.toastMsg('Marcado para promoção')">Promover</button>
+    </div>`).join('');
+}
+
+function bindPeriodTabs(){
+  $('#periodTabs').addEventListener('click', e => {
+    const btn = e.target.closest('.period-tab');
+    if (!btn) return;
+    $$('.period-tab').forEach(b => b.classList.toggle('active', b === btn));
+    renderKPIs(btn.dataset.period);
+    const labels = { day: 'Hoje · ' + new Date().toLocaleDateString('pt-BR'), week: 'Semana · 1 a 7 de Mai', month: 'Maio · 1 a 7', year: 'Ano de 2026' };
+    $('#periodMeta').textContent = labels[btn.dataset.period];
+    showToast(`Período: ${btn.textContent}`);
+  });
+}
+
+window.toastMsg = showToast;
+if (/[?&]embed=1\b/.test(location.search)) document.body.classList.add('embed');
+const today = new Date();
+$('#todayLabel').textContent = today.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+
+renderKPIs('month');
+renderLineChart();
+renderBars('#weekBars', week12, ['S1','S2','S3','S4','S5','S6','S7','S8','S9','S10','S11','S12']);
+renderBars('#monthBars', month12, monthLabels);
+renderDonut();
+renderProducts();
+renderAlerts();
+renderHeatmap();
+renderEnc();
+renderVal();
+bindPeriodTabs();
+</script>
+</body>
+</html>
