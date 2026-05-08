@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { AdminSidebar } from "./components/AdminSidebar";
 import { CommandPalette } from "./components/CommandPalette";
-import { MobileMenuButton } from "./components/MobileMenuButton";
+import { MobileTopbar } from "./components/MobileMenuButton";
 import "./admin.css";
 
 export const metadata: Metadata = {
@@ -16,9 +16,11 @@ export default function AdminLayout({
 }) {
   return (
     <div className="admin-layout">
-      <MobileMenuButton />
       <AdminSidebar />
-      <main className="admin-main">{children}</main>
+      <main className="admin-main">
+        <MobileTopbar />
+        {children}
+      </main>
       <CommandPalette />
     </div>
   );
