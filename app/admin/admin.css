@@ -410,15 +410,19 @@
     gap: 8px;
     height: 52px;
     padding: 0 10px 0 8px;
-    background: rgba(255, 255, 255, 0.85);
-    border-bottom: 1px solid var(--ad-border);
+    background: rgba(255, 255, 255, 0.78);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     position: sticky;
     top: 0;
     z-index: 150;
-    backdrop-filter: saturate(180%) blur(10px);
-    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
   }
-  .dark .admin-mobile-topbar { background: rgba(10, 10, 12, 0.85); }
+  .dark .admin-mobile-topbar {
+    background: rgba(10, 10, 12, 0.78);
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+  }
 
   .admin-mobile-topbar-brand {
     display: inline-flex;
@@ -652,26 +656,48 @@
 }
 
 .admin-stat-card {
+  position: relative;
   background: var(--ad-surface);
   border: 1px solid var(--ad-border);
   border-radius: var(--ad-r-lg);
   padding: 18px 20px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  transition: border-color var(--ad-tx), transform var(--ad-tx),
-              box-shadow var(--ad-tx);
+  gap: 8px;
+  transition:
+    border-color 220ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 220ms cubic-bezier(0.32, 0.72, 0, 1),
+    box-shadow 220ms cubic-bezier(0.32, 0.72, 0, 1);
+  overflow: hidden;
+}
+
+/* Linha decorativa sutil no topo — assina visualmente sem ruído. */
+.admin-stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--ad-border-2), transparent);
+  opacity: 0.5;
+  transition: opacity var(--ad-tx);
 }
 
 .admin-stat-card:hover {
-  border-color: var(--ad-border-2);
-  transform: translateY(-1px);
+  border-color: var(--ad-text);
+  transform: translateY(-2px);
   box-shadow: var(--ad-sh-md);
 }
+.admin-stat-card:hover::before { opacity: 1; }
 
 .admin-stat-card.accent {
-  background: linear-gradient(180deg, var(--ad-gold-soft), transparent);
+  background:
+    radial-gradient(circle at top right, var(--ad-gold-soft), transparent 60%),
+    var(--ad-surface);
   border-color: var(--ad-gold);
+}
+.admin-stat-card.accent::before {
+  background: linear-gradient(90deg, transparent, var(--ad-gold), transparent);
+  opacity: 1;
 }
 
 .admin-stat-value {
@@ -692,9 +718,11 @@
 }
 
 .admin-stat-label {
-  font-size: 13px;
+  font-size: 11.5px;
   color: var(--ad-muted);
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .admin-stat-trend {
@@ -747,6 +775,18 @@
   align-items: center;
   justify-content: space-between;
   background: var(--ad-surface-2);
+  position: relative;
+}
+
+/* Acento sutil em ouro à esquerda do header — assina a marca sem ruído. */
+.admin-card-header::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 25%; bottom: 25%;
+  width: 2px;
+  background: var(--ad-gold);
+  opacity: 0.5;
+  border-radius: 0 2px 2px 0;
 }
 
 .admin-card-title {
@@ -838,45 +878,54 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 7px 14px;
+  padding: 8px 16px;
   border-radius: var(--ad-r-md);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: background var(--ad-tx), color var(--ad-tx),
-              border-color var(--ad-tx), transform var(--ad-tx),
-              box-shadow var(--ad-tx);
+  transition:
+    background 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    color 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    border-color 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 120ms cubic-bezier(0.32, 0.72, 0, 1),
+    box-shadow 180ms cubic-bezier(0.32, 0.72, 0, 1);
   white-space: nowrap;
   line-height: 1.4;
   font-family: inherit;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .admin-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
-.admin-btn:active:not(:disabled) { transform: translateY(1px); }
+.admin-btn:active:not(:disabled) { transform: translateY(1px) scale(0.98); }
 
 .admin-btn-primary {
   background: var(--ad-action);
   color: var(--ad-bg);
   border-color: var(--ad-action);
+  box-shadow: var(--ad-sh-sm), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .admin-btn-primary:hover:not(:disabled) {
   background: var(--ad-action-hover);
   border-color: var(--ad-action-hover);
-  box-shadow: var(--ad-sh-md);
+  box-shadow: var(--ad-sh-md), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
 }
 
 .admin-btn-gold {
-  background: linear-gradient(135deg, var(--ad-gold-2), var(--ad-gold));
+  background: linear-gradient(135deg, var(--ad-gold-2) 0%, var(--ad-gold) 100%);
   color: #18181b;
   border-color: var(--ad-gold);
   font-weight: 600;
+  box-shadow: 0 1px 2px rgba(201, 168, 76, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .admin-btn-gold:hover:not(:disabled) {
-  box-shadow: 0 6px 16px var(--ad-gold-glow);
+  box-shadow: 0 8px 20px var(--ad-gold-glow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
 }
 
 .admin-btn-secondary {
@@ -944,8 +993,15 @@
 }
 
 .admin-input:focus {
-  border-color: var(--ad-text);
-  box-shadow: 0 0 0 3px var(--ad-action-soft);
+  border-color: var(--ad-gold);
+  box-shadow:
+    0 0 0 3px var(--ad-gold-soft),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.dark .admin-input:focus {
+  box-shadow:
+    0 0 0 3px var(--ad-gold-soft),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .admin-input::placeholder { color: var(--ad-subtle); }
@@ -990,29 +1046,33 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: 999px;
   font-size: 12.5px;
   font-weight: 500;
   cursor: pointer;
-  border: 1px solid var(--ad-border-2);
-  background: var(--ad-surface);
+  border: 1px solid var(--ad-border);
+  background: transparent;
   color: var(--ad-text-2);
-  transition: background var(--ad-tx), color var(--ad-tx),
-              border-color var(--ad-tx);
+  transition:
+    background 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    color 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    border-color 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    box-shadow 180ms cubic-bezier(0.32, 0.72, 0, 1);
   font-family: inherit;
 }
 
 .admin-filter-chip:hover {
-  background: var(--ad-surface-2);
+  background: var(--ad-action-soft);
   color: var(--ad-text);
-  border-color: var(--ad-text);
+  border-color: var(--ad-border-2);
 }
 
 .admin-filter-chip.active {
   background: var(--ad-action);
   color: var(--ad-bg);
   border-color: var(--ad-action);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 0 0 4px var(--ad-action-soft);
 }
 
 .admin-filter-count {
@@ -1046,20 +1106,45 @@
 .admin-empty-state {
   text-align: center;
   padding: 56px 32px;
-  background: var(--ad-surface-2);
-  border: 1px dashed var(--ad-border-2);
-  border-radius: var(--ad-r-lg);
+  background:
+    radial-gradient(circle at center top, var(--ad-gold-soft), transparent 60%),
+    var(--ad-surface-2);
+  border: 1px solid var(--ad-border);
+  border-radius: var(--ad-r-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorativo: linha sutil em ouro no topo do empty-state. */
+.admin-empty-state::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--ad-gold), transparent);
 }
 
 .admin-empty-icon {
-  font-size: 36px;
-  margin-bottom: 12px;
-  opacity: 0.4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  font-size: 28px;
+  margin: 0 auto 16px;
+  opacity: 1;
+  color: var(--ad-gold-2);
+  background: var(--ad-gold-soft);
+  border-radius: 50%;
 }
 
 .admin-empty-state p:first-of-type {
-  font-size: 16px;
-  font-weight: 600;
+  font-family: var(--ad-font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
   color: var(--ad-text);
   margin: 0 0 6px;
 }
@@ -1317,24 +1402,34 @@
 .admin-breadcrumbs {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 12px;
   color: var(--ad-muted);
-  margin-bottom: 8px;
-  letter-spacing: 0.005em;
+  margin-bottom: 10px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
-.admin-breadcrumb { display: inline-flex; align-items: center; gap: 6px; }
+.admin-breadcrumb { display: inline-flex; align-items: center; gap: 8px; }
 
 .admin-breadcrumb-link {
   color: var(--ad-muted);
   text-decoration: none;
   transition: color var(--ad-tx);
+  border-bottom: 1px dashed transparent;
 }
 
-.admin-breadcrumb-link:hover { color: var(--ad-text); }
+.admin-breadcrumb-link:hover {
+  color: var(--ad-text);
+  border-bottom-color: var(--ad-gold);
+}
 
-.admin-breadcrumb-sep { color: var(--ad-subtle); }
+/* Separador "/" em ouro suave — pequeno acento de marca em cada nível. */
+.admin-breadcrumb-sep {
+  color: var(--ad-gold);
+  font-weight: 400;
+  opacity: 0.6;
+}
 
 /* ─── Empty State Rico ───────────────────────────────────────────────── */
 .admin-empty-state-rich {
