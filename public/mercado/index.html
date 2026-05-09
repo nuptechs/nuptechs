@@ -247,6 +247,95 @@ input,select,textarea{font-family:inherit;font-size:14px}
 
 .dono-frame{width:100%;border:none;display:block;background:#FBF9F2;height:calc(100dvh - 110px);min-height:600px}
 
+/* ============== MOBILE POLISH ============== */
+@supports(padding:max(0px)){
+  .topbar{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
+  .content{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
+  .sidebar{padding-bottom:max(20px,env(safe-area-inset-bottom))}
+}
+
+/* PDV — tabs mobile */
+.pdv-mobile-tabs{display:none}
+@media(max-width:768px){
+  .pdv-grid{display:flex !important;flex-direction:column;gap:0 !important;height:auto !important;min-height:0 !important;margin:0 !important;padding:14px !important}
+  .pdv-mobile-tabs{display:flex;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:12px;position:sticky;top:62px;z-index:15;box-shadow:var(--shadow-sm)}
+  .pdv-mtab{flex:1;padding:11px 8px;font-size:12px;font-weight:700;border-radius:8px;color:var(--text-muted);transition:all .15s var(--ease);display:flex;align-items:center;justify-content:center;gap:6px;letter-spacing:0.04em;cursor:pointer}
+  .pdv-mtab.active{background:var(--green-dark);color:#fff}
+  .pdv-mtab .count{background:var(--orange);color:#fff;padding:1px 7px;border-radius:999px;font-size:10px;font-weight:800}
+  .pdv-mtab.active .count{background:rgba(255,255,255,0.20);color:#fff}
+  .pdv-products,.pdv-cart{display:none !important;flex:1;min-height:calc(100dvh - 240px)}
+  .pdv-grid.tab-products .pdv-products{display:flex !important}
+  .pdv-grid.tab-cart .pdv-cart{display:flex !important}
+  .pdv-prod-row{grid-template-columns:auto 1fr 90px !important;gap:12px}
+  .pdv-prod-stock{display:none}
+  .pdv-prod-emoji{font-size:24px}
+}
+
+/* Topbar mobile */
+@media(max-width:640px){
+  .topbar{padding:12px 16px;gap:8px;flex-wrap:wrap}
+  .topbar-title{font-size:18px}
+  .topbar-eyebrow{font-size:9px}
+  .topbar-btn{padding:9px 11px;font-size:11px}
+  .topbar-btn svg{width:13px;height:13px}
+}
+
+/* Content mobile */
+@media(max-width:640px){
+  .content{padding:14px}
+  .card{padding:16px;border-radius:10px}
+  .card-title{font-size:18px}
+  .stat-value{font-size:26px}
+  .stat-card{padding:14px}
+  .section-title{font-size:22px}
+  .layout-grid,.full-row,.full-row.three,.section-row.four,.section-row.three,.section-row.two{grid-template-columns:1fr !important}
+  .val-summary-row,.fid-summary-row{grid-template-columns:1fr 1fr}
+}
+
+/* REPOSIÇÃO table → card mobile */
+@media(max-width:640px){
+  .rep-table{background:transparent;border:none;display:flex;flex-direction:column;gap:8px;padding:0}
+  .rep-row{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:8px 14px !important;
+    padding:14px !important;
+    background:var(--surface) !important;
+    border:1px solid var(--border) !important;
+    border-radius:10px !important;
+    align-items:start;
+  }
+  .rep-row.head{display:none !important}
+  .rep-row > :first-child{grid-column:1/-1}
+  .rep-row > :nth-child(2){text-align:left !important;display:flex;flex-direction:column;align-items:flex-start;font-size:13px}
+  .rep-row > :nth-child(2)::before{content:'Estoque';font-size:9px;letter-spacing:0.10em;text-transform:uppercase;font-weight:800;color:var(--text-muted);margin-bottom:2px}
+  .rep-row > :nth-child(3){text-align:left !important;display:flex;flex-direction:column;align-items:flex-start;font-size:13px}
+  .rep-row > :nth-child(3)::before{content:'Vende/Mês';font-size:9px;letter-spacing:0.10em;text-transform:uppercase;font-weight:800;color:var(--text-muted);margin-bottom:2px}
+  .rep-row > :nth-child(4){text-align:left !important;display:flex;flex-direction:column;align-items:flex-start;font-size:13px}
+  .rep-row > :nth-child(4)::before{content:'Dura';font-size:9px;letter-spacing:0.10em;text-transform:uppercase;font-weight:800;color:var(--text-muted);margin-bottom:2px}
+  .rep-row > .rep-suggested{grid-column:1/-1;padding:11px;font-size:11px;min-height:42px}
+}
+
+/* VALIDADE cards */
+@media(max-width:640px){
+  .val-card-grid{grid-template-columns:1fr}
+  .val-card{padding:13px;gap:10px}
+  .val-icon{width:46px;height:46px;font-size:24px}
+  .val-action-btn{padding:9px 11px;min-height:38px;font-size:10px}
+}
+
+/* FIDELIDADE */
+@media(max-width:640px){
+  .client-cards{grid-template-columns:1fr}
+}
+
+/* Tablet */
+@media(min-width:901px) and (max-width:1180px){
+  :root{--sidebar:200px}
+  .sb-link{font-size:12px;padding:9px 10px}
+  .sb-section{font-size:8px;padding:12px 8px 4px}
+}
+
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
 </style>
 </head>
@@ -334,7 +423,11 @@ input,select,textarea{font-family:inherit;font-size:14px}
 
     <!-- ====== FRENTE DE CAIXA (PDV) ====== -->
     <section class="view active no-padding" id="view-pdv">
-      <div class="pdv-grid">
+      <div class="pdv-grid tab-products" id="pdvGrid">
+        <div class="pdv-mobile-tabs" role="tablist">
+          <button class="pdv-mtab active" data-tab="products" role="tab">Produtos</button>
+          <button class="pdv-mtab" data-tab="cart" role="tab">Carrinho <span class="count">9</span></button>
+        </div>
         <div class="pdv-products">
           <div class="pdv-products-head">
             <div class="pdv-search">
@@ -617,6 +710,18 @@ $$('.pdv-cat').forEach(c => c.addEventListener('click', () => {
 }));
 $$('.pdv-pay-btn').forEach(p => p.addEventListener('click', () => {
   $$('.pdv-pay-btn').forEach(x => x.classList.toggle('active', x === p));
+}));
+
+// PDV Mobile Tabs
+$$('.pdv-mtab').forEach(t => t.addEventListener('click', () => {
+  $$('.pdv-mtab').forEach(x => x.classList.toggle('active', x === t));
+  const grid = $('#pdvGrid');
+  if (grid){ grid.classList.remove('tab-products','tab-cart'); grid.classList.add('tab-' + t.dataset.tab); }
+}));
+$$('.pdv-prod-row').forEach(p => p.addEventListener('click', () => {
+  if (window.matchMedia('(max-width: 768px)').matches){
+    setTimeout(() => { const c = $('.pdv-mtab[data-tab="cart"]'); if (c) c.click(); }, 220);
+  }
 }));
 
 // VALIDADE

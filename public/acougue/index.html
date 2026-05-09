@@ -297,6 +297,110 @@ input,select,textarea{font-family:inherit;font-size:14px}
 
 .dono-frame{width:100%;border:none;display:block;background:#FAF6EE;height:calc(100dvh - 110px);min-height:600px}
 
+/* ============== MOBILE POLISH ============== */
+@supports(padding:max(0px)){
+  .topbar{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
+  .content{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
+  .sidebar{padding-bottom:max(20px,env(safe-area-inset-bottom))}
+}
+
+/* PDV — tabs mobile + balança em destaque */
+.pdv-mobile-tabs{display:none}
+@media(max-width:768px){
+  .pdv-grid{display:flex !important;flex-direction:column;gap:0 !important;height:auto !important;min-height:0 !important;margin:0 !important;padding:14px !important}
+  .pdv-mobile-tabs{display:flex;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:12px;position:sticky;top:62px;z-index:15;box-shadow:var(--shadow-sm)}
+  .pdv-mtab{flex:1;padding:11px 8px;font-size:12px;font-weight:700;border-radius:8px;color:var(--text-muted);transition:all .15s var(--ease);display:flex;align-items:center;justify-content:center;gap:6px;letter-spacing:0.04em;cursor:pointer}
+  .pdv-mtab.active{background:var(--burgundy);color:#fff}
+  .pdv-mtab .count{background:var(--gold);color:var(--char);padding:1px 7px;border-radius:999px;font-size:10px;font-weight:800}
+  .pdv-mtab.active .count{background:rgba(255,255,255,0.20);color:#fff}
+  .pdv-left,.pdv-cart{display:none !important;flex:1}
+  .pdv-grid.tab-products .pdv-left{display:flex !important}
+  .pdv-grid.tab-cart .pdv-cart{display:flex !important}
+  /* Balança maior + sticky em mobile */
+  .scale{flex-direction:column;gap:12px;padding:16px}
+  .scale-display{padding:18px;width:100%;text-align:center}
+  .scale-num{font-size:56px}
+  .scale-actions{flex-direction:row;width:100%;min-width:0}
+  .scale-act{flex:1;padding:13px}
+  .pdv-prod-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr)) !important}
+  .pdv-prod-emoji{font-size:22px}
+  .pdv-prod-name{font-size:11px}
+}
+
+/* Topbar mobile */
+@media(max-width:640px){
+  .topbar{padding:12px 16px;gap:8px;flex-wrap:wrap}
+  .topbar-title{font-size:18px}
+  .topbar-eyebrow{font-size:9px}
+  .topbar-btn{padding:9px 11px;font-size:11px}
+  .topbar-btn svg{width:13px;height:13px}
+}
+
+/* Content mobile */
+@media(max-width:640px){
+  .content{padding:14px}
+  .card{padding:16px;border-radius:10px}
+  .card-title{font-size:18px}
+  .stat-value{font-size:26px}
+  .stat-card{padding:14px}
+  .section-title{font-size:22px}
+  .layout-grid,.full-row,.full-row.three,.section-row.four,.section-row.three,.section-row.two{grid-template-columns:1fr !important}
+}
+
+/* DESOSSA table → card mobile */
+@media(max-width:640px){
+  .desossa-table{background:transparent;border:none;display:flex;flex-direction:column;gap:8px}
+  .desossa-row{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:8px 14px !important;
+    padding:14px !important;
+    background:var(--surface) !important;
+    border:1px solid var(--border) !important;
+    border-radius:10px !important;
+    align-items:start;
+  }
+  .desossa-row.head{display:none !important}
+  .desossa-row > :first-child{grid-column:1/-1;padding-bottom:10px;border-bottom:1px solid var(--border)}
+  .desossa-row > :nth-child(2){text-align:left !important;display:flex;flex-direction:column;align-items:flex-start}
+  .desossa-row > :nth-child(2)::before{content:'Entrada';font-size:9px;letter-spacing:0.10em;text-transform:uppercase;font-weight:800;color:var(--text-muted);margin-bottom:2px}
+  .desossa-row > :nth-child(3){text-align:left !important;display:flex;flex-direction:column;align-items:flex-start}
+  .desossa-row > :nth-child(3)::before{content:'Vendido';font-size:9px;letter-spacing:0.10em;text-transform:uppercase;font-weight:800;color:var(--text-muted);margin-bottom:2px}
+  .desossa-row > :nth-child(4){text-align:left !important;display:flex;flex-direction:column;align-items:flex-start}
+  .desossa-row > :nth-child(4)::before{content:'Quebra';font-size:9px;letter-spacing:0.10em;text-transform:uppercase;font-weight:800;color:var(--text-muted);margin-bottom:2px}
+  .desossa-row > :nth-child(5){text-align:left !important;display:flex;flex-direction:column;align-items:flex-start}
+  .desossa-row > :nth-child(5)::before{content:'Perda R$';font-size:9px;letter-spacing:0.10em;text-transform:uppercase;font-weight:800;color:var(--text-muted);margin-bottom:2px}
+}
+
+/* CARCAÇA hero mobile */
+@media(max-width:640px){
+  .carcass-summary{grid-template-columns:1fr !important}
+  .carcass-hero{padding:18px;border-radius:14px}
+  .carcass-hero-title{font-size:22px}
+  .carcass-hero-block-val{font-size:24px}
+}
+
+/* WHATSAPP grid */
+@media(max-width:640px){
+  .wa-grid{grid-template-columns:1fr !important}
+  .wa-card{padding:13px}
+  .wa-amount{font-size:16px}
+  .wa-act{padding:8px 11px;min-height:36px}
+}
+
+/* CUTS grid */
+@media(max-width:640px){
+  .cuts-grid{grid-template-columns:1fr}
+  .cut-action{min-height:38px;padding:10px}
+}
+
+/* Tablet */
+@media(min-width:901px) and (max-width:1180px){
+  :root{--sidebar:200px}
+  .sb-link{font-size:12px;padding:9px 10px}
+  .sb-section{font-size:8px;padding:12px 8px 4px}
+}
+
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
 </style>
 </head>
@@ -383,7 +487,11 @@ input,select,textarea{font-family:inherit;font-size:14px}
 
     <!-- ====== PDV BALANÇA ====== -->
     <section class="view active no-padding" id="view-pdv">
-      <div class="pdv-grid">
+      <div class="pdv-grid tab-products" id="pdvGrid">
+        <div class="pdv-mobile-tabs" role="tablist">
+          <button class="pdv-mtab active" data-tab="products" role="tab">Balança · Produtos</button>
+          <button class="pdv-mtab" data-tab="cart" role="tab">Carrinho <span class="count">4</span></button>
+        </div>
         <div class="pdv-left">
           <div class="scale">
             <div class="scale-display">
@@ -702,6 +810,13 @@ $$('.pdv-cat').forEach(c => c.addEventListener('click', () => {
 }));
 $$('.pdv-pay-btn').forEach(p => p.addEventListener('click', () => {
   $$('.pdv-pay-btn').forEach(x => x.classList.toggle('active', x === p));
+}));
+
+// PDV Mobile Tabs
+$$('.pdv-mtab').forEach(t => t.addEventListener('click', () => {
+  $$('.pdv-mtab').forEach(x => x.classList.toggle('active', x === t));
+  const grid = $('#pdvGrid');
+  if (grid){ grid.classList.remove('tab-products','tab-cart'); grid.classList.add('tab-' + t.dataset.tab); }
 }));
 
 // WHATSAPP
