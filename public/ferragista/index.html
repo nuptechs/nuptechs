@@ -281,6 +281,125 @@ input,select,textarea{font-family:inherit;font-size:14px}
 
 .dono-frame{width:100%;border:none;display:block;background:#F5F5F2;height:calc(100dvh - 110px);min-height:600px}
 
+/* ============== MOBILE POLISH ============== */
+@supports(padding:max(0px)){
+  .topbar{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
+  .content{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
+  .sidebar{padding-bottom:max(20px,env(safe-area-inset-bottom))}
+}
+
+/* PDV — tabs mobile */
+.pdv-mobile-tabs{display:none}
+@media(max-width:768px){
+  .pdv-grid{display:flex !important;flex-direction:column;gap:0 !important;height:auto !important;min-height:0 !important;margin:0 !important;padding:14px !important}
+  .pdv-mobile-tabs{display:flex;gap:5px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:3px;margin-bottom:12px;position:sticky;top:62px;z-index:15;box-shadow:var(--shadow-sm)}
+  .pdv-mtab{flex:1;padding:11px 8px;font-size:11px;font-weight:800;border-radius:6px;color:var(--text-muted);transition:all .15s var(--ease);display:flex;align-items:center;justify-content:center;gap:6px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;font-family:var(--mono)}
+  .pdv-mtab.active{background:var(--steel-dark);color:var(--orange)}
+  .pdv-mtab .count{background:var(--orange);color:#fff;padding:1px 6px;border-radius:4px;font-size:10px;font-weight:800}
+  .pdv-mtab.active .count{background:rgba(255,255,255,0.20);color:#fff}
+  .pdv-products,.pdv-cart{display:none !important;flex:1;min-height:calc(100dvh - 240px)}
+  .pdv-grid.tab-products .pdv-products{display:flex !important}
+  .pdv-grid.tab-cart .pdv-cart{display:flex !important}
+  .pdv-prod-row{grid-template-columns:1fr 90px !important;grid-template-areas:"info price" "info stock" !important;gap:2px 10px !important;padding:14px 12px !important;align-items:start}
+  .pdv-prod-row > .pdv-prod-code{display:none}
+  .pdv-prod-row > div:nth-child(2){grid-area:info}
+  .pdv-prod-row > .pdv-prod-stock{grid-area:stock;text-align:right;font-size:10px}
+  .pdv-prod-row > div:nth-child(4){display:none}
+  .pdv-prod-row > .pdv-prod-price{grid-area:price;text-align:right;font-size:15px}
+}
+
+/* Topbar mobile */
+@media(max-width:640px){
+  .topbar{padding:12px 16px;gap:8px;flex-wrap:wrap}
+  .topbar-title{font-size:18px}
+  .topbar-eyebrow{font-size:9px}
+  .topbar-btn{padding:9px 11px;font-size:10px}
+  .topbar-btn svg{width:13px;height:13px}
+}
+
+/* Content mobile */
+@media(max-width:640px){
+  .content{padding:14px}
+  .card{padding:16px;border-radius:8px}
+  .card-title{font-size:16px}
+  .stat-value{font-size:24px}
+  .stat-card{padding:14px}
+  .section-title{font-size:22px}
+  .layout-grid,.full-row,.full-row.three,.section-row.four,.section-row.three,.section-row.two{grid-template-columns:1fr !important}
+}
+
+/* CREDIÁRIO row → card em mobile */
+@media(max-width:640px){
+  .fiado-row{
+    grid-template-columns:1fr auto !important;
+    grid-template-areas:
+      "name days"
+      "amount actions" !important;
+    gap:8px 10px !important;
+    padding:14px !important;
+    align-items:center;
+  }
+  .fiado-row > div:nth-child(1){grid-area:name}
+  .fiado-row > div:nth-child(2){grid-area:amount;text-align:left}
+  .fiado-row > .fiado-amount{font-size:18px}
+  .fiado-row > div:nth-child(2) .fiado-amount-lbl{text-align:left}
+  .fiado-row > .fiado-days{grid-area:days}
+  .fiado-row > .fiado-actions{grid-area:actions;justify-content:flex-end}
+  .fiado-act-btn{padding:8px 12px;min-height:36px}
+  .fiado-hero{grid-template-columns:1fr 1fr}
+  .fiado-hero-card{padding:14px}
+  .fiado-hero-val{font-size:20px}
+}
+
+/* ESTOQUE table → card em mobile */
+@media(max-width:640px){
+  .stk-table{background:transparent;border:none;box-shadow:none;display:flex;flex-direction:column;gap:8px;padding:0}
+  .stk-row{
+    display:grid !important;
+    grid-template-columns:auto 1fr auto !important;
+    grid-template-areas:
+      "code  name   abc"
+      "stock margin price" !important;
+    column-gap:12px !important;
+    row-gap:8px !important;
+    padding:14px !important;
+    background:var(--surface) !important;
+    border:1px solid var(--border) !important;
+    border-radius:8px !important;
+    align-items:center;
+  }
+  .stk-row.head{display:none !important}
+  .stk-row > .stk-code{grid-area:code;text-align:left;font-size:11px;color:var(--text-muted);font-weight:700;letter-spacing:0.04em;padding:3px 7px;background:var(--surface-2);border-radius:4px;font-family:var(--mono)}
+  .stk-row > div:nth-child(2){grid-area:name}
+  .stk-row > .stk-stock{grid-area:stock;text-align:left;font-size:13px;display:flex;flex-direction:column;align-items:flex-start}
+  .stk-row > .stk-stock::before{content:'Estoque';font-size:8px;color:var(--text-muted);letter-spacing:0.10em;text-transform:uppercase;font-weight:800;font-family:var(--mono);margin-bottom:2px}
+  .stk-row > .stk-abc{grid-area:abc;justify-self:end;width:auto}
+  .stk-row > .stk-margin{grid-area:margin;text-align:center;display:flex;flex-direction:column;align-items:center}
+  .stk-row > .stk-margin::before{content:'Margem';font-size:8px;color:var(--text-muted);letter-spacing:0.10em;text-transform:uppercase;font-weight:800;font-family:var(--mono);margin-bottom:2px}
+  .stk-row > .stk-price{grid-area:price;text-align:right;font-size:16px;display:flex;flex-direction:column;align-items:flex-end}
+  .stk-row > .stk-price::before{content:'Preço';font-size:8px;color:var(--text-muted);letter-spacing:0.10em;text-transform:uppercase;font-weight:800;font-family:var(--mono);margin-bottom:2px}
+  /* ABC bars */
+  .abc-row{grid-template-columns:24px 1fr 70px}
+  .abc-bar-fill{font-size:10px;padding:0 8px}
+  .abc-skus{font-size:12px}
+  .stk-toolbar{grid-template-columns:1fr 1fr;gap:8px}
+  .stk-toolbar > .stk-search{grid-column:1/-1}
+}
+
+/* CLIENTES Pro card */
+@media(max-width:640px){
+  .cli-grid{grid-template-columns:1fr}
+  .cli-stats{grid-template-columns:1fr 1fr 1fr}
+  .cli-stat-v{font-size:13px}
+}
+
+/* Tablet — sidebar mais compacta */
+@media(min-width:901px) and (max-width:1180px){
+  :root{--sidebar:200px}
+  .sb-link{font-size:12px;padding:9px 10px}
+  .sb-section{font-size:8px;padding:12px 8px 4px}
+}
+
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
 </style>
 </head>
@@ -367,7 +486,11 @@ input,select,textarea{font-family:inherit;font-size:14px}
 
     <!-- ====== PDV ====== -->
     <section class="view active no-padding" id="view-pdv">
-      <div class="pdv-grid">
+      <div class="pdv-grid tab-products" id="pdvGrid">
+        <div class="pdv-mobile-tabs" role="tablist">
+          <button class="pdv-mtab active" data-tab="products" role="tab">Produtos</button>
+          <button class="pdv-mtab" data-tab="cart" role="tab">Carrinho <span class="count">6</span></button>
+        </div>
         <div class="pdv-products">
           <div class="pdv-products-head">
             <div class="pdv-search">
@@ -671,6 +794,18 @@ $$('.pdv-cat').forEach(c => c.addEventListener('click', () => {
 }));
 $$('.pdv-pay-btn').forEach(p => p.addEventListener('click', () => {
   $$('.pdv-pay-btn').forEach(x => x.classList.toggle('active', x === p));
+}));
+
+// ================ PDV MOBILE TABS ================
+$$('.pdv-mtab').forEach(t => t.addEventListener('click', () => {
+  $$('.pdv-mtab').forEach(x => x.classList.toggle('active', x === t));
+  const grid = $('#pdvGrid');
+  if (grid){ grid.classList.remove('tab-products','tab-cart'); grid.classList.add('tab-' + t.dataset.tab); }
+}));
+$$('.pdv-prod-row').forEach(p => p.addEventListener('click', () => {
+  if (window.matchMedia('(max-width: 768px)').matches){
+    setTimeout(() => { const c = $('.pdv-mtab[data-tab="cart"]'); if (c) c.click(); }, 220);
+  }
 }));
 
 // ============== FIADO ==============

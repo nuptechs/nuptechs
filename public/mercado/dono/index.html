@@ -280,6 +280,47 @@ a{color:inherit;text-decoration:none}
 body.embed .site-header,body.embed .site-footer{display:none}
 body.embed .main{padding-top:0}
 body.embed .page-hero{padding-top:24px}
+
+/* Mobile polish */
+@media(max-width:640px){
+  .container{padding:0 14px}
+  .main{padding:24px 0 48px}
+  .page-hero{margin-bottom:20px}
+  .page-title{font-size:30px}
+  .page-subtitle{font-size:13px}
+  .kpi{padding:16px}
+  .kpi-value{font-size:24px !important}
+  .kpi-icon{width:30px;height:30px}
+  .card{padding:18px}
+  .card-title{font-size:18px}
+  .chart-big{font-size:32px}
+  .compare-grid{grid-template-columns:1fr 1fr}
+  .compare-cell.highlight{grid-column:1/-1}
+  .compare-value{font-size:18px}
+  .heatmap{font-size:8px}
+  .heat-cell{min-width:13px}
+  /* Quebra strip */
+  .quebra-strip{grid-template-columns:1fr}
+  /* Validade grid */
+  .val-grid{grid-template-columns:1fr}
+  .val-card{padding:11px;gap:10px}
+  .val-icon{width:38px;height:38px;font-size:20px}
+  /* Ruptura */
+  .rup-row{grid-template-columns:1fr;gap:6px}
+  .rup-row > .rup-zero,.rup-row > .rup-loss{justify-self:end;text-align:right}
+  /* Mcat */
+  .mcat-row{grid-template-columns:auto 1fr 50px;gap:10px}
+  .mcat-row > .mcat-bar-wrap{display:none}
+  /* Client list */
+  .client-row{padding:10px}
+  .period-bar{flex-direction:column;align-items:flex-start;gap:10px}
+  .period-tabs{width:100%;justify-content:stretch}
+  .period-tab{flex:1;min-height:36px}
+  .footer-inner{flex-direction:column;text-align:center;gap:8px}
+}
+@supports(padding:max(0px)){
+  .container{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
 </style>
 </head>

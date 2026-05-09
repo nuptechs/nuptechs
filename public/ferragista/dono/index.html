@@ -272,6 +272,41 @@ a{color:inherit;text-decoration:none}
 body.embed .site-header,body.embed .site-footer{display:none}
 body.embed .main{padding-top:0}
 body.embed .page-hero{padding-top:24px}
+
+/* Mobile polish */
+@media(max-width:640px){
+  .container{padding:0 14px}
+  .main{padding:24px 0 48px}
+  .page-hero{flex-direction:column;align-items:flex-start;margin-bottom:20px}
+  .page-title{font-size:26px}
+  .page-subtitle{font-size:13px}
+  .hero-stamp{text-align:left;border-left:none;border-top:1px solid var(--border);padding:12px 0 0;width:100%}
+  .kpi{padding:14px}
+  .kpi-value{font-size:22px !important}
+  .kpi-icon{width:28px;height:28px}
+  .card{padding:16px}
+  .card-title{font-size:16px}
+  .chart-big{font-size:30px}
+  .compare-grid{grid-template-columns:1fr 1fr}
+  .compare-cell.highlight{grid-column:1/-1}
+  .compare-value{font-size:18px}
+  .heatmap{font-size:8px}
+  .heat-cell{min-width:14px}
+  /* Fiado lista mobile */
+  .fiado-list .fiado-row{grid-template-columns:1fr auto;gap:8px}
+  /* ABC bars */
+  .abc-bar-fill{font-size:10px}
+  /* Margem por dept */
+  .margin-row{grid-template-columns:1fr 70px;gap:10px}
+  .margin-row > .margin-bar-wrap{display:none}
+  .period-bar{flex-direction:column;align-items:flex-start;gap:10px}
+  .period-tabs{width:100%;justify-content:stretch}
+  .period-tab{flex:1;min-height:36px}
+  .footer-inner{flex-direction:column;text-align:center;gap:8px}
+}
+@supports(padding:max(0px)){
+  .container{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
 </style>
 </head>

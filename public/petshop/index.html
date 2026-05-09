@@ -332,6 +332,109 @@ input,select,textarea{font-family:inherit;font-size:14px}
 /* DONO IFRAME */
 .dono-frame{width:100%;border:none;display:block;background:#FAFAF7;height:calc(100dvh - 110px);min-height:600px}
 
+/* ============== MOBILE POLISH ============== */
+@supports(padding:max(0px)){
+  .topbar{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
+  .content{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
+  .sidebar{padding-bottom:max(20px,env(safe-area-inset-bottom))}
+}
+
+/* PDV — tabs mobile (Lista | Carrinho) */
+.pdv-mobile-tabs{display:none}
+@media(max-width:768px){
+  .pdv-grid{display:flex !important;flex-direction:column;gap:0 !important;height:auto !important;min-height:0 !important;margin:0 !important;padding:14px !important}
+  .pdv-mobile-tabs{display:flex;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:12px;position:sticky;top:62px;z-index:15;box-shadow:var(--shadow-sm)}
+  .pdv-mtab{flex:1;padding:11px 8px;font-size:12px;font-weight:700;border-radius:8px;color:var(--text-muted);transition:all .15s var(--ease);display:flex;align-items:center;justify-content:center;gap:6px;letter-spacing:0.02em;cursor:pointer}
+  .pdv-mtab.active{background:var(--teal-dark);color:#fff}
+  .pdv-mtab .count{background:var(--mustard);color:var(--teal-dark);padding:1px 7px;border-radius:999px;font-size:10px;font-weight:800;line-height:1.2}
+  .pdv-mtab.active .count{background:rgba(255,255,255,0.20);color:#fff}
+  .pdv-products,.pdv-cart{display:none !important;flex:1;min-height:calc(100dvh - 240px)}
+  .pdv-grid.tab-products .pdv-products{display:flex !important}
+  .pdv-grid.tab-cart .pdv-cart{display:flex !important}
+  .pdv-grid-products{grid-template-columns:repeat(auto-fill,minmax(120px,1fr)) !important}
+  .pdv-prod-emoji{font-size:24px}
+  .pdv-prod-name{font-size:11px}
+  .pdv-prod-price{font-size:14px}
+  .pdv-cart-items{min-height:0}
+}
+
+/* Topbar — mobile */
+@media(max-width:640px){
+  .topbar{padding:12px 16px;gap:8px;flex-wrap:wrap}
+  .topbar-title{font-size:18px}
+  .topbar-eyebrow{font-size:9px}
+  .topbar-btn{padding:9px 11px;font-size:11px}
+  .topbar-btn svg{width:13px;height:13px}
+}
+
+/* Content — mobile padding & sizing */
+@media(max-width:640px){
+  .content{padding:14px}
+  .op-hero{padding:18px;border-radius:12px}
+  .op-hero-title{font-size:24px}
+  .op-hero-sub{font-size:13px;line-height:1.5}
+  .op-status{padding:10px 12px}
+  .op-status-num{font-size:22px}
+  .card{padding:16px;border-radius:10px}
+  .card-title{font-size:17px}
+  .stat-value{font-size:26px}
+  .stat-card{padding:14px}
+  .section-title{font-size:22px}
+  /* Touch targets ≥44px Apple HIG */
+  .queue-row{padding:14px 12px;min-height:64px}
+  .queue-pet-avatar{width:38px;height:38px}
+  .pdv-prod{min-height:96px}
+  .alert-cta,.vacc-cta{min-height:36px;padding:8px 12px;display:inline-flex;align-items:center}
+  .alert-row{padding:14px 12px}
+  /* Pet grid 1 col */
+  .pet-grid{grid-template-columns:1fr}
+  .pet-card{padding:16px}
+  /* Calendar slightly smaller */
+  .vacc-cal-day{min-height:42px;padding:4px}
+  .vacc-cal-num{font-size:10px}
+  /* Bdays */
+  .bday-list{grid-template-columns:1fr}
+  /* Pet toolbar empilha */
+  .pet-toolbar{flex-direction:column;align-items:stretch;gap:8px}
+  .pet-toolbar > .topbar-btn,.pet-toolbar > .pet-filter{width:100%;justify-content:center;min-height:40px}
+  /* Tab bar items larger */
+  .period-tab,.dialog-tab{min-height:36px}
+}
+
+/* Dialog — bottom sheet em mobile */
+@media(max-width:640px){
+  .dialog{padding:0;align-items:flex-end}
+  .dialog-card{max-width:100%;max-height:96dvh;border-radius:14px 14px 0 0}
+  .dialog-head{padding:18px 18px 14px}
+  .dialog-pet-name{font-size:22px}
+  .dialog-pet-head{gap:12px}
+  .dialog-pet-avatar{width:54px;height:54px;font-size:22px}
+  .dialog-tabs{padding:0 12px;overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap}
+  .dialog-tabs::-webkit-scrollbar{display:none}
+  .dialog-tab{padding:11px 12px;flex-shrink:0}
+  .dialog-body{padding:16px 18px}
+  .dialog-body .section-row.three{grid-template-columns:1fr}
+}
+
+/* Drag-handle visual no bottom sheet */
+@media(max-width:640px){
+  .dialog-card::before{content:'';display:block;width:36px;height:4px;background:var(--border);border-radius:999px;margin:8px auto 0}
+}
+
+/* Layout grid em mobile */
+@media(max-width:640px){
+  .layout-grid{grid-template-columns:1fr !important}
+  .full-row,.full-row.three{grid-template-columns:1fr !important}
+  .section-row.four,.section-row.three,.section-row.two{grid-template-columns:1fr !important}
+}
+
+/* Tablet landscape (iPad-like) — sidebar fica visível */
+@media(min-width:901px) and (max-width:1180px){
+  :root{--sidebar:200px}
+  .sb-link{font-size:12px;padding:9px 10px}
+  .sb-section{font-size:8px;padding:12px 8px 4px}
+}
+
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
 </style>
 </head>
@@ -512,7 +615,18 @@ input,select,textarea{font-family:inherit;font-size:14px}
 
     <!-- =========================================== PDV =========================================== -->
     <section class="view no-padding" id="view-pdv">
-      <div class="pdv-grid">
+      <div class="pdv-grid tab-products" id="pdvGrid">
+
+        <div class="pdv-mobile-tabs" role="tablist">
+          <button class="pdv-mtab active" data-tab="products" role="tab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            Produtos
+          </button>
+          <button class="pdv-mtab" data-tab="cart" role="tab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+            Carrinho <span class="count">3</span>
+          </button>
+        </div>
 
         <div class="pdv-products">
           <div class="pdv-products-head">
@@ -1000,6 +1114,22 @@ $$('.pdv-cat').forEach(c => c.addEventListener('click', () => {
 }));
 $$('.pdv-pay-btn').forEach(p => p.addEventListener('click', () => {
   $$('.pdv-pay-btn').forEach(x => x.classList.toggle('active', x === p));
+}));
+
+// ================ PDV MOBILE TABS ================
+$$('.pdv-mtab').forEach(t => t.addEventListener('click', () => {
+  $$('.pdv-mtab').forEach(x => x.classList.toggle('active', x === t));
+  const grid = $('#pdvGrid');
+  if (grid){ grid.classList.remove('tab-products','tab-cart'); grid.classList.add('tab-' + t.dataset.tab); }
+}));
+// Quando clica num produto em mobile, vai pro carrinho
+$$('.pdv-prod').forEach(p => p.addEventListener('click', () => {
+  if (window.matchMedia('(max-width: 768px)').matches){
+    setTimeout(() => {
+      const cartTab = $('.pdv-mtab[data-tab="cart"]');
+      if (cartTab) cartTab.click();
+    }, 220);
+  }
 }));
 
 </script>

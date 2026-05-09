@@ -267,6 +267,47 @@ a{color:inherit;text-decoration:none}
 body.embed .site-header,body.embed .site-footer{display:none}
 body.embed .main{padding-top:0}
 body.embed .page-hero{padding-top:24px}
+
+/* Mobile polish */
+@media(max-width:640px){
+  .container{padding:0 14px}
+  .main{padding:24px 0 48px}
+  .page-hero{margin-bottom:20px}
+  .page-title{font-size:30px}
+  .page-subtitle{font-size:13px}
+  .kpi{padding:16px}
+  .kpi-value{font-size:24px !important}
+  .kpi-icon{width:30px;height:30px}
+  .card{padding:18px}
+  .card-title{font-size:18px}
+  .chart-big{font-size:32px}
+  .compare-grid{grid-template-columns:1fr 1fr}
+  .compare-cell.highlight{grid-column:1/-1}
+  .compare-value{font-size:18px}
+  .heatmap{font-size:8px}
+  .heat-cell{min-width:14px}
+  /* Quebra hero */
+  .quebra-hero{grid-template-columns:1fr 1fr}
+  .quebra-val{font-size:22px}
+  /* Quebra rows */
+  .quebra-row{grid-template-columns:1fr 50px}
+  .quebra-row > .quebra-bar-wrap{display:none}
+  /* Cuts grid */
+  .cut-grid{grid-template-columns:1fr 1fr}
+  .cut-margin{font-size:18px}
+  /* Encomenda */
+  .encomenda-list .enc-row{flex-wrap:wrap}
+  /* Validade */
+  .val-row{grid-template-columns:50px 1fr;gap:10px}
+  .val-row > .val-cta{grid-column:1/-1;justify-self:end;padding:6px 12px;background:var(--surface-2);border-radius:6px}
+  .period-bar{flex-direction:column;align-items:flex-start;gap:10px}
+  .period-tabs{width:100%;justify-content:stretch}
+  .period-tab{flex:1;min-height:36px}
+  .footer-inner{flex-direction:column;text-align:center;gap:8px}
+}
+@supports(padding:max(0px)){
+  .container{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
 </style>
 </head>
