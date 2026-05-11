@@ -104,8 +104,6 @@ const nextConfig = {
       { source: "/sales/", destination: "/sales/index.html" },
       { source: "/igreja", destination: "/igreja/index.html" },
       { source: "/igreja/", destination: "/igreja/index.html" },
-      { source: "/sales/dono", destination: "/sales/dono/index.html" },
-      { source: "/sales/dono/", destination: "/sales/dono/index.html" },
       { source: "/salao/dono", destination: "/salao/dono/index.html" },
       { source: "/salao/dono/", destination: "/salao/dono/index.html" },
       // Sistemas completos — 5 SPAs Vue (hash router; modos cliente e dono na mesma SPA)
