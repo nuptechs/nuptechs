@@ -75,10 +75,18 @@ button,a{font-family:inherit;cursor:pointer;border:none;background:none;color:in
 .panel-header.ferragista{background:linear-gradient(135deg,#1F1F1E 0%,#0a0a0a 100%);color:#fff}
 .panel-header.acougue{background:linear-gradient(135deg,#7B1F2C 0%,#561217 100%);color:#fff}
 .panel-header.mercado{background:linear-gradient(135deg,#1F7A4D 0%,#0E5236 100%);color:#fff}
+.panel-header.distribuidora{background:linear-gradient(135deg,#1E3A8A 0%,#0F1F4F 100%);color:#fff}
+.panel-header.igreja{background:linear-gradient(135deg,#142844 0%,#0A1628 100%);color:#fff}
+.panel-header.padaria{background:linear-gradient(135deg,#B8762F 0%,#6E4314 100%);color:#fff}
+.panel-header.salao{background:linear-gradient(135deg,#6B2D5C 0%,#3D1638 100%);color:#fff}
 .panel-mark{width:38px;height:38px;border-radius:8px;display:grid;place-items:center;background:rgba(255,255,255,0.14);flex-shrink:0;color:#fff}
 .panel-mark svg{width:20px;height:20px}
 .panel-mark.acougue{color:#C49A48;background:rgba(196,154,72,0.18)}
 .panel-mark.ferragista{color:#E25A1B;background:rgba(226,90,27,0.18)}
+.panel-mark.igreja{color:#E5C77A;background:rgba(229,199,122,0.18)}
+.panel-mark.padaria{color:#E0A435;background:rgba(224,164,53,0.18)}
+.panel-mark.salao{color:#E9C7DF;background:rgba(233,199,223,0.18)}
+.panel-mark.distribuidora{color:#93C5FD;background:rgba(147,197,253,0.16)}
 .panel-name{font-size:18px;font-weight:800;line-height:1.1;letter-spacing:-0.01em}
 .panel-segment{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;opacity:0.78;margin-top:3px}
 
@@ -97,6 +105,10 @@ button,a{font-family:inherit;cursor:pointer;border:none;background:none;color:in
 .panel-card.ferragista .feature-row::before{background:#E25A1B}
 .panel-card.acougue .feature-row::before{background:#7B1F2C}
 .panel-card.mercado .feature-row::before{background:#1F7A4D}
+.panel-card.distribuidora .feature-row::before{background:#3B82F6}
+.panel-card.igreja .feature-row::before{background:#C9A961}
+.panel-card.padaria .feature-row::before{background:#E0A435}
+.panel-card.salao .feature-row::before{background:#C0428C}
 
 .panel-cta{padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--border);font-size:13px;font-weight:700;color:var(--text);transition:all .2s var(--ease)}
 .panel-cta:hover{background:var(--surface-2)}
@@ -152,11 +164,11 @@ body.live-mode .panels-row{display:none}
 <section class="hero">
   <div class="container">
     <div class="hero-eyebrow">Sistema completo · Adaptado por segmento</div>
-    <h1 class="hero-title">Quatro lojas. Quatro <em>realidades</em>.<br/>Um único produto rodando.</h1>
-    <p class="hero-sub">Não é só um painel — é a operação inteira: PDV, cadastros, agenda, fiado, validade, fidelidade e a análise pro dono. Cada segmento ganha o sistema moldado pra realidade dele, do banho-tosa à pesagem da picanha.</p>
+    <h1 class="hero-title">Oito segmentos. Oito <em>realidades</em>.<br/>Um único produto rodando.</h1>
+    <p class="hero-sub">Não é só um painel — é a operação inteira: PDV, agenda, fiado, validade, fidelidade, contribuição e a análise pro dono ou pastor. Cada segmento ganha o sistema moldado pra realidade dele — do banho-tosa à liturgia da igreja, da pesagem da picanha ao calendário do salão.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-lbl">Sistemas completos</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-lbl">Telas por segmento</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-lbl">Sistemas completos</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">5+</div><div class="hero-stat-lbl">Telas por segmento</div></div>
       <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-lbl">Mobile · responsivo</div></div>
       <div class="hero-stat"><div class="hero-stat-num">tempo real</div><div class="hero-stat-lbl">Atualização ao vivo</div></div>
     </div>
@@ -165,8 +177,8 @@ body.live-mode .panels-row{display:none}
 
 <section class="container">
 
-  <h2 class="section-title">Os <em>quatro</em> sistemas</h2>
-  <p class="section-sub">Cada card abre o sistema completo navegável: 5 áreas operacionais + Painel do Dono. Use Cards para sumário ou Preview ao vivo para mostrar tudo lado a lado na reunião.</p>
+  <h2 class="section-title">Os <em>oito</em> sistemas</h2>
+  <p class="section-sub">Cada card abre o sistema completo navegável. Use Cards para sumário ou Preview ao vivo para mostrar tudo lado a lado na reunião.</p>
 
   <!-- Modo CARDS — info densa -->
   <div class="panels-row">
@@ -295,6 +307,130 @@ body.live-mode .panels-row{display:none}
       </div>
     </a>
 
+    <!-- DISTRIBUIDORA -->
+    <a href="/distribuidora/" class="panel-card distribuidora">
+      <div class="panel-header distribuidora">
+        <div class="panel-mark distribuidora">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h4V7H2v10ZM6 17h12v-4l-3-3h-3V7H6"/><circle cx="9" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>
+        </div>
+        <div>
+          <div class="panel-name">Bairro Atacado</div>
+          <div class="panel-segment">Distribuidora · Bairro &amp; Delivery</div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="kpi-row">
+          <div class="mini-kpi"><div class="mini-kpi-lbl">Faturamento</div><div class="mini-kpi-val">R$ 412k</div></div>
+          <div class="mini-kpi"><div class="mini-kpi-lbl">Pedidos / mês</div><div class="mini-kpi-val">1.840</div></div>
+        </div>
+        <div class="feature-list">
+          <div class="feature-list-title">ÁREAS DO SISTEMA</div>
+          <div class="feature-row"><span><strong>PDV &amp; Catálogo:</strong> 3.200 SKUs com busca rápida + B2B com tabelas de preço</span></div>
+          <div class="feature-row"><span><strong>Pedidos &amp; Entregas:</strong> rastreio em tempo real + alocação por motoboy</span></div>
+          <div class="feature-row"><span><strong>Marketplaces:</strong> iFood/Shopee/Mercado Livre integrados num só estoque</span></div>
+          <div class="feature-row"><span><strong>Fidelidade &amp; Cashback:</strong> tiers VIP, regras por produto, recompensa</span></div>
+          <div class="feature-row"><span><strong>Painel do Dono:</strong> ticket médio · giro · DRE simplificado · SEFAZ ao vivo</span></div>
+        </div>
+      </div>
+      <div class="panel-cta">
+        Abrir sistema Bairro Atacado
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+
+    <!-- IGREJA -->
+    <a href="/igreja/" class="panel-card igreja">
+      <div class="panel-header igreja">
+        <div class="panel-mark igreja">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M9 5h6M6 22V12l6-4 6 4v10M10 22v-6h4v6"/></svg>
+        </div>
+        <div>
+          <div class="panel-name">Igreja Getsêmani</div>
+          <div class="panel-segment">Comunidade · Liturgia &amp; Doações</div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="kpi-row">
+          <div class="mini-kpi"><div class="mini-kpi-lbl">Contribuições / mês</div><div class="mini-kpi-val">R$ 38,4k</div></div>
+          <div class="mini-kpi"><div class="mini-kpi-lbl">Membros ativos</div><div class="mini-kpi-val">412</div></div>
+        </div>
+        <div class="feature-list">
+          <div class="feature-list-title">ÁREAS DO SISTEMA</div>
+          <div class="feature-row"><span><strong>Eventos &amp; Calendário:</strong> cultos, retiros, célula com inscrição e lembrete</span></div>
+          <div class="feature-row"><span><strong>Contribuições:</strong> PIX, cartão, recorrência e campanhas (Doar Agora)</span></div>
+          <div class="feature-row"><span><strong>Pedidos de Oração:</strong> mural privativo + acompanhamento pastoral</span></div>
+          <div class="feature-row"><span><strong>3 temas visuais:</strong> Real Noite · Marfim · Mosteiro — comutáveis ao vivo</span></div>
+          <div class="feature-row"><span><strong>Painel do Pastor:</strong> dízimo, frequência, aniversariantes, gestão de líderes</span></div>
+        </div>
+      </div>
+      <div class="panel-cta">
+        Abrir sistema Getsêmani
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+
+    <!-- PADARIA -->
+    <a href="/padaria/" class="panel-card padaria">
+      <div class="panel-header padaria">
+        <div class="panel-mark padaria">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0-3 2-5 5-5h6c3 0 5 2 5 5v4H4v-4Z"/><path d="M7 14V9M12 14V9M17 14V9"/></svg>
+        </div>
+        <div>
+          <div class="panel-name">Empóriotriz</div>
+          <div class="panel-segment">Padaria &amp; Café · Produção</div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="kpi-row">
+          <div class="mini-kpi"><div class="mini-kpi-lbl">Faturamento</div><div class="mini-kpi-val">R$ 96k</div></div>
+          <div class="mini-kpi"><div class="mini-kpi-lbl">Pré-pedidos WhatsApp</div><div class="mini-kpi-val">142/mês</div></div>
+        </div>
+        <div class="feature-list">
+          <div class="feature-list-title">ÁREAS DO SISTEMA</div>
+          <div class="feature-row"><span><strong>Frente de Caixa:</strong> balcão + balança + cupom fiscal SAT/NFC-e</span></div>
+          <div class="feature-row"><span><strong>Produção do Dia:</strong> OP por fornada + sobra/quebra + meta de venda</span></div>
+          <div class="feature-row"><span><strong>Pré-pedidos WhatsApp:</strong> bolo de aniversário, encomenda café da manhã</span></div>
+          <div class="feature-row"><span><strong>Fidelidade · MyCard:</strong> cartão fidelidade digital + PIX + recompensa</span></div>
+          <div class="feature-row"><span><strong>Painel do Dono:</strong> mix por hora, sobra por categoria, ticket médio</span></div>
+        </div>
+      </div>
+      <div class="panel-cta">
+        Abrir sistema Empóriotriz
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+
+    <!-- SALÃO -->
+    <a href="/salao/" class="panel-card salao">
+      <div class="panel-header salao">
+        <div class="panel-mark salao">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="14" r="3"/><circle cx="18" cy="14" r="3"/><path d="M8.5 12 14 5l1.5 9"/></svg>
+        </div>
+        <div>
+          <div class="panel-name">Salon</div>
+          <div class="panel-segment">Salão &amp; Barbearia · Agenda</div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="kpi-row">
+          <div class="mini-kpi"><div class="mini-kpi-lbl">Faturamento</div><div class="mini-kpi-val">R$ 84k</div></div>
+          <div class="mini-kpi"><div class="mini-kpi-lbl">Agendamentos / mês</div><div class="mini-kpi-val">320</div></div>
+        </div>
+        <div class="feature-list">
+          <div class="feature-list-title">ÁREAS DO SISTEMA</div>
+          <div class="feature-row"><span><strong>Agenda multi-profissional:</strong> cabelo, barba, estética, manicure com sobre-livro</span></div>
+          <div class="feature-row"><span><strong>PDV + Comissão:</strong> serviço + produto + repasse automático por profissional</span></div>
+          <div class="feature-row"><span><strong>Ficha do Cliente:</strong> histórico, foto, alergia, preferência por profissional</span></div>
+          <div class="feature-row"><span><strong>Pacotes &amp; Assinatura:</strong> mensalidade barba/cabelo + venda recorrente</span></div>
+          <div class="feature-row"><span><strong>Painel do Dono:</strong> ocupação por hora, no-show, lifetime value por cliente</span></div>
+        </div>
+      </div>
+      <div class="panel-cta">
+        Abrir sistema Salon
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+
   </div>
 
   <!-- Modo LIVE — 4 sistemas na mesma linha -->
@@ -318,6 +454,26 @@ body.live-mode .panels-row{display:none}
       <div class="live-label">Mercadinho da Esquina <span class="seg">· Mercado</span></div>
       <a href="/mercado/" target="_blank" class="live-open">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
       <iframe src="/mercado/" loading="lazy" title="Sistema Mercadinho"></iframe>
+    </div>
+    <div class="live-frame">
+      <div class="live-label">Bairro Atacado <span class="seg">· Distribuidora</span></div>
+      <a href="/distribuidora/" target="_blank" class="live-open">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      <iframe src="/distribuidora/" loading="lazy" title="Sistema Bairro Atacado"></iframe>
+    </div>
+    <div class="live-frame">
+      <div class="live-label">Igreja Getsêmani <span class="seg">· Comunidade</span></div>
+      <a href="/igreja/" target="_blank" class="live-open">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      <iframe src="/igreja/" loading="lazy" title="Sistema Igreja Getsêmani"></iframe>
+    </div>
+    <div class="live-frame">
+      <div class="live-label">Empóriotriz <span class="seg">· Padaria</span></div>
+      <a href="/padaria/" target="_blank" class="live-open">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      <iframe src="/padaria/" loading="lazy" title="Sistema Empóriotriz"></iframe>
+    </div>
+    <div class="live-frame">
+      <div class="live-label">Salon <span class="seg">· Salão &amp; Barbearia</span></div>
+      <a href="/salao/" target="_blank" class="live-open">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      <iframe src="/salao/" loading="lazy" title="Sistema Salon"></iframe>
     </div>
   </div>
 
