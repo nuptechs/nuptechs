@@ -93,13 +93,9 @@ export type BrasilApiCnpj = {
   }>;
 };
 
-/** Busca dados de um CNPJ na BrasilAPI. */
-export async function fetchCnpjData(cnpj: string): Promise<BrasilApiCnpj | null> {
-  const d = onlyDigits(cnpj);
-  if (!isValidCnpj(d)) return null;
+async function tryBrasilApi(d: string): Promise<BrasilApiCnpj | null> {
   try {
     const res = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${d}`, {
-      // edge cache 24h
       next: { revalidate: 60 * 60 * 24 },
     });
     if (!res.ok) return null;
@@ -107,4 +103,93 @@ export async function fetchCnpjData(cnpj: string): Promise<BrasilApiCnpj | null>
   } catch {
     return null;
   }
+}
+
+async function tryOpenCnpj(d: string): Promise<BrasilApiCnpj | null> {
+  try {
+    const res = await fetch(`https://api.opencnpj.org/${d}`, {
+      next: { revalidate: 60 * 60 * 24 },
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data?.cnpj) return null;
+    return {
+      cnpj: data.cnpj,
+      razao_social: data.razao_social || "",
+      nome_fantasia: data.nome_fantasia || "",
+      natureza_juridica: data.natureza_juridica || "",
+      cnae_fiscal_descricao: "", // OpenCNPJ retorna apenas o código, não a descrição
+      logradouro: data.logradouro || "",
+      numero: data.numero || "",
+      complemento: data.complemento || "",
+      bairro: data.bairro || "",
+      municipio: data.municipio || "",
+      uf: data.uf || "",
+      cep: (data.cep || "").replace(/\D/g, ""),
+      email: data.email || null,
+      ddd_telefone_1: data.telefones?.[0]
+        ? `${data.telefones[0].ddd}${data.telefones[0].numero}`
+        : "",
+      descricao_situacao_cadastral: data.situacao_cadastral || "",
+      qsa: Array.isArray(data.QSA)
+        ? data.QSA.map((s: { nome_socio?: string; qualificacao_socio?: string }) => ({
+            nome_socio: s.nome_socio || "",
+            qualificacao_socio: s.qualificacao_socio || "",
+          }))
+        : [],
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function tryReceitaWs(d: string): Promise<BrasilApiCnpj | null> {
+  try {
+    const res = await fetch(`https://receitaws.com.br/v1/cnpj/${d}`, {
+      next: { revalidate: 60 * 60 * 24 },
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (data?.status === "ERROR" || !data?.cnpj) return null;
+    return {
+      cnpj: (data.cnpj || "").replace(/\D/g, ""),
+      razao_social: data.nome || "",
+      nome_fantasia: data.fantasia || "",
+      natureza_juridica: data.natureza_juridica || "",
+      cnae_fiscal_descricao: data.atividade_principal?.[0]?.text || "",
+      logradouro: data.logradouro || "",
+      numero: data.numero || "",
+      complemento: data.complemento || "",
+      bairro: data.bairro || "",
+      municipio: data.municipio || "",
+      uf: data.uf || "",
+      cep: (data.cep || "").replace(/\D/g, ""),
+      email: data.email || null,
+      ddd_telefone_1: (data.telefone || "").replace(/\D/g, ""),
+      descricao_situacao_cadastral: data.situacao || "",
+      qsa: Array.isArray(data.qsa)
+        ? data.qsa.map((s: { nome?: string; qual?: string }) => ({
+            nome_socio: s.nome || "",
+            qualificacao_socio: s.qual || "",
+          }))
+        : [],
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Busca dados de um CNPJ com fallback em cascata:
+ * BrasilAPI v1 → OpenCNPJ → ReceitaWS.
+ * Retorna sempre no shape do BrasilAPI v1; os outros são normalizados.
+ */
+export async function fetchCnpjData(cnpj: string): Promise<BrasilApiCnpj | null> {
+  const d = onlyDigits(cnpj);
+  if (!isValidCnpj(d)) return null;
+  return (
+    (await tryBrasilApi(d)) ??
+    (await tryOpenCnpj(d)) ??
+    (await tryReceitaWs(d))
+  );
 }
