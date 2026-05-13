@@ -160,9 +160,9 @@ export default function NewContractPage() {
     setCepLoading(true);
     setCepMessage(null);
     try {
-      // BrasilAPI v2 combina múltiplos provedores (ViaCEP, WideNet, Correios)
-      // com fallback interno — mais robusto que ViaCEP puro.
-      const res = await fetch(`https://brasilapi.com.br/api/cep/v2/${d}`);
+      // Proxy server-side em /api/admin/contracts/cep — chamada direta
+      // ao BrasilAPI/ViaCEP é bloqueada pelo CSP do site (connect-src 'self').
+      const res = await fetch(`/api/admin/contracts/cep/${d}`);
       if (res.status === 404) {
         setCepMessage({ kind: "warning", text: "CEP não encontrado." });
         return;
