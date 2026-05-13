@@ -55,6 +55,10 @@ export default function NewContractPage() {
   const [systems, setSystems] = useState<SystemItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [cnpjLoading, setCnpjLoading] = useState(false);
+  const [cepLoading, setCepLoading] = useState(false);
+  const [cepMessage, setCepMessage] = useState<
+    { kind: "success" | "warning" | "error"; text: string } | null
+  >(null);
   const [error, setError] = useState<string | null>(null);
 
   const [form, setForm] = useState({
@@ -145,10 +149,27 @@ export default function NewContractPage() {
 
   const lookupCep = async () => {
     const d = digits(form.clientZip);
-    if (d.length !== 8) return;
+    if (d.length === 0) {
+      setCepMessage(null);
+      return;
+    }
+    if (d.length !== 8) {
+      setCepMessage({ kind: "warning", text: "CEP deve ter 8 dígitos." });
+      return;
+    }
+    setCepLoading(true);
+    setCepMessage(null);
     try {
-      const res = await fetch(`https://brasilapi.com.br/api/cep/v1/${d}`);
-      if (!res.ok) return;
+      // BrasilAPI v2 combina múltiplos provedores (ViaCEP, WideNet, Correios)
+      // com fallback interno — mais robusto que ViaCEP puro.
+      const res = await fetch(`https://brasilapi.com.br/api/cep/v2/${d}`);
+      if (res.status === 404) {
+        setCepMessage({ kind: "warning", text: "CEP não encontrado." });
+        return;
+      }
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
       const data = await res.json();
       setForm((f) => ({
         ...f,
@@ -157,7 +178,18 @@ export default function NewContractPage() {
         clientCity: data.city || f.clientCity,
         clientState: data.state || f.clientState,
       }));
-    } catch {}
+      setCepMessage({
+        kind: "success",
+        text: "Endereço preenchido automaticamente.",
+      });
+    } catch {
+      setCepMessage({
+        kind: "error",
+        text: "Erro ao consultar CEP. Preencha manualmente.",
+      });
+    } finally {
+      setCepLoading(false);
+    }
   };
 
   const submit = async () => {
@@ -355,15 +387,46 @@ export default function NewContractPage() {
           <h3>2. Endereço</h3>
           <div className="contract-row">
             <label className="contract-field">
-              <span>CEP</span>
+              <span>
+                CEP
+                {cepLoading && (
+                  <Loader2
+                    size={12}
+                    className="spin"
+                    strokeWidth={1.75}
+                    style={{ marginLeft: 6, verticalAlign: "middle" }}
+                  />
+                )}
+              </span>
               <input
                 type="text"
                 value={formatCepMask(form.clientZip)}
-                onChange={(e) => update("clientZip", e.target.value)}
+                onChange={(e) => {
+                  update("clientZip", e.target.value);
+                  if (cepMessage) setCepMessage(null);
+                }}
                 onBlur={lookupCep}
+                disabled={cepLoading}
                 className="admin-input"
                 placeholder="00000-000"
+                inputMode="numeric"
               />
+              {cepMessage && (
+                <span
+                  style={{
+                    fontSize: 11,
+                    marginTop: 2,
+                    color:
+                      cepMessage.kind === "success"
+                        ? "#10b981"
+                        : cepMessage.kind === "warning"
+                          ? "#f59e0b"
+                          : "#ef4444",
+                  }}
+                >
+                  {cepMessage.text}
+                </span>
+              )}
             </label>
             <label className="contract-field" style={{ flex: 3 }}>
               <span>Logradouro</span>
