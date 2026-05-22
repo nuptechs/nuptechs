@@ -120,6 +120,9 @@ const nextConfig = {
       // Vitrine comercial — 4 painéis lado a lado
       { source: "/vitrine-segmentos", destination: "/vitrine-segmentos/index.html" },
       { source: "/vitrine-segmentos/", destination: "/vitrine-segmentos/index.html" },
+      // Sistema solar — SPA React (Future Sky)
+      { source: "/energiasolar", destination: "/energiasolar/index.html" },
+      { source: "/energiasolar/", destination: "/energiasolar/index.html" },
     ];
   },
 };
