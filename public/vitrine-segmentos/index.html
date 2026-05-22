@@ -79,6 +79,7 @@ button,a{font-family:inherit;cursor:pointer;border:none;background:none;color:in
 .panel-header.igreja{background:linear-gradient(135deg,#142844 0%,#0A1628 100%);color:#fff}
 .panel-header.padaria{background:linear-gradient(135deg,#B8762F 0%,#6E4314 100%);color:#fff}
 .panel-header.salao{background:linear-gradient(135deg,#6B2D5C 0%,#3D1638 100%);color:#fff}
+.panel-header.energiasolar{background:linear-gradient(135deg,#0EA5E9 0%,#0369A1 100%);color:#fff}
 .panel-mark{width:38px;height:38px;border-radius:8px;display:grid;place-items:center;background:rgba(255,255,255,0.14);flex-shrink:0;color:#fff}
 .panel-mark svg{width:20px;height:20px}
 .panel-mark.acougue{color:#C49A48;background:rgba(196,154,72,0.18)}
@@ -87,6 +88,7 @@ button,a{font-family:inherit;cursor:pointer;border:none;background:none;color:in
 .panel-mark.padaria{color:#E0A435;background:rgba(224,164,53,0.18)}
 .panel-mark.salao{color:#E9C7DF;background:rgba(233,199,223,0.18)}
 .panel-mark.distribuidora{color:#93C5FD;background:rgba(147,197,253,0.16)}
+.panel-mark.energiasolar{color:#FCD34D;background:rgba(252,211,77,0.18)}
 .panel-name{font-size:18px;font-weight:800;line-height:1.1;letter-spacing:-0.01em}
 .panel-segment{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;opacity:0.78;margin-top:3px}
 
@@ -109,6 +111,7 @@ button,a{font-family:inherit;cursor:pointer;border:none;background:none;color:in
 .panel-card.igreja .feature-row::before{background:#C9A961}
 .panel-card.padaria .feature-row::before{background:#E0A435}
 .panel-card.salao .feature-row::before{background:#C0428C}
+.panel-card.energiasolar .feature-row::before{background:#0EA5E9}
 
 .panel-cta{padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--border);font-size:13px;font-weight:700;color:var(--text);transition:all .2s var(--ease)}
 .panel-cta:hover{background:var(--surface-2)}
@@ -422,6 +425,37 @@ body.live-mode .panels-row{display:none}
       </div>
     </a>
 
+    <!-- ENERGIA SOLAR -->
+    <a href="/energiasolar/" class="panel-card energiasolar">
+      <div class="panel-header energiasolar">
+        <div class="panel-mark energiasolar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </div>
+        <div>
+          <div class="panel-name">Future Sky</div>
+          <div class="panel-segment">Energia Solar · Operação de Campo</div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="kpi-row">
+          <div class="mini-kpi"><div class="mini-kpi-lbl">Faturamento</div><div class="mini-kpi-val">R$ 340k</div></div>
+          <div class="mini-kpi"><div class="mini-kpi-lbl">Instalações / mês</div><div class="mini-kpi-val">28</div></div>
+        </div>
+        <div class="feature-list">
+          <div class="feature-list-title">PRINCIPAIS ÁREAS</div>
+          <div class="feature-row"><span><strong>Estoque Solar:</strong> placas, inversores, cabos, conectores · alerta de ruptura por kit</span></div>
+          <div class="feature-row"><span><strong>Trajetos em Campo:</strong> equipe a caminho · em andamento · concluído · GPS ao vivo</span></div>
+          <div class="feature-row"><span><strong>Assinatura Digital:</strong> TRD/TRP em tela touch · canvas no celular do cliente</span></div>
+          <div class="feature-row"><span><strong>Fotos &amp; Relatórios:</strong> before/after no telhado · múltiplas imagens + checklist</span></div>
+          <div class="feature-row"><span><strong>Painel do Dono:</strong> instalações ativas, ticket médio, ranking de técnicos</span></div>
+        </div>
+      </div>
+      <div class="panel-cta">
+        Abrir sistema Future Sky
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+
   </div>
 
   <!-- Modo LIVE — 4 sistemas na mesma linha -->
@@ -465,6 +499,11 @@ body.live-mode .panels-row{display:none}
       <div class="live-label">Salon <span class="seg">· Salão &amp; Barbearia</span></div>
       <a href="/salao/" target="_blank" class="live-open">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
       <iframe src="/salao/" loading="lazy" title="Sistema Salon"></iframe>
+    </div>
+    <div class="live-frame">
+      <div class="live-label">Future Sky <span class="seg">· Energia Solar</span></div>
+      <a href="/energiasolar/" target="_blank" class="live-open">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      <iframe src="/energiasolar/" loading="lazy" title="Sistema Future Sky"></iframe>
     </div>
   </div>
 
