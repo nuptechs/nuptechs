@@ -120,9 +120,12 @@ const nextConfig = {
       // Vitrine comercial — 4 painéis lado a lado
       { source: "/vitrine-segmentos", destination: "/vitrine-segmentos/index.html" },
       { source: "/vitrine-segmentos/", destination: "/vitrine-segmentos/index.html" },
-      // Sistema solar — SPA React (Future Sky)
-      { source: "/energiasolar", destination: "/energiasolar/index.html" },
-      { source: "/energiasolar/", destination: "/energiasolar/index.html" },
+      // Sistema solar — nup-energy hospedado no Railway próprio.
+      // Vitrine atua como proxy externo (URL pública mantida).
+      // assets do Vite ficam sob /energy-assets/ pra não colidir com /assets/ da Marketing.
+      { source: "/energiasolar", destination: "https://nup-energy-production.up.railway.app" },
+      { source: "/energiasolar/:path*", destination: "https://nup-energy-production.up.railway.app/:path*" },
+      { source: "/energy-assets/:path*", destination: "https://nup-energy-production.up.railway.app/energy-assets/:path*" },
     ];
   },
 };
