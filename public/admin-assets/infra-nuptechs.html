@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NuPtechs — A fábrica por trás dos produtos</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#161a22; --panel2:#121621; --line:#272c38; --muted:#8a93a6;
+    --ink:#eef2f8; --ink-dim:#c3cbdb;
+    --core:#3b82f6;  --core-bg:#0b2344;  --core-br:#1e3a8a;
+    --comm:#10b981;  --comm-bg:#052e24;  --comm-br:#065f46;
+    --ai:#a855f7;    --ai-bg:#24123f;    --ai-br:#5b21b6;
+    --opt:#94a3b8;   --opt-bg:#1b202a;   --opt-br:#334155;
+    --ext:#f59e0b;   --ext-bg:#2a1f0a;   --ext-br:#78350f;
+    --danger:#ef4444;--danger-bg:#2a0f11;--danger-br:#7f1d1d;
+    --gold:#eab308;  --gold-bg:#2a2109;  --gold-br:#854d0e;
+    --ok:#22c55e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif}
+  body{max-width:1200px;margin:0 auto;padding:48px 28px 96px}
+  h1{font-size:40px;margin:0 0 6px;letter-spacing:-0.02em;line-height:1.1}
+  h1 small{display:block;font-size:13px;color:var(--muted);font-weight:400;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:14px}
+  h2{font-size:24px;margin:56px 0 10px;letter-spacing:-0.01em;border-top:1px solid var(--line);padding-top:42px}
+  h2:first-of-type{border-top:none;padding-top:0}
+  h2 .tag{font-size:11px;color:var(--muted);font-weight:500;letter-spacing:0.14em;text-transform:uppercase;margin-left:10px;vertical-align:middle}
+  h3{font-size:17px;margin:28px 0 8px;color:var(--ink-dim);font-weight:600}
+  h4{font-size:14px;margin:0 0 8px;color:var(--ink);font-weight:600;letter-spacing:0.02em}
+  p.lead{color:var(--ink-dim);margin:0 0 18px;max-width:880px;font-size:16px}
+  p{color:var(--ink-dim);margin:8px 0 14px;max-width:880px}
+  .sub{color:var(--muted);font-size:13px}
+  code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;background:#0b0e14;border:1px solid var(--line);padding:1px 6px;border-radius:6px;color:var(--ink-dim)}
+  ul.clean{margin:8px 0 14px;padding-left:18px;color:var(--ink-dim);max-width:880px}
+  ul.clean li{margin:5px 0}
+
+  .hero{background:linear-gradient(180deg,#13182480 0%,transparent 100%);border:1px solid var(--line);border-radius:18px;padding:30px 32px;margin:10px 0 26px}
+  .hero .brand{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+  .hero .mark{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 100%);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:#fff;letter-spacing:-0.02em}
+  .hero .brand-name{font-weight:700;font-size:14px;letter-spacing:0.06em}
+  .hero .brand-sub{font-size:11.5px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px}
+  .hero .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:22px}
+  .hero .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .hero .kpi .n{font-size:28px;font-weight:700;letter-spacing:-0.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+  .hero .kpi .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;line-height:1.35}
+
+  /* nav */
+  .toc{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 6px}
+  .toc a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink-dim);font-size:12.5px;text-decoration:none;display:block;line-height:1.35}
+  .toc a:hover{border-color:var(--core-br);color:var(--ink)}
+  .toc a b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px;letter-spacing:0.01em}
+
+  /* pills */
+  .pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .pill{font-size:11px;padding:4px 9px;border-radius:8px;border:1px solid var(--line);background:#10141c;color:var(--ink-dim);white-space:nowrap}
+  .pill.core{color:var(--core);border-color:var(--core-br);background:var(--core-bg)}
+  .pill.comm{color:var(--comm);border-color:var(--comm-br);background:var(--comm-bg)}
+  .pill.ai{color:var(--ai);border-color:var(--ai-br);background:var(--ai-bg)}
+  .pill.opt{color:var(--opt);border-color:var(--opt-br);background:var(--opt-bg)}
+  .pill.ext{color:var(--ext);border-color:var(--ext-br);background:var(--ext-bg)}
+  .pill.danger{color:var(--danger);border-color:var(--danger-br);background:var(--danger-bg)}
+  .pill.gold{color:var(--gold);border-color:var(--gold-br);background:var(--gold-bg)}
+
+  /* cards */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .cards.three{grid-template-columns:1fr 1fr 1fr}
+  .cards.four{grid-template-columns:1fr 1fr 1fr 1fr}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .card h5{margin:0 0 6px;font-size:14px;display:flex;align-items:center;gap:8px}
+  .card h5 .dot{display:inline-block;width:9px;height:9px;border-radius:3px;flex-shrink:0}
+  .card h5 .ver{margin-left:auto;font-size:10.5px;color:var(--muted);font-weight:500;letter-spacing:0.05em}
+  .card .desc{color:var(--ink-dim);font-size:13px;margin:6px 0 10px;line-height:1.5}
+  .card ul{margin:4px 0 0;padding-left:16px;color:var(--ink-dim);font-size:13px}
+  .card li{margin:3px 0}
+  .card .meta{color:var(--muted);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;margin:10px 0 2px;display:block}
+  .card.core{border-color:var(--core-br)}
+  .card.comm{border-color:var(--comm-br)}
+  .card.ai{border-color:var(--ai-br)}
+  .card.ext{border-color:var(--ext-br)}
+  .card.gold{border-color:var(--gold-br)}
+  .card.opt{border-color:var(--opt-br)}
+  .dot.core{background:var(--core)} .dot.comm{background:var(--comm)}
+  .dot.ai{background:var(--ai)} .dot.opt{background:var(--opt)}
+  .dot.ext{background:var(--ext)} .dot.danger{background:var(--danger)}
+  .dot.gold{background:var(--gold)}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:10px 14px;text-align:left;font-size:13px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;background:#11151e}
+  tr:last-child td{border-bottom:none}
+  td.mono{font-family:ui-monospace,Menlo,monospace;color:var(--ink-dim);font-size:12px;white-space:nowrap}
+  td.num{font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
+  td .tag-pill{display:inline-block;font-size:10.5px;padding:2px 7px;border-radius:6px;background:#0b0e14;border:1px solid var(--line);color:var(--ink-dim);margin-right:4px}
+
+  /* layered architecture diagram */
+  .arch3{display:grid;grid-template-columns:1fr;gap:8px;margin-top:18px}
+  .layer{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;position:relative}
+  .layer .head{display:flex;align-items:baseline;gap:12px;margin-bottom:10px}
+  .layer .head .num{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:0.1em;text-transform:uppercase}
+  .layer .head h4{font-size:16px;margin:0}
+  .layer .head .desc{margin-left:auto;font-size:12.5px;color:var(--muted);max-width:540px;text-align:right}
+  .layer .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:11.5px;padding:5px 10px;border-radius:8px;border:1px solid var(--line);background:#0b0e14;color:var(--ink-dim)}
+  .chip.b{font-weight:600;color:var(--ink)}
+  .layer.l1{border-color:var(--core-br);background:linear-gradient(180deg,#0b234433 0%,transparent 100%)}
+  .layer.l2{border-color:var(--ai-br);background:linear-gradient(180deg,#24123f33 0%,transparent 100%)}
+  .layer.l3{border-color:var(--comm-br);background:linear-gradient(180deg,#052e2433 0%,transparent 100%)}
+
+  /* bar chart */
+  .barchart{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .bar{display:grid;grid-template-columns:160px 1fr 60px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+  .bar .lbl{color:var(--ink-dim)}
+  .bar .num{color:var(--ink);font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+  .bar .track{height:10px;background:#0b0e14;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+  .bar .fill{height:100%;background:linear-gradient(90deg,#3b82f6 0%,#60a5fa 100%);border-radius:4px}
+  .bar.comm .fill{background:linear-gradient(90deg,#10b981 0%,#34d399 100%)}
+  .bar.ai .fill{background:linear-gradient(90deg,#a855f7 0%,#c084fc 100%)}
+  .bar.ext .fill{background:linear-gradient(90deg,#f59e0b 0%,#fbbf24 100%)}
+  .bar.opt .fill{background:linear-gradient(90deg,#64748b 0%,#94a3b8 100%)}
+
+  /* product grid */
+  .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  .prod{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .prod .name{font-weight:700;font-size:14px;color:var(--ink);letter-spacing:-0.005em}
+  .prod .domain{font-size:10.5px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin:3px 0 8px;font-weight:600}
+  .prod .desc{font-size:12.5px;color:var(--ink-dim);line-height:1.5;margin:0 0 8px}
+  .prod .foot{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .prod .status{display:inline-block;font-size:10px;padding:2px 8px;border-radius:5px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600}
+  .prod .status.prod{background:#052e24;color:#10b981;border:1px solid #065f46}
+  .prod .status.hml{background:#2a1f0a;color:#f59e0b;border:1px solid #78350f}
+  .prod .status.dev{background:#1b202a;color:#94a3b8;border:1px solid #334155}
+  .prod.tag-core{border-color:var(--core-br)}
+  .prod.tag-ai{border-color:var(--ai-br)}
+  .prod.tag-edu{border-color:var(--comm-br)}
+  .prod.tag-dev{border-color:var(--gold-br)}
+  .prod.tag-biz{border-color:var(--ext-br)}
+  .prod.tag-off{border-color:var(--opt-br)}
+
+  /* callout */
+  .callout{background:linear-gradient(180deg,#1e3a8a22 0%,transparent 100%);border:1px solid var(--core-br);border-radius:14px;padding:18px 20px;margin-top:16px}
+  .callout h4{color:var(--core);margin-bottom:6px;font-size:15px}
+  .callout p{margin:0;color:var(--ink-dim);font-size:13.5px;max-width:none}
+
+  .quote{border-left:3px solid var(--core);padding:8px 0 8px 16px;margin:14px 0;font-size:14px;color:var(--ink-dim);font-style:italic;max-width:840px}
+
+  /* footer */
+  .foot-meta{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);text-align:center;line-height:1.6}
+
+  /* responsiveness */
+  @media (max-width:900px){
+    .hero .kpis{grid-template-columns:repeat(2,1fr)}
+    .toc{grid-template-columns:1fr 1fr}
+    .cards,.cards.three,.cards.four{grid-template-columns:1fr}
+    .prod-grid{grid-template-columns:1fr}
+    .bar{grid-template-columns:120px 1fr 50px;font-size:12px}
+    h1{font-size:30px}
+    .layer .head{flex-wrap:wrap}
+    .layer .head .desc{text-align:left;margin-left:0;width:100%}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="brand">
+    <div class="mark">N</div>
+    <div>
+      <div class="brand-name">NuPtechs</div>
+      <div class="brand-sub">Tech park &middot; software factory</div>
+    </div>
+  </div>
+  <h1>
+    <small>Apresentação institucional</small>
+    A fábrica por trás dos produtos.
+  </h1>
+  <p class="lead">
+    A NuPtechs não é um produto. É um <b>parque de produtos</b> ancorado em uma plataforma proprietária
+    de componentes reutilizáveis. Esse documento mostra <b>o que está construído hoje</b> — sem projeção,
+    sem promessa — para deixar claro o nível de maturidade técnica que o gestor comercial estará
+    representando comercialmente.
+  </p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n">24</div><div class="l">Produtos e serviços ativos no parque</div></div>
+    <div class="kpi"><div class="n">27</div><div class="l">Pacotes próprios reutilizáveis publicados</div></div>
+    <div class="kpi"><div class="n">38</div><div class="l">Decisões arquiteturais documentadas (ADRs)</div></div>
+    <div class="kpi"><div class="n">~6.9k</div><div class="l">Commits agregados nos repositórios</div></div>
+    <div class="kpi"><div class="n">590+</div><div class="l">Pull Requests revisados e fechados</div></div>
+  </div>
+</header>
+
+<!-- ============ TOC ============ -->
+<div class="toc">
+  <a href="#tese"><b>1. A tese</b>Por que entregamos mais rápido que o mercado</a>
+  <a href="#arch"><b>2. Arquitetura</b>As três camadas do parque</a>
+  <a href="#infra"><b>3. Infraestrutura</b>Tudo que rodamos e contratamos hoje</a>
+  <a href="#packages"><b>4. Componentes</b>Os 27 pacotes próprios reutilizáveis</a>
+  <a href="#products"><b>5. Produtos</b>Catálogo completo dos 24 produtos</a>
+  <a href="#capabilities"><b>6. Capacidades</b>Funções construídas e prontas para reaproveitar</a>
+  <a href="#governance"><b>7. Governança</b>As 38 ADRs que sustentam a casa</a>
+  <a href="#conclusao"><b>8. Em uma frase</b>O que isso significa comercialmente</a>
+</div>
+
+<!-- ============ 1. TESE ============ -->
+<h2 id="tese">1. A tese — por que entregamos mais rápido <span class="tag">Resumo executivo</span></h2>
+
+<p class="lead">
+  Time pequeno vence time grande quando troca <b>esforço repetido por reuso</b>.
+  A NuPtechs não escreve um sistema de pagamento toda vez que um produto novo precisa cobrar.
+  Não escreve OIDC, auditoria, mensageria, videoconferência ou agente de voz <i>do zero</i>.
+  Tudo isso já existe como pacote pronto, versionado e testado.
+</p>
+
+<div class="cards three">
+  <div class="card core">
+    <h5><span class="dot core"></span> O que outros fazem</h5>
+    <p class="desc">Cada produto novo recomeça do zero: pega Auth0, Stripe, Twilio, SendGrid, monta a integração, escreve a auditoria, descobre os bugs em produção. Tempo médio até o primeiro release real: <b>3 a 6 meses</b>.</p>
+  </div>
+  <div class="card comm">
+    <h5><span class="dot comm"></span> O que a NuPtechs faz</h5>
+    <p class="desc">Um produto novo importa <code>@nuptechs/payments-core</code>, <code>@nuptechs/billing</code>, <code>@nuptechs/voice-agent-server</code> e o login OIDC do NuPIdentify próprio. Já nasce com auditoria HMAC, multi-tenant e observabilidade. <b>Semanas, não meses</b>.</p>
+  </div>
+  <div class="card ai">
+    <h5><span class="dot ai"></span> O efeito composto</h5>
+    <p class="desc">Cada novo produto que entra no parque <b>melhora</b> os pacotes (correções, hardening, novos adapters). Os produtos antigos herdam de graça. É <b>economia de escala dentro da própria casa</b>.</p>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>Como ler os números deste documento</h4>
+  <p>
+    Tudo abaixo foi varrido diretamente do código (READMEs, <code>package.json</code>, <code>.env.example</code>, <code>docker-compose.yml</code>, ADRs).
+    Não há item listado por "ouvi falar" — cada ferramenta, cada pacote, cada produto tem evidência no repositório.
+    Se um item está marcado como <span class="status dev" style="padding:1px 6px;border-radius:4px;background:#1b202a;color:#94a3b8;border:1px solid #334155;font-size:10.5px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600">EM DEV</span>,
+    é porque está em desenvolvimento — vendemos o que está em <span class="status prod" style="padding:1px 6px;border-radius:4px;background:#052e24;color:#10b981;border:1px solid #065f46;font-size:10.5px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600">PRODUÇÃO</span> ou <span class="status hml" style="padding:1px 6px;border-radius:4px;background:#2a1f0a;color:#f59e0b;border:1px solid #78350f;font-size:10.5px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600">HOMOLOG</span>.
+  </p>
+</div>
+
+<!-- ============ 2. ARQUITETURA ============ -->
+<h2 id="arch">2. Arquitetura — as três camadas do parque <span class="tag">Como tudo se conecta</span></h2>
+
+<p class="lead">
+  Todo produto da NuPtechs encaixa em uma de três camadas. As camadas inferiores existem
+  para <b>servir</b> as superiores — e é isso que permite a fábrica girar.
+</p>
+
+<div class="arch3">
+
+  <div class="layer l3">
+    <div class="head">
+      <span class="num">Camada 3</span>
+      <h4>Produtos verticais — o que o cliente final compra</h4>
+      <span class="desc">Soluções de negócio para setores específicos: governo, educação, varejo, beleza, finanças.</span>
+    </div>
+    <div class="chips">
+      <span class="chip b">EasyNuP</span>
+      <span class="chip b">NuP-School</span>
+      <span class="chip b">NuP-Sales</span>
+      <span class="chip b">NuP-Salon</span>
+      <span class="chip b">NuP-Services</span>
+      <span class="chip b">nup-study</span>
+      <span class="chip b">nup-aim</span>
+      <span class="chip b">kan</span>
+      <span class="chip b">Orbit (BI)</span>
+      <span class="chip b">XLSX Suite</span>
+      <span class="chip b">NuP-Chunks</span>
+      <span class="chip b">nuptechs.com</span>
+    </div>
+  </div>
+
+  <div class="layer l2">
+    <div class="head">
+      <span class="num">Camada 2</span>
+      <h4>Plataformas internas — o que acelera os produtos</h4>
+      <span class="desc">Serviços horizontais que todo produto consome: identidade, IA, qualidade de código, observabilidade.</span>
+    </div>
+    <div class="chips">
+      <span class="chip b">NuPIdentify</span>
+      <span class="chip b">nupai-gateway</span>
+      <span class="chip b">NupTechs-AIHub</span>
+      <span class="chip b">nup-sentinel</span>
+      <span class="chip b">sentinel-probe</span>
+      <span class="chip b">sentinel-manifest</span>
+      <span class="chip b">codelens</span>
+    </div>
+  </div>
+
+  <div class="layer l1">
+    <div class="head">
+      <span class="num">Camada 1</span>
+      <h4>Plataforma core — os 27 pacotes próprios reutilizáveis</h4>
+      <span class="desc">A base sobre a qual tudo é construído. Publicada como pacotes versionados em GitHub Packages.</span>
+    </div>
+    <div class="chips">
+      <span class="chip">@nuptechs/shared-kernel</span>
+      <span class="chip">@nuptechs/platform-ports</span>
+      <span class="chip">@nuptechs/platform-adapters</span>
+      <span class="chip">@nuptechs/platform-adapters-redis</span>
+      <span class="chip">@nuptechs/platform-adapters-otel</span>
+      <span class="chip">@nuptechs/payments-core</span>
+      <span class="chip">@nuptechs/billing</span>
+      <span class="chip">@nuptechs/order-payments</span>
+      <span class="chip">@nuptechs/payment-link</span>
+      <span class="chip">@nuptechs/commerce</span>
+      <span class="chip">@nuptechs/conference</span>
+      <span class="chip">@nuptechs/conference-vue</span>
+      <span class="chip">@nuptechs/conference-hls</span>
+      <span class="chip">@nuptechs/conference-mediasoup-vue</span>
+      <span class="chip">@nuptechs/messaging-core</span>
+      <span class="chip">@nuptechs/geo</span>
+      <span class="chip">@nuptechs/delivery</span>
+      <span class="chip">@nuptechs/voice-agent-core</span>
+      <span class="chip">@nuptechs/voice-agent-react</span>
+      <span class="chip">@nuptechs/voice-agent-server</span>
+      <span class="chip">@nuptechs/outbox-worker</span>
+      <span class="chip">@nuptechs/audit-chain</span>
+      <span class="chip">@nuptechs/nupai-core</span>
+      <span class="chip">@nuptechs/nupai-tools</span>
+      <span class="chip">@nuptechs/chat-ai-bridge</span>
+      <span class="chip">@nuptechs/nup-xlsx-core</span>
+      <span class="chip">@nuptechs/nup-suite</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ 3. INFRA ============ -->
+<h2 id="infra">3. Infraestrutura — o que rodamos e contratamos <span class="tag">Stack técnico real</span></h2>
+
+<p class="lead">
+  Cada item abaixo está provado em arquivo de configuração de algum repositório.
+  É o que a empresa paga, opera e mantém. A diversidade aqui não é acidente — é
+  <b>independência de fornecedor</b>: se um provedor de IA cai, outro entra. Se um
+  PSP falhar, outro processa. Esse é o nível de resiliência embarcado.
+</p>
+
+<h3>3.1 — Inteligência Artificial e modelos de linguagem</h3>
+<table>
+  <thead>
+    <tr><th>Provedor</th><th>O que oferece</th><th>Usado em</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><b>Anthropic Claude</b></td><td>Modelos Claude (Opus, Sonnet, Haiku) — análise documental, raciocínio jurídico, code review</td><td><span class="tag-pill">easynup</span><span class="tag-pill">AIHub</span><span class="tag-pill">nupai-gateway</span><span class="tag-pill">Orbit</span><span class="tag-pill">NuP-School</span><span class="tag-pill">sentinel</span></td></tr>
+    <tr><td><b>OpenAI</b></td><td>GPT-4o, GPT-4o-mini, o1 — chat, embeddings, classificação, fallback</td><td><span class="tag-pill">easynup</span><span class="tag-pill">AIHub</span><span class="tag-pill">nupai-gateway</span></td></tr>
+    <tr><td><b>Google Gemini</b></td><td>Gemini Pro / Flash — alternativa terceira em casos multimodais</td><td><span class="tag-pill">easynup</span><span class="tag-pill">AIHub</span><span class="tag-pill">nupai-gateway</span></td></tr>
+    <tr><td><b>ElevenLabs</b></td><td>Síntese de voz realista, agentes conversacionais por telefone</td><td><span class="tag-pill">easynup</span><span class="tag-pill">NuP-School</span><span class="tag-pill">Orbit</span><span class="tag-pill">nup-platform/voice-agent</span></td></tr>
+    <tr><td><b>LiteLLM</b></td><td>Roteador unificado para 200+ modelos — abstrai provedor sob uma API</td><td><span class="tag-pill">nupai-gateway</span></td></tr>
+    <tr><td><b>Langfuse</b></td><td>Observabilidade de LLM (custo por chamada, qualidade de prompt, cache)</td><td><span class="tag-pill">nupai-gateway</span></td></tr>
+    <tr><td><b>HeyGen</b></td><td>Geração de vídeo com avatares para outreach</td><td><span class="tag-pill">Orbit</span></td></tr>
+    <tr><td><b>Azure Document Intelligence</b></td><td>Extração estruturada de documentos complexos (contratos, planilhas)</td><td><span class="tag-pill">easynup</span></td></tr>
+  </tbody>
+</table>
+
+<p class="sub">
+  Política de qualidade do <code>nupai-gateway</code>: cada chamada de IA é etiquetada como
+  <code>FAST</code> (gpt-4o-mini), <code>STANDARD</code> (gpt-4o), <code>HIGH</code> (claude-sonnet)
+  ou <code>REASONING</code> (o1-mini) — o produto não escolhe modelo, escolhe tier de qualidade. Trocar de provedor é uma linha de config.
+</p>
+
+<h3>3.2 — Bases de dados e armazenamento</h3>
+<table>
+  <thead><tr><th>Componente</th><th>O que faz</th><th>Onde roda</th></tr></thead>
+  <tbody>
+    <tr><td><b>PostgreSQL 16</b></td><td>Banco transacional principal de todos os produtos</td><td>Railway, Docker self-hosted</td></tr>
+    <tr><td><b>PGBouncer</b></td><td>Pool de conexões — sustenta picos sem derrubar o banco</td><td>easynup</td></tr>
+    <tr><td><b>Redis 7</b></td><td>Cache, sessões, fila, rate-limit, lock distribuído</td><td>Railway, Docker</td></tr>
+    <tr><td><b>Pinecone</b></td><td>Banco vetorial para busca semântica e RAG (recuperação aumentada por IA)</td><td>easynup, AIHub, nupai-gateway</td></tr>
+    <tr><td><b>AWS S3</b></td><td>Armazenamento de documentos contratuais, anexos, backups</td><td>easynup, Orbit</td></tr>
+    <tr><td><b>Cloudflare R2</b></td><td>CDN + storage S3-compatível para mídia pública</td><td>nup-messaging (anexos)</td></tr>
+    <tr><td><b>Google Cloud Storage + Vision</b></td><td>Armazenamento secundário + OCR/visão computacional</td><td>easynup, NuP-School</td></tr>
+  </tbody>
+</table>
+
+<h3>3.3 — Hospedagem e operação</h3>
+<table>
+  <thead><tr><th>Serviço</th><th>Função</th></tr></thead>
+  <tbody>
+    <tr><td><b>Railway</b></td><td>Plataforma principal de deploy automático em homologação e produção (push em <code>main</code> sobe ambiente).</td></tr>
+    <tr><td><b>Vercel</b></td><td>Hospedagem do site institucional <code>nuptechs.com</code> (Next.js + CDN global).</td></tr>
+    <tr><td><b>Cloudflare</b></td><td>DNS, proteção anti-bot (Turnstile), CDN.</td></tr>
+    <tr><td><b>Docker</b></td><td>Padrão de empacotamento em todos os serviços. Pipeline ECR para deploys versionados.</td></tr>
+    <tr><td><b>GitHub + GitHub Actions</b></td><td>Versionamento, code review, CI/CD, GitHub Packages (registry privado dos 27 pacotes).</td></tr>
+    <tr><td><b>GitHub Copilot</b></td><td>Assistente de IA acoplado ao IDE para desenvolvimento diário.</td></tr>
+    <tr><td><b>Claude Code (CLI Anthropic)</b></td><td>Agente autônomo de engenharia operando dentro do tech park — sessões paralelas mergeando código direto em produção.</td></tr>
+  </tbody>
+</table>
+
+<h3>3.4 — Comunicação com o cliente final</h3>
+<table>
+  <thead><tr><th>Canal</th><th>Provedor</th><th>Uso</th></tr></thead>
+  <tbody>
+    <tr><td>WhatsApp Business</td><td>Evolution API + Meta WhatsApp Cloud API</td><td>Notificações de contrato, lembretes, atendimento</td></tr>
+    <tr><td>Telegram</td><td>Bot API com webhook seguro</td><td>Alertas operacionais, canal alternativo</td></tr>
+    <tr><td>E-mail transacional</td><td>SendGrid + Resend + SMTP genérico</td><td>Faturas, recibos, recuperação de senha — três fornecedores como redundância</td></tr>
+    <tr><td>Voz (telefonia IA)</td><td>ElevenLabs Conversational Agents</td><td>Atendentes virtuais com personalidade própria</td></tr>
+    <tr><td>Push / in-app</td><td>WebSocket próprio (nup-messaging)</td><td>Mensageria em tempo real entre usuários da plataforma</td></tr>
+  </tbody>
+</table>
+
+<h3>3.5 — Pagamentos e cobrança</h3>
+<table>
+  <thead><tr><th>Provedor</th><th>Cobertura</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td><b>Stripe</b></td><td>Cartão internacional, assinaturas, payment links</td><td>Produção (easynup, NuP-School, nup-platform)</td></tr>
+    <tr><td><b>Mercado Pago</b></td><td>Pix, boleto, cartão BR</td><td>Adapter pronto no <code>@nuptechs/payments-core</code></td></tr>
+    <tr><td><b>Pagar.me</b></td><td>Multi-gateway BR (cartão, Pix, boleto)</td><td>Adapter pronto no <code>@nuptechs/payments-core</code></td></tr>
+    <tr><td><b>Pix nativo</b></td><td>Cobrança instantânea via banco</td><td>Suportado via adapters Mercado Pago / Pagar.me</td></tr>
+  </tbody>
+</table>
+
+<p class="sub">
+  Arquitetura de pagamentos: o produto não fala com Stripe direto. Ele fala com
+  <code>@nuptechs/payments-core</code>, que <b>roteia</b> entre PSPs. Se Stripe estiver fora,
+  Mercado Pago entra. Se uma cobrança falhar, o <b>outbox pattern</b> garante que ela
+  seja reentregue. Isso é arquitetura de cobrança que normalmente só fintech grande tem.
+</p>
+
+<h3>3.6 — Observabilidade e qualidade</h3>
+<table>
+  <thead><tr><th>Ferramenta</th><th>Função</th></tr></thead>
+  <tbody>
+    <tr><td><b>OpenTelemetry + Tempo + Prometheus + Grafana</b></td><td>Trilha completa de cada requisição (tracing distribuído), métricas em tempo real, dashboards operacionais.</td></tr>
+    <tr><td><b>Langfuse</b></td><td>Observabilidade específica de IA (custo por chamada, latência, qualidade do prompt).</td></tr>
+    <tr><td><b>Sentry</b></td><td>Captura de crashes em produção.</td></tr>
+    <tr><td><b>nup-sentinel</b> (próprio)</td><td>Análise contínua de código — detecta dead code, permissões órfãs, padrões inseguros antes do merge.</td></tr>
+    <tr><td><b>sentinel-probe</b> (próprio)</td><td>Captura runtime: o cliente reporta um bug → temos a sessão completa (browser, network, logs) correlacionada.</td></tr>
+  </tbody>
+</table>
+
+<h3>3.7 — Internacionalização e governança textual</h3>
+<table>
+  <thead><tr><th>Ferramenta</th><th>Função</th></tr></thead>
+  <tbody>
+    <tr><td><b>Tolgee</b> (self-hosted)</td><td>Gestão central de textos do sistema em 3 idiomas (pt-BR / en / es), com fluxo de aprovação para textos sensíveis (jurídicos, financeiros).</td></tr>
+    <tr><td><b>OIDC contra NuPIdentify</b></td><td>Tradutores e revisores entram com a mesma identidade dos demais usuários.</td></tr>
+    <tr><td><b>Webhook HMAC</b></td><td>Toda mudança em texto sensível entra na cadeia de auditoria — quem aprovou e quando.</td></tr>
+  </tbody>
+</table>
+
+<h3>3.8 — Integrações com órgãos públicos brasileiros</h3>
+<table>
+  <thead><tr><th>API</th><th>Uso</th></tr></thead>
+  <tbody>
+    <tr><td><b>Portal da Transparência (CGU)</b></td><td>Cruzamento de dados públicos de contratos e licitações para análise de risco do fornecedor.</td></tr>
+    <tr><td><b>Microsoft Workflow / Power Automate</b></td><td>Bridge para fluxos legados de órgãos que ainda operam nessa stack.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============ 4. PACOTES ============ -->
+<h2 id="packages">4. Componentes próprios reutilizáveis <span class="tag">A vantagem competitiva técnica</span></h2>
+
+<p class="lead">
+  São <b>27 pacotes versionados</b> publicados no registro privado da empresa (GitHub Packages).
+  Cada um resolve um problema técnico complexo de uma vez para sempre — e todos os produtos
+  da casa apenas <b>importam</b>. É a diferença entre construir uma casa com tijolos prontos
+  ou queimando a argila a cada parede.
+</p>
+
+<h3>4.1 — Kernel e infraestrutura cross-cutting</h3>
+<div class="cards two">
+  <div class="card core">
+    <h5><span class="dot core"></span> @nuptechs/shared-kernel <span class="ver">v0.2.1</span></h5>
+    <p class="desc">Primitivas de domínio compartilhadas: <b>Money</b> (sem bug de ponto flutuante), <b>CPF</b> (com validação Receita Federal), <b>Email</b>, logger estruturado, controle de idempotência.</p>
+    <span class="meta">Quem usa</span>
+    <div class="pills"><span class="pill core">billing</span><span class="pill core">payments-core</span><span class="pill core">order-payments</span><span class="pill core">conference-vue</span><span class="pill core">outbox-worker</span><span class="pill core">payment-link</span></div>
+  </div>
+  <div class="card core">
+    <h5><span class="dot core"></span> @nuptechs/platform-ports <span class="ver">v0.2.0</span></h5>
+    <p class="desc">Contratos cross-cutting (interfaces) para autenticação, lock distribuído, observabilidade, pub/sub, notificações, event bus. Zero dependências — define o "como falamos" entre módulos.</p>
+  </div>
+  <div class="card core">
+    <h5><span class="dot core"></span> @nuptechs/platform-adapters <span class="ver">v0.2.0</span></h5>
+    <p class="desc">Implementações de referência das portas acima: JWT HS256, in-memory lock/pub-sub, webhook de notificação, event bus.</p>
+  </div>
+  <div class="card core">
+    <h5><span class="dot core"></span> @nuptechs/platform-adapters-redis <span class="ver">v0.2.0</span></h5>
+    <p class="desc">Versão Redis-backed: lock distribuído com Lua (multi-réplica seguro), pub/sub canal e padrão.</p>
+  </div>
+  <div class="card core">
+    <h5><span class="dot core"></span> @nuptechs/platform-adapters-otel <span class="ver">v0.2.0</span></h5>
+    <p class="desc">Tradução da camada de observabilidade interna para OpenTelemetry — qualquer ferramenta externa (Tempo, Datadog, Honeycomb) plugga sem reescrever código.</p>
+  </div>
+  <div class="card core">
+    <h5><span class="dot core"></span> @nuptechs/outbox-worker <span class="ver">v0.1.3</span></h5>
+    <p class="desc">Worker genérico que implementa o <b>padrão Transactional Outbox</b> — garante que toda mensagem agendada (cobrança, e-mail, webhook) sai exatamente uma vez, com backoff exponencial e dead-letter.</p>
+  </div>
+  <div class="card core">
+    <h5><span class="dot core"></span> @nuptechs/audit-chain</h5>
+    <p class="desc">Cadeia HMAC tamper-proof: cada evento auditado é assinado e encadeia ao anterior. Adulterar um histórico significa quebrar matematicamente a cadeia. Compatível bit-a-bit entre Node e Java.</p>
+    <span class="meta">Quem usa</span>
+    <div class="pills"><span class="pill comm">easynup (gateway+backend)</span><span class="pill comm">nupai-gateway</span><span class="pill comm">chat-ia bridge</span></div>
+  </div>
+  <div class="card core">
+    <h5><span class="dot core"></span> @nuptechs/nup-suite <span class="ver">v0.2.0</span></h5>
+    <p class="desc">CLI orquestradora — provisiona e conecta Sentinel + Probe + Manifest + NuPIdentify em um projeto novo. <b>Onboarding técnico de produto novo em minutos</b>, não dias.</p>
+  </div>
+</div>
+
+<h3>4.2 — Pagamentos e cobrança recorrente</h3>
+<div class="cards two">
+  <div class="card ext">
+    <h5><span class="dot ext"></span> @nuptechs/payments-core <span class="ver">v0.2.1</span></h5>
+    <p class="desc">Máquina de estados de <b>PaymentIntent</b>, roteamento multi-PSP (Stripe / Mercado Pago / Pagar.me), idempotência, outbox, verificação de webhook por assinatura.</p>
+    <span class="meta">Adapters prontos</span>
+    <div class="pills"><span class="pill ext">Stripe</span><span class="pill ext">Mercado Pago</span><span class="pill ext">Pagar.me</span><span class="pill ext">Postgres</span><span class="pill ext">Redis</span></div>
+  </div>
+  <div class="card ext">
+    <h5><span class="dot ext"></span> @nuptechs/billing <span class="ver">v0.2.1</span></h5>
+    <p class="desc">Primitivas de assinatura: <b>Plan</b>, <b>Subscription</b> (com state machine), <b>Invoice</b>, dunning automático para cobrança em atraso.</p>
+    <span class="meta">Quem usa</span>
+    <div class="pills"><span class="pill comm">NuP-School</span><span class="pill comm">payment-link</span><span class="pill comm">billing-runtime</span></div>
+  </div>
+  <div class="card ext">
+    <h5><span class="dot ext"></span> @nuptechs/order-payments <span class="ver">v0.2.0</span></h5>
+    <p class="desc">Ponte entre o domínio <b>Pedido</b> e o domínio <b>Pagamento</b>. Cobre Pix, boleto, cartão. Reconciliação automática via webhook.</p>
+  </div>
+  <div class="card ext">
+    <h5><span class="dot ext"></span> @nuptechs/payment-link <span class="ver">v0.2.1</span></h5>
+    <p class="desc">URLs públicas tokenizadas para cobrança — TTL, branding multi-tenant, página pública sem dados sensíveis (PII-safe).</p>
+  </div>
+  <div class="card ext">
+    <h5><span class="dot ext"></span> @nuptechs/commerce <span class="ver">v0.1.3</span></h5>
+    <p class="desc">Primitivas de e-commerce: <b>Carrinho</b>, <b>Sessão de Checkout</b>, <b>Pedido</b>, serviço de orquestração de checkout completo.</p>
+  </div>
+</div>
+
+<h3>4.3 — Comunicação em tempo real (vídeo, chat, voz)</h3>
+<div class="cards two">
+  <div class="card comm">
+    <h5><span class="dot comm"></span> @nuptechs/conference <span class="ver">v0.1.0</span></h5>
+    <p class="desc">Videoconferência completa: vídeo, áudio, compartilhamento de tela, chat. Adapter LiveKit pronto e <b>SFU próprio em mediasoup</b> (nup-conference-sfu) substituível sem mudar uma linha do produto.</p>
+  </div>
+  <div class="card comm">
+    <h5><span class="dot comm"></span> @nuptechs/conference-vue <span class="ver">v0.1.0</span></h5>
+    <p class="desc">Composables Vue 3 + componentes headless: <code>useConference</code>, <code>useLocalParticipant</code>, <code>useChat</code>, <code>VideoTrack</code>, <code>AudioTrack</code>. Mobile-first.</p>
+  </div>
+  <div class="card comm">
+    <h5><span class="dot comm"></span> @nuptechs/conference-hls <span class="ver">v0.1.0</span></h5>
+    <p class="desc">Cliente HLS view-only para broadcast (1 transmite, milhares assistem). Funciona nativamente em iOS/Safari sem JavaScript adicional.</p>
+  </div>
+  <div class="card comm">
+    <h5><span class="dot comm"></span> @nuptechs/conference-mediasoup-vue <span class="ver">v0.1.0</span></h5>
+    <p class="desc">Cliente Vue ligado direto ao SFU mediasoup próprio, sem dependência do LiveKit. Roda em escala plena no parque.</p>
+  </div>
+  <div class="card comm">
+    <h5><span class="dot comm"></span> @nuptechs/messaging-core <span class="ver">v0.1.0</span></h5>
+    <p class="desc">Plataforma de mensageria estilo Slack/Discord: <b>DM, grupo, broadcast, sala de conferência</b>. Multi-tenant, ULID, protocolo WebSocket próprio (25 tipos de mensagem).</p>
+    <span class="meta">Já tem servidor pronto</span>
+    <div class="pills"><span class="pill comm">nup-messaging</span><span class="pill comm">FTS Postgres</span><span class="pill comm">Anexos R2</span></div>
+  </div>
+  <div class="card comm">
+    <h5><span class="dot comm"></span> @nuptechs/voice-agent-core <span class="ver">v0.9.1</span></h5>
+    <p class="desc">Orquestração de agentes de voz: ElevenLabs adapter, URL assinada para o navegador, webhook pós-chamada para auditoria do conteúdo.</p>
+  </div>
+  <div class="card comm">
+    <h5><span class="dot comm"></span> @nuptechs/voice-agent-react <span class="ver">v0.5.2</span></h5>
+    <p class="desc">Hooks React + componentes headless: <code>VoiceAgentTrigger</code> (botão topbar + atalho Ctrl+/), <code>VoiceAgentPanel</code> (drawer com transcrição ao vivo).</p>
+  </div>
+  <div class="card comm">
+    <h5><span class="dot comm"></span> @nuptechs/voice-agent-server <span class="ver">v0.9.2</span></h5>
+    <p class="desc">Router Express drop-in: expõe geração de URL assinada e endpoint de ingestão do webhook pós-chamada. Plugga em qualquer backend.</p>
+  </div>
+</div>
+
+<h3>4.4 — Geolocalização e logística</h3>
+<div class="cards two">
+  <div class="card gold">
+    <h5><span class="dot gold"></span> @nuptechs/geo <span class="ver">v0.2.0</span></h5>
+    <p class="desc">Primitivas: <b>Coordenadas</b>, <b>Endereço</b>, distância Haversine, portas para geocoder externo, utilitários de proximidade. Zero I/O no domínio.</p>
+  </div>
+  <div class="card gold">
+    <h5><span class="dot gold"></span> @nuptechs/delivery <span class="ver">v0.3.0</span></h5>
+    <p class="desc">Rastreamento de entrega em tempo real — pode rodar como <b>biblioteca</b> embarcada ou como <b>microsserviço</b> standalone, sem mudar uma linha do consumer.</p>
+  </div>
+</div>
+
+<h3>4.5 — IA e automação conversacional</h3>
+<div class="cards two">
+  <div class="card ai">
+    <h5><span class="dot ai"></span> @nuptechs/nupai-core</h5>
+    <p class="desc">Núcleo de chat com IA reutilizável entre produtos: fluxo de conversa, gerenciamento de contexto, integração com providers via <code>nupai-gateway</code>.</p>
+  </div>
+  <div class="card ai">
+    <h5><span class="dot ai"></span> @nuptechs/nupai-tools</h5>
+    <p class="desc">Coleção de <b>ferramentas</b> que o assistente de IA pode chamar — equivalente ao "function calling" mas com permissão granular e auditoria.</p>
+  </div>
+  <div class="card ai">
+    <h5><span class="dot ai"></span> @nuptechs/chat-ai-bridge</h5>
+    <p class="desc">Ponte entre o chat de produto e o motor de IA: aprovação de ações sensíveis (anti-replay), anexação de evidências, log auditável de cada decisão tomada pela IA.</p>
+  </div>
+  <div class="card ai">
+    <h5><span class="dot ai"></span> @nuptechs/nup-xlsx-core <span class="ver">v0.1.1</span></h5>
+    <p class="desc">Parser de XLSX leve, <b>edge-compatible</b> (roda em Cloudflare Workers). Zero deps em runtime.</p>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>Por que isso é uma vantagem comercial</h4>
+  <p>
+    Quando um cliente novo pede "quero pagamento por Pix + assinatura mensal + cobrança automática + página pública para pagar fora do sistema", a engenharia <b>não cotiza 6 semanas</b>. Cotiza 3 dias. Os 4 pacotes que entregam essa funcionalidade (<code>payments-core</code>, <code>billing</code>, <code>order-payments</code>, <code>payment-link</code>) já estão prontos, testados em produção em outros produtos, com tudo o que precisa.
+  </p>
+</div>
+
+<!-- ============ 5. PRODUTOS ============ -->
+<h2 id="products">5. Catálogo de produtos NuPtechs <span class="tag">O que está em campo hoje</span></h2>
+
+<p class="lead">
+  São <b>24 produtos</b> mapeados nos repositórios da empresa. Variam de produção
+  consolidada (EasyNuP, NuPIdentify) a desenvolvimento ativo. Estão agrupados por
+  setor de negócio para facilitar a conversa comercial.
+</p>
+
+<div class="barchart">
+  <h4 style="margin-top:0">Distribuição de produtos por área</h4>
+  <div class="bar"><div class="lbl">GovTech</div><div class="track"><div class="fill" style="width:8%"></div></div><div class="num">1</div></div>
+  <div class="bar"><div class="lbl">EdTech</div><div class="track"><div class="fill" style="width:16%"></div></div><div class="num">2</div></div>
+  <div class="bar"><div class="lbl">Commerce</div><div class="track"><div class="fill" style="width:16%"></div></div><div class="num">2</div></div>
+  <div class="bar comm"><div class="lbl">SaaS Vertical</div><div class="track"><div class="fill" style="width:16%"></div></div><div class="num">2</div></div>
+  <div class="bar ai"><div class="lbl">IA Platform</div><div class="track"><div class="fill" style="width:32%"></div></div><div class="num">4</div></div>
+  <div class="bar ext"><div class="lbl">DevTools</div><div class="track"><div class="fill" style="width:32%"></div></div><div class="num">4</div></div>
+  <div class="bar opt"><div class="lbl">Office/XLSX</div><div class="track"><div class="fill" style="width:40%"></div></div><div class="num">5</div></div>
+  <div class="bar"><div class="lbl">Plataforma Core</div><div class="track"><div class="fill" style="width:8%"></div></div><div class="num">1</div></div>
+  <div class="bar"><div class="lbl">Identity</div><div class="track"><div class="fill" style="width:8%"></div></div><div class="num">1</div></div>
+  <div class="bar comm"><div class="lbl">MarTech / Site</div><div class="track"><div class="fill" style="width:8%"></div></div><div class="num">1</div></div>
+  <div class="bar ai"><div class="lbl">BI / IoT</div><div class="track"><div class="fill" style="width:16%"></div></div><div class="num">1</div></div>
+</div>
+
+<h3>5.1 — Produto bandeira (produção consolidada)</h3>
+<div class="prod-grid">
+
+  <div class="prod tag-core">
+    <div class="name">EasyNuP</div>
+    <div class="domain">GovTech &middot; Contratos TI Setor Público</div>
+    <div class="desc">Plataforma de gestão de contratos e atestos para órgãos públicos sob Lei 14.133/2021. Processa PDFs, extrai cláusulas, executa atestos com IA, calcula deduções, integra com Portal da Transparência. <b>Vue 3 + Spring Boot 21 + PostgreSQL + Pinecone.</b></div>
+    <div class="foot">
+      <span class="status prod">Produção</span>
+      <span class="tag-pill">392 PRs mergeados</span>
+      <span class="tag-pill">38 ADRs</span>
+    </div>
+  </div>
+
+</div>
+
+<h3>5.2 — Plataformas internas (camada 2)</h3>
+<div class="prod-grid">
+
+  <div class="prod tag-core">
+    <div class="name">NuPIdentify</div>
+    <div class="domain">Identity &middot; Provedor OIDC próprio</div>
+    <div class="desc">Servidor OIDC + SAML proprietário da empresa. Autentica todos os produtos da casa. PKCE, 2FA, ReBAC estilo Zanzibar, multi-tenant. Operando em <code>identify.nuptechs.com</code>.</div>
+    <div class="foot"><span class="status prod">Produção</span><span class="tag-pill">4+ apps clientes</span></div>
+  </div>
+
+  <div class="prod tag-ai">
+    <div class="name">nupai-gateway</div>
+    <div class="domain">IA Platform &middot; Gateway agnóstico</div>
+    <div class="desc">Gateway provider-agnostic para IA. Abstrai OpenAI / Anthropic / Gemini sob uma única API. Inclui guardrails (LLM Guard), observabilidade (Langfuse), durable workflows (Inngest), suporte a MCP.</div>
+    <div class="foot"><span class="status prod">Produção</span><span class="tag-pill">v1.0.0</span></div>
+  </div>
+
+  <div class="prod tag-ai">
+    <div class="name">NupTechs-AIHub</div>
+    <div class="domain">IA Platform &middot; Análise documental</div>
+    <div class="desc">Plataforma central de IA. FastAPI + React 19. Extração de PDF/Word/OCR, análise de riscos contratuais, contagem de pontos de função, code review, flashcards, mapas mentais, geração de questões estilo concurso.</div>
+    <div class="foot"><span class="status hml">Homolog</span></div>
+  </div>
+
+  <div class="prod tag-dev">
+    <div class="name">nup-sentinel</div>
+    <div class="domain">DevTools &middot; Code Intelligence</div>
+    <div class="desc">Análise contínua de qualidade de código consolidando AST, schema, permissões, runtime e embeddings. Detecta dead code, orphans, padrões adversariais, drift de permissão. Publicado como pacote npm próprio.</div>
+    <div class="foot"><span class="status prod">Produção</span><span class="tag-pill">131 PRs</span></div>
+  </div>
+
+  <div class="prod tag-dev">
+    <div class="name">nup-sentinel-probe</div>
+    <div class="domain">DevTools &middot; Runtime debug</div>
+    <div class="desc">Captura runtime: instrumenta navegador (Playwright), rede (proxy), logs. Correlaciona eventos por request-id e janela temporal. 9 pacotes interligados (browser-agent, network-interceptor, correlation-engine, SDK, CLI, server, dashboard).</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+  <div class="prod tag-dev">
+    <div class="name">nup-sentinel-manifest</div>
+    <div class="domain">DevTools &middot; Análise de schema</div>
+    <div class="desc">Analyzer estático que inventaria endpoints, permissões, campos de schema, decoradores de role/auth. Engine Java próprio para repos JVM. Emite Findings v2 ao correlator central.</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+  <div class="prod tag-dev">
+    <div class="name">codelens</div>
+    <div class="domain">DevTools &middot; Documentação executiva</div>
+    <div class="desc">Renderiza grafos de dependência e mapas de arquitetura para <b>não-desenvolvedores</b>. Explicações ancoradas em código com validação de citação. CLI que abre navegador local.</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+  <div class="prod tag-core">
+    <div class="name">nup-platform</div>
+    <div class="domain">Plataforma Core &middot; Monorepo</div>
+    <div class="desc">Casa dos 27 pacotes <code>@nuptechs/*</code> publicados. Turborepo, Biome, Changesets. Publicação automatizada via GitHub Actions. É a "fábrica da fábrica".</div>
+    <div class="foot"><span class="status prod">Produção</span><span class="tag-pill">67 PRs</span></div>
+  </div>
+
+</div>
+
+<h3>5.3 — Produtos verticais (camada 3)</h3>
+<div class="prod-grid">
+
+  <div class="prod tag-edu">
+    <div class="name">NuP-School</div>
+    <div class="domain">EdTech &middot; Gestão escolar</div>
+    <div class="desc">Aplicação de gestão para escolas: dashboard, eventos, contatos, faltas, comunicação com responsáveis. Já roda com módulo de aula ao vivo via SFU próprio. Cobrança via Stripe + <code>@nuptechs/billing</code>.</div>
+    <div class="foot"><span class="status prod">Produção</span></div>
+  </div>
+
+  <div class="prod tag-edu">
+    <div class="name">nup-study</div>
+    <div class="domain">EdTech &middot; Preparação para concursos</div>
+    <div class="desc">Estudos adaptativos com IA. Geração de perguntas estilo concurso, flashcards, análise de banca, métricas de produtividade. Integra Claude + Gemini + Pinecone (RAG sobre material do candidato) + ElevenLabs (áudio).</div>
+    <div class="foot"><span class="status prod">Produção</span></div>
+  </div>
+
+  <div class="prod tag-biz">
+    <div class="name">NuP-Sales</div>
+    <div class="domain">Commerce &middot; Varejo</div>
+    <div class="desc">Aplicação completa de varejo / e-commerce com 3 perfis (Proprietário, Funcionário, Cliente). Backend Express + React web + React Native mobile. Conectado ao <code>@nuptechs/delivery</code> e <code>@nuptechs/payments-core</code>.</div>
+    <div class="foot"><span class="status prod">Produção</span></div>
+  </div>
+
+  <div class="prod tag-biz">
+    <div class="name">NuP-Services</div>
+    <div class="domain">SaaS Vertical &middot; Serviços B2B</div>
+    <div class="desc">Plataforma de serviços B2B / marketplace de prestadores. Mesmo padrão técnico de NuP-Sales (Drizzle, Express, React).</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+  <div class="prod tag-biz">
+    <div class="name">NuP-Salon</div>
+    <div class="domain">SaaS Vertical &middot; Salões de beleza</div>
+    <div class="desc">App React Native para gerenciamento de salões: agenda, comissão, clientes recorrentes. Compatível com cobrança via Pix nativo.</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+  <div class="prod tag-ai">
+    <div class="name">nup-aim</div>
+    <div class="domain">EdTech &middot; Aprendizado adaptativo</div>
+    <div class="desc">Plataforma de aprendizado adaptativo: Anthropic + Gemini + Pinecone + ElevenLabs. Cria trilhas personalizadas para o aluno.</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+  <div class="prod tag-biz">
+    <div class="name">kan</div>
+    <div class="domain">Productivity &middot; Gestão de projetos</div>
+    <div class="desc">Kanban board / gestão de tarefas. Stack Express + React + Postgres + Drizzle. Auth via NuPIdentify próprio.</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+  <div class="prod tag-ai">
+    <div class="name">Orbit</div>
+    <div class="domain">BI &middot; Inteligência de negócios</div>
+    <div class="desc">Dashboard de BI integrando HeyGen (vídeos de outreach), Instantly.ai (email outreach), Google/LinkedIn/Meta OAuth. Hospedado em Vercel.</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+  <div class="prod tag-ai">
+    <div class="name">NuP-Chunks</div>
+    <div class="domain">RAG &middot; Embeddings</div>
+    <div class="desc">Plataforma de chunking + embeddings para qualquer RAG. Next.js + Mermaid para visualização das relações entre chunks.</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+  <div class="prod tag-off">
+    <div class="name">nup-xlsx-core</div>
+    <div class="domain">Office &middot; Parser Excel</div>
+    <div class="desc">Parser XLSX leve, edge-compatible (roda em Cloudflare Workers). Publicado como pacote npm. <b>Zero dependências em runtime.</b></div>
+    <div class="foot"><span class="status prod">Produção</span></div>
+  </div>
+
+  <div class="prod tag-off">
+    <div class="name">nup-xlsx-editor</div>
+    <div class="domain">Office &middot; Editor Excel web</div>
+    <div class="desc">Editor de planilhas Excel em browser. Express + React + Radix UI.</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+  <div class="prod tag-off">
+    <div class="name">nup-xlsx-preview</div>
+    <div class="domain">Office &middot; Visualização</div>
+    <div class="desc">Pré-visualização de planilhas (compartilhamento read-only). Mesma stack do editor.</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+  <div class="prod tag-off">
+    <div class="name">nup-xlsx-tokens</div>
+    <div class="domain">Office &middot; Design system</div>
+    <div class="desc">Biblioteca de design tokens para a suíte XLSX (cores, espaçamento, tipografia). Garante consistência visual entre editor e preview.</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+  <div class="prod tag-edu">
+    <div class="name">nuptechs.com</div>
+    <div class="domain">MarTech &middot; Site institucional</div>
+    <div class="desc">Site público da empresa. Next.js + Vercel. Schema markup (Organization, Service, SoftwareApplication), agendamento inteligente (Google Calendar / Calendly / Cal.com).</div>
+    <div class="foot"><span class="status hml">Homolog</span></div>
+  </div>
+
+  <div class="prod tag-dev">
+    <div class="name">nuptechs-nfc</div>
+    <div class="domain">IoT &middot; Integração NFC</div>
+    <div class="desc">Integração NFC para pagamentos por aproximação / autenticação por crachá.</div>
+    <div class="foot"><span class="status dev">Em dev</span></div>
+  </div>
+
+</div>
+
+<!-- ============ 6. CAPACIDADES ============ -->
+<h2 id="capabilities">6. Capacidades já construídas <span class="tag">O que vendemos sem refazer</span></h2>
+
+<p class="lead">
+  Aqui está o ponto central deste documento. Cada capacidade abaixo foi <b>resolvida uma vez</b>
+  pela engenharia e está disponível para qualquer produto novo. Quando um cliente pedir
+  "preciso disso aqui", a resposta é <b>"já temos"</b>, não <b>"vamos pesquisar"</b>.
+</p>
+
+<h3>6.1 — Identidade, segurança e auditoria</h3>
+<table>
+  <thead><tr><th>Capacidade</th><th>O que entrega</th><th>Onde está</th></tr></thead>
+  <tbody>
+    <tr><td><b>OIDC + PKCE com 2FA</b></td><td>Login enterprise-grade com segundo fator, recuperação de senha, sessão multi-dispositivo</td><td>NuPIdentify</td></tr>
+    <tr><td><b>Multi-tenant com DataScope</b></td><td>Um banco, múltiplas organizações isoladas — toda query passa pelo escopo da organização do usuário automaticamente</td><td>NuPIdentify + Java SDK + Node SDK</td></tr>
+    <tr><td><b>ReBAC estilo Zanzibar</b></td><td>Permissões baseadas em relação ("usuário X é gestor do contrato Y") — mais rico que RBAC tradicional</td><td>NuPIdentify</td></tr>
+    <tr><td><b>Cadeia de auditoria HMAC tamper-proof</b></td><td>Cada evento auditado é assinado e encadeia com o anterior. Alterar histórico é matematicamente detectável</td><td><code>@nuptechs/audit-chain</code></td></tr>
+    <tr><td><b>Hardening de webhook</b></td><td>Assinatura HMAC, anti-replay, idempotência, validação CIDR, dashboard de eventos suspeitos</td><td>easynup ADR-014 + NuPIdentify</td></tr>
+    <tr><td><b>Approval workflow para textos sensíveis</b></td><td>Mudanças em textos jurídicos/financeiros exigem aprovação de outra pessoa (two-eyes principle)</td><td>easynup ADR-036</td></tr>
+  </tbody>
+</table>
+
+<h3>6.2 — Pagamentos, cobrança e e-commerce</h3>
+<table>
+  <thead><tr><th>Capacidade</th><th>O que entrega</th><th>Onde está</th></tr></thead>
+  <tbody>
+    <tr><td><b>Pagamento multi-PSP (Stripe / Mercado Pago / Pagar.me)</b></td><td>Falha de um PSP cai pra outro automaticamente</td><td><code>@nuptechs/payments-core</code></td></tr>
+    <tr><td><b>Pix, boleto, cartão</b></td><td>Cobertura BR completa via adapters dos PSPs</td><td><code>@nuptechs/order-payments</code></td></tr>
+    <tr><td><b>Assinatura recorrente + dunning</b></td><td>Cobra todo mês, lida com cartão recusado, manda lembrete, suspende serviço se necessário</td><td><code>@nuptechs/billing</code></td></tr>
+    <tr><td><b>Link público de pagamento</b></td><td>URL tokenizada que o cliente pode pagar sem entrar no sistema. Branding customizável.</td><td><code>@nuptechs/payment-link</code></td></tr>
+    <tr><td><b>Checkout completo (carrinho + sessão)</b></td><td>E-commerce do zero ao checkout coberto</td><td><code>@nuptechs/commerce</code></td></tr>
+    <tr><td><b>Outbox transacional</b></td><td>Cobrança nunca se perde — se falha, reentrega com backoff exponencial</td><td><code>@nuptechs/outbox-worker</code></td></tr>
+  </tbody>
+</table>
+
+<h3>6.3 — Comunicação em tempo real</h3>
+<table>
+  <thead><tr><th>Capacidade</th><th>O que entrega</th><th>Onde está</th></tr></thead>
+  <tbody>
+    <tr><td><b>Videoconferência multi-participante</b></td><td>Vídeo + áudio + tela compartilhada + chat. SFU próprio em mediasoup para escala.</td><td><code>@nuptechs/conference</code> + nup-conference-sfu</td></tr>
+    <tr><td><b>Broadcast estilo Twitch (1 → milhares)</b></td><td>Aula ao vivo, evento corporativo — distribuição via HLS, funciona em qualquer browser/iOS</td><td><code>@nuptechs/conference-hls</code></td></tr>
+    <tr><td><b>Chat tipo Slack/Discord multi-tenant</b></td><td>DM, grupo, broadcast, sala. Mensagem fica salva, indexada (FTS Postgres), com anexos no R2.</td><td><code>@nuptechs/messaging-core</code> + nup-messaging</td></tr>
+    <tr><td><b>Agente de voz conversacional</b></td><td>O cliente fala com uma IA de voz real (ElevenLabs). Transcrição em tempo real, webhook pós-chamada com resumo auditável.</td><td><code>@nuptechs/voice-agent-*</code></td></tr>
+    <tr><td><b>WhatsApp Business / Telegram</b></td><td>Envio e recebimento de mensagens em canais de cliente final</td><td>easynup integration</td></tr>
+    <tr><td><b>E-mail transacional com 3 fornecedores</b></td><td>SendGrid + Resend + SMTP — se um cair, o outro entrega</td><td>easynup outbound</td></tr>
+  </tbody>
+</table>
+
+<h3>6.4 — Inteligência artificial aplicada</h3>
+<table>
+  <thead><tr><th>Capacidade</th><th>O que entrega</th><th>Onde está</th></tr></thead>
+  <tbody>
+    <tr><td><b>Chat com IA dentro do produto + tools auditadas</b></td><td>O usuário conversa com o sistema; a IA pode executar ações com aprovação humana e log auditável</td><td><code>@nuptechs/chat-ai-bridge</code> + easynup /chat-ia</td></tr>
+    <tr><td><b>Extração de PDF/Word/imagem com OCR</b></td><td>Joga o contrato em PDF, sai estruturado em JSON</td><td>NupTechs-AIHub + Azure Doc Intelligence</td></tr>
+    <tr><td><b>Análise de risco contratual</b></td><td>IA lê cláusula e aponta riscos jurídicos, financeiros, operacionais</td><td>NupTechs-AIHub + easynup</td></tr>
+    <tr><td><b>Spreadsheet Mapper IA</b></td><td>Cliente sobe planilha qualquer; IA infere o mapeamento de colunas; sistema aprende a partir da 2ª vez (fingerprint determinístico)</td><td>easynup ADR-021</td></tr>
+    <tr><td><b>RAG (busca semântica em documentos)</b></td><td>Vetoriza documentos no Pinecone; o usuário pergunta em linguagem natural; sistema retorna trecho relevante com referência</td><td>easynup + nupai-gateway + NupTechs-AIHub</td></tr>
+    <tr><td><b>Roteamento de qualidade por tier</b></td><td>Tarefa rápida vai pro mini, complexa pro Claude Sonnet, raciocínio pro o1. Sem reescrever código.</td><td>nupai-gateway</td></tr>
+    <tr><td><b>Geração de questões / flashcards / mapas mentais</b></td><td>Material de estudo gerado automaticamente a partir do conteúdo bruto</td><td>NupTechs-AIHub + nup-study</td></tr>
+    <tr><td><b>Code review automático</b></td><td>IA revisa pull request e aponta bugs, vulnerabilidades, padrões inseguros</td><td>NupTechs-AIHub + nup-sentinel</td></tr>
+  </tbody>
+</table>
+
+<h3>6.5 — Workflow, decisão e conformidade</h3>
+<table>
+  <thead><tr><th>Capacidade</th><th>O que entrega</th><th>Onde está</th></tr></thead>
+  <tbody>
+    <tr><td><b>Motor DMN nativo (OMG 1.4)</b></td><td>Regras de negócio em formato de tabela executável. Cobre todas as Hit Policies (PRIORITY, RULE_ORDER, COLLECT etc.) e aggregations.</td><td>easynup ADR-015 / 018 / 019 / 024</td></tr>
+    <tr><td><b>FEEL Engine 100% spec</b></td><td>Expressões avaliáveis nas regras DMN com cobertura total do padrão</td><td>easynup ADR-013</td></tr>
+    <tr><td><b>BKM + Decision Service (DMN avançado)</b></td><td>Decisão composta: várias regras em cadeia, com requirements explícitos</td><td>easynup ADR-019 / 024</td></tr>
+    <tr><td><b>Schema-as-Code com versionamento Git-like</b></td><td>Estrutura do sistema (formulários, fluxos, regras) editada como código, com draft / versão / rollback</td><td>easynup ADR-006 / 028 / 029 / 030</td></tr>
+    <tr><td><b>Editor visual de workflow sobre Schema-as-Code</b></td><td>Não-técnico arrasta blocos e desenha o processo. Por baixo é Schema-as-Code versionado.</td><td>easynup ADR-031</td></tr>
+    <tr><td><b>Compliance Engine — Atesto Inteligente</b></td><td>IA atesta automaticamente recebimento de serviço comparando contrato vs evidência, com confiança ajustável e revisão humana opcional</td><td>easynup ADR-027</td></tr>
+    <tr><td><b>Painel de Auditoria estado-da-arte</b></td><td>13 ondas roadmap, 5 telas hierárquicas (Gestão 360 C-level + 4 áreas), stack Apache ECharts</td><td>easynup ADR-037</td></tr>
+    <tr><td><b>Connector Hub (mini-Zapier vertical)</b></td><td>Integrações pré-configuradas com sistemas legados sem código (Microsoft Workflow, Power Automate, etc.)</td><td>easynup ADR-022</td></tr>
+  </tbody>
+</table>
+
+<h3>6.6 — Internacionalização e governança</h3>
+<table>
+  <thead><tr><th>Capacidade</th><th>O que entrega</th></tr></thead>
+  <tbody>
+    <tr><td><b>i18n Tolgee self-hosted multi-tenant</b></td><td>3 idiomas configurados (pt-BR / en / es), tradução automática via LLM, override por cliente, modo dev com edição in-context (Alt+click)</td></tr>
+    <tr><td><b>MessageSource para textos outbound (e-mail / PDF / push)</b></td><td>Mesma centralização para conteúdos que saem para o cliente final, não só UI</td></tr>
+    <tr><td><b>Padronização de respostas API</b></td><td>Contrato canônico <code>{success, data}</code> ou <code>{success, error}</code> nas três camadas — 5 regras de lint promovidas a ERROR</td></tr>
+    <tr><td><b>Glossário e governança textual</b></td><td>ADR-009 — termos do domínio público têm definição única, validada por dicionário do projeto</td></tr>
+  </tbody>
+</table>
+
+<h3>6.7 — Observabilidade e qualidade</h3>
+<table>
+  <thead><tr><th>Capacidade</th><th>O que entrega</th></tr></thead>
+  <tbody>
+    <tr><td><b>Tracing distribuído ponta a ponta</b></td><td>OpenTelemetry instrumenta gateway Node e backend Java. Uma requisição é seguida do click ao banco.</td></tr>
+    <tr><td><b>Métricas Prometheus + Dashboards Grafana</b></td><td>4 grupos de métricas, 12 painéis pré-configurados, 5 regras de alerta</td></tr>
+    <tr><td><b>Probe de runtime correlacionado por sessão</b></td><td>Cliente clica no botão "reportar problema" → temos a sessão inteira (vídeo do browser, network, logs do servidor) correlacionada por session ID</td></tr>
+    <tr><td><b>Análise de código contínua</b></td><td>nup-sentinel + nup-sentinel-manifest detectam regressões antes do merge</td></tr>
+    <tr><td><b>Auto-deploy em homologação a cada merge em main</b></td><td>Railway redeploya automaticamente. Bug em produção via revert por PR.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============ 7. GOVERNANÇA ============ -->
+<h2 id="governance">7. Governança arquitetural <span class="tag">38 ADRs documentadas</span></h2>
+
+<p class="lead">
+  Toda decisão arquitetural relevante na empresa é documentada como <b>ADR</b> (Architecture Decision Record).
+  Não é processo burocrático — é o que permite uma sessão de IA entrar em qualquer projeto e operar com contexto completo.
+  Abaixo, a lista das 38 ADRs ativas no produto bandeira (EasyNuP), agrupadas por área.
+</p>
+
+<div class="cards two">
+  <div class="card core">
+    <h5><span class="dot core"></span> Fundação técnica</h5>
+    <ul>
+      <li><b>ADR-001</b> — Port/Adapter Pattern</li>
+      <li><b>ADR-002</b> — Repository Pattern (Node SQL)</li>
+      <li><b>ADR-003</b> — Naming Convention</li>
+      <li><b>ADR-005</b> — Framework de Documentação como Fonte Única</li>
+      <li><b>ADR-009</b> — Governança de Qualidade Textual + Glossário</li>
+    </ul>
+  </div>
+  <div class="card ext">
+    <h5><span class="dot ext"></span> Núcleo financeiro</h5>
+    <ul>
+      <li><b>ADR-007</b> — Roadmap em 5 fases</li>
+      <li><b>ADR-008</b> — Fase 1: Fundação sem rachadura</li>
+      <li><b>ADR-012</b> — Fase 2: Paridade com TOTVS / Sponte</li>
+    </ul>
+  </div>
+  <div class="card ai">
+    <h5><span class="dot ai"></span> Motor de decisão DMN</h5>
+    <ul>
+      <li><b>ADR-013</b> — FEEL Engine 100% OMG spec</li>
+      <li><b>ADR-015</b> — Hit Policies + COLLECT aggregations nativo</li>
+      <li><b>ADR-018</b> — Onda B: data types, grammar, boxed Context/List</li>
+      <li><b>ADR-019</b> — Onda C: BKM + Decision Service + DRD</li>
+      <li><b>ADR-023</b> — Alinhamento UI ↔ backend</li>
+      <li><b>ADR-024</b> — Onda D: UI completa BKM + Decision Service</li>
+    </ul>
+  </div>
+  <div class="card comm">
+    <h5><span class="dot comm"></span> Operação e conformidade</h5>
+    <ul>
+      <li><b>ADR-010</b> — Arcabouço expandido motor operacional</li>
+      <li><b>ADR-011</b> — IMR como evolução de SLA</li>
+      <li><b>ADR-014</b> — Webhook Hardening</li>
+      <li><b>ADR-016</b> — Onda 4: Comitê L3, Diário Oficial, integrações</li>
+      <li><b>ADR-017</b> — Onda 5: aprendizado contínuo, precedentes, marketplace</li>
+      <li><b>ADR-027</b> — Compliance Engine: atesto inteligente</li>
+      <li><b>Auditoria</b> — Unificação tamper-proof HMAC</li>
+    </ul>
+  </div>
+  <div class="card gold">
+    <h5><span class="dot gold"></span> Plataforma de configuração</h5>
+    <ul>
+      <li><b>ADR-006</b> — Schema-as-Code versionado, FEEL ampliado, configurabilidade em 3 níveis</li>
+      <li><b>ADR-020</b> — Execution Intelligence Layer</li>
+      <li><b>ADR-021</b> — Spreadsheet Mapper IA</li>
+      <li><b>ADR-022</b> — Connector Hub (mini-Zapier)</li>
+      <li><b>ADR-028</b> — Schema-as-Code como fonte única de escrita</li>
+      <li><b>ADR-029</b> — Polimento pós-auditoria</li>
+      <li><b>ADR-030</b> — Escopo abaixo de Organization + AI_PIPELINE</li>
+      <li><b>ADR-031</b> — Editor visual de workflow sobre Schema-as-Code</li>
+      <li><b>ADR-032</b> — AI Pipeline state-of-the-art roadmap</li>
+    </ul>
+  </div>
+  <div class="card opt">
+    <h5><span class="dot opt"></span> Mensagens e i18n</h5>
+    <ul>
+      <li><b>ADR-025</b> — i18n automação completa</li>
+      <li><b>ADR-033</b> — Padronização de mensagens de retorno (7 fases)</li>
+      <li><b>ADR-034</b> — Tolgee multi-tenant</li>
+      <li><b>ADR-035</b> — Textos outbound via MessageSource</li>
+      <li><b>ADR-036</b> — Approval workflow textos sensíveis</li>
+      <li><b>ADR-037</b> — Painel de auditoria estado-da-arte (13 ondas)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>O que isso prova para o gestor comercial</h4>
+  <p>
+    Quando um cliente perguntar "como vocês decidem o que vai pra produto?", a resposta tem documentação.
+    Quando um cliente perguntar "vocês têm processo de governança?", a resposta tem 38 documentos versionados.
+    Quando um cliente perguntar "o que acontece se um engenheiro sair?", a resposta é "o conhecimento está no Git".
+    Isso é o que diferencia uma <b>fábrica</b> de um <b>freelancer escalado</b>.
+  </p>
+</div>
+
+<!-- ============ 8. CONCLUSÃO ============ -->
+<h2 id="conclusao">8. Em uma frase <span class="tag">O que isso significa comercialmente</span></h2>
+
+<p class="lead">
+  O gestor comercial não está vendendo "um produto da NuPtechs".
+  Está vendendo <b>acesso a um parque de software</b> com 24 produtos, 27 componentes próprios reutilizáveis,
+  38 decisões arquiteturais documentadas, integração nativa com os melhores fornecedores de IA do mundo,
+  e uma operação que entrega sob revisão automatizada por agentes de engenharia 24/7.
+</p>
+
+<div class="cards three">
+  <div class="card core">
+    <h5><span class="dot core"></span> Para o cliente PME</h5>
+    <p class="desc">Tem cobrança recorrente, e-commerce, chat, e-mail e WhatsApp prontos. Plugar em dias.</p>
+  </div>
+  <div class="card comm">
+    <h5><span class="dot comm"></span> Para o cliente enterprise</h5>
+    <p class="desc">Tem SSO próprio, auditoria HMAC, multi-tenant, ADRs documentadas, observabilidade nível Datadog mas independente de fornecedor.</p>
+  </div>
+  <div class="card ai">
+    <h5><span class="dot ai"></span> Para o cliente governo</h5>
+    <p class="desc">Tem EasyNuP em produção, Lei 14.133, integração Portal da Transparência, atesto com IA, painel de auditoria com 13 ondas em roadmap.</p>
+  </div>
+</div>
+
+<p class="quote">
+  "Tudo o que está nesse documento é código aberto dentro da casa.
+  Cada repositório, cada pacote, cada ADR pode ser auditado por qualquer engenheiro novo na primeira semana.
+  Não há caixa-preta — há disciplina."
+</p>
+
+<div class="foot-meta">
+  Documento gerado em 23 de maio de 2026, a partir da varredura direta dos 24+ repositórios ativos da NuPtechs.<br>
+  Fonte primária: <code>README.md</code>, <code>package.json</code>, <code>.env.example</code>, <code>docker-compose.yml</code>, <code>docs/adr/</code> de cada projeto.<br>
+  Yuri Francis — yfaf01@gmail.com
+</div>
+
+</body>
+</html>

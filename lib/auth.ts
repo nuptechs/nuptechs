@@ -208,8 +208,13 @@ export async function destroySession() {
 // nuptechs:admin   → Full access (settings, whatsapp, audit, downloads)
 // nuptechs:content → Content management (leads, schedules, blog, analytics)
 // nuptechs:viewer  → Read-only (dashboard, analytics)
+// nuptechs:infra   → View NuPtechs infrastructure presentation (Infra NuPtechs page)
 
-export type NuptechsPermission = "nuptechs:admin" | "nuptechs:content" | "nuptechs:viewer";
+export type NuptechsPermission =
+  | "nuptechs:admin"
+  | "nuptechs:content"
+  | "nuptechs:viewer"
+  | "nuptechs:infra";
 
 export function hasPermission(
   sessionPermissions: string[],
