@@ -6,11 +6,15 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   LayoutGrid, Inbox, Calendar, MessageCircle, CreditCard,
   PenSquare, BarChart3, Download, ShieldAlert, Settings,
-  LogOut, ArrowLeft, FileText, X,
+  LogOut, ArrowLeft, FileText, Server, X,
 } from "lucide-react";
 import { SIDEBAR_TOGGLE_EVENT } from "./MobileMenuButton";
 
-type RequiredPermission = "nuptechs:admin" | "nuptechs:content" | "nuptechs:viewer";
+type RequiredPermission =
+  | "nuptechs:admin"
+  | "nuptechs:content"
+  | "nuptechs:viewer"
+  | "nuptechs:infra";
 
 interface NavItem {
   href: string;
@@ -186,6 +190,12 @@ export function AdminSidebar() {
     {
       title: "Sistema",
       items: [
+        {
+          href: "/admin/infra",
+          label: "Infra NuPtechs",
+          icon: <Server {...iconProps} />,
+          requiredPermission: "nuptechs:infra",
+        },
         {
           href: "/admin/audit",
           label: "Auditoria",
