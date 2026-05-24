@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getSession, hasPermission } from "@/lib/auth";
+import { getSession, hasPermission } from "../../../lib/auth";
 import { AdminPageHeader } from "../components/AdminPageHeader";
 
 export const metadata = { title: "Infra NuPtechs — Admin" };
