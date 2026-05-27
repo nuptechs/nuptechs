@@ -231,6 +231,11 @@
   .callout p{margin:0;color:var(--ink-dim);font-size:15px;line-height:1.6}
   .callout p strong{color:var(--ink);font-weight:600}
 
+  .entenda-mais{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:12.5px;color:var(--ink-soft);text-decoration:none;padding:6px 0;border-bottom:1px dashed var(--line3);transition:all 0.2s;letter-spacing:0.02em}
+  .entenda-mais:hover{color:var(--core);border-bottom-color:var(--core);text-decoration:none}
+  .entenda-mais .arr{transition:transform 0.2s}
+  .entenda-mais:hover .arr{transform:translateX(3px)}
+
   .ancora-tcu{display:inline-block;font-size:11px;background:var(--panel2);border:1px solid var(--line);color:var(--ink-dim);padding:3px 9px;border-radius:6px;letter-spacing:0.03em;margin:0 4px 4px 0;font-weight:500}
   .ancora-tcu.tcu{color:var(--gold);border-color:var(--gold-br);background:var(--gold-bg)}
   .ancora-tcu.lei{color:var(--core);border-color:var(--core-br);background:var(--core-bg)}
@@ -635,6 +640,9 @@
         </div>
       </div>
     </div>
+    <div style="padding:16px 36px 24px;border-top:1px solid var(--line2);text-align:right">
+      <a href="/easynup/setup" class="entenda-mais">Entenda um pouco mais sobre o Setup <span class="arr">→</span></a>
+    </div>
   </div>
 </section>
 
@@ -789,6 +797,9 @@
         </div>
       </div>
     </div>
+    <div style="padding:16px 36px 24px;border-top:1px solid var(--line2);text-align:right">
+      <a href="/easynup/execucao" class="entenda-mais">Entenda um pouco mais sobre a Execução <span class="arr">→</span></a>
+    </div>
   </div>
 </section>
 
@@ -934,6 +945,9 @@
         </div>
       </div>
     </div>
+    <div style="padding:16px 36px 24px;border-top:1px solid var(--line2);text-align:right">
+      <a href="/easynup/auditoria" class="entenda-mais">Entenda um pouco mais sobre a Auditoria <span class="arr">→</span></a>
+    </div>
   </div>
 </section>
 
@@ -983,6 +997,9 @@
         <span class="anchor">Compliance Engine · ADR-027</span>
       </div>
     </div>
+    <div style="padding:14px 32px 22px;border-top:1px solid var(--line2);text-align:right">
+      <a href="/easynup/pilares/arcabouco-legal" class="entenda-mais">Entenda um pouco mais sobre o Arcabouço Legal <span class="arr">→</span></a>
+    </div>
   </div>
 
   <!-- PILAR 2 -->
@@ -1024,6 +1041,9 @@
         <span class="anchor">AI Pipeline Examples + ConfigVersion</span>
       </div>
     </div>
+    <div style="padding:14px 32px 22px;border-top:1px solid var(--line2);text-align:right">
+      <a href="/easynup/pilares/ia-cirurgica" class="entenda-mais">Entenda um pouco mais sobre a IA aplicada <span class="arr">→</span></a>
+    </div>
   </div>
 
   <!-- PILAR 3 -->
@@ -1061,9 +1081,12 @@
       </div>
       <div class="item">
         <h5>Segurança operacional · observabilidade</h5>
-        <p>Tempo + Prometheus + Grafana + Loki nativos. Métricas custom por rota. AlertManager com regras. Sentinel Probe rastreia sessão do navegador até o banco. Quando algo quebra, equipe sabe em segundos onde foi. Não é "preto e branco" — é raio-x.</p>
-        <span class="anchor">Observability stack · ADR-020</span>
+        <p>Métricas Prometheus custom por rota (audit.hmac.write.success, .failure, .duration com percentis 0.5/0.95/0.99). Sentinel Probe rastreia sessão do navegador até o banco com correlação cross-process. Quando algo quebra, equipe sabe em segundos onde foi.</p>
+        <span class="anchor">métricas HMAC · Sentinel Probe</span>
       </div>
+    </div>
+    <div style="padding:14px 32px 22px;border-top:1px solid var(--line2);text-align:right">
+      <a href="/easynup/pilares/seguranca" class="entenda-mais">Entenda um pouco mais sobre Segurança <span class="arr">→</span></a>
     </div>
   </div>
 
@@ -1102,9 +1125,12 @@
       </div>
       <div class="item">
         <h5>Notificações multi-canal por regra</h5>
-        <p>Email, push in-app, WhatsApp, Telegram e PDF anexo. O motor de regras determina o canal por tipo de evento. Glosa &gt; R$50k vai por email + WhatsApp. Lembrete de TRP vai só por in-app. Tudo configurável por organização.</p>
+        <p>Email (Thymeleaf templates), in-app, WhatsApp e Telegram via Action Executors do motor de regras. O motor determina o canal por tipo de evento. Glosa &gt; R$50k pode ir por email + WhatsApp; lembrete de TRP só por in-app. Configurável por organização.</p>
         <span class="anchor">canais por contexto · sem ruído</span>
       </div>
+    </div>
+    <div style="padding:14px 32px 22px;border-top:1px solid var(--line2);text-align:right">
+      <a href="/easynup/pilares/gestao" class="entenda-mais">Entenda um pouco mais sobre a Gestão <span class="arr">→</span></a>
     </div>
   </div>
 
@@ -1132,8 +1158,8 @@
         <span class="anchor">processo configurável visualmente</span>
       </div>
       <div class="item" style="border-color:var(--teal-br)">
-        <h5>Motor de Regras com 9 gatilhos × 22 ações</h5>
-        <p>9 tipos de gatilho (criação, transição, timer, webhook, mudança de campo) × 22 ações prontas (calcular glosa, criar lançamento, notificar, bloquear, exigir justificativa, executar conector externo). O gestor cria suas próprias automações via editor visual.</p>
+        <h5>Motor de Regras com 12 gatilhos × 22 ações</h5>
+        <p>12 tipos de gatilho (criação, transição, timer, webhook, mudança de campo, entrega submetida, entrega analisada, finding aberto, etc.) × 22 ações prontas (calcular glosa, criar lançamento, notificar, bloquear, exigir justificativa, executar conector externo). O gestor cria suas próprias automações via editor visual.</p>
         <span class="anchor">automação sem código pelo gestor</span>
       </div>
       <div class="item" style="border-color:var(--teal-br)">
@@ -1146,6 +1172,9 @@
         <p>Logo, cores, tipografia, labels customizáveis ("OS" pode virar "Ordem de Execução"). Mensagens do sistema sobrescrevíveis por tenant via cascata: override da org → override global → padrão. Branding e tom de voz preservados; identidade da plataforma some.</p>
         <span class="anchor">white-label estrutural</span>
       </div>
+    </div>
+    <div style="padding:14px 32px 22px;border-top:1px solid var(--line2);text-align:right">
+      <a href="/easynup/pilares/adaptabilidade" class="entenda-mais">Entenda um pouco mais sobre a Adaptabilidade <span class="arr">→</span></a>
     </div>
   </div>
 </section>
@@ -1183,7 +1212,7 @@
       <td class="num"><span class="n">✗</span></td>
     </tr>
     <tr>
-      <td class="b">5 modelos de remuneração TI (PF/SNAP/UST/USN/Preço Fixo)</td>
+      <td class="b">5 modelos de remuneração TI (PF/SNAP/UST/USN/Preço Fixo) + licenças + cloud</td>
       <td class="num eu"><span class="y">✓</span></td>
       <td class="num"><span class="n">✗</span></td>
       <td class="num"><span class="n">✗</span></td>
