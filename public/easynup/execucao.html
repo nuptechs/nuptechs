@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EasyNuP · Execução — o contrato vivo</title>
+<style>
+  :root{--bg:#0a0d14;--panel:#161a22;--panel2:#121621;--panel3:#1a1f2c;--line:#272c38;--line2:#1e2330;--line3:#33394a;--muted:#8a93a6;--muted2:#5d6679;--ink:#f1f5fb;--ink-dim:#c3cbdb;--ink-soft:#a1aabe;--core:#3b82f6;--core-bg:#0b2344;--core-br:#1e3a8a;--comm:#10b981;--comm-bg:#052e24;--comm-br:#065f46;--ai:#a855f7;--ai-bg:#24123f;--ai-br:#5b21b6;--ext:#f59e0b;--ext-bg:#2a1f0a;--ext-br:#78350f;--gold:#eab308;--gold-bg:#2a2109;--gold-br:#854d0e;--ok:#22c55e;--ok-bg:#06231a;--ok-br:#134e2c;--danger:#ef4444;--danger-bg:#2a0f11;--danger-br:#7f1d1d;--pink:#ec4899;--pink-bg:#2a0b1c;--pink-br:#9d174d;--teal:#14b8a6;--teal-bg:#062a26;--teal-br:#0f766e}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:1280px;margin:0 auto;padding:0 24px 96px}
+  code{font:12.5px ui-monospace,Menlo,monospace;background:#0a0d14;border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--ink-dim)}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .crumb a{color:var(--ink-dim)}
+  .crumb a:hover{color:var(--core)}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+  .sub-hero{padding:48px 0 40px;border-bottom:1px solid var(--line)}
+  .sub-hero .tag{display:inline-block;font-size:11px;color:var(--comm);background:var(--comm-bg);border:1px solid var(--comm-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .sub-hero h1{font-size:42px;line-height:1.1;letter-spacing:-0.03em;margin:0 0 16px;max-width:920px;font-weight:700}
+  .sub-hero h1 .grad{background:linear-gradient(120deg,#10b981 0%,#3b82f6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .sub-hero p.lead{font-size:17px;color:var(--ink-dim);margin:0 0 30px;max-width:880px;line-height:1.55}
+  .kpi-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:24px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px 16px}
+  .kpi .n{font-size:30px;font-weight:800;letter-spacing:-0.025em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+  .kpi .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:6px;font-weight:600}
+  h2{font-size:26px;margin:64px 0 8px;letter-spacing:-0.02em;line-height:1.2}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:14px;font-variant-numeric:tabular-nums}
+  h3{font-size:18px;margin:28px 0 10px;font-weight:600;letter-spacing:-0.01em}
+  p.lead{color:var(--ink-dim);max-width:900px;font-size:15.5px;line-height:1.6;margin:0 0 22px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .cap{background:var(--panel2);border:1px solid var(--line2);border-radius:10px;padding:14px 16px}
+  .cap h4{margin:0 0 6px;font-size:14px;color:var(--ink);font-weight:600}
+  .cap p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.5}
+  .cap p strong{color:var(--ink);font-weight:600}
+  .cap .meta{font-size:10.5px;color:var(--muted);margin-top:8px;padding-top:7px;border-top:1px solid var(--line2);font-style:italic;letter-spacing:0.02em}
+  table.std{width:100%;border-collapse:collapse;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+  table.std th,table.std td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+  table.std td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  table.std td.mono{font-family:ui-monospace,Menlo,monospace;color:var(--ink-dim);font-size:12px}
+  .callout{background:linear-gradient(135deg,var(--comm-bg) 0%,var(--core-bg) 100%);border:1px solid var(--comm-br);border-radius:14px;padding:22px 26px;margin-top:32px}
+  .callout h4{color:var(--ink);font-size:16px;margin:0 0 8px}
+  .callout p{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.55}
+  .callout p strong{color:var(--ink)}
+  .pers{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+  .pers .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .pers .card h5{margin:0 0 6px;font-size:13px;color:var(--comm);font-weight:700;letter-spacing:0.04em;text-transform:uppercase}
+  .pers .card p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.5}
+  .back-strip{margin-top:64px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px;display:inline-flex;align-items:center;gap:8px}
+  .back-strip a.back:hover{color:var(--core)}
+  .back-strip .next-links{display:flex;gap:10px;flex-wrap:wrap}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-soft);padding:6px 12px;border:1px solid var(--line);border-radius:8px}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+  footer{color:var(--muted);margin-top:32px;font-size:12px;border-top:1px solid var(--line);padding-top:18px;line-height:1.7}
+  footer a{color:var(--ink-dim)}
+  @media (max-width:900px){.sub-hero h1{font-size:32px}.kpi-bar{grid-template-columns:repeat(2,1fr)}.grid2,.grid3,.pers{grid-template-columns:1fr 1fr}h2{font-size:22px}}
+</style>
+</head>
+<body>
+
+<div class="crumb">
+  <a href="/easynup">EasyNuP</a> <span class="sep">›</span>
+  <a href="/easynup#m2">Momento 2</a> <span class="sep">›</span>
+  <span class="now">Execução</span>
+</div>
+
+<section class="sub-hero">
+  <span class="tag">Momento 2 · Execução</span>
+  <h1>O contrato vivo · da abertura da OS <span class="grad">ao último centavo pago</span></h1>
+  <p class="lead">Com o Setup pronto, o sistema passa a <strong>registrar e validar tudo o que acontece</strong>. Ordem de Serviço aberta, profissional alocado, hora apontada, entrega submetida, atesto fundamentado, SLA medido, glosa calculada, lançamento financeiro registrado com retenção fiscal automática. Cada passo encadeado, cada decisão rastreável, cada exceção tratada por regra configurada.</p>
+  <div class="kpi-bar">
+    <div class="kpi"><div class="n">66</div><div class="l">Entidades operacionais</div></div>
+    <div class="kpi"><div class="n">80+</div><div class="l">Telas operacionais</div></div>
+    <div class="kpi"><div class="n">22</div><div class="l">Action Executors</div></div>
+    <div class="kpi"><div class="n">12</div><div class="l">Gatilhos do motor</div></div>
+    <div class="kpi"><div class="n">13</div><div class="l">Sub-domínios workflow</div></div>
+  </div>
+</section>
+
+<h2><span class="num">01</span>Ciclo da Ordem de Serviço</h2>
+<p class="lead">A OS é a unidade operacional do contrato. Hierarquia (parent/children), agregação automática de horas e valores, progresso percentual, tipos (STANDARD, FRAMEWORK, SPRINTS), 12 status possíveis ao longo do ciclo.</p>
+
+<table class="std">
+  <tr><th>Status</th><th>Quando ocorre</th></tr>
+  <tr><td class="b">DRAFT</td><td>OS criada mas ainda em revisão pelo solicitante</td></tr>
+  <tr><td class="b">SENT</td><td>OS enviada ao fornecedor</td></tr>
+  <tr><td class="b">ACCEPTED · REJECTED</td><td>Aceitação ou recusa da OS pelo fornecedor</td></tr>
+  <tr><td class="b">IN_PROGRESS</td><td>Execução em curso · timesheets sendo lançados</td></tr>
+  <tr><td class="b">DELIVERED</td><td>Entrega submetida via DeliveryArtifact</td></tr>
+  <tr><td class="b">IN_ACCEPTANCE</td><td>Em aceite multi-estágio (TRP/Verificação/TRD/Homologação)</td></tr>
+  <tr><td class="b">PROVISIONALLY_ACCEPTED</td><td>TRP assinado · aguardando estágios seguintes</td></tr>
+  <tr><td class="b">DEFINITELY_ACCEPTED</td><td>TRD assinado · libera pagamento</td></tr>
+  <tr><td class="b">CANCELLED · SUSPENDED · CLOSED</td><td>Estados finais e exceções</td></tr>
+</table>
+
+<div class="callout">
+  <h4>Hierarquia OS pai → filhas + agregação automática</h4>
+  <p>OS pode ter sub-OS. Estimativas (horas, valor) e progresso da pai são <strong>agregados automaticamente</strong> a partir das filhas. Permite modelar projeto com escopo grande dividido em entregas menores, mantendo visibilidade consolidada no topo.</p>
+</div>
+
+<h2><span class="num">02</span>Aceite Inteligente · TRP/TRD com IA fundamentando o parecer</h2>
+<p class="lead">Cada DeliveryArtifact submetido (PR Git, ZIP, snapshot de banco, bundle de documentos) entra na cadeia: <strong>SUBMITTED → ANALYZING → ANALYZED → UNDER_ASSESSMENT → ATESTED | REJECTED | GLOSADO</strong>. Imutável em estados terminais. Atesto Inteligente lê o artefato, compara com escopo da OS, consulta base legal e <strong>propõe parecer fundamentado em artigo/inciso</strong>.</p>
+
+<div class="grid2">
+  <div class="cap">
+    <h4>AcceptanceStageExecution</h4>
+    <p>Por estágio configurado, captura <code>checklistResultsJson</code> (evidências por item de checklist), <code>evidenceJson</code> (anexos), <code>customFieldsJson</code> (campos específicos do órgão). Result: APPROVED · REJECTED · PENDING.</p>
+    <div class="meta">AcceptanceStageExecution · AcceptanceEvidence</div>
+  </div>
+  <div class="cap">
+    <h4>5 endpoints do Atesto Inteligente</h4>
+    <p><code>getDeliveryArtifact</code> · <code>analyzeDeliveryArtifact</code> (dispara Compliance Engine) · <code>dismissComplianceFinding</code> · <code>resolveComplianceFinding</code> · <code>applyComplianceFindingDeflator</code> (aplica glosa sugerida com aprovação humana).</p>
+    <div class="meta">AtestoInteligentePage.vue</div>
+  </div>
+</div>
+
+<h2><span class="num">03</span>Timesheets · apontamento individual + visão consolidada</h2>
+<p class="lead">Timesheet por profissional/período/OS com <code>hoursWorked</code>, <code>overtimeHours</code>, <code>hourlyRate</code>, <code>evidenceJson</code> (fotos, áudios, localização) e <code>customFieldsJson</code>. Workflow: DRAFT → SUBMITTED → APPROVED · REJECTED · RETURNED_FOR_CORRECTION · CANCELLED.</p>
+
+<div class="grid3">
+  <div class="cap">
+    <h4>Apontamento individual</h4>
+    <p>Página de Timesheets com timer real (play/stop), navegação semanal, contrato selector, auto-save. Evidência opcional anexada por entry.</p>
+    <div class="meta">Timesheets.vue</div>
+  </div>
+  <div class="cap">
+    <h4>Visão consolidada · aderência</h4>
+    <p>TimesheetsOverview agrega por empresa: <code>registeredHours</code> vs <code>expectedHours</code> vs <code>missingHours</code> vs <code>projectedHours</code>, com workdaysProgress (dias úteis decorridos vs total no mês).</p>
+    <div class="meta">TimesheetsOverview.vue</div>
+  </div>
+  <div class="cap">
+    <h4>Gestão centralizada · bulk</h4>
+    <p>TimesheetManager permite aprovar/rejeitar/devolver em lote com motivo registrado. KPI cards (pending/approved/rejected/totalHours).</p>
+    <div class="meta">TimesheetManager.vue</div>
+  </div>
+</div>
+
+<h2><span class="num">04</span>Aferição de SLA + cálculo de glosa</h2>
+<p class="lead">SlaMeasurement modela medição completa: <code>targetValue</code> · <code>measuredValue</code> · <code>grossValue</code> · <code>stopTimeTotal</code> (paradas justificadas via SlaMeasurementStop) · <code>netValue</code> · <code>varianceValue/Percentage</code> · <code>achievementPercentage</code> · <code>targetMet</code> (bool) · status (PENDING_VALIDATION → VALIDATED → APPROVED · REJECTED · DISPUTED).</p>
+
+<div class="callout">
+  <h4>Loop automático: SLA estoura → motor calcula → fiscal aprova</h4>
+  <p>Quando indicator.severity = CRITICAL e variance &gt; 20%, o motor de regras dispara em cascata: <strong>1)</strong> CalculateDeductionActionExecutor calcula dedução usando o Deflator configurado · <strong>2)</strong> CreateFinancialEntryActionExecutor cria entry status RETAINED · <strong>3)</strong> CreateNotificationActionExecutor avisa gestor + fiscal · <strong>4)</strong> RequireJustificationActionExecutor abre janela 10d ao fornecedor · <strong>5)</strong> tudo entra no audit chain HMAC. Sem aprovação humana, nada vira pagamento real.</p>
+</div>
+
+<h2><span class="num">05</span>Divergências fiscal ↔ fornecedor · canal estruturado</h2>
+<p class="lead">Quando há divergência (qualidade, prazo, escopo, conformidade), o sistema modela como entidade com escalação. Não é "comentário solto" no e-mail. <strong>Divergence</strong> tem context (SERVICE_ORDER, ACCEPTANCE, TIMESHEET), tipo (QUALITY, DEADLINE, SCOPE, COMPLIANCE), severidade (LOW/MEDIUM/HIGH/CRITICAL), workflow OPEN → ASSIGNED → RESPONSE → ESCALATION → RESOLVED.</p>
+
+<div class="cap">
+  <h4>DivergenceInteraction · troca rastreável de mensagens</h4>
+  <p>Cada mensagem entre fiscal e fornecedor entra como <code>DivergenceInteraction</code> com <code>interactionType</code> (QUESTION · ANSWER · EVIDENCE · STATUS_CHANGE), <code>attachmentsJson</code>, <code>previousStatus</code>/<code>newStatus</code>, flags <code>isInternal</code>/<code>isVisible</code> para visibilidade seletiva.</p>
+  <div class="meta">DivergenceInteraction</div>
+</div>
+
+<h2><span class="num">06</span>Financeiro · Empenho → Liquidação → Pagamento com retenção fiscal automática</h2>
+<p class="lead">FinanceCore opera o ciclo financeiro completo. Cada lançamento (FinancialEntry) tem tipo (COMMITMENT, LIQUIDATION, PAYMENT, DEDUCTION), status (DRAFT → SUBMITTED → APPROVED → PAID · REJECTED · CANCELLED) e <strong>retentionLines em JSONB</strong> calculado automaticamente.</p>
+
+<div class="grid2">
+  <div class="cap">
+    <h4>4 retenções fiscais nativas</h4>
+    <p><strong>IR · ISS · INSS · PCC</strong> calculados automaticamente via <code>TaxRetentionRule</code> consultando município IBGE, tipo de regime tributário, categoria de serviço, vigência temporal (validFrom/validTo). <code>netAmount = amount − Σ(retentionLines.withheldAmount)</code>.</p>
+    <div class="meta">TaxRetentionRule · FinancialEntry.retentionLines (JSONB)</div>
+  </div>
+  <div class="cap">
+    <h4>Workflow de aprovação multinível</h4>
+    <p>Cada lançamento passa por submittedBy/at → approvedBy/at (ou rejectedBy/at com motivo) → paidBy/at. <strong>Concorrência otimista</strong> (@Version JPA) detecta lost-update em escritas paralelas. Histórico via FinancialEntryStatusChange.</p>
+    <div class="meta">FinancialEntry · FinancialEntryStatusChange · FinancialEntryAttachment</div>
+  </div>
+</div>
+
+<h2><span class="num">07</span>Workflow Engine · 13 sub-domínios + migração em vivo</h2>
+<p class="lead">O motor de workflow do EasyNuP não é wrapper de Camunda. É implementação própria com 47 classes Java cobrindo: callback, compensation, errorboundary, event, migration, modification, multiinstance, script (FEEL), timer, sla, scheduler, sourceoftruth, repository.</p>
+
+<table class="std">
+  <tr><th>Capacidade</th><th>O que faz</th></tr>
+  <tr><td class="b">Multi-instance</td><td>Loop paralelo ou sequencial sobre coleção (cada item gera instância)</td></tr>
+  <tr><td class="b">Timers</td><td>WorkflowTimerEvent com fixed/cron/relative · escalação automática</td></tr>
+  <tr><td class="b">Error boundary</td><td>Captura exceções com retry/fallback/escalação por tipo de erro</td></tr>
+  <tr><td class="b">Compensação</td><td>Rollback automático de steps em transações longas (saga pattern)</td></tr>
+  <tr><td class="b">Callback assíncrono</td><td>WorkflowCallbackToken para integrações externas (espera resposta sem bloquear)</td></tr>
+  <tr><td class="b">Script FEEL</td><td>WorkflowScriptExecution avalia expressão DMN/FEEL inline</td></tr>
+  <tr><td class="b">Message correlation</td><td>Aguarda mensagem com correlationKey específico</td></tr>
+  <tr><td class="b">Instance Modification</td><td>Pausa/retoma/pula steps em instâncias rodando · sem reiniciar</td></tr>
+  <tr><td class="b">Instance Migration</td><td>Atualiza template em vivo com <code>step_mappings</code> JSON + counter migratedEntities. Instâncias antigas seguem na nova versão sem reiniciar.</td></tr>
+  <tr><td class="b">Workflow Incidents</td><td>Painel dedicado pra exceções com retry seletivo e escalação por gravidade</td></tr>
+</table>
+
+<h2><span class="num">08</span>Findings de Execução · IA + motor de regras detectam padrões</h2>
+<p class="lead">ExecutionFinding é a saída da camada de inteligência operacional. Gerado por analyzers (OsCoherenceAnalyzer com 3 LLMs paralelo, custo ~$0.02 por análise, idempotência via unique(service_order_id, week_start)) ou pelo motor de regras. Carrega <code>decisionAction</code> + <code>decisionRuleId</code> para rastreabilidade da decisão DMN.</p>
+
+<div class="grid3">
+  <div class="cap">
+    <h4>Status do finding</h4>
+    <p>OPEN → ACKNOWLEDGED → IN_PROGRESS → RESOLVED · DISMISSED · FALSE_POSITIVE. Cada transição entra no audit chain.</p>
+  </div>
+  <div class="cap">
+    <h4>Polimórfico por entidade</h4>
+    <p>entityType-agnostic — mesmo finding pode apontar ServiceOrder, ContractCommandCenter, FinancialEntry. Severidade INFO/LOW/MEDIUM/HIGH/CRITICAL.</p>
+  </div>
+  <div class="cap">
+    <h4>Despacho controlado</h4>
+    <p>ExecutionFindingDispatch roteia o finding para responsáveis (notificação, bloqueio, escalação) com status PENDING → DISPATCHED → ACKNOWLEDGED → RESOLVED.</p>
+  </div>
+</div>
+
+<h2><span class="num">09</span>Chat IA · agente conversacional com 4 tools governadas</h2>
+<p class="lead">Não é wrapper de ChatGPT. É agente in-process com 4 tools registradas, tier policy (read/write/sensitive), idempotência anti-replay, audit chain HMAC compartilhada com o backend Java. Multi-LLM: Anthropic primary, OpenAI/Gemini fallback via porta hex.</p>
+
+<table class="std">
+  <tr><th>Tool</th><th>Tier</th><th>O que faz</th></tr>
+  <tr><td class="b mono">find_execution_findings</td><td>read</td><td>Consulta findings (SLA, prazo, qualidade) — roda direto sem aprovação</td></tr>
+  <tr><td class="b mono">create_service_order</td><td>write</td><td>Cria OS — pede confirmação humana antes de executar</td></tr>
+  <tr><td class="b mono">apply_compliance_deflator</td><td>sensitive</td><td>Aplica deflator sugerido por finding — <strong>sempre exige aprovação humana</strong> em fila com idempotency anti-replay</td></tr>
+  <tr><td class="b mono">attach_acceptance_evidence</td><td>write</td><td>Anexa evidência a aceite com justificativa obrigatória ≥10 chars</td></tr>
+</table>
+
+<div class="callout" style="background:linear-gradient(135deg,var(--ai-bg) 0%,var(--core-bg) 100%);border-color:var(--ai-br)">
+  <h4>Por que tier policy importa</h4>
+  <p>IA pode escalar erro tanto quanto humano — só que mais rápido. Sem tier, um prompt mal interpretado vira lançamento financeiro real. <strong>Com tier sensitive sempre exigindo aprovação humana</strong>, cada ação administrativa potencialmente vinculante passa por humano com identidade auditada. Conformidade com o EU AI Act (que entra em vigor agosto/2026) e com o PL 2338/2023 brasileiro.</p>
+</div>
+
+<h2><span class="num">10</span>Processos genéricos · BPM-light pra demandas internas</h2>
+<p class="lead">Nem toda demanda do órgão é Ordem de Serviço contratual. RFCs, change requests, demandas internas, fluxos administrativos. <strong>GenericProcess</strong> tem hierarquia idêntica a ServiceOrder (parent/children, inheritResponsible/Deadline/Priority), suporta workflow engine, motor de regras, custom fields e auditoria — mas sem vínculo contratual.</p>
+
+<div class="cap">
+  <h4>Status do GenericProcess</h4>
+  <p>DRAFT → OPEN → IN_PROGRESS → PENDING · ON_HOLD → COMPLETED · CANCELLED · ARCHIVED. Cada órgão configura seus tipos de processo via custom fields, suas regras de transição via motor de regras, suas notificações via Action Executors.</p>
+</div>
+
+<h2><span class="num">11</span>Quem opera a Execução</h2>
+<div class="pers">
+  <div class="card"><h5>Fiscal técnico</h5><p>Revisa entregas, marca aceite TRP→TRD, valida medições SLA, aprova glosa até R$50k, responde divergências do fornecedor.</p></div>
+  <div class="card"><h5>Solicitante / executor</h5><p>Cria OS via Chat IA ou diretamente, acompanha estágios de aceite, aponta horas (timesheets) com evidência.</p></div>
+  <div class="card"><h5>Fornecedor</h5><p>Self-service via Vendor Workspace: OSs atribuídas, submete deliverables, chat com gestor, dashboard de performance.</p></div>
+  <div class="card"><h5>Gestor financeiro</h5><p>Aprova lançamentos &gt; R$50k, libera pagamentos após contestação, audita retenções fiscais automatizadas.</p></div>
+</div>
+
+<div class="back-strip">
+  <a href="/easynup" class="back">← Voltar para a visão geral</a>
+  <div class="next-links">
+    <a href="/easynup/setup">← Momento 1 · Setup</a>
+    <a href="/easynup/auditoria">Momento 3 · Auditoria →</a>
+  </div>
+</div>
+
+<footer>
+  <p><strong>EasyNuP</strong> · plataforma NuPTechs · 2024–2026</p>
+  <p><a href="https://www.nuptechs.com">www.nuptechs.com</a> · <a href="https://www.nuptechs.com/sobre">sobre a empresa</a> · <a href="https://www.nuptechs.com/contato">fale conosco</a></p>
+</footer>
+
+</body>
+</html>

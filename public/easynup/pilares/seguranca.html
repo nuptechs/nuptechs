@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EasyNuP · Segurança nas 3 dimensões — Pilar 3</title>
+<style>
+  :root{--bg:#0a0d14;--panel:#161a22;--panel2:#121621;--line:#272c38;--line2:#1e2330;--muted:#8a93a6;--muted2:#5d6679;--ink:#f1f5fb;--ink-dim:#c3cbdb;--ink-soft:#a1aabe;--core:#3b82f6;--core-bg:#0b2344;--core-br:#1e3a8a;--comm:#10b981;--comm-bg:#052e24;--comm-br:#065f46;--ai:#a855f7;--ai-bg:#24123f;--ai-br:#5b21b6}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:1280px;margin:0 auto;padding:0 24px 96px}
+  code{font:12.5px ui-monospace,Menlo,monospace;background:#0a0d14;border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--ink-dim)}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .crumb a{color:var(--ink-dim)}.crumb a:hover{color:var(--core)}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+  .sub-hero{padding:48px 0 40px;border-bottom:1px solid var(--line)}
+  .sub-hero .tag{display:inline-block;font-size:11px;color:var(--comm);background:var(--comm-bg);border:1px solid var(--comm-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .sub-hero h1{font-size:42px;line-height:1.1;letter-spacing:-0.03em;margin:0 0 16px;max-width:920px;font-weight:700}
+  .sub-hero h1 .grad{background:linear-gradient(120deg,#10b981 0%,#3b82f6 50%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .sub-hero p.lead{font-size:17px;color:var(--ink-dim);margin:0 0 30px;max-width:880px;line-height:1.55}
+  .kpi-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:24px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px 16px}
+  .kpi .n{font-size:30px;font-weight:800;letter-spacing:-0.025em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+  .kpi .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:6px;font-weight:600}
+  h2{font-size:26px;margin:64px 0 8px;letter-spacing:-0.02em;line-height:1.2}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:14px;font-variant-numeric:tabular-nums}
+  h3{font-size:18px;margin:28px 0 10px;font-weight:600;letter-spacing:-0.01em}
+  p.lead{color:var(--ink-dim);max-width:900px;font-size:15.5px;line-height:1.6;margin:0 0 22px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .cap{background:var(--panel2);border:1px solid var(--line2);border-radius:10px;padding:14px 16px}
+  .cap h4{margin:0 0 6px;font-size:14px;color:var(--ink);font-weight:600}
+  .cap p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.5}
+  .cap p strong{color:var(--ink);font-weight:600}
+  .cap .meta{font-size:10.5px;color:var(--muted);margin-top:8px;padding-top:7px;border-top:1px solid var(--line2);font-style:italic}
+  table.std{width:100%;border-collapse:collapse;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+  table.std th,table.std td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+  table.std td.mono{font-family:ui-monospace,Menlo,monospace;color:var(--ink-dim);font-size:12px}
+  .callout{background:linear-gradient(135deg,var(--comm-bg) 0%,var(--core-bg) 100%);border:1px solid var(--comm-br);border-radius:14px;padding:22px 26px;margin-top:32px}
+  .callout h4{color:var(--ink);font-size:16px;margin:0 0 8px}
+  .callout p{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.55}
+  .callout p strong{color:var(--ink)}
+  .back-strip{margin-top:64px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px}
+  .back-strip a.back:hover{color:var(--core)}
+  .back-strip .next-links{display:flex;gap:10px;flex-wrap:wrap}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-soft);padding:6px 12px;border:1px solid var(--line);border-radius:8px}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+  footer{color:var(--muted);margin-top:32px;font-size:12px;border-top:1px solid var(--line);padding-top:18px;line-height:1.7}
+  footer a{color:var(--ink-dim)}
+  @media (max-width:900px){.sub-hero h1{font-size:32px}.kpi-bar{grid-template-columns:repeat(2,1fr)}.grid2,.grid3{grid-template-columns:1fr 1fr}h2{font-size:22px}}
+</style>
+</head>
+<body>
+
+<div class="crumb">
+  <a href="/easynup">EasyNuP</a> <span class="sep">›</span>
+  <a href="/easynup#pilares">Pilares</a> <span class="sep">›</span>
+  <span class="now">Segurança nas 3 dimensões</span>
+</div>
+
+<section class="sub-hero">
+  <span class="tag">Pilar 3 · segurança nas 3 dimensões</span>
+  <h1>Jurídica · técnica · operacional — <span class="grad">profundidade em cada camada</span></h1>
+  <p class="lead">Segurança aqui não é "feature de proteção contra hacker". É <strong>conjunto de garantias que sustentam decisão pública</strong>: a jurídica protege o gestor que assina, a técnica protege o dado e o sistema, a operacional protege a continuidade. As três embutidas por desenho, não opcionais.</p>
+  <div class="kpi-bar">
+    <div class="kpi"><div class="n">v3</div><div class="l">Cadeia HMAC tamper-evident</div></div>
+    <div class="kpi"><div class="n">7</div><div class="l">Ports hexagonais substituíveis</div></div>
+    <div class="kpi"><div class="n">7</div><div class="l">Camadas NuPIdentify</div></div>
+    <div class="kpi"><div class="n">12</div><div class="l">Camadas de middleware</div></div>
+    <div class="kpi"><div class="n">4</div><div class="l">Webhooks com HMAC</div></div>
+  </div>
+</section>
+
+<h2><span class="num">01</span>Dimensão jurídica · cadeia HMAC tamper-evident</h2>
+<p class="lead">Toda alteração em entidade auditável entra numa cadeia hash criptográfica encadeada. Mexer no banco quebra a cadeia. Reconciliação cross-process bit-a-bit garante que Java (Spring Boot) e Node (gateway + chat-ia) compartilham a mesma cadeia por organização. <strong>Prova matemática reconstruível — vale em juízo, vale em TCU, vale em CGU.</strong></p>
+
+<table class="std">
+  <tr><th>Elemento</th><th>Implementação</th></tr>
+  <tr><td class="b">CHAIN_VERSION 3</td><td>Sincronizado entre <code>AuditHashChainComponent.java:35</code> e <code>postgres-audit-chain-store.adapter.js</code></td></tr>
+  <tr><td class="b">Algoritmo</td><td>HmacSHA256 · input encadeado <code>previousHash | entityType | entityId | action | userId | createdAt | changesJson | organizationId</code></td></tr>
+  <tr><td class="b">Advisory lock por org</td><td><code>pg_advisory_xact_lock(organizationId)</code> dentro da transação · previne fork de cadeia em escritas concorrentes · idêntico Java + Node</td></tr>
+  <tr><td class="b">HibernateAuditEventListener</td><td>Intercepta PostInsert + PostUpdate + PostDelete <strong>para TODAS as entidades</strong> · exclui apenas AuditLog (anti-recursão)</td></tr>
+  <tr><td class="b">Fail-fast em produção</td><td>Sem hmacSecret → <code>IllegalStateException</code> no startup · em dev usa fallback explícito</td></tr>
+  <tr><td class="b">Métricas Prometheus</td><td>audit.hmac.write.success (counter) · .failure (counter com tag exception) · .duration (timer p50/p95/p99)</td></tr>
+  <tr><td class="b">Pacote compartilhado</td><td><code>@nuptechs/audit-chain</code> · usado por Java + Node + chat-ia · garante consistência cross-service</td></tr>
+</table>
+
+<div class="callout">
+  <h4>Por que isso importa pra Lei 14.133</h4>
+  <p>A nova lei amplia responsabilização pessoal do fiscal e do gestor. <strong>Quando algo dá errado, a pergunta do controle interno e do TCU é: "como você comprova que o registro não foi alterado depois?"</strong> Em sistemas tradicionais, a resposta é "o log mostra...". Em sistemas com HMAC chain, a resposta é "qualquer auditor pode recomputar a cadeia e verificar — se um único byte foi alterado, a cadeia toda inválida". Diferença prática gigante em juízo.</p>
+</div>
+
+<h2><span class="num">02</span>Dimensão técnica · multi-tenant fail-closed</h2>
+<p class="lead">Princípio fail-closed: requisição sem organização identificada é <strong>bloqueada</strong>. Cada organização vê apenas seus dados, sempre. Não é "feature de segurança ativável" — é regra arquitetural desde o primeiro commit. Vazamento cross-org é impossível por construção.</p>
+
+<div class="grid2">
+  <div class="cap">
+    <h4>requireDataScope middleware (Express)</h4>
+    <p>Caching multi-camada: orgIdCache + userIdCache (500 entries · 30min TTL · LRU eviction). resolveOrganizationDbId via SELECT id FROM organization WHERE external_id. Permission scope parser (all/team/own). admin.full override.</p>
+    <div class="meta">packages/auth/src/data-scope.js</div>
+  </div>
+  <div class="cap">
+    <h4>DataScopeComponent (Java)</h4>
+    <p>Aplicado em toda escrita JPA · organization_id NOT NULL obrigatório · ADR-audit-unification crava "organization_id ausente bloqueia em produção" — nem teste passa sem isso.</p>
+    <div class="meta">backend Java</div>
+  </div>
+</div>
+
+<h2><span class="num">03</span>Dimensão técnica · NuPIdentify v2 SDK · 7 camadas de identidade</h2>
+<p class="lead">Identidade federada usando o próprio provedor OIDC da NuPTechs (NuPIdentify). Plataforma completa de IAM, não apenas "login": RBAC + ABAC + ReBAC tipo Zanzibar, 2FA, SSO/LDAP/SAML auto-provisioning, webhooks de eventos de segurança.</p>
+
+<table class="std">
+  <tr><th>Camada</th><th>Função</th></tr>
+  <tr><td class="b">RBAC</td><td>Role-Based Access Control · papéis por organização</td></tr>
+  <tr><td class="b">ABAC</td><td>Attribute-Based Access Control · 16 operações de avaliação de atributo</td></tr>
+  <tr><td class="b">ReBAC tipo Zanzibar</td><td>Relationship-Based · grafo de permissões (igual ao Google)</td></tr>
+  <tr><td class="b">2FA TOTP</td><td>Autenticação em dois fatores</td></tr>
+  <tr><td class="b">SSO federado</td><td>Google Workspace · Microsoft · magic link</td></tr>
+  <tr><td class="b">Auto-provisioning LDAP/SAML</td><td>Criação automática de usuários a partir do IdP corporativo</td></tr>
+  <tr><td class="b">Webhook receiver</td><td>Recebe eventos de segurança (login.brute_force_blocked, permission_denied) e propaga pro EasyNuP</td></tr>
+</table>
+
+<h2><span class="num">04</span>Dimensão técnica · 7 ports hexagonais substituíveis</h2>
+<p class="lead">Arquitetura hexagonal real: cada interação com sistema externo passa por um <strong>Port</strong> (interface) com um <strong>Adapter</strong> (implementação). Quando precisa trocar de fornecedor de storage, fila ou IA, troca o adapter — sem mexer no domínio. Sem lock-in.</p>
+
+<table class="std">
+  <tr><th>Port</th><th>Adapter padrão</th><th>O que controla</th></tr>
+  <tr><td class="b">NotificationAdapter</td><td>EasyNupNotificationAdapter</td><td>Email + In-app + WhatsApp + Telegram</td></tr>
+  <tr><td class="b">WorkflowAdapter</td><td>EasyNupWorkflowAdapter</td><td>Disparo de workflow + transições</td></tr>
+  <tr><td class="b">EntityAdapter</td><td>EasyNupEntityAdapter</td><td>updateFields + getEntityData + entityExists + aggregateRelatedEntities</td></tr>
+  <tr><td class="b">FinancialEntryAdapter</td><td>EasyNupFinancialEntryAdapter</td><td>Lançamentos financeiros</td></tr>
+  <tr><td class="b">AuditAdapter</td><td>EasyNupAuditAdapter</td><td>Audit logging + HMAC chain</td></tr>
+  <tr><td class="b">DeductionAdapter</td><td>EasyNupDeductionAdapter</td><td>Cálculo de glosa por deflator</td></tr>
+  <tr><td class="b">LegalCorpusPort</td><td>EasyNupLegalCorpusAdapter</td><td>Indexação RAG semântica (Pinecone)</td></tr>
+</table>
+
+<h2><span class="num">05</span>Dimensão técnica · webhook framework com HMAC + IP whitelist</h2>
+<p class="lead">Toda integração com sistema externo passa por framework comum. POST <code>/api/webhooks/inbound/:slug</code> com HMAC-SHA256 verification, IP whitelist CIDR matcher, idempotency dedup, replay protection. 4 webhooks atualmente mapeados.</p>
+
+<div class="grid2">
+  <div class="cap">
+    <h4>Verificação HMAC timing-safe</h4>
+    <p>Header <code>X-Webhook-Signature</code> · formato <code>sha256=&lt;hex&gt;</code> · validação via <code>crypto.timingSafeEqual</code> (não vulnerável a timing attack). Adapter Sentinel valida <code>X-Sentinel-Signature</code> com mesmo padrão.</p>
+  </div>
+  <div class="cap">
+    <h4>IP whitelist + idempotency + replay protection</h4>
+    <p>CIDR matcher (isIpAllowed function) · webhook_execution_log dedup pra requisições repetidas · validação de timestamp pra impedir replay tardio.</p>
+  </div>
+  <div class="cap">
+    <h4>4 webhooks mapeados</h4>
+    <p><strong>Tolgee</strong> (atualizações de i18n) · <strong>NuPIdentify</strong> (eventos de auth: login.brute_force_blocked, permission_denied) · <strong>Sentinel</strong> (findings inbound) · <strong>generic</strong> (custom workflows).</p>
+  </div>
+  <div class="cap">
+    <h4>Cross-repo security event broadcast</h4>
+    <p>Identify ↔ EasyNuP via HMAC headers · SecurityEvent table propaga eventos com action (64 chars) · provider · slug · source_ip · user_agent · organization_id · user_id · detail · request_id · created_at.</p>
+  </div>
+</div>
+
+<h2><span class="num">06</span>Dimensão técnica · 12 camadas de middleware no gateway</h2>
+<p class="lead">Cada requisição HTTP passa por 12 camadas em ordem. Falhar em qualquer uma bloqueia a requisição. Defesa em profundidade real.</p>
+
+<table class="std">
+  <tr><th>#</th><th>Camada</th></tr>
+  <tr><td>1</td><td>CSP nonce generation (Content-Security-Policy)</td></tr>
+  <tr><td>2</td><td>Helmet security headers (X-Frame-Options, HSTS preload, etc.)</td></tr>
+  <tr><td>3</td><td>CORS configurado por origem</td></tr>
+  <tr><td>4</td><td>Compression (gzip/brotli)</td></tr>
+  <tr><td>5</td><td>Express body parsing</td></tr>
+  <tr><td>6</td><td>Input sanitizer (xss + zod)</td></tr>
+  <tr><td>7</td><td>Request ID middleware (correlação cross-process)</td></tr>
+  <tr><td>8</td><td>Request logger estruturado</td></tr>
+  <tr><td>9</td><td>Request context (session ID, org ID, request ID em AsyncLocalStorage)</td></tr>
+  <tr><td>10</td><td>Session middleware (PostgreSQL-backed)</td></tr>
+  <tr><td>11</td><td>Rate limiting tiered (user 100/min · channel 1000/min · AI 5/min)</td></tr>
+  <tr><td>12</td><td>CSRF protection + error handler centralizado</td></tr>
+</table>
+
+<h2><span class="num">07</span>Dimensão operacional · observabilidade nativa</h2>
+<p class="lead">Métricas Prometheus em pontos críticos · request tracing cross-process via Sentinel Probe · logs estruturados com requestId/sessionId propagados. Quando algo quebra, equipe sabe em segundos onde foi — não é "preto e branco", é raio-x.</p>
+
+<div class="grid2">
+  <div class="cap">
+    <h4>Métricas Prometheus custom</h4>
+    <p>audit.hmac.write.success · failure (com tag exception) · duration (p50/p95/p99) · business-metrics.service.js expõe i18n counters + api_error counters por status code + compliance L2/L3 latência + risk_analyzer duration.</p>
+    <div class="meta">/metrics endpoint</div>
+  </div>
+  <div class="cap">
+    <h4>Sentinel Probe cross-process</h4>
+    <p>requestId + sessionId propagados pela cadeia · frontend → gateway → Java → PostgreSQL · Sentinel findings linkados a commits Git via sourceRef · permite reconstruir sessão do usuário ponto-a-ponto quando há incidente.</p>
+    <div class="meta">composables/useSentinel.ts</div>
+  </div>
+</div>
+
+<h2><span class="num">08</span>Multi-tenancy de mensagens · HybridMessageSource</h2>
+<p class="lead">Cada organização pode sobrescrever mensagens do sistema (erros, notificações, e-mails) sem afetar outras. Cascata 3 níveis: override da org → override global → fallback Tolgee/ResourceBundle. Cache Caffeine (60s TTL · 10k entries max) com hot-reload sem Redis.</p>
+
+<div class="callout">
+  <h4>Sensitive labels com approval workflow (ADR-036)</h4>
+  <p>Mensagens marcadas como <code>sensitive:financial</code> · <code>sensitive:legal</code> · <code>sensitive:auth</code> exigem aprovação humana antes de virar publicadas. Webhook do Tolgee dispara notificação para aprovador (permissão <code>i18n.sensitive_messages.approve</code>). Two-eyes obrigatório para mudança em texto que pode virar prejuízo ou interpretação errada.</p>
+</div>
+
+<div class="back-strip">
+  <a href="/easynup" class="back">← Voltar para a visão geral</a>
+  <div class="next-links">
+    <a href="/easynup/pilares/ia-cirurgica">← Pilar 2 · IA cirúrgica</a>
+    <a href="/easynup/pilares/gestao">Pilar 4 · Gestão →</a>
+  </div>
+</div>
+
+<footer>
+  <p><strong>EasyNuP</strong> · plataforma NuPTechs · 2024–2026</p>
+  <p><a href="https://www.nuptechs.com">www.nuptechs.com</a> · <a href="https://www.nuptechs.com/sobre">sobre a empresa</a> · <a href="https://www.nuptechs.com/contato">fale conosco</a></p>
+</footer>
+
+</body>
+</html>
