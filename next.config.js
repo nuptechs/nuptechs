@@ -120,6 +120,9 @@ const nextConfig = {
       // Vitrine comercial — 4 painéis lado a lado
       { source: "/vitrine-segmentos", destination: "/vitrine-segmentos/index.html" },
       { source: "/vitrine-segmentos/", destination: "/vitrine-segmentos/index.html" },
+      // Apresentação executiva EasyNuP — HTML estático auto-contido
+      { source: "/easynup", destination: "/easynup/index.html" },
+      { source: "/easynup/", destination: "/easynup/index.html" },
       // Sistema solar — nup-energy hospedado no Railway próprio.
       // Vitrine atua como proxy externo (URL pública mantida).
       // assets do Vite ficam sob /energy-assets/ pra não colidir com /assets/ da Marketing.

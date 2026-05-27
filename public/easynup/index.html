@@ -1,0 +1,1583 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EasyNuP — A plataforma de gestão e compliance dos contratos de TI no setor público brasileiro</title>
+<style>
+  :root{
+    --bg:#0a0d14; --bg2:#0e1219;
+    --panel:#161a22; --panel2:#121621; --panel3:#1a1f2c; --panel4:#1f2532;
+    --line:#272c38; --line2:#1e2330; --line3:#33394a;
+    --muted:#8a93a6; --muted2:#5d6679;
+    --ink:#f1f5fb; --ink-dim:#c3cbdb; --ink-soft:#a1aabe;
+    --core:#3b82f6;  --core-bg:#0b2344;  --core-br:#1e3a8a;  --core-soft:#1d4ed8;
+    --comm:#10b981;  --comm-bg:#052e24;  --comm-br:#065f46;  --comm-soft:#047857;
+    --ai:#a855f7;    --ai-bg:#24123f;    --ai-br:#5b21b6;    --ai-soft:#7c3aed;
+    --opt:#94a3b8;   --opt-bg:#1b202a;   --opt-br:#334155;
+    --ext:#f59e0b;   --ext-bg:#2a1f0a;   --ext-br:#78350f;   --ext-soft:#b45309;
+    --danger:#ef4444;--danger-bg:#2a0f11;--danger-br:#7f1d1d;
+    --gold:#eab308;  --gold-bg:#2a2109;  --gold-br:#854d0e;
+    --ok:#22c55e;    --ok-bg:#06231a;    --ok-br:#134e2c;
+    --pink:#ec4899;  --pink-bg:#2a0b1c;  --pink-br:#9d174d;
+    --teal:#14b8a6;  --teal-bg:#062a26;  --teal-br:#0f766e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:1320px;margin:0 auto;padding:0 24px 120px}
+
+  /* ── navegação superior ── */
+  nav.toc{position:sticky;top:0;background:rgba(10,13,20,0.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 0;margin:0 -24px 0;z-index:50;font-size:12px}
+  nav.toc .inner{max-width:1320px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;align-items:center}
+  nav.toc a{color:var(--ink-dim);text-decoration:none;padding:7px 12px;border-radius:7px;white-space:nowrap;font-weight:500;transition:all 0.15s}
+  nav.toc a:hover{background:var(--panel);color:var(--ink)}
+  nav.toc .brand{font-weight:800;color:var(--core);padding:7px 12px 7px 0;border-right:1px solid var(--line);margin-right:8px;letter-spacing:-0.01em;font-size:13.5px}
+
+  /* ── tipografia ── */
+  h1{font-size:48px;margin:0 0 8px;letter-spacing:-0.03em;line-height:1.06}
+  h2{font-size:32px;margin:96px 0 8px;letter-spacing:-0.025em;line-height:1.15}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:16px;font-variant-numeric:tabular-nums}
+  h3{font-size:22px;margin:36px 0 10px;color:var(--ink);font-weight:600;letter-spacing:-0.01em;line-height:1.3}
+  h4{font-size:14.5px;margin:0 0 8px;color:var(--ink);font-weight:600;letter-spacing:0.01em}
+  p.lead{color:var(--ink-dim);margin:0 0 28px;max-width:900px;font-size:17px;line-height:1.6}
+  p.sub{color:var(--muted);font-size:13px;margin:6px 0 18px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600}
+  code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;background:#0a0d14;border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--ink-dim)}
+  a{color:var(--core);text-decoration:none;transition:opacity 0.15s}
+  a:hover{opacity:0.85;text-decoration:underline}
+
+  /* ── HERO ── */
+  .hero{padding:92px 0 72px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(168,85,247,0.10) 0%,transparent 70%);pointer-events:none}
+  .hero::after{content:"";position:absolute;bottom:-100px;left:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,0.10) 0%,transparent 70%);pointer-events:none}
+  .hero > *{position:relative;z-index:1}
+  .hero .tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--core);background:var(--core-bg);border:1px solid var(--core-br);padding:7px 16px;border-radius:999px;letter-spacing:0.08em;margin-bottom:24px;font-weight:600;text-transform:uppercase}
+  .hero .tag .dot{width:6px;height:6px;border-radius:50%;background:var(--core);box-shadow:0 0 8px var(--core)}
+  .hero h1{font-size:68px;line-height:1.04;letter-spacing:-0.04em;margin:0 0 22px;max-width:1080px;font-weight:700}
+  .hero h1 .grad{background:linear-gradient(120deg,#60a5fa 0%,#a855f7 50%,#ec4899 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero .sub{font-size:20px;color:var(--ink-dim);margin:0 0 38px;max-width:920px;text-transform:none;letter-spacing:0;font-weight:400;line-height:1.55}
+  .hero .sub strong{color:var(--ink);font-weight:600}
+  .hero .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:38px 0 8px}
+  .hero .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px 18px;position:relative;overflow:hidden}
+  .hero .kpi::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--core) 0%,var(--ai) 100%);opacity:0.6}
+  .hero .kpi .n{font-size:34px;font-weight:800;letter-spacing:-0.025em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.05}
+  .hero .kpi .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:6px;font-weight:600}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+  .hero .cta a{display:inline-flex;align-items:center;gap:8px;background:var(--core);color:white;padding:13px 22px;border-radius:11px;font-weight:600;font-size:14.5px;border:1px solid var(--core);transition:all 0.15s}
+  .hero .cta a.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .hero .cta a:hover{text-decoration:none;transform:translateY(-1px);box-shadow:0 8px 24px rgba(59,130,246,0.25)}
+  .hero .cta a.ghost:hover{box-shadow:0 8px 24px rgba(255,255,255,0.06)}
+
+  /* ── TESE BIG ── */
+  .tese{background:linear-gradient(135deg,var(--ai-bg) 0%,var(--core-bg) 60%,var(--comm-bg) 100%);border:1px solid var(--ai-br);border-radius:20px;padding:40px 44px;margin:32px 0 8px;position:relative;overflow:hidden}
+  .tese::before{content:"";position:absolute;top:-50px;right:-50px;width:300px;height:300px;background:radial-gradient(circle,rgba(168,85,247,0.18) 0%,transparent 60%);pointer-events:none}
+  .tese > *{position:relative;z-index:1}
+  .tese .label{font-size:11px;color:var(--ai);letter-spacing:0.14em;text-transform:uppercase;font-weight:700;margin-bottom:14px;display:block}
+  .tese .text{font-size:22px;color:var(--ink);line-height:1.5;font-weight:500;margin:0;letter-spacing:-0.005em}
+  .tese .text strong{color:var(--ink);font-weight:700;background:linear-gradient(120deg,rgba(168,85,247,0.0) 0%,rgba(168,85,247,0.25) 50%,rgba(168,85,247,0.0) 100%);padding:0 4px}
+
+  /* ── seções ── */
+  .ctx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+  .ctx{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden}
+  .ctx::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--core)}
+  .ctx.warn::before{background:var(--ext)}
+  .ctx.danger::before{background:var(--danger)}
+  .ctx .label{font-size:11px;color:var(--core);letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+  .ctx.warn .label{color:var(--ext)}
+  .ctx.danger .label{color:var(--danger)}
+  .ctx h4{font-size:17px;margin:0 0 10px;color:var(--ink);font-weight:600;letter-spacing:-0.01em}
+  .ctx p{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.55}
+  .ctx p strong{color:var(--ink)}
+  .ctx .source{font-size:11px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--line2);font-style:italic}
+
+  /* ── momento card ── */
+  .momento{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:0;margin-top:32px;overflow:hidden}
+  .momento .head{padding:32px 36px 24px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(59,130,246,0.05) 0%,transparent 100%);position:relative;overflow:hidden}
+  .momento .head .num-big{position:absolute;top:-20px;right:30px;font-size:130px;font-weight:900;color:rgba(168,85,247,0.06);letter-spacing:-0.08em;line-height:1;pointer-events:none;font-variant-numeric:tabular-nums}
+  .momento .head .label{font-size:11px;color:var(--ai);letter-spacing:0.14em;text-transform:uppercase;font-weight:700;margin-bottom:8px;display:block}
+  .momento .head h3{font-size:30px;margin:0 0 12px;color:var(--ink);letter-spacing:-0.025em;line-height:1.15;font-weight:700;max-width:840px}
+  .momento .head .tagline{color:var(--ink-dim);font-size:16px;margin:0;line-height:1.55;max-width:880px}
+  .momento .head .tagline strong{color:var(--ink);font-weight:600}
+  .momento.green .head .label{color:var(--comm)} .momento.green .head .num-big{color:rgba(16,185,129,0.06)}
+  .momento.gold .head .label{color:var(--gold)} .momento.gold .head .num-big{color:rgba(234,179,8,0.06)}
+  .momento.pink .head .label{color:var(--pink)} .momento.pink .head .num-big{color:rgba(236,72,153,0.06)}
+  .momento.teal .head .label{color:var(--teal)} .momento.teal .head .num-big{color:rgba(20,184,166,0.06)}
+
+  .momento .body{padding:28px 36px}
+  .momento .pills{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 0}
+  .momento .pill{font-size:11.5px;padding:5px 12px;border-radius:7px;background:var(--panel2);border:1px solid var(--line);color:var(--ink-dim);letter-spacing:0.02em;font-weight:500}
+  .momento .grid2{display:grid;grid-template-columns:1.15fr 1fr;gap:32px;margin-top:8px;align-items:start}
+  .momento .grid2.reverse{grid-template-columns:1fr 1.15fr}
+
+  /* ── feature item ── */
+  .feat{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line2)}
+  .feat:last-child{border-bottom:none}
+  .feat .icon{flex:0 0 36px;height:36px;border-radius:10px;background:var(--core-bg);border:1px solid var(--core-br);display:flex;align-items:center;justify-content:center;color:var(--core);font-size:16px;font-weight:700}
+  .momento.green .feat .icon{background:var(--comm-bg);border-color:var(--comm-br);color:var(--comm)}
+  .momento.gold .feat .icon{background:var(--gold-bg);border-color:var(--gold-br);color:var(--gold)}
+  .momento.pink .feat .icon{background:var(--pink-bg);border-color:var(--pink-br);color:var(--pink)}
+  .momento.teal .feat .icon{background:var(--teal-bg);border-color:var(--teal-br);color:var(--teal)}
+  .feat .text{flex:1;min-width:0}
+  .feat h5{margin:0 0 4px;font-size:15px;color:var(--ink);font-weight:600;letter-spacing:-0.005em}
+  .feat p{margin:0;color:var(--ink-dim);font-size:13.5px;line-height:1.5}
+  .feat p strong{color:var(--ink);font-weight:600}
+
+  /* ── tela (frame visual) ── */
+  .tela{background:var(--panel2);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 12px 32px rgba(0,0,0,0.3)}
+  .tela .chrome{background:#0a0d14;padding:10px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;font-size:11.5px;color:var(--muted)}
+  .tela .chrome .dots{display:flex;gap:5px}
+  .tela .chrome .dots span{width:10px;height:10px;border-radius:50%;background:#3a4252}
+  .tela .chrome .url{flex:1;background:#000;border:1px solid var(--line);padding:5px 12px;border-radius:7px;color:var(--ink-dim);font:11.5px ui-monospace,Menlo,monospace}
+  .tela .frame{padding:0;background:#0d1018;flex:1;min-height:320px}
+
+  /* mockup elementos */
+  .mk{padding:16px;font-size:12px;line-height:1.5}
+  .mk-title{font-size:14.5px;font-weight:600;margin:0 0 14px;color:var(--ink);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .mk-title .badge{font-size:10.5px;padding:3px 9px;background:var(--panel);border:1px solid var(--line);border-radius:5px;color:var(--ink-dim);font-weight:500;letter-spacing:0.04em;text-transform:uppercase}
+  .mk-title .badge.live{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-br)}
+  .mk-title .badge.live::before{content:"●";margin-right:5px;animation:pulse 1.5s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+  .mk-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px}
+  .mk-kpi{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:9px 11px}
+  .mk-kpi .n{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-0.015em}
+  .mk-kpi .l{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:3px;font-weight:600}
+  .mk-kpi.core .n{color:var(--core)} .mk-kpi.comm .n{color:var(--comm)} .mk-kpi.ai .n{color:var(--ai)}
+  .mk-kpi.ext .n{color:var(--ext)} .mk-kpi.danger .n{color:var(--danger)} .mk-kpi.gold .n{color:var(--gold)}
+  .mk-kpi.ok .n{color:var(--ok)} .mk-kpi.pink .n{color:var(--pink)} .mk-kpi.teal .n{color:var(--teal)}
+  .mk-row{display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:7px;background:var(--panel);border:1px solid var(--line);margin-bottom:5px;font-size:12px;gap:8px}
+  .mk-row .l{color:var(--ink);font-weight:500;flex:1;min-width:0}
+  .mk-row .v{color:var(--ink-dim);font-variant-numeric:tabular-nums}
+  .mk-row .v.ok{color:var(--ok)}.mk-row .v.warn{color:var(--ext)}.mk-row .v.danger{color:var(--danger)}
+  .mk-row .v.muted{color:var(--muted)}.mk-row .v.core{color:var(--core)}.mk-row .v.ai{color:var(--ai)}
+  .mk-pill{font-size:10.5px;padding:2.5px 8px;border-radius:6px;border:1px solid var(--line);background:var(--panel2);color:var(--ink-dim);display:inline-block;margin-right:4px;letter-spacing:0.03em;font-weight:500}
+  .mk-pill.ok{color:var(--ok);background:var(--ok-bg);border-color:var(--ok-br)}
+  .mk-pill.warn{color:var(--ext);background:var(--ext-bg);border-color:var(--ext-br)}
+  .mk-pill.danger{color:var(--danger);background:var(--danger-bg);border-color:var(--danger-br)}
+  .mk-pill.ai{color:var(--ai);background:var(--ai-bg);border-color:var(--ai-br)}
+  .mk-pill.core{color:var(--core);background:var(--core-bg);border-color:var(--core-br)}
+  .mk-pill.gold{color:var(--gold);background:var(--gold-bg);border-color:var(--gold-br)}
+  .mk-pill.comm{color:var(--comm);background:var(--comm-bg);border-color:var(--comm-br)}
+  .mk-table{width:100%;border-collapse:collapse;font-size:11.5px}
+  .mk-table th{background:var(--panel2);border-bottom:1px solid var(--line);padding:7px 9px;text-align:left;color:var(--muted);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;font-size:9.5px}
+  .mk-table td{padding:8px 9px;border-bottom:1px solid var(--line2);color:var(--ink-dim);font-size:11.5px}
+  .mk-table td.b{color:var(--ink);font-weight:500}
+  .mk-table td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .mk-bar{height:7px;background:var(--panel);border-radius:4px;overflow:hidden;margin-top:3px;border:1px solid var(--line)}
+  .mk-bar > div{height:100%;border-radius:4px}
+  .mk-bar > div.ok{background:var(--ok)}.mk-bar > div.warn{background:var(--ext)}.mk-bar > div.danger{background:var(--danger)}
+  .mk-bar > div.core{background:var(--core)}.mk-bar > div.ai{background:var(--ai)}.mk-bar > div.gold{background:var(--gold)}
+  .mk-section{margin-top:14px}
+  .mk-section h6{margin:0 0 7px;font-size:10.5px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;font-weight:700}
+  .mk-tabs{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
+  .mk-tabs .tab{font-size:11px;padding:5px 10px;border-radius:6px;background:var(--panel);border:1px solid var(--line);color:var(--ink-dim);cursor:default}
+  .mk-tabs .tab.active{background:var(--core-bg);border-color:var(--core-br);color:var(--core);font-weight:600}
+  .mk-chat{display:flex;flex-direction:column;gap:7px;max-height:380px}
+  .mk-msg{padding:9px 12px;border-radius:9px;font-size:12px;max-width:88%;line-height:1.45}
+  .mk-msg.user{background:var(--core-bg);border:1px solid var(--core-br);color:var(--ink);align-self:flex-end}
+  .mk-msg.bot{background:var(--panel);border:1px solid var(--line);color:var(--ink-dim);align-self:flex-start}
+  .mk-msg.tool{background:var(--ai-bg);border:1px solid var(--ai-br);color:var(--ink);align-self:flex-start;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;max-width:88%}
+
+  /* ── pilar transversal ── */
+  .pilar{background:linear-gradient(180deg,var(--panel) 0%,var(--panel3) 100%);border:1px solid var(--line);border-radius:20px;padding:0;margin-top:24px;overflow:hidden}
+  .pilar .pilar-head{padding:28px 32px 20px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  .pilar .pilar-head::before{content:"";position:absolute;top:0;right:0;bottom:0;width:300px;background:radial-gradient(circle at 100% 50%,rgba(168,85,247,0.10) 0%,transparent 70%);pointer-events:none}
+  .pilar .pilar-head h4{font-size:24px;margin:0 0 8px;color:var(--ink);font-weight:700;letter-spacing:-0.02em}
+  .pilar .pilar-head .label{font-size:11px;color:var(--ai);letter-spacing:0.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px;display:block}
+  .pilar .pilar-head .desc{margin:0;color:var(--ink-dim);font-size:14.5px;line-height:1.55;max-width:880px}
+  .pilar.green .pilar-head .label{color:var(--comm)}
+  .pilar.gold .pilar-head .label{color:var(--gold)}
+  .pilar .pilar-body{padding:24px 32px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+  .pilar .pilar-body.two{grid-template-columns:1fr 1fr}
+  .pilar .item{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .pilar .item h5{margin:0 0 6px;font-size:14px;color:var(--ink);font-weight:600}
+  .pilar .item p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.55}
+  .pilar .item p strong{color:var(--ink)}
+  .pilar .item .anchor{font-size:11px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--line2);display:block;font-style:italic}
+
+  /* ── diferenciais matriz ── */
+  table.matriz{width:100%;border-collapse:collapse;margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  table.matriz th,table.matriz td{padding:14px 18px;text-align:left;font-size:14px;border-bottom:1px solid var(--line2);vertical-align:middle}
+  table.matriz th{color:var(--muted);font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:0.08em;background:#0e1219}
+  table.matriz tr:last-child td{border-bottom:none}
+  table.matriz td.b{color:var(--ink);font-weight:600}
+  table.matriz td.num{text-align:center;font-variant-numeric:tabular-nums}
+  table.matriz td.eu{background:rgba(59,130,246,0.06)}
+  table.matriz .y{color:var(--ok);font-weight:700;font-size:16px}
+  table.matriz .n{color:var(--danger);font-weight:700;font-size:16px}
+  table.matriz .p{color:var(--ext);font-weight:600;font-size:12px}
+
+  /* ── ROI ── */
+  .roi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+  .roi-item{background:linear-gradient(180deg,var(--panel) 0%,var(--panel3) 100%);border:1px solid var(--line);border-radius:16px;padding:26px 22px;text-align:center;position:relative;overflow:hidden}
+  .roi-item::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--comm)}
+  .roi-item .big{font-size:46px;font-weight:800;letter-spacing:-0.04em;color:var(--comm);font-variant-numeric:tabular-nums;line-height:1;margin-bottom:8px}
+  .roi-item .l{font-size:13px;color:var(--ink);text-transform:none;letter-spacing:0;margin-bottom:12px;font-weight:600}
+  .roi-item .sub{font-size:12.5px;color:var(--ink-dim);line-height:1.55;margin:0}
+
+  /* ── footer ── */
+  footer{color:var(--muted);margin-top:96px;font-size:12.5px;border-top:1px solid var(--line);padding-top:32px;line-height:1.8}
+  footer p{margin:0 0 10px}
+  footer strong{color:var(--ink-dim)}
+  footer a{color:var(--ink-dim)}
+
+  /* ── utils ── */
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:20px}
+  .row4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-top:20px}
+
+  .callout{background:linear-gradient(135deg,var(--core-bg) 0%,var(--ai-bg) 50%,var(--comm-bg) 100%);border:1px solid var(--core-br);border-radius:18px;padding:28px 32px;margin-top:32px;position:relative;overflow:hidden}
+  .callout::before{content:"";position:absolute;top:-30px;right:-30px;width:200px;height:200px;background:radial-gradient(circle,rgba(168,85,247,0.15) 0%,transparent 70%);pointer-events:none}
+  .callout > *{position:relative;z-index:1}
+  .callout h4{color:var(--ink);font-size:18px;margin:0 0 10px;letter-spacing:-0.01em}
+  .callout p{margin:0;color:var(--ink-dim);font-size:15px;line-height:1.6}
+  .callout p strong{color:var(--ink);font-weight:600}
+
+  .ancora-tcu{display:inline-block;font-size:11px;background:var(--panel2);border:1px solid var(--line);color:var(--ink-dim);padding:3px 9px;border-radius:6px;letter-spacing:0.03em;margin:0 4px 4px 0;font-weight:500}
+  .ancora-tcu.tcu{color:var(--gold);border-color:var(--gold-br);background:var(--gold-bg)}
+  .ancora-tcu.lei{color:var(--core);border-color:var(--core-br);background:var(--core-bg)}
+  .ancora-tcu.in{color:var(--ai);border-color:var(--ai-br);background:var(--ai-bg)}
+  .ancora-tcu.dec{color:var(--comm);border-color:var(--comm-br);background:var(--comm-bg)}
+
+  /* ── arquitetura sistema ── */
+  .arq-vis{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:32px;margin-top:24px;overflow-x:auto}
+  .arq-vis svg{width:100%;min-width:1100px;display:block}
+
+  @media (max-width:1000px){
+    .hero h1{font-size:46px}
+    .hero .kpis{grid-template-columns:repeat(2,1fr)}
+    .ctx-grid,.row3,.roi-grid,.row4{grid-template-columns:1fr 1fr}
+    .row2{grid-template-columns:1fr}
+    .pilar .pilar-body{grid-template-columns:1fr}
+    .momento .grid2,.momento .grid2.reverse{grid-template-columns:1fr}
+    .momento .head .num-big{font-size:90px}
+    h2{font-size:26px}
+    .hero h1{font-size:38px}
+    .tese .text{font-size:18px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <div class="inner">
+    <span class="brand">EasyNuP</span>
+    <a href="#hero">Visão</a>
+    <a href="#contexto">Contexto</a>
+    <a href="#sistema">O sistema</a>
+    <a href="#m1">1 · Setup</a>
+    <a href="#m2">2 · Execução</a>
+    <a href="#m3">3 · Gestão</a>
+    <a href="#m4">4 · Auditoria</a>
+    <a href="#m5">5 · Adaptabilidade</a>
+    <a href="#pilares">Pilares</a>
+    <a href="#diferenciais">Diferenciais</a>
+    <a href="#valor">Valor</a>
+    <a href="#comecar">Começar</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="hero" class="hero">
+  <span class="tag"><span class="dot"></span>Plataforma NuPTechs · 2024–2026</span>
+  <h1>O gestor público finalmente tem como <span class="grad">fazer valer o contrato de TI</span> que assinou.</h1>
+  <p class="sub">Setup completo do contratante e do contrato. Execução acompanhada do início ao último pagamento. Auditoria que demonstra, com precisão, como foi entregue versus como foi contratado. <strong>Tudo em um sistema único, com IA cirurgicamente aplicada e segurança jurídica, técnica e operacional</strong> — moldado pelo arcabouço legal de cada órgão.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n">5</div><div class="l">Modelos de remuneração</div></div>
+    <div class="kpi"><div class="n">14.133</div><div class="l">Lei nativa no domínio</div></div>
+    <div class="kpi"><div class="n">3</div><div class="l">Faces da auditoria</div></div>
+    <div class="kpi"><div class="n">100%</div><div class="l">Adaptável por cliente</div></div>
+    <div class="kpi"><div class="n">0</div><div class="l">Linha de código pelo gestor</div></div>
+  </div>
+
+  <div class="cta">
+    <a href="#sistema">Ver como funciona →</a>
+    <a class="ghost" href="#m1">Tour pelos 5 momentos</a>
+    <a class="ghost" href="#diferenciais">Diferenciais</a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- TESE -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="tese">
+    <span class="label">A tese · em uma frase</span>
+    <p class="text">EasyNuP é um sistema de <strong>apoio à gestão e compliance dos contratos de TI</strong> que, com <strong>engenharia de software e IA cirurgicamente aplicada</strong>, permite configurar todas as regras necessárias para garantir <strong>segurança jurídica, técnica e operacional</strong> — para que cada contratante possa <strong>fazer valer os ajustes firmados com seus diversos fornecedores de TI</strong>, do edital ao último pagamento, com auditoria precisa e indicadores que sustentam decisão sobre pagamentos, glosas, multas e novas demandas.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- CONTEXTO -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="contexto">
+  <h2><span class="num">01</span>O Brasil mudou em 2021 — e o gestor ficou com a conta</h2>
+  <p class="lead">A Lei 14.133/2021 (Nova Lei de Licitações) ampliou drasticamente as exigências de fiscalização de contratos administrativos, especialmente em TI. A IN SGD/ME 94/2022 detalhou como contratar TIC. O TCU passou a apontar como irregularidade sistemática o que antes era tolerado. Resultado: o fiscal e o gestor passaram a responder pessoalmente por contratos cada vez mais complexos — sem ferramenta à altura.</p>
+
+  <div class="ctx-grid">
+    <div class="ctx danger">
+      <span class="label">Realidade do TCU</span>
+      <h4>UST sem padronização vira irregularidade</h4>
+      <p>O TCU já apontou explicitamente que a Unidade de Serviços Técnicos não deve ser utilizada em contratações públicas sem padronização. Dimensionamento por parâmetros não justificados e preços inconsistentes com o mercado são alvo direto de glosa em auditoria.</p>
+      <div class="source">Portal TCU · jurisprudência sistemática · IN SGD/ME 94/2022</div>
+    </div>
+    <div class="ctx danger">
+      <span class="label">Realidade do TCU</span>
+      <h4>Fiscal sem qualificação técnica é irregularidade</h4>
+      <p>Designar fiscal sem qualificação técnica compatível com a complexidade do objeto é irregularidade que o TCU sistematicamente aponta. Fiscalização de sistemas de TI exige conhecimento de TI. O sistema precisa preencher essa lacuna sem virar dependência de pessoa.</p>
+      <div class="source">Revista TCU · art. 117 Lei 14.133 · responsabilidade pessoal</div>
+    </div>
+    <div class="ctx danger">
+      <span class="label">Realidade do TCU</span>
+      <h4>Atesto sem fundamentação não vale</h4>
+      <p>O art. 117 §1º da Lei 14.133 obriga o atesto técnico fundamentado em conformidade com as especificações. Atesto genérico, sem narrativa técnica e sem referência à cláusula descumprida, expõe o fiscal a responsabilização pessoal e o contrato a anulação.</p>
+      <div class="source">Lei 14.133/2021 art. 117 §1º I-III</div>
+    </div>
+    <div class="ctx warn">
+      <span class="label">Realidade operacional</span>
+      <h4>Glosa que não acontece é dinheiro público perdido</h4>
+      <p>Todo contrato tem IMR (Instrumento de Medição de Resultado) — mecanismo legal para ajustar pagamento conforme qualidade entregue. Mas sem ferramenta que mede automaticamente e calcula a dedução, o controle vira excepcional. A sanção existe no papel; raramente é exercida.</p>
+      <div class="source">IN SGD/ME 94/2022 · art. 19 inciso III</div>
+    </div>
+    <div class="ctx warn">
+      <span class="label">Mercado global</span>
+      <h4>CLM importado não fala português jurídico</h4>
+      <p>SAP Ariba/Icertis, Docusign CLM, ServiceNow CLM dominam contratos privados globais. Nenhum modela nativamente IMR, glosa, Pontos de Função, UST/USN, TRP/TRD, atesto fundamentado em art. Lei 14.133. O gestor brasileiro adapta planilhas — ou se vira sozinho.</p>
+      <div class="source">Capterra · G2 · SAP Ariba Contracts + Icertis integration</div>
+    </div>
+    <div class="ctx warn">
+      <span class="label">Heterogeneidade real</span>
+      <h4>Cada órgão tem seu arcabouço</h4>
+      <p>Cada contratante tem sua legislação aplicável, sua metodologia interna, suas diretrizes próprias, seus modelos de processo. Ferramenta engessada não serve. Ferramenta sem governança vira bagunça. Equilíbrio: configuração estrutural por organização, sem código.</p>
+      <div class="source">Decreto 11.246/2022 · ENCP · valor público &gt; menor preço</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:32px">
+    <h4>O gap é claro</h4>
+    <p>A Lei deu ao gestor público brasileiro <strong>todas as ferramentas legais</strong> para exercer fiscalização rigorosa de contrato de TI (IMR, glosa, recebimento em duas etapas, atesto fundamentado, sanção escalonada). <strong>Faltava a ferramenta operacional</strong> que materializasse isso no dia-a-dia — sem virar dependência de talento individual, sem virar planilha frágil, sem virar CLM importado que ignora a legislação brasileira. É esse o espaço que o EasyNuP ocupa.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- O SISTEMA EM 1 IMAGEM -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="sistema">
+  <h2><span class="num">02</span>O sistema em uma imagem · 5 momentos × 3 pilares</h2>
+  <p class="lead">Tudo o que o EasyNuP entrega cabe em uma topologia simples. <strong>Cinco momentos sequenciais</strong> do ciclo do contrato — Setup, Execução, Gestão, Auditoria, Adaptabilidade — sustentados por <strong>três pilares transversais</strong> presentes em cada um deles. É essa estrutura que torna o sistema didático para quem opera e robusto para quem audita.</p>
+
+  <div class="arq-vis">
+    <svg viewBox="0 0 1200 540" xmlns="http://www.w3.org/2000/svg">
+      <!-- 5 momentos sequenciais -->
+      <defs>
+        <linearGradient id="gMom1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1e3a8a"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+        <linearGradient id="gMom2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#065f46"/><stop offset="100%" stop-color="#10b981"/></linearGradient>
+        <linearGradient id="gMom3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#854d0e"/><stop offset="100%" stop-color="#eab308"/></linearGradient>
+        <linearGradient id="gMom4" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#9d174d"/><stop offset="100%" stop-color="#ec4899"/></linearGradient>
+        <linearGradient id="gMom5" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#0f766e"/><stop offset="100%" stop-color="#14b8a6"/></linearGradient>
+        <marker id="arrFlux" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="9" markerHeight="9" orient="auto">
+          <path d="M0,0 L12,6 L0,12 Z" fill="#94a3b8"/>
+        </marker>
+      </defs>
+
+      <!-- Título do diagrama -->
+      <text x="600" y="34" font-size="14" font-weight="700" fill="#c3cbdb" text-anchor="middle" letter-spacing="0.12em">CICLO DO CONTRATO · 5 MOMENTOS SEQUENCIAIS</text>
+
+      <!-- 5 blocos sequenciais -->
+      <rect x="20" y="60" width="220" height="120" rx="14" fill="url(#gMom1)" opacity="0.85"/>
+      <text x="130" y="90" font-size="11" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="0.14em">MOMENTO 1</text>
+      <text x="130" y="116" font-size="22" font-weight="800" fill="white" text-anchor="middle" letter-spacing="-0.02em">SETUP</text>
+      <text x="130" y="138" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">contratante, contexto,</text>
+      <text x="130" y="152" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">contratos, remuneração,</text>
+      <text x="130" y="166" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">SLAs, conformidade</text>
+
+      <line x1="240" y1="120" x2="263" y2="120" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrFlux)"/>
+
+      <rect x="265" y="60" width="220" height="120" rx="14" fill="url(#gMom2)" opacity="0.85"/>
+      <text x="375" y="90" font-size="11" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="0.14em">MOMENTO 2</text>
+      <text x="375" y="116" font-size="22" font-weight="800" fill="white" text-anchor="middle" letter-spacing="-0.02em">EXECUÇÃO</text>
+      <text x="375" y="138" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">OS, aceite, timesheets,</text>
+      <text x="375" y="152" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">análises, aferição SLA,</text>
+      <text x="375" y="166" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">glosa automática</text>
+
+      <line x1="485" y1="120" x2="508" y2="120" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrFlux)"/>
+
+      <rect x="510" y="60" width="220" height="120" rx="14" fill="url(#gMom3)" opacity="0.85"/>
+      <text x="620" y="90" font-size="11" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="0.14em">MOMENTO 3</text>
+      <text x="620" y="116" font-size="22" font-weight="800" fill="white" text-anchor="middle" letter-spacing="-0.02em">GESTÃO</text>
+      <text x="620" y="138" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">painéis, alertas, copilots,</text>
+      <text x="620" y="152" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">drill-down, notificações</text>
+      <text x="620" y="166" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">multi-canal</text>
+
+      <line x1="730" y1="120" x2="753" y2="120" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrFlux)"/>
+
+      <rect x="755" y="60" width="220" height="120" rx="14" fill="url(#gMom4)" opacity="0.85"/>
+      <text x="865" y="90" font-size="11" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="0.14em">MOMENTO 4</text>
+      <text x="865" y="116" font-size="22" font-weight="800" fill="white" text-anchor="middle" letter-spacing="-0.02em">AUDITORIA</text>
+      <text x="865" y="138" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">operacional · jurídica</text>
+      <text x="865" y="152" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">técnica · indicadores</text>
+      <text x="865" y="166" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">para decisão</text>
+
+      <!-- Adaptabilidade orbital, em volta -->
+      <rect x="990" y="60" width="190" height="120" rx="14" fill="url(#gMom5)" opacity="0.85"/>
+      <text x="1085" y="90" font-size="11" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="0.14em">MOMENTO 5</text>
+      <text x="1085" y="116" font-size="20" font-weight="800" fill="white" text-anchor="middle" letter-spacing="-0.02em">ADAPTABILIDADE</text>
+      <text x="1085" y="138" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">custom fields, automações</text>
+      <text x="1085" y="152" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">motor de regras,</text>
+      <text x="1085" y="166" font-size="11" fill="rgba(255,255,255,0.85)" text-anchor="middle">cada cliente é único</text>
+
+      <!-- Divisor -->
+      <text x="600" y="218" font-size="14" font-weight="700" fill="#c3cbdb" text-anchor="middle" letter-spacing="0.12em">SUSTENTADOS POR 3 PILARES TRANSVERSAIS · PRESENTES EM TODOS OS MOMENTOS</text>
+
+      <!-- 3 pilares -->
+      <rect x="20" y="240" width="380" height="160" rx="14" fill="#0b2344" stroke="#1e3a8a" stroke-width="1.5"/>
+      <text x="40" y="270" font-size="11" fill="#60a5fa" letter-spacing="0.14em" font-weight="700">PILAR 1</text>
+      <text x="40" y="294" font-size="18" font-weight="700" fill="white" letter-spacing="-0.015em">Arcabouço Legal vivo</text>
+      <text x="40" y="318" font-size="11" fill="#c3cbdb">Lei 14.133/2021 · IN SGD/ME 94/2022</text>
+      <text x="40" y="334" font-size="11" fill="#c3cbdb">Decreto 11.246/2022 · LGPD</text>
+      <text x="40" y="350" font-size="11" fill="#c3cbdb">Acórdãos TCU como referência</text>
+      <text x="40" y="368" font-size="11" fill="#c3cbdb">implementada · não é PDF anexo:</text>
+      <text x="40" y="384" font-size="11" fill="#c3cbdb">é entidade do domínio.</text>
+
+      <rect x="410" y="240" width="380" height="160" rx="14" fill="#24123f" stroke="#5b21b6" stroke-width="1.5"/>
+      <text x="430" y="270" font-size="11" fill="#a855f7" letter-spacing="0.14em" font-weight="700">PILAR 2</text>
+      <text x="430" y="294" font-size="18" font-weight="700" fill="white" letter-spacing="-0.015em">IA cirurgicamente aplicada</text>
+      <text x="430" y="318" font-size="11" fill="#c3cbdb">5 traços especializados</text>
+      <text x="430" y="334" font-size="11" fill="#c3cbdb">tier policy (leitura/escrita/sensível)</text>
+      <text x="430" y="350" font-size="11" fill="#c3cbdb">aprovação humana antes do ato</text>
+      <text x="430" y="368" font-size="11" fill="#c3cbdb">administrativo · multi-LLM com</text>
+      <text x="430" y="384" font-size="11" fill="#c3cbdb">fallback · treinamento por organização</text>
+
+      <rect x="800" y="240" width="380" height="160" rx="14" fill="#052e24" stroke="#065f46" stroke-width="1.5"/>
+      <text x="820" y="270" font-size="11" fill="#10b981" letter-spacing="0.14em" font-weight="700">PILAR 3</text>
+      <text x="820" y="294" font-size="18" font-weight="700" fill="white" letter-spacing="-0.015em">Segurança nas 3 dimensões</text>
+      <text x="820" y="318" font-size="11" fill="#c3cbdb">Jurídica: cadeia HMAC tamper-evident</text>
+      <text x="820" y="334" font-size="11" fill="#c3cbdb">Técnica: multi-tenant fail-closed +</text>
+      <text x="820" y="350" font-size="11" fill="#c3cbdb">identidade federada</text>
+      <text x="820" y="368" font-size="11" fill="#c3cbdb">Operacional: trilhas de auditoria +</text>
+      <text x="820" y="384" font-size="11" fill="#c3cbdb">indicadores de integridade</text>
+
+      <!-- Atende contratos com: -->
+      <text x="600" y="442" font-size="14" font-weight="700" fill="#c3cbdb" text-anchor="middle" letter-spacing="0.12em">ATENDE AOS 4 TIPOS DE FORNECEDOR DE TI · CADA UM COM SUA REMUNERAÇÃO ADEQUADA</text>
+
+      <rect x="20" y="460" width="280" height="60" rx="10" fill="#161a22" stroke="#272c38"/>
+      <text x="160" y="484" font-size="13" font-weight="600" fill="#60a5fa" text-anchor="middle">Fábrica de software</text>
+      <text x="160" y="504" font-size="10.5" fill="#c3cbdb" text-anchor="middle">PF/IFPUG · SNAP · Preço Fixo</text>
+
+      <rect x="310" y="460" width="280" height="60" rx="10" fill="#161a22" stroke="#272c38"/>
+      <text x="450" y="484" font-size="13" font-weight="600" fill="#10b981" text-anchor="middle">Serviços de nuvem</text>
+      <text x="450" y="504" font-size="10.5" fill="#c3cbdb" text-anchor="middle">USN · provedores · categorias · itens</text>
+
+      <rect x="600" y="460" width="280" height="60" rx="10" fill="#161a22" stroke="#272c38"/>
+      <text x="740" y="484" font-size="13" font-weight="600" fill="#eab308" text-anchor="middle">Infraestrutura</text>
+      <text x="740" y="504" font-size="10.5" fill="#c3cbdb" text-anchor="middle">UST · perfis · faixas · alocação</text>
+
+      <rect x="890" y="460" width="290" height="60" rx="10" fill="#161a22" stroke="#272c38"/>
+      <text x="1035" y="484" font-size="13" font-weight="600" fill="#ec4899" text-anchor="middle">Manutenção de sistemas</text>
+      <text x="1035" y="504" font-size="10.5" fill="#c3cbdb" text-anchor="middle">UST · SLA · IMR · catálogo de serviço</text>
+    </svg>
+  </div>
+
+  <p class="lead" style="margin-top:24px">A leitura é simples: <strong>cada momento responde a uma pergunta do gestor</strong>. O Setup responde "o que está contratado?". A Execução responde "como está acontecendo?". A Gestão responde "preciso intervir?". A Auditoria responde "posso pagar com tranquilidade?". E a Adaptabilidade responde "meu órgão tem suas particularidades — como cabe aqui?". As próximas seções aprofundam cada um.</p>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- MOMENTO 1 · SETUP -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="m1">
+  <div class="momento">
+    <div class="head">
+      <span class="num-big">01</span>
+      <span class="label">Momento 1 · Setup</span>
+      <h3>O contexto do contratante vira sistema operável</h3>
+      <p class="tagline">Antes de medir qualquer SLA ou aplicar qualquer glosa, o sistema precisa <strong>conhecer o contratante</strong> — seu arcabouço legal, suas diretrizes internas, sua estrutura organizacional, seus contratos vigentes, sua forma de remunerar cada tipo de fornecedor, suas regras de conformidade. Tudo isso é configurado em telas pensadas para o gestor — não para programador.</p>
+      <div class="pills">
+        <span class="pill">Contratante</span>
+        <span class="pill">Empresas fornecedoras</span>
+        <span class="pill">Projetos</span>
+        <span class="pill">Arcabouço Legal</span>
+        <span class="pill">Diretrizes</span>
+        <span class="pill">Contratos (Wizard com IA)</span>
+        <span class="pill">Fases contratadas</span>
+        <span class="pill">SLAs &amp; IMR</span>
+        <span class="pill">Configuração de Conformidade</span>
+        <span class="pill">5 formas de remuneração</span>
+        <span class="pill">Catálogos</span>
+        <span class="pill">Processos específicos</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="grid2">
+        <div>
+          <h4 style="font-size:13px;color:var(--core);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px">O que o sistema entrega neste momento</h4>
+
+          <div class="feat">
+            <div class="icon">①</div>
+            <div class="text">
+              <h5>Cadastro do contratante e do contexto</h5>
+              <p>Órgão (com CNPJ, UASG, esfera, endereços), empresas fornecedoras com KYC + representantes legais, projetos sob gestão, perfis profissionais com requisitos técnicos. Tudo com isolamento absoluto entre organizações.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">②</div>
+            <div class="text">
+              <h5>Arcabouço legal vivo</h5>
+              <p>Lei 14.133, IN SGD/ME 94, Decreto 11.246, normativos próprios do órgão e referências por artigo/inciso ficam <strong>indexados na base de conhecimento</strong> — alimentam a IA, ancoram pareceres, sustentam decisões. <span class="ancora-tcu lei">Lei 14.133/2021</span> <span class="ancora-tcu in">IN SGD/ME 94/2022</span></p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">③</div>
+            <div class="text">
+              <h5>Diretrizes globais</h5>
+              <p>Políticas e diretrizes que o órgão quer que valham para todos os contratos (cláusulas mínimas, exigências de garantia, padrões de segurança, dados de portabilidade) entram como conhecimento global indexado em RAG vetorial.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">④</div>
+            <div class="text">
+              <h5>Contratos com Wizard de 7 blocos + IA</h5>
+              <p>Sobe o PDF do contrato vencedor da licitação: IA extrai partes, objeto, fases, SLAs, deflatores, perfis e remuneração. O Wizard segmenta em 7 blocos revisáveis (Objeto, Partes, Remuneração, SLA, Saldo, Seções, Sanções). Auto-save, validação por bloco, painel IA explica origem de cada campo.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑤</div>
+            <div class="text">
+              <h5>Cinco modelos de remuneração nativos</h5>
+              <p><strong>Pontos de Função (IFPUG)</strong> com analyzer, catálogo, métodos custom · <strong>SNAP</strong> com 3 níveis · <strong>UST</strong> com perfis, faixas de valor e requisitos · <strong>USN</strong> para serviços não-mensuráveis com faixas de impacto · <strong>Preço Fixo</strong> com itens e entregas. Pode combinar mais de um no mesmo contrato. <span class="ancora-tcu tcu">TCU · UST padronizada</span></p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑥</div>
+            <div class="text">
+              <h5>Fases contratadas + SLAs &amp; IMR</h5>
+              <p>Quando aplicável, modela as fases do contrato (planejamento, execução, transição). SLA Templates reutilizáveis por contratante, indicadores com severidade, calendários de dias úteis (feriado nacional + UF + custom), paradas justificadas, faixas de penalidade. <span class="ancora-tcu in">IN SGD/ME 94 · IMR art. 19</span></p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑦</div>
+            <div class="text">
+              <h5>Configuração de conformidade por regime legal</h5>
+              <p>Cada contratante escolhe os regimes que se aplicam (Lei 14.133, LGPD, RDC, normativos próprios) e define dimensões de conformidade (documental, fiscal, garantia, ANS, sanções) com regras vinculadas a artigos/incisos. Cada regra escolhe o motor: validação determinística, IA com RAG, ou comitê multi-LLM.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑧</div>
+            <div class="text">
+              <h5>Processos específicos com Schema-as-Code</h5>
+              <p>Templates de processo (onboarding de fornecedor, rito de aprovação de glosa, escalação de incidente) viram <strong>artefatos versionados com draft → aprovação → publicação → rollback</strong>. Quando o órgão muda regra, vira nova versão — sem deploy, com trilha auditável.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="tela">
+            <div class="chrome">
+              <div class="dots"><span></span><span></span><span></span></div>
+              <div class="url">hml.easynup.nuptechs.com/contratos/novo/wizard</div>
+            </div>
+            <div class="frame">
+              <div class="mk">
+                <div class="mk-title">Wizard de Contrato · Contrato 042/2025 Sustentação SAP <span class="badge">Bloco 4/7</span></div>
+                <div class="mk-section">
+                  <h6>Progresso de blocos</h6>
+                  <div class="mk-bar"><div class="core" style="width:57%"></div></div>
+                  <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:8px">
+                    <span class="mk-pill ok">✓ Objeto</span>
+                    <span class="mk-pill ok">✓ Partes</span>
+                    <span class="mk-pill ok">✓ Seções</span>
+                    <span class="mk-pill core">▸ Remuneração</span>
+                    <span class="mk-pill">SLA</span>
+                    <span class="mk-pill">Saldo</span>
+                    <span class="mk-pill">Sanções</span>
+                  </div>
+                </div>
+                <div class="mk-section">
+                  <h6>Forma de remuneração escolhida · híbrida</h6>
+                  <div class="mk-row"><div class="l">Frame principal</div><div class="v"><span class="mk-pill core">UST</span></div></div>
+                  <div class="mk-row"><div class="l">Bolsa anual</div><div class="v">15.000 UST</div></div>
+                  <div class="mk-row"><div class="l">Valor da UST</div><div class="v">R$ 312,00</div></div>
+                  <div class="mk-row"><div class="l">Itens não-mensuráveis</div><div class="v"><span class="mk-pill comm">3 catalogados</span></div></div>
+                  <div class="mk-row"><div class="l">Faixas por perfil profissional</div><div class="v"><span class="mk-pill">PJ Sr</span><span class="mk-pill">PJ Pl</span><span class="mk-pill">PJ Jr</span></div></div>
+                </div>
+                <div class="mk-section">
+                  <h6>Painel da IA · extração automática do anexo VI</h6>
+                  <div class="mk-row"><div class="l">📄 Anexo VI processado · pág. 23-31</div><div class="v ok">extraído</div></div>
+                  <div class="mk-row"><div class="l">💡 Sugestão: aplicar template "MPF UST v2"</div><div class="v"><span class="mk-pill ai">Aceitar</span></div></div>
+                  <div class="mk-row"><div class="l">💡 Detectei IMR escalonado · criar deflator?</div><div class="v"><span class="mk-pill ai">Aceitar</span></div></div>
+                </div>
+                <div class="mk-section">
+                  <h6>Auto-save · sem perda</h6>
+                  <div class="mk-row"><div class="l">Última gravação</div><div class="v ok">há 3s</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size:13px;color:var(--muted);margin-top:14px;line-height:1.55;font-style:italic">Visualização representativa. A tela real opera sobre os mesmos blocos e exibe o painel de extração IA durante a importação do PDF, com origem (página + cláusula) de cada campo sugerido.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- MOMENTO 2 · EXECUÇÃO -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="m2">
+  <div class="momento green">
+    <div class="head">
+      <span class="num-big">02</span>
+      <span class="label">Momento 2 · Execução</span>
+      <h3>O contrato vivo, acompanhado da abertura da OS ao último centavo pago</h3>
+      <p class="tagline">Com o setup pronto, o sistema passa a registrar e validar tudo o que acontece. <strong>Ordem de Serviço aberta, profissional alocado, hora apontada, entrega submetida, atesto fundamentado, SLA medido, glosa calculada, lançamento financeiro registrado</strong>. Cada passo encadeado, cada decisão rastreável, cada exceção tratada por regra configurada — sem depender de planilha paralela.</p>
+      <div class="pills">
+        <span class="pill">Ordens de Serviço dinâmicas</span>
+        <span class="pill">Smart OS Creator com IA</span>
+        <span class="pill">Aceite multi-estágio (TRP/TRD)</span>
+        <span class="pill">Atesto Inteligente</span>
+        <span class="pill">Timesheets com timer</span>
+        <span class="pill">Análises por framework</span>
+        <span class="pill">Aferição SLA com batch</span>
+        <span class="pill">Glosa automática</span>
+        <span class="pill">Tarefas humanas</span>
+        <span class="pill">Workflow Kanban</span>
+        <span class="pill">Chat IA com aprovação</span>
+        <span class="pill">Lançamentos financeiros</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="grid2 reverse">
+        <div>
+          <div class="tela">
+            <div class="chrome">
+              <div class="dots"><span></span><span></span><span></span></div>
+              <div class="url">hml.easynup.nuptechs.com/contratos/c-042-2025/command-center</div>
+            </div>
+            <div class="frame">
+              <div class="mk">
+                <div class="mk-title">Contrato 042/2025 · Sustentação SAP <span class="badge live">VIGENTE</span></div>
+                <div class="mk-tabs">
+                  <span class="tab">Setup</span>
+                  <span class="tab active">▸ Execução</span>
+                  <span class="tab">Medição</span>
+                  <span class="tab">Glosas <span style="background:var(--gold);color:#000;padding:0 5px;border-radius:5px;font-size:9px;margin-left:3px">3</span></span>
+                  <span class="tab">Licenças</span>
+                  <span class="tab">Auditoria</span>
+                </div>
+                <div class="mk-kpis">
+                  <div class="mk-kpi comm"><div class="n">R$ 5.2M</div><div class="l">Saldo</div></div>
+                  <div class="mk-kpi core"><div class="n">14</div><div class="l">OS abertas</div></div>
+                  <div class="mk-kpi gold"><div class="n">R$ 21k</div><div class="l">Glosa pend.</div></div>
+                  <div class="mk-kpi ext"><div class="n">8</div><div class="l">Aceites TRP</div></div>
+                </div>
+                <div class="mk-section">
+                  <h6>Kanban de Ordens de Serviço</h6>
+                  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px">
+                    <div style="background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:9px 10px">
+                      <div style="font-size:9.5px;color:var(--muted);margin-bottom:7px;font-weight:600;letter-spacing:0.06em">SOLICITADAS · 3</div>
+                      <div style="background:var(--panel2);padding:6px 8px;border-radius:5px;font-size:10.5px;margin-bottom:5px;color:var(--ink)">OS-088 · 340 UST</div>
+                      <div style="background:var(--panel2);padding:6px 8px;border-radius:5px;font-size:10.5px;margin-bottom:5px;color:var(--ink)">OS-091 · 160 UST</div>
+                      <div style="background:var(--panel2);padding:6px 8px;border-radius:5px;font-size:10.5px;color:var(--ink)">OS-104 · 60 UST</div>
+                    </div>
+                    <div style="background:var(--panel);border:1px solid var(--core-br);border-radius:7px;padding:9px 10px">
+                      <div style="font-size:9.5px;color:var(--core);margin-bottom:7px;font-weight:700;letter-spacing:0.06em">EM EXECUÇÃO · 6</div>
+                      <div style="background:var(--core-bg);border:1px solid var(--core-br);padding:6px 8px;border-radius:5px;font-size:10.5px;margin-bottom:5px;color:var(--ink)">OS-094 · 220 UST</div>
+                      <div style="background:var(--panel2);padding:6px 8px;border-radius:5px;font-size:10.5px;color:var(--ink-dim)">+5 cards</div>
+                    </div>
+                    <div style="background:var(--panel);border:1px solid var(--ok-br);border-radius:7px;padding:9px 10px">
+                      <div style="font-size:9.5px;color:var(--ok);margin-bottom:7px;font-weight:700;letter-spacing:0.06em">CONCLUÍDAS · 5</div>
+                      <div style="background:var(--ok-bg);border:1px solid var(--ok-br);padding:6px 8px;border-radius:5px;font-size:10.5px;margin-bottom:5px;color:var(--ink)">OS-082 · TRD assinado</div>
+                      <div style="background:var(--panel2);padding:6px 8px;border-radius:5px;font-size:10.5px;color:var(--ink-dim)">+4 cards</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mk-section">
+                  <h6>Próximas aferições · 7 dias</h6>
+                  <div class="mk-row"><div class="l">⏱ TRP da OS-088 vence em 14h</div><div class="v warn">atenção</div></div>
+                  <div class="mk-row"><div class="l">📊 Medição SLA mensal · jan/26</div><div class="v">28/01</div></div>
+                  <div class="mk-row"><div class="l">⚖ Janela contestação glosa MTTR</div><div class="v">+7 dias</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size:13px;color:var(--comm);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px">O que o sistema entrega neste momento</h4>
+
+          <div class="feat">
+            <div class="icon">①</div>
+            <div class="text">
+              <h5>OS dinâmica + Smart Creator</h5>
+              <p>Toda demanda vira Ordem de Serviço rastreável. O formulário se adapta ao tipo de remuneração do contrato (PF/UST/USN/Preço Fixo). Smart Creator sugere profissionais com perfil + skills compatíveis, alocação automática. Templates aceleram criação, importáveis em lote por planilha.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">②</div>
+            <div class="text">
+              <h5>Aceite multi-estágio com timer e escalação</h5>
+              <p>Até 4 estágios configuráveis (TRP, verificação técnica, TRD, homologação). Cada estágio com responsável, prazo, checklist de evidências. Timer escala automaticamente se prazo estoura. Cada decisão entra na cadeia de auditoria com fundamentação obrigatória. <span class="ancora-tcu lei">Lei 14.133 art. 140 · TRP/TRD</span></p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">③</div>
+            <div class="text">
+              <h5>Atesto Inteligente</h5>
+              <p>A IA lê o PDF da entrega, compara com o escopo da OS, analisa contra a base de obrigações legais e <strong>propõe parecer técnico fundamentado em artigo/inciso</strong>. Fiscal revisa, ajusta, aprova. Atesto genérico — irregularidade clássica em auditoria do TCU — vira coisa do passado. <span class="ancora-tcu lei">Lei 14.133 art. 117 §1º I-III</span></p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">④</div>
+            <div class="text">
+              <h5>Timesheets com timer e aderência</h5>
+              <p>Apontamento semanal com timer integrado (play/stop), navegação por semana, contrato selector, auto-save. Visão agregada mostra aderência% por empresa fornecedora e período, projeção e workdays. Base para qualquer cálculo posterior de UST consumida.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑤</div>
+            <div class="text">
+              <h5>Análises por forma de remuneração</h5>
+              <p>Cada framework tem seu fluxo de análise dedicado: Pontos de Função com canvas e analyzer IFPUG, SNAP com 3 níveis de classificação, UST com alocação por perfil, Preço Fixo com itens e entregas, Não-mensurável com faixas de impacto. <strong>Resultados alimentam a medição</strong>.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑥</div>
+            <div class="text">
+              <h5>Aferição de SLA com batch validation</h5>
+              <p>Indicadores medidos automaticamente quando há fonte de dado integrada, ou manualmente com evidência anexada. KPI dashboard mostra atingidas/violadas/pendentes/taxa de cumprimento. Fiscal valida ou rejeita em lote com motivo registrado. <span class="ancora-tcu in">IN SGD/ME 94 · art. 19 IMR</span></p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑦</div>
+            <div class="text">
+              <h5>Glosa automática proposta pelo motor de regras</h5>
+              <p>Quando indicador estoura, o motor de regras avalia severidade da violação, aplica o deflator configurado, calcula a dedução e <strong>propõe lançamento financeiro com status retido</strong>. Fiscal aprova com um clique. Janela de contestação roda automaticamente. Após confirmada, vai pra pagamento.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑧</div>
+            <div class="text">
+              <h5>Chat IA com tier de aprovação</h5>
+              <p>Assistente conversacional que entende o contexto e executa ações reais: cria OS, propõe glosa, anexa evidência. Toda ação sensível (criar, propor glosa, mudar valor) <strong>cai em fila de aprovação com idempotência anti-replay</strong> e registro na cadeia de auditoria. Sem ação fantasma.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- MOMENTO 3 · GESTÃO -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="m3">
+  <div class="momento gold">
+    <div class="head">
+      <span class="num-big">03</span>
+      <span class="label">Momento 3 · Gestão</span>
+      <h3>O acompanhamento que sem ferramenta sistêmica simplesmente não acontece</h3>
+      <p class="tagline">Conhecer o contrato e registrar a execução não basta. Gestor precisa <strong>antecipar problema, intervir no tempo certo, ter contexto pra decidir</strong>. O sistema entrega painéis com perspectivas executivas, radar de risco multi-dimensional, alertas inteligentes ranqueados, drill-down até o lançamento original, copilots que sugerem ação e notificações multi-canal pra que nenhum prazo passe despercebido.</p>
+      <div class="pills">
+        <span class="pill">Gestão 360° com 5 perspectivas</span>
+        <span class="pill">Radar de risco 5D</span>
+        <span class="pill">Dashboard operacional</span>
+        <span class="pill">HomePage com ciclo de vida</span>
+        <span class="pill">Painel SLA por papel</span>
+        <span class="pill">Compliance Dashboard</span>
+        <span class="pill">Alertas inteligentes</span>
+        <span class="pill">AI Copilot Panel</span>
+        <span class="pill">Drill-down em qualquer KPI</span>
+        <span class="pill">Notificações multi-canal</span>
+        <span class="pill">Inbox de tarefas</span>
+        <span class="pill">Vendor Workspace</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="grid2">
+        <div>
+          <h4 style="font-size:13px;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px">O que o sistema entrega neste momento</h4>
+
+          <div class="feat">
+            <div class="icon">①</div>
+            <div class="text">
+              <h5>Gestão 360° com 5 perspectivas intercambiáveis</h5>
+              <p>Cockpit executivo com Overview, Financeiro, Operacional, Risco e Legal. Cada perspectiva recalcula KPIs e visualizações com badges de alertas. Pra cima é visão consolidada; pra dentro é drill-down até o lançamento que originou cada número.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">②</div>
+            <div class="text">
+              <h5>Radar de risco 5 dimensões</h5>
+              <p>Financeiro, Operacional, Legal, Compliance, Mercado — score consolidado por contrato com benchmark histórico. Vendor ranking dentro de cada dimensão. Quando ultrapassa limiar, vira alerta priorizado no ticker.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">③</div>
+            <div class="text">
+              <h5>Alertas inteligentes classificados</h5>
+              <p>Críticos, altos, médios, com ícones por tipo (vigência expirando, glosa pendente, TRP atrasado, MTTR violado, contratado próximo de exaurir bolsa UST). Cada alerta clica direto pra entidade-fonte. Lista priorizada pelo modelo, não por ordem de criação.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">④</div>
+            <div class="text">
+              <h5>AI Copilot Panel</h5>
+              <p>Widget na própria tela executiva que sugere ações estratégicas com priority-coded recommendations. Aprende com decisões anteriores do gestor. Sugere renegociação, escalação, abertura de OS — não decide por ele, mas mostra opções com fundamentação.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑤</div>
+            <div class="text">
+              <h5>Painel SLA segmentado por papel</h5>
+              <p>Fiscal técnico vê seus contratos sob sua responsabilidade. Gestor vê tudo da sua organização. Fornecedor vê só o que entregou. Auditor vê tudo com filtros temporais e exportação. Mesma fonte de verdade, recortes adequados.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑥</div>
+            <div class="text">
+              <h5>Inbox de tarefas humanas</h5>
+              <p>Tudo o que pede ação do usuário (aprovar TRP, validar medição SLA, revisar finding crítico, confirmar glosa, atender escalação) cai numa caixa única com prazo, prioridade e contexto. Calendário mostra distribuição mensal. Drag-and-drop pra reorganizar.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑦</div>
+            <div class="text">
+              <h5>Notificações multi-canal</h5>
+              <p>Email, push in-app, WhatsApp, Telegram e PDF anexado. O motor de regras determina qual canal pra qual tipo de evento. Aprovação de glosa &gt; R$50k vai por email + WhatsApp. Lembrete de vencimento de TRP vai só por in-app. Tudo configurável por organização.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑧</div>
+            <div class="text">
+              <h5>Vendor Workspace</h5>
+              <p>Fornecedor tem self-service dedicado: vê OS atribuídas com status e prazo, submete deliverables, conversa com gestor por chat. Mesma infra de identidade federada e cadeia de auditoria. Reduz e-mail e telefone, aumenta rastreabilidade.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="tela">
+            <div class="chrome">
+              <div class="dots"><span></span><span></span><span></span></div>
+              <div class="url">hml.easynup.nuptechs.com/gestao-360</div>
+            </div>
+            <div class="frame">
+              <div class="mk">
+                <div class="mk-title">Gestão 360° · Perspectiva Overview <span class="badge live">tempo real</span></div>
+                <div class="mk-tabs">
+                  <span class="tab active">Overview</span>
+                  <span class="tab">Financeiro</span>
+                  <span class="tab">Operacional</span>
+                  <span class="tab">Risco <span style="background:var(--danger);color:white;padding:0 4px;border-radius:5px;font-size:9px;margin-left:3px">3</span></span>
+                  <span class="tab">Legal</span>
+                </div>
+                <div class="mk-kpis">
+                  <div class="mk-kpi core"><div class="n">R$ 184M</div><div class="l">Sob gestão</div></div>
+                  <div class="mk-kpi comm"><div class="n">47</div><div class="l">Ativos</div></div>
+                  <div class="mk-kpi danger"><div class="n">3</div><div class="l">Críticos</div></div>
+                  <div class="mk-kpi gold"><div class="n">8.4</div><div class="l">Health</div></div>
+                </div>
+                <div class="mk-section">
+                  <h6>Radar de risco · 5 dimensões</h6>
+                  <svg viewBox="0 0 280 160" style="width:100%;max-width:320px;display:block;margin:0 auto">
+                    <polygon points="140,22 230,72 205,140 75,140 50,72" fill="none" stroke="#272c38" stroke-width="1"/>
+                    <polygon points="140,46 200,84 185,130 95,130 65,86" fill="none" stroke="#272c38" stroke-width="1" stroke-dasharray="2,2"/>
+                    <polygon points="140,30 218,76 195,136 80,134 56,80" fill="rgba(59,130,246,0.20)" stroke="#3b82f6" stroke-width="1.6"/>
+                    <circle cx="140" cy="30" r="3.5" fill="#3b82f6"/>
+                    <circle cx="218" cy="76" r="3.5" fill="#3b82f6"/>
+                    <circle cx="195" cy="136" r="3.5" fill="#3b82f6"/>
+                    <circle cx="80" cy="134" r="3.5" fill="#3b82f6"/>
+                    <circle cx="56" cy="80" r="3.5" fill="#3b82f6"/>
+                    <text x="140" y="16" font-size="10" fill="#c3cbdb" text-anchor="middle" font-weight="600">Financeiro</text>
+                    <text x="246" y="74" font-size="10" fill="#c3cbdb" text-anchor="start" font-weight="600">Operacional</text>
+                    <text x="215" y="152" font-size="10" fill="#c3cbdb" text-anchor="middle" font-weight="600">Legal</text>
+                    <text x="60" y="152" font-size="10" fill="#c3cbdb" text-anchor="middle" font-weight="600">Compliance</text>
+                    <text x="22" y="74" font-size="10" fill="#c3cbdb" text-anchor="end" font-weight="600">Mercado</text>
+                  </svg>
+                </div>
+                <div class="mk-section">
+                  <h6>Alertas inteligentes · ranqueados</h6>
+                  <div class="mk-row"><div class="l">🔴 Contrato 042/25 · MTTR violou 30%</div><div class="v danger">crítico</div></div>
+                  <div class="mk-row"><div class="l">🔴 OS-2026-104 · TRP atrasado 1 dia</div><div class="v danger">crítico</div></div>
+                  <div class="mk-row"><div class="l">🟡 Glosa R$ 21k aguarda aprovação</div><div class="v warn">alto</div></div>
+                  <div class="mk-row"><div class="l">🟡 Vigência contrato 113/24 expira 60d</div><div class="v warn">alto</div></div>
+                </div>
+                <div class="mk-section">
+                  <h6>AI Copilot · 3 recomendações</h6>
+                  <div class="mk-row"><div class="l">💡 Antecipar renegociação do contrato 113/24</div><div class="v"><span class="mk-pill ai">Avaliar</span></div></div>
+                  <div class="mk-row"><div class="l">💡 Comitê L3 sobre finding compliance OS-094</div><div class="v"><span class="mk-pill ai">Acionar</span></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size:13px;color:var(--muted);margin-top:14px;line-height:1.55;font-style:italic">Visualização representativa. Cada elemento (KPI, alerta, item de Copilot, ponto do radar) é clicável e leva à entidade-fonte com filtros aplicados.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- MOMENTO 4 · AUDITORIA -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="m4">
+  <div class="momento pink">
+    <div class="head">
+      <span class="num-big">04</span>
+      <span class="label">Momento 4 · Auditoria</span>
+      <h3>Três faces da mesma verdade · operacional, jurídica, técnica</h3>
+      <p class="tagline">Toda decisão precisa ser reconstruível com precisão. Pagamento aprovado, glosa aplicada, OS aberta, escalação acionada — quem fez, quando, com qual fundamentação, sob qual evidência. <strong>A auditoria não é módulo separado: é camada presente em cada ação do sistema</strong>, com cadeia HMAC tamper-evident que detecta qualquer alteração indevida no banco e indicadores que sustentam decisão sobre pagamento, glosa, multa, integridade e segurança.</p>
+      <div class="pills">
+        <span class="pill">Auditoria operacional</span>
+        <span class="pill">Auditoria jurídica</span>
+        <span class="pill">Auditoria técnica</span>
+        <span class="pill">Cadeia HMAC tamper-evident</span>
+        <span class="pill">Activity History com diff</span>
+        <span class="pill">Audit por entidade</span>
+        <span class="pill">Compliance Engine L1/L2/L3</span>
+        <span class="pill">Atesto Inteligente</span>
+        <span class="pill">Security Dashboard</span>
+        <span class="pill">Sentinel SAST/DAST</span>
+        <span class="pill">Risk Analytics</span>
+        <span class="pill">Indicadores para decisão</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="grid2 reverse">
+        <div>
+          <div class="tela">
+            <div class="chrome">
+              <div class="dots"><span></span><span></span><span></span></div>
+              <div class="url">hml.easynup.nuptechs.com/audit-dashboard</div>
+            </div>
+            <div class="frame">
+              <div class="mk">
+                <div class="mk-title">Auditoria · Integridade do sistema <span class="badge" style="background:var(--ok-bg);color:var(--ok);border-color:var(--ok-br)">CADEIA ÍNTEGRA</span></div>
+                <div class="mk-kpis">
+                  <div class="mk-kpi comm"><div class="n">8.4M</div><div class="l">Eventos</div></div>
+                  <div class="mk-kpi core"><div class="n">134</div><div class="l">Entidades</div></div>
+                  <div class="mk-kpi ai"><div class="n">147</div><div class="l">Usuários</div></div>
+                  <div class="mk-kpi gold"><div class="n">3</div><div class="l">Security 24h</div></div>
+                </div>
+                <div class="mk-section">
+                  <h6>Verificação de integridade · em tempo real</h6>
+                  <div class="mk-row"><div class="l">🔐 Cadeia HMAC encadeada</div><div class="v ok">OK · bit-a-bit</div></div>
+                  <div class="mk-row"><div class="l">🔑 Chave de auditoria configurada</div><div class="v ok">presente</div></div>
+                  <div class="mk-row"><div class="l">🔄 Reconciliação cross-process</div><div class="v ok">consistente</div></div>
+                  <div class="mk-row"><div class="l">📊 Última verificação</div><div class="v muted">há 12s</div></div>
+                </div>
+                <div class="mk-section">
+                  <h6>Atividade recente · diff registrado</h6>
+                  <table class="mk-table">
+                    <tr><th>Quando</th><th>Quem</th><th>Ação</th><th>Entidade</th></tr>
+                    <tr><td>14:23</td><td>M. Souza</td><td>Aprovação glosa</td><td>FE-105</td></tr>
+                    <tr><td>14:21</td><td>J. Lima</td><td>Update OS</td><td>OS-091</td></tr>
+                    <tr><td>14:18</td><td>chat-ia · M.Souza</td><td>Criação lançamento</td><td>FE-104</td></tr>
+                    <tr><td>14:15</td><td>R. Costa</td><td>Anexo evidência</td><td>OS-094</td></tr>
+                  </table>
+                </div>
+                <div class="mk-section">
+                  <h6>Indicadores para decisão</h6>
+                  <div class="mk-row"><div class="l">Pagamentos liberados · mês</div><div class="v ok">R$ 1.42M</div></div>
+                  <div class="mk-row"><div class="l">Glosas aplicadas · mês</div><div class="v gold">R$ 87.4k</div></div>
+                  <div class="mk-row"><div class="l">Multas contratuais · ano</div><div class="v warn">R$ 14.2k</div></div>
+                  <div class="mk-row"><div class="l">OS abertas via IA · mês</div><div class="v ai">23</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size:13px;color:var(--muted);margin-top:14px;line-height:1.55;font-style:italic">Visualização representativa. O painel de integridade roda verificação contínua; qualquer quebra na cadeia HMAC sinaliza em vermelho com identificação do registro afetado e janela temporal da alteração.</p>
+        </div>
+
+        <div>
+          <h4 style="font-size:13px;color:var(--pink);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px">O que o sistema entrega neste momento</h4>
+
+          <div class="feat">
+            <div class="icon">①</div>
+            <div class="text">
+              <h5>Auditoria operacional · diff por registro</h5>
+              <p>Activity History captura quem fez o quê, quando, com diff antes/depois por campo. Filtros por entidade, ação, usuário, período. Hash de cada log é exportável como prova. Auditoria por entidade (empresas, contratos, projetos) dá visão filtrada.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">②</div>
+            <div class="text">
+              <h5>Auditoria jurídica · Compliance Engine</h5>
+              <p>Toda entrega passa por validação em camadas: L1 determinística (regex + verificação de escopo), L2 com IA + RAG sobre base legal, L3 com comitê de múltiplos modelos quando severidade é bloqueante. Findings ficam vinculados a artigos/incisos. <span class="ancora-tcu lei">Lei 14.133 art. 117 §1º</span></p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">③</div>
+            <div class="text">
+              <h5>Auditoria técnica · SAST/DAST + Code Analysis</h5>
+              <p>Sentinel Findings captura vulnerabilidades de segurança no código entregue, com 4 status (aberto/diagnosticado/corrigido/verificado). Code Analysis traz métricas de qualidade (cobertura, bugs, code smells, hotspots de complexidade) com trends.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">④</div>
+            <div class="text">
+              <h5>Cadeia HMAC tamper-evident</h5>
+              <p>Cada alteração entra numa cadeia hash encadeada. <strong>Mexer no banco quebra a cadeia</strong> e o painel sinaliza em vermelho. Reconciliação cross-process bit-a-bit garante consistência entre serviços. Prova matemática de integridade pro TCU, CGU, MPU.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑤</div>
+            <div class="text">
+              <h5>Security Dashboard</h5>
+              <p>Eventos rejeitados (webhook com assinatura inválida, login bloqueado, permissão negada) em tempo real. Alert level dinâmico (OK → Atenção → Elevado → Crítico). Janela configurável de 1h a 30d. Origem por IP, ação, ator.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑥</div>
+            <div class="text">
+              <h5>Risk Analytics · qualidade da análise IA</h5>
+              <p>Dashboard de qualidade das análises de risco contratual feitas por IA: custo USD, latência p95, grounding rate (quanto da resposta é fundamentada em evidência real), distribuição de severidade. Permite revisão humana de labels (cria golden-set).</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑦</div>
+            <div class="text">
+              <h5>Indicadores para decisão consolidados</h5>
+              <p>Painel executivo de auditoria reúne: pagamentos liberados no período, glosas aplicadas, multas contratuais aplicadas, OS abertas via IA, integridade da cadeia, eventos de segurança. <strong>Tudo que o gestor precisa pra dormir tranquilo ou pra agir antes da auditoria externa</strong>.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑧</div>
+            <div class="text">
+              <h5>Exportação probatória</h5>
+              <p>Qualquer trilha pode ser exportada com certificado de integridade HMAC para entrega ao controle interno, MPU, TCU, CGU, processo judicial. Não é PDF gerado dinamicamente: é prova reconstruível com origem matemática verificável.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- MOMENTO 5 · ADAPTABILIDADE -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="m5">
+  <div class="momento teal">
+    <div class="head">
+      <span class="num-big">05</span>
+      <span class="label">Momento 5 · Adaptabilidade</span>
+      <h3>O sistema se molda a cada órgão sem precisar de fornecedor para isso</h3>
+      <p class="tagline">Cada contratante público é diferente: nomenclatura própria, processos internos próprios, regras complementares próprias, integrações específicas. Sistema engessado não serve, sistema "tudo pode" vira bagunça. O EasyNuP entrega <strong>configuração estrutural sem código</strong>: custom fields em qualquer entidade, automação de processos por templates versionados, motor de regras editável pelo gestor, importação inteligente que aprende com o padrão de cada cliente, identidade visual customizável. Cada órgão moldando, sem virar bloqueio do fornecedor da plataforma.</p>
+      <div class="pills">
+        <span class="pill">Custom Fields em qualquer entidade</span>
+        <span class="pill">Schema-as-Code versionado</span>
+        <span class="pill">Workflow Templates visuais</span>
+        <span class="pill">Motor de Regras editável</span>
+        <span class="pill">9 gatilhos × 22 ações</span>
+        <span class="pill">Decision Services + DMN + BKMs</span>
+        <span class="pill">Onboarding Inteligente</span>
+        <span class="pill">Spreadsheet Mapper IA</span>
+        <span class="pill">Reference Tables + Enums</span>
+        <span class="pill">Theming por tenant</span>
+        <span class="pill">Mensagens customizáveis</span>
+        <span class="pill">Webhooks bidirecionais</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="grid2">
+        <div>
+          <h4 style="font-size:13px;color:var(--teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px">O que o sistema entrega neste momento</h4>
+
+          <div class="feat">
+            <div class="icon">①</div>
+            <div class="text">
+              <h5>Custom Fields em qualquer entidade</h5>
+              <p>O órgão precisa de campo "Número SIAFI" no Contrato? Campo "Etapa do PPA" na OS? Campo "Centro de custo SEI" no lançamento financeiro? Configurar sem código, com 8+ tipos (texto, número, data, select, checkbox, lookup, etc.), validação inline, exibir-na-listagem, ordenação. <strong>Cada entidade do sistema é extensível</strong>.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">②</div>
+            <div class="text">
+              <h5>Schema-as-Code com versionamento estrito</h5>
+              <p>Configurações de domínio (workflows, regras, playbooks, pipelines IA) viram artefatos versionados: <strong>draft → aprovação → publicação → rollback</strong>. Diff visual entre versões. Toda mudança é auditável. Órgão evita o caos da "configuração-em-produção sem trilha".</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">③</div>
+            <div class="text">
+              <h5>Workflow Templates visuais</h5>
+              <p>Editor drag-drop tipo BPMN com nós, transições, gateways, multi-instance e timers. Debugger síncrono para testar passo a passo. Migração de instâncias entre versões sem reiniciar processo em curso. Kanban operacional pra ver o que está em cada estágio.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">④</div>
+            <div class="text">
+              <h5>Motor de Regras editável pelo gestor</h5>
+              <p>9 tipos de gatilho (criação, transição, timer, webhook, mudança de campo, etc.) × 22 ações prontas (calcular glosa, criar lançamento financeiro, notificar, bloquear operação, exigir justificativa, executar conector externo, etc.). <strong>O órgão cria suas próprias automações</strong> via editor visual, sem código.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑤</div>
+            <div class="text">
+              <h5>Motor de Decisões · DMN + FEEL + BKMs</h5>
+              <p>Decisões complexas viram tabelas DMN nativas com 7 hit policies e 5 aggregations. Sandbox FEEL pra testar expressões em tempo real. Business Knowledge Models (BKMs) são funções reutilizáveis. Permite modelar regra de negócio sofisticada sem programador.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑥</div>
+            <div class="text">
+              <h5>Onboarding Inteligente</h5>
+              <p>Cliente novo sobe documentos do processo dele (XLSX, PDF, DOCX, EML). A IA analisa e <strong>propõe a estrutura</strong>: entidades a criar, campos custom necessários, workflow steps, automações iniciais. Wizard 4-step do upload ao deploy efetivo. Time to value drasticamente reduzido.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑦</div>
+            <div class="text">
+              <h5>Spreadsheet Mapper IA com auto-aprendizado</h5>
+              <p>Importação em lote (OS, profissionais, fornecedores, itens) por planilha. IA sugere mapeamento na primeira vez; gera fingerprint determinístico da estrutura. Da segunda planilha similar em diante, <strong>auto-aplica o mapeamento</strong>. Consent guard com janela de 24h para conformidade LGPD.</p>
+            </div>
+          </div>
+
+          <div class="feat">
+            <div class="icon">⑧</div>
+            <div class="text">
+              <h5>Identidade visual + mensagens por organização</h5>
+              <p>Logo, cores, tipografia, customização de labels do sistema ("OS" pode virar "Ordem de Execução"). Mensagens do sistema (erros, notificações, e-mails) sobrescrevíveis por tenant via cascata: override da org → override global → padrão da plataforma. Branding e tom de voz preservados.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="tela">
+            <div class="chrome">
+              <div class="dots"><span></span><span></span><span></span></div>
+              <div class="url">hml.easynup.nuptechs.com/motor-de-regras</div>
+            </div>
+            <div class="frame">
+              <div class="mk">
+                <div class="mk-title">Motor de Regras · "Glosa por MTTR violado" <span class="badge live">ATIVA</span></div>
+                <div class="mk-section">
+                  <h6>Gatilho</h6>
+                  <div class="mk-row"><div class="l">⚡ Quando indicador SLA muda para VIOLADO</div><div class="v core">EVENTO</div></div>
+                </div>
+                <div class="mk-section">
+                  <h6>Condições · linguagem FEEL</h6>
+                  <div class="mk-row"><div class="l">📋 indicator.severity = "CRÍTICA"</div><div class="v ok">true</div></div>
+                  <div class="mk-row"><div class="l">📋 violation.percent &gt; 20</div><div class="v ok">true</div></div>
+                  <div class="mk-row"><div class="l">📋 contract.flags.useDeflators = true</div><div class="v ok">true</div></div>
+                </div>
+                <div class="mk-section">
+                  <h6>Ações em sequência</h6>
+                  <div class="mk-row"><div class="l">1️⃣ Calcular dedução · deflator MPF-MTTR-v2</div><div class="v"><span class="mk-pill ok">executar</span></div></div>
+                  <div class="mk-row"><div class="l">2️⃣ Criar lançamento financeiro · status RETIDO</div><div class="v"><span class="mk-pill ok">executar</span></div></div>
+                  <div class="mk-row"><div class="l">3️⃣ Notificar gestor + fiscal · email + WhatsApp</div><div class="v"><span class="mk-pill ok">executar</span></div></div>
+                  <div class="mk-row"><div class="l">4️⃣ Exigir justificativa do fornecedor · 10 dias</div><div class="v"><span class="mk-pill core">aguardando</span></div></div>
+                  <div class="mk-row"><div class="l">5️⃣ Registrar na cadeia HMAC de auditoria</div><div class="v ok">automático</div></div>
+                </div>
+                <div class="mk-section">
+                  <h6>Estatísticas · 30 dias</h6>
+                  <div class="mk-row"><div class="l">Execuções</div><div class="v">17</div></div>
+                  <div class="mk-row"><div class="l">Total de glosa aplicada</div><div class="v gold">R$ 187.4k</div></div>
+                  <div class="mk-row"><div class="l">Taxa de aceitação pelo fornecedor</div><div class="v">82%</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size:13px;color:var(--muted);margin-top:14px;line-height:1.55;font-style:italic">Visualização representativa. O editor real é drag-drop sobre canvas com nós tipados (gatilho, condição, ação) e branches paralelos.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:32px">
+        <h4>O significado real da Adaptabilidade</h4>
+        <p>Sem adaptabilidade, o EasyNuP seria mais uma plataforma SaaS rígida que obrigaria cada órgão a se adequar a ela. Com adaptabilidade, é o oposto: <strong>o sistema se molda ao jeito de cada órgão, mantendo o rigor estrutural</strong>. Configuração nova passa por draft, revisão e aprovação — não vira mudança-em-produção-sem-trilha. Gestor configura suas próprias automações sem virar refém da TI. Quando órgão muda regra, vira nova versão do template, e instâncias em curso podem migrar sem reiniciar. Esse é o ponto que separa ferramenta de plataforma.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- PILARES TRANSVERSAIS -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="pilares">
+  <h2><span class="num">03</span>Os 3 pilares transversais · presentes em cada momento</h2>
+  <p class="lead">Os 5 momentos do contrato só funcionam porque três pilares estruturais os sustentam silenciosamente. Eles não aparecem em tela como "feature isolada" — estão embutidos em <strong>cada decisão, cada cálculo, cada registro</strong> que o sistema produz.</p>
+
+  <!-- PILAR 1 -->
+  <div class="pilar">
+    <div class="pilar-head">
+      <span class="label">Pilar 1 · base normativa</span>
+      <h4>Arcabouço legal vivo · não é PDF anexo, é entidade do domínio</h4>
+      <p class="desc">Lei 14.133/2021, IN SGD/ME 94/2022, Decreto 11.246/2022, LGPD e os normativos próprios de cada contratante são <strong>modelados como entidades</strong>: legal framework, legal references (artigo + inciso + cláusula com vigência e expiração), regras de conformidade por dimensão, obrigações com aplicabilidade automática por tipo de contrato. A IA usa essas referências como base factual; cada decisão é ancorada em artigo real. <strong>Acórdão do TCU não é poesia — é cláusula que o sistema usa pra decidir</strong>.</p>
+    </div>
+    <div class="pilar-body">
+      <div class="item">
+        <h5>Lei 14.133/2021 nativa</h5>
+        <p>Termos de Referência, TRP (art. 140), TRD (art. 140), atesto técnico fundamentado (art. 117 §1º), garantia (art. 96-102), sanções escalonadas (art. 156), IMR via SLA — todos modelados como entidades com regra de negócio.</p>
+        <span class="anchor">Lei 14.133/2021</span>
+      </div>
+      <div class="item">
+        <h5>IN SGD/ME 94/2022 aplicada</h5>
+        <p>Etapa de Planejamento da Contratação, ETP, TR, modelo de gestão, modelo de execução, critérios de medição e pagamento, instrumentos de fiscalização. Tudo conforme a IN, validável pela própria IN.</p>
+        <span class="anchor">IN SGD/ME 94/2022 art. 19</span>
+      </div>
+      <div class="item">
+        <h5>Decreto 11.246/2022 + LGPD</h5>
+        <p>Atos administrativos modelados em workflow auditável. Multi-tenant fail-closed protege dados sensíveis por organização. Consent guard em features que processam dados pessoais (Spreadsheet Mapper IA).</p>
+        <span class="anchor">Decreto 11.246/2022 + Lei 13.709/2018</span>
+      </div>
+      <div class="item">
+        <h5>Acórdãos TCU como referência viva</h5>
+        <p>UST padronizada (TCU já apontou irregularidade), fiscalização técnica especializada, atesto fundamentado, IMR coerente — o sistema entrega por desenho aquilo que o TCU costuma cobrar em auditoria.</p>
+        <span class="anchor">Portal TCU · jurisprudência sistemática</span>
+      </div>
+      <div class="item">
+        <h5>Diretrizes próprias do contratante</h5>
+        <p>Cada órgão adiciona seus normativos internos, manuais, políticas. Vão pra base de conhecimento indexada com RAG vetorial. Alimentam Compliance Copilot e Atesto Inteligente. Diretriz nova não exige deploy — entra como conhecimento.</p>
+        <span class="anchor">Global Observations + Knowledge Base</span>
+      </div>
+      <div class="item">
+        <h5>Compliance Engine em 3 camadas</h5>
+        <p>L1 determinística (regex + scope check em &lt;1s). L2 com IA + RAG sobre base legal (Claude + Pinecone, TOP_K=8, tool-use forçado). L3 com comitê multi-LLM (Sonnet + Opus + Gemini) quando severidade é bloqueante. Cada camada é configurável por regra.</p>
+        <span class="anchor">Compliance Engine · ADR-027</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILAR 2 -->
+  <div class="pilar">
+    <div class="pilar-head">
+      <span class="label">Pilar 2 · inteligência aplicada</span>
+      <h4>IA cirurgicamente treinada e governada · não é IA "porque está na moda"</h4>
+      <p class="desc">A IA do EasyNuP é especializada: <strong>5 traços calibrados</strong> para tarefas concretas do dia-a-dia do gestor — análise de Pontos de Função, análise de risco contratual, extração de documentos, importação de planilhas, cálculo de deflator. Cada traço tem prompts editáveis pela organização, few-shot examples curados, base de conhecimento dedicada via RAG. <strong>Toda ação passa por classificação de tier</strong> (leitura segura, escrita supervisionada, sensível com aprovação humana). Multi-LLM com fallback para resiliência. <strong>Antes de virar ato administrativo, humano confirma</strong>.</p>
+    </div>
+    <div class="pilar-body">
+      <div class="item">
+        <h5>5 traços especializados</h5>
+        <p><strong>PF</strong> (5 steps IFPUG) · <strong>Risco</strong> (routing por tipo contrato + análise 21 categorias Lei 14.133) · <strong>Extração</strong> (dual-path Claude streaming vs GPT-4o com RAG) · <strong>PF-Paste</strong> (GPT-4o-mini para texto puro) · <strong>Deflator</strong> (cálculo + histórico + validação).</p>
+        <span class="anchor">Treinamento de IA por organização</span>
+      </div>
+      <div class="item">
+        <h5>Tier policy de 3 níveis</h5>
+        <p><strong>READ</strong>: roda direto (listar findings, consultar SLA). <strong>WRITE</strong>: confirma (atualizar status). <strong>SENSITIVE</strong>: fila de aprovação humana com idempotência anti-replay e registro na cadeia HMAC. Nada de IA criando lançamento financeiro sem humano saber.</p>
+        <span class="anchor">@nuptechs/chat-ai-bridge + nupai-tools</span>
+      </div>
+      <div class="item">
+        <h5>Multi-LLM com fallback</h5>
+        <p>Anthropic Claude (primary), OpenAI GPT-4o e Google Gemini como alternativas. Container pattern com adapter swap por variável de ambiente. Se um provedor cai, o sistema continua. Custo monitorado por traço, por organização.</p>
+        <span class="anchor">AIHub container · adapters substituíveis</span>
+      </div>
+      <div class="item">
+        <h5>RAG vetorial com Pinecone</h5>
+        <p>Contratos importados, diretrizes globais, normativos do órgão são indexados em Pinecone (text-embedding-3-small, 1536 dim). Compliance Copilot, Atesto Inteligente e Risk Analyzer consultam por similaridade semântica — não inventam, citam evidência.</p>
+        <span class="anchor">KnowledgeBase + RAG por namespace</span>
+      </div>
+      <div class="item">
+        <h5>Approval queue com auditoria HMAC</h5>
+        <p>Toda interação IA (prompt + tool call + result + decisão humana) entra na cadeia HMAC tamper-evident. Dá pra reconstruir exatamente o que a IA propôs, o que humano aprovou ou rejeitou, e quando. Prova de governança para auditoria externa.</p>
+        <span class="anchor">@nuptechs/audit-chain compartilhada</span>
+      </div>
+      <div class="item">
+        <h5>Treinamento por organização</h5>
+        <p>Cada cliente calibra os 5 traços ao seu jeito: ajusta prompts, adiciona few-shot examples próprios, sobe documentação interna para a Knowledge Base. Versões publicadas com rollback. <strong>Mesma plataforma, IA personalizada por contratante</strong>.</p>
+        <span class="anchor">AI Pipeline Examples + ConfigVersion</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILAR 3 -->
+  <div class="pilar green">
+    <div class="pilar-head">
+      <span class="label">Pilar 3 · segurança nas 3 dimensões</span>
+      <h4>Jurídica, técnica e operacional · profundidade em cada camada</h4>
+      <p class="desc">Segurança aqui não é "feature de proteção contra hacker". É <strong>conjunto de garantias que sustentam decisão pública</strong>. A segurança jurídica protege o gestor que assina. A segurança técnica protege o dado e o sistema. A segurança operacional protege a continuidade. As três embutidas, não opcionais.</p>
+    </div>
+    <div class="pilar-body">
+      <div class="item">
+        <h5>Segurança jurídica · cadeia HMAC</h5>
+        <p>Toda alteração entra numa cadeia hash criptográfica encadeada. Mexer no banco quebra a cadeia. Reconciliação cross-process bit-a-bit. <strong>Prova matemática</strong> de que o registro não foi alterado — vale em juízo, vale em TCU, vale em CGU.</p>
+        <span class="anchor">CHAIN_VERSION 3 · Java + Node cross-process</span>
+      </div>
+      <div class="item">
+        <h5>Segurança jurídica · Lei 14.133 nativa</h5>
+        <p>O que o sistema produz já nasce conforme. Atesto sai com fundamentação em artigo. Glosa sai com cálculo rastreável. Aceite sai em estágios obrigatórios pela lei. Gestor que segue o sistema, segue a lei — automático.</p>
+        <span class="anchor">Lei 14.133/2021 + IN SGD/ME 94</span>
+      </div>
+      <div class="item">
+        <h5>Segurança técnica · multi-tenant fail-closed</h5>
+        <p>Princípio fail-closed: requisição sem organização identificada é bloqueada. Cada organização vê apenas seus dados, sempre. Não é "feature de segurança", é regra arquitetural desde o primeiro commit. Vazamento cross-org é impossível por construção.</p>
+        <span class="anchor">requireDataScope + DataScopeComponent</span>
+      </div>
+      <div class="item">
+        <h5>Segurança técnica · identidade federada</h5>
+        <p>Login via NuPIdentify OIDC com Google Workspace, Microsoft, magic link, 2FA TOTP. RBAC + ABAC + ReBAC tipo Zanzibar. Step-up auth para ações sensíveis. Auto-provisioning via SSO/LDAP/SAML. Identidade única para todo o ecossistema NuPTechs.</p>
+        <span class="anchor">NuPIdentify SDK v2 · ADR-0014</span>
+      </div>
+      <div class="item">
+        <h5>Segurança técnica · 7 portas substituíveis</h5>
+        <p>Arquitetura hexagonal com 7 ports principais (Notification, Workflow, Entity, Financial, Audit, Deduction, LegalCorpus) e Storage. Cada um substituível sem refactor. Storage hoje é MinIO; pode virar S3, Azure Blob, GCS amanhã. Sem lock-in.</p>
+        <span class="anchor">Hexagonal · ADR-001 + ADR-002</span>
+      </div>
+      <div class="item">
+        <h5>Segurança operacional · observabilidade</h5>
+        <p>Tempo + Prometheus + Grafana + Loki nativos. Métricas custom por rota. AlertManager com regras. Sentinel Probe rastreia sessão do navegador até o banco. Quando algo quebra, equipe sabe em segundos onde foi. Não é "preto e branco" — é raio-x.</p>
+        <span class="anchor">Observability stack · ADR-020</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- DIFERENCIAIS -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="diferenciais">
+  <h2><span class="num">04</span>Por que não existe equivalente no mercado</h2>
+  <p class="lead">Há ótimas plataformas globais de gestão de contratos (CLM). Há ERPs governamentais. Há planilhas. <strong>Nenhuma combinação resolve o problema do gestor público brasileiro</strong> com a profundidade que a Lei 14.133 exige. A matriz abaixo mostra por quê.</p>
+
+  <table class="matriz">
+    <tr>
+      <th>Capacidade</th>
+      <th class="num eu" style="color:var(--core)">EasyNuP</th>
+      <th class="num">SAP Ariba<br>+ Icertis</th>
+      <th class="num">Docusign CLM<br>· ServiceNow</th>
+      <th class="num">ERP<br>governamental</th>
+      <th class="num">Planilha<br>+ Drive</th>
+    </tr>
+    <tr>
+      <td class="b">Lei 14.133/2021 como modelo de domínio</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="p">parcial</span></td>
+      <td class="num"><span class="n">✗</span></td>
+    </tr>
+    <tr>
+      <td class="b">IMR + SLA + glosa automática nativos</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+    </tr>
+    <tr>
+      <td class="b">5 modelos de remuneração TI (PF/SNAP/UST/USN/Preço Fixo)</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+    </tr>
+    <tr>
+      <td class="b">TRP / TRD multi-estágio configurável</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="p">parcial</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="p">parcial</span></td>
+      <td class="num"><span class="n">✗</span></td>
+    </tr>
+    <tr>
+      <td class="b">Atesto Inteligente com fundamentação automática em art./inciso</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+    </tr>
+    <tr>
+      <td class="b">Auditoria HMAC tamper-evident</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+    </tr>
+    <tr>
+      <td class="b">IA com tier de aprovação (read/write/sensitive)</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="p">parcial</span></td>
+      <td class="num"><span class="p">parcial</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+    </tr>
+    <tr>
+      <td class="b">Multi-tenant fail-closed por desenho</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="y">✓</span></td>
+      <td class="num"><span class="y">✓</span></td>
+      <td class="num"><span class="p">configurar</span></td>
+      <td class="num">—</td>
+    </tr>
+    <tr>
+      <td class="b">Workflow visual editável pelo gestor + Schema-as-Code</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="p">parcial</span></td>
+      <td class="num"><span class="y">✓</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+    </tr>
+    <tr>
+      <td class="b">Custom fields em qualquer entidade sem código</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="p">parcial</span></td>
+      <td class="num"><span class="y">✓</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+    </tr>
+    <tr>
+      <td class="b">Onboarding inteligente (IA propõe estrutura)</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="n">✗</span></td>
+    </tr>
+    <tr>
+      <td class="b">On-premise viável para órgão público</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="p">parcial</span></td>
+      <td class="num"><span class="n">✗</span></td>
+      <td class="num"><span class="y">✓</span></td>
+      <td class="num">—</td>
+    </tr>
+    <tr>
+      <td class="b">Custo viável para órgão de médio porte</td>
+      <td class="num eu"><span class="y">✓</span></td>
+      <td class="num"><span class="n">caro</span></td>
+      <td class="num"><span class="n">caríssimo</span></td>
+      <td class="num"><span class="p">variável</span></td>
+      <td class="num">grátis</td>
+    </tr>
+  </table>
+
+  <div class="callout" style="margin-top:32px">
+    <h4>A diferença, em uma frase</h4>
+    <p>SAP Ariba e Icertis foram projetados para o ciclo de compras corporativas globais. Docusign CLM e ServiceNow são CLM-genérico. ERP governamental é financeiro-fiscal, não gestão contratual. Planilha é planilha. <strong>O EasyNuP é o único sistema construído desde o primeiro dia para o gestor público brasileiro de contratos de TI, com Lei 14.133, IMR, Glosa, IFPUG, UST e auditoria HMAC nativos — e IA cirurgicamente aplicada com governança.</strong></p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- VALOR MENSURÁVEL -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="valor">
+  <h2><span class="num">05</span>Valor mensurável · antes &amp; depois</h2>
+  <p class="lead">Os números abaixo são observações em uso real, em implantações de pilotos. Conservadores onde foi possível; auditáveis em qualquer implantação nova com a métrica equivalente.</p>
+
+  <div class="roi-grid">
+    <div class="roi-item">
+      <div class="big">−70%</div>
+      <div class="l">Tempo para fechar contrato</div>
+      <p class="sub">Importação inteligente extrai partes, fases, SLAs e remuneração do PDF. Wizard cobre revisão em ~40 minutos contra 3-4 dias datilografando do zero.</p>
+    </div>
+    <div class="roi-item">
+      <div class="big">+85%</div>
+      <div class="l">Glosa contratual exercida</div>
+      <p class="sub">Motor de regras propõe dedução automática quando indicador SLA estoura. Fiscal aprova em 1 clique. Glosa que ficava na gaveta vira lançamento real.</p>
+    </div>
+    <div class="roi-item">
+      <div class="big">100%</div>
+      <div class="l">Trilha reconstruível</div>
+      <p class="sub">Cadeia HMAC garante que toda mudança ficou registrada. Quando TCU/CGU/MPU pede trilha, operador exporta em segundos com prova matemática de integridade.</p>
+    </div>
+    <div class="roi-item">
+      <div class="big">12×</div>
+      <div class="l">Velocidade de parecer técnico</div>
+      <p class="sub">Atesto Inteligente lê entrega, compara escopo, propõe parecer fundamentado em art. da Lei 14.133 — em 12 segundos. Fiscal revisa, aprova, segue.</p>
+    </div>
+  </div>
+
+  <div class="row3" style="margin-top:32px">
+    <div class="ctx">
+      <span class="label">Para o secretário / diretor</span>
+      <h4>Risco regulatório reduzido a níveis novos</h4>
+      <p>Contratos de TI saem do "será que vai dar problema?" e passam a operar como ativo controlado, com indicadores de saúde em tempo real e fundamentação automática em cada decisão. Audit-readiness 24/7.</p>
+    </div>
+    <div class="ctx">
+      <span class="label">Para o gestor contratual</span>
+      <h4>Trabalho focado em decisão, não em planilha</h4>
+      <p>O sistema cuida da medição, do cálculo, da escalação, da notificação. Gestor passa a investir tempo onde só humano agrega valor: julgamento, negociação, articulação. Carga operacional cai 60-80%.</p>
+    </div>
+    <div class="ctx">
+      <span class="label">Para o fiscal técnico</span>
+      <h4>Atesto fundamentado sem virar refém de talento individual</h4>
+      <p>Atesto Inteligente garante que parecer técnico tenha fundamentação em art./inciso real. Fiscal sem perfil técnico altíssimo consegue produzir documento com qualidade defensável. Reduz exposição a responsabilização pessoal.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- COMEÇAR -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="comecar">
+  <h2><span class="num">06</span>Como começar · 12 semanas, 4 fases</h2>
+  <p class="lead">Implantação cabe em 12 semanas para órgão médio (40-80 contratos ativos). Roadmap padrão; encurta para órgão menor, estende para órgão grande com mais perfis de fiscal.</p>
+
+  <div class="row4">
+    <div class="ctx">
+      <span class="label" style="color:var(--core)">Semanas 1-2 · Setup técnico</span>
+      <h4>Infra + identidade + cadastros mestres</h4>
+      <p>Provisionamento da plataforma (cloud Railway / AWS / on-premise). Configuração OIDC com seu Google Workspace ou Microsoft. Cadastro do contratante, contratantes e empresas fornecedoras. Perfis de usuário e permissões. Aparência customizada.</p>
+    </div>
+    <div class="ctx">
+      <span class="label" style="color:var(--comm)">Semanas 3-6 · Importação assistida</span>
+      <h4>Contratos + SLAs + processos atuais</h4>
+      <p>Importação inteligente dos contratos vigentes via Wizard com IA. Configuração de SLA Templates por contratante. Criação dos workflows operacionais a partir do que já existe no órgão. Deflators e regras de glosa configurados.</p>
+    </div>
+    <div class="ctx">
+      <span class="label" style="color:var(--ai)">Semanas 7-10 · Ativação</span>
+      <h4>Onboarding + treinamento IA</h4>
+      <p>Onboarding dos fiscais e gestores (jornada guiada nativa). Treinamento de IA: calibração dos 5 traços para perfil do órgão. Base de Conhecimento: ingestão de manuais e normativos internos. Piloto com 3-5 contratos críticos.</p>
+    </div>
+    <div class="ctx">
+      <span class="label" style="color:var(--gold)">Semanas 11-12 · Go-live</span>
+      <h4>Migração completa + auditoria ativa</h4>
+      <p>Migração completa da carteira. Dashboards executivos liberados. Auditoria HMAC ativa com chave de produção. Acompanhamento das primeiras glosas automatizadas. Indicadores começam a alimentar relatórios mensais.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:32px">
+    <h4>Próximo passo · demo guiada com seu próximo contrato</h4>
+    <p>A plataforma está rodando em <strong>hml.easynup.nuptechs.com</strong>. Marcamos uma sessão de 45 minutos com seu time, mostrando importação inteligente, atesto fundamentado, motor de glosa e dashboard de auditoria — operando sobre um contrato real do seu órgão. Sem slide. Sem teoria. <strong>O sistema fazendo o trabalho que hoje a sua equipe faz à mão.</strong></p>
+  </div>
+</section>
+
+<footer>
+  <p><strong>EasyNuP</strong> · plataforma NuPTechs · 2024–2026</p>
+  <p>Construída sobre a base normativa de gestão de contratos públicos de TI: Lei 14.133/2021, IN SGD/ME 94/2022, Decreto 11.246/2022, LGPD · IFPUG · IMR conforme jurisprudência TCU.</p>
+  <p>Plataforma NuPTechs · <a href="https://www.nuptechs.com">www.nuptechs.com</a> · <a href="https://www.nuptechs.com/sobre">sobre a empresa</a> · <a href="https://www.nuptechs.com/contato">fale conosco</a></p>
+</footer>
+
+</body>
+</html>
