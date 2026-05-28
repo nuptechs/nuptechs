@@ -74,7 +74,7 @@
 <section class="sub-hero">
   <span class="tag">Momento 2 · Execução</span>
   <h1>O contrato vivo · da abertura da OS <span class="grad">ao último centavo pago</span></h1>
-  <p class="lead">Com o Setup pronto, o sistema passa a <strong>registrar e validar tudo o que acontece</strong>. Ordem de Serviço aberta, profissional alocado, hora apontada, entrega submetida, atesto fundamentado, SLA medido, glosa calculada, lançamento financeiro registrado com retenção fiscal automática. Cada passo encadeado, cada decisão rastreável, cada exceção tratada por regra configurada.</p>
+  <p class="lead">Com o Setup pronto, o sistema passa a <strong>registrar e validar tudo o que acontece</strong>. Ordem de Serviço aberta, profissional alocado, hora apontada, entrega submetida, atesto fundamentado, SLA medido. Quando há divergência ou descumprimento, o sistema <strong>apresenta ao gestor a decisão cabível com fundamentação contratual e legal</strong> (aplicar glosa, solicitar esclarecimento, pedir entrega complementar, notificar formalmente). Cada passo encadeado, cada decisão rastreável, cada ato administrativo é do gestor — o sistema entrega a base probatória.</p>
   <div class="kpi-bar">
     <div class="kpi"><div class="n">66</div><div class="l">Entidades operacionais</div></div>
     <div class="kpi"><div class="n">80+</div><div class="l">Telas operacionais</div></div>
@@ -142,12 +142,12 @@
   </div>
 </div>
 
-<h2><span class="num">04</span>Aferição de SLA + cálculo de glosa</h2>
+<h2><span class="num">04</span>Aferição de SLA + apoio fundamentado ao gestor</h2>
 <p class="lead">SlaMeasurement modela medição completa: <code>targetValue</code> · <code>measuredValue</code> · <code>grossValue</code> · <code>stopTimeTotal</code> (paradas justificadas via SlaMeasurementStop) · <code>netValue</code> · <code>varianceValue/Percentage</code> · <code>achievementPercentage</code> · <code>targetMet</code> (bool) · status (PENDING_VALIDATION → VALIDATED → APPROVED · REJECTED · DISPUTED).</p>
 
 <div class="callout">
-  <h4>Loop automático: SLA estoura → motor calcula → fiscal aprova</h4>
-  <p>Quando indicator.severity = CRITICAL e variance &gt; 20%, o motor de regras dispara em cascata: <strong>1)</strong> CalculateDeductionActionExecutor calcula dedução usando o Deflator configurado · <strong>2)</strong> CreateFinancialEntryActionExecutor cria entry status RETAINED · <strong>3)</strong> CreateNotificationActionExecutor avisa gestor + fiscal · <strong>4)</strong> RequireJustificationActionExecutor abre janela 10d ao fornecedor · <strong>5)</strong> tudo entra no audit chain HMAC. Sem aprovação humana, nada vira pagamento real.</p>
+  <h4>Cadeia de apoio à decisão: SLA estoura → sistema fundamenta → gestor decide</h4>
+  <p>Quando uma medição de SLA estoura (variação acima do tolerado pela cláusula), o sistema <strong>reúne automaticamente</strong> o material que sustenta a decisão e <strong>apresenta ao gestor</strong>: <strong>1)</strong> a cláusula contratual aplicável e o deflator previsto · <strong>2)</strong> o histórico de execução registrada (medições anteriores, ocorrências, paradas justificadas) · <strong>3)</strong> a referência legal pertinente do arcabouço cadastrado · <strong>4)</strong> as opções cabíveis de ação (glosa segundo deflator, pedido formal de esclarecimento ao fornecedor, solicitação de entrega complementar, notificação ou outra ação prevista) com pré-cálculo do impacto financeiro de cada uma · <strong>5)</strong> os campos pré-preenchidos para o ato escolhido pelo gestor, com motivação fundamentada pronta para revisão. <strong>O ato é sempre do gestor</strong>, registrado na cadeia de auditoria com identidade, contexto, opção escolhida e fundamentação completa — pronto pra resistir a contraditório, recurso e auditoria externa.</p>
 </div>
 
 <h2><span class="num">05</span>Divergências fiscal ↔ fornecedor · canal estruturado</h2>
