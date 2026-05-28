@@ -122,10 +122,18 @@
   <tr><td class="b">ABAC</td><td>Attribute-Based Access Control · 16 operações de avaliação de atributo</td></tr>
   <tr><td class="b">ReBAC tipo Zanzibar</td><td>Relationship-Based · grafo de permissões (igual ao Google)</td></tr>
   <tr><td class="b">2FA TOTP</td><td>Autenticação em dois fatores</td></tr>
-  <tr><td class="b">SSO federado</td><td>Google Workspace · Microsoft · magic link</td></tr>
+  <tr><td class="b">SSO federado</td><td>Google Workspace · Microsoft · magic link · <strong>gov.br Login Único</strong> (provider OIDC pré-configurado, pronto pra ativação por órgão contratante)</td></tr>
   <tr><td class="b">Auto-provisioning LDAP/SAML</td><td>Criação automática de usuários a partir do IdP corporativo</td></tr>
   <tr><td class="b">Webhook receiver</td><td>Recebe eventos de segurança (login.brute_force_blocked, permission_denied) e propaga pro EasyNuP</td></tr>
 </table>
+
+<h3>gov.br · Login Único do Cidadão · provider OIDC pré-mapeado</h3>
+<p class="lead">O gov.br segue o padrão OAuth 2.0 + OpenID Connect Core 1.0 com PKCE obrigatório — protocolo já entendido nativamente pelo NuPIdentify. Por isso, a integração é <strong>configuração, não código</strong>: existe manifesto pronto com endpoints corretos de staging e produção, mapeamento de claims (CPF, email, nível de confiabilidade Bronze/Prata/Ouro), e regras de step-up que exigem nível Ouro para ações de maior impacto (ex: fechamento de contrato acima de R$ 100k).</p>
+
+<div class="callout">
+  <h4>Pré-requisito legal para ativação em produção</h4>
+  <p>A liberação da credencial de produção do gov.br depende de: <strong>(a)</strong> aplicação hospedada em domínio oficial (<code>.gov.br</code>, <code>.mil.br</code>, <code>.jus.br</code>, <code>.tc.br</code>, <code>.leg.br</code>, <code>.def.br</code>, <code>.mp.br</code>, <code>.edu.br</code>) conforme Portaria SGD/MGI nº 7.076/2024; <strong>(b)</strong> credenciamento via <code>integracaoid@gestao.gov.br</code> feito por servidor com conta gov.br nível Prata ou Ouro do órgão; <strong>(c)</strong> aprovação prévia em ambiente de homologação. <strong>Implicação prática:</strong> cada órgão contratante credencia sua própria instância EasyNuP (hospedada no domínio do órgão). O ambiente <strong>staging do gov.br já fica disponível para demonstração imediata</strong> assim que o cliente solicita.</p>
+</div>
 
 <h2><span class="num">04</span>Dimensão técnica · 7 ports hexagonais substituíveis</h2>
 <p class="lead">Arquitetura hexagonal real: cada interação com sistema externo passa por um <strong>Port</strong> (interface) com um <strong>Adapter</strong> (implementação). Quando precisa trocar de fornecedor de storage, fila ou IA, troca o adapter — sem mexer no domínio. Sem lock-in.</p>

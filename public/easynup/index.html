@@ -272,6 +272,7 @@
     <a href="#m2">2 · Execução</a>
     <a href="#m3">3 · Auditoria</a>
     <a href="#pilares">5 Pilares</a>
+    <a href="#integracoes-br">Integrações BR</a>
     <a href="#diferenciais">Diferenciais</a>
     <a href="#valor">Valor</a>
     <a href="#comecar">Começar</a>
@@ -1175,6 +1176,30 @@
     </div>
     <div style="padding:14px 32px 22px;border-top:1px solid var(--line2);text-align:right">
       <a href="/easynup/pilares/adaptabilidade" class="entenda-mais">Entenda um pouco mais sobre a Adaptabilidade <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- INTEGRAÇÕES BRASILEIRAS PRONTAS PRA PLUGAR -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<section id="integracoes-br">
+  <div style="background:linear-gradient(135deg,rgba(16,185,129,0.10) 0%,rgba(20,184,166,0.08) 50%,rgba(59,130,246,0.10) 100%);border:1px solid var(--teal-br);border-radius:18px;padding:32px 36px;margin-top:64px;position:relative;overflow:hidden">
+    <span style="display:inline-block;font-size:11px;color:var(--teal);background:var(--teal-bg);border:1px solid var(--teal-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:14px">Integrações governamentais brasileiras</span>
+    <h3 style="font-size:24px;margin:0 0 12px;color:var(--ink);letter-spacing:-0.02em">Preparado para eSocial e gov.br · prontos pra plugar quando o cliente disponibilizar credenciais</h3>
+    <p style="margin:0 0 20px;color:var(--ink-dim);font-size:15px;line-height:1.55;max-width:920px">Os dois pedidos mais frequentes de integração com governo brasileiro já estão <strong>mapeados como manifestos declarativos</strong> nos frameworks de Conectores YAML e Provedores OIDC da plataforma. Sem retrabalho de engenharia — apenas configuração quando chegar o momento.</p>
+
+    <div class="row2" style="margin-top:8px">
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px">
+        <h4 style="font-size:16px;margin:0 0 10px;color:var(--ink);display:flex;align-items:center;gap:10px"><span style="font-size:11px;color:var(--comm);background:var(--comm-bg);border:1px solid var(--comm-br);padding:3px 8px;border-radius:5px;letter-spacing:0.08em;text-transform:uppercase;font-weight:700">eSocial</span>Consulta de regularidade de fornecedor</h4>
+        <p style="margin:0 0 10px;color:var(--ink-dim);font-size:13.5px;line-height:1.55">Manifesto de Conector pré-mapeado para os 4 gateways mais usados (TecnoSpeed, L2Maker, apireceita.com.br, TST/CNDT gratuito). Cobre 4 tipos de consulta (Regularidade FGTS, CND Federal, CNDT, Situação CNPJ) e 2 envios de evento (S-1000, S-2200). Gatilhos pré-configurados: <strong>consulta automática ao cadastrar Vendor · bloqueio de pagamento se CNDT positiva · revisão periódica mensal</strong>.</p>
+        <p style="margin:10px 0 0;font-size:12px;color:var(--muted);font-style:italic">Pré-requisito do cliente: contratar 1 gateway e fornecer a chave de API.</p>
+      </div>
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px">
+        <h4 style="font-size:16px;margin:0 0 10px;color:var(--ink);display:flex;align-items:center;gap:10px"><span style="font-size:11px;color:var(--teal);background:var(--teal-bg);border:1px solid var(--teal-br);padding:3px 8px;border-radius:5px;letter-spacing:0.08em;text-transform:uppercase;font-weight:700">gov.br</span>Login Único do Cidadão · OIDC</h4>
+        <p style="margin:0 0 10px;color:var(--ink-dim);font-size:13.5px;line-height:1.55">Manifesto de Provedor OIDC pré-configurado com endpoints corretos de staging e produção, PKCE obrigatório, mapeamento de identidade (sub, email, CPF, <strong>nível de confiabilidade Bronze/Prata/Ouro</strong>), e regras de <strong>step-up automático</strong> que exigem nível Ouro para ações de maior impacto (fechamento de contrato &gt; R$ 100k, por exemplo).</p>
+        <p style="margin:10px 0 0;font-size:12px;color:var(--muted);font-style:italic">Pré-requisito do cliente: credenciamento via integracaoid@gestao.gov.br por servidor com conta Prata/Ouro do órgão (instância em domínio oficial gov). Staging permite demo imediata.</p>
+      </div>
     </div>
   </div>
 </section>
