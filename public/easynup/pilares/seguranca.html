@@ -83,13 +83,13 @@
 
 <table class="std">
   <tr><th>Elemento</th><th>Implementação</th></tr>
-  <tr><td class="b">CHAIN_VERSION 3</td><td>Sincronizado entre <code>AuditHashChainComponent.java:35</code> e <code>postgres-audit-chain-store.adapter.js</code></td></tr>
-  <tr><td class="b">Algoritmo</td><td>HmacSHA256 · input encadeado <code>previousHash | entityType | entityId | action | userId | createdAt | changesJson | organizationId</code></td></tr>
-  <tr><td class="b">Advisory lock por org</td><td><code>pg_advisory_xact_lock(organizationId)</code> dentro da transação · previne fork de cadeia em escritas concorrentes · idêntico Java + Node</td></tr>
-  <tr><td class="b">HibernateAuditEventListener</td><td>Intercepta PostInsert + PostUpdate + PostDelete <strong>para TODAS as entidades</strong> · exclui apenas AuditLog (anti-recursão)</td></tr>
-  <tr><td class="b">Fail-fast em produção</td><td>Sem hmacSecret → <code>IllegalStateException</code> no startup · em dev usa fallback explícito</td></tr>
-  <tr><td class="b">Métricas Prometheus</td><td>audit.hmac.write.success (counter) · .failure (counter com tag exception) · .duration (timer p50/p95/p99)</td></tr>
-  <tr><td class="b">Pacote compartilhado</td><td><code>@nuptechs/audit-chain</code> · usado por Java + Node + chat-ia · garante consistência cross-service</td></tr>
+  <tr><td class="b">Versão da cadeia</td><td>Versão 3 · sincronizada bit-a-bit entre serviço Java (Spring Boot) e serviço Node (gateway + chat IA)</td></tr>
+  <tr><td class="b">Algoritmo</td><td>HMAC-SHA256 · entrada encadeada: hash anterior + tipo da entidade + ID + ação + usuário + data ISO + delta + organização</td></tr>
+  <tr><td class="b">Lock por organização</td><td>Bloqueio transacional dedicado por organização · previne escritas concorrentes que poderiam bifurcar a cadeia · idêntico em Java e Node</td></tr>
+  <tr><td class="b">Captura universal</td><td>Listener Hibernate intercepta toda inserção, atualização e remoção <strong>de qualquer entidade auditável</strong> · sem decorator manual em cada classe</td></tr>
+  <tr><td class="b">Falha em produção</td><td>Sem chave secreta configurada em produção, o sistema <strong>não sobe</strong> — fail-fast intencional · em desenvolvimento usa fallback explícito</td></tr>
+  <tr><td class="b">Métricas de auditoria</td><td>Contadores de sucesso e falha (com tag de causa) e tempo de escrita com percentis (mediana, p95, p99) expostos em formato Prometheus</td></tr>
+  <tr><td class="b">Pacote compartilhado</td><td>Biblioteca interna usada por Java + Node + Chat IA · garante consistência cross-service da cadeia</td></tr>
 </table>
 
 <div class="callout">
@@ -188,7 +188,7 @@
 <div class="grid2">
   <div class="cap">
     <h4>Métricas Prometheus custom</h4>
-    <p>audit.hmac.write.success · failure (com tag exception) · duration (p50/p95/p99) · business-metrics.service.js expõe i18n counters + api_error counters por status code + compliance L2/L3 latência + risk_analyzer duration.</p>
+    <p>Métricas Prometheus para escrita da cadeia de auditoria (sucesso, falha com tag de causa, tempo com percentis mediana/p95/p99). Camada de business-metrics expõe contadores de internacionalização, erros de API por código de status, latência do Compliance Engine (L2/L3) e duração do Risk Analyzer.</p>
     <div class="meta">/metrics endpoint</div>
   </div>
   <div class="cap">

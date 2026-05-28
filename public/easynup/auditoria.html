@@ -89,14 +89,14 @@
 
 <table class="std">
   <tr><th>Elemento</th><th>Implementação verificada</th></tr>
-  <tr><td class="b">Versão da cadeia</td><td><strong>CHAIN_VERSION = 3</strong> · sincronizada entre <code>AuditHashChainComponent.java:35</code> (Java) e adapter Node em <code>postgres-audit-chain-store.adapter.js</code></td></tr>
-  <tr><td class="b">Genesis hash</td><td><code>0000000000000000000000000000000000000000000000000000000000000000</code> · valor idêntico Java + Node</td></tr>
-  <tr><td class="b">Algoritmo</td><td>HmacSHA256 (linha 243 do componente Java) · <code>Mac.getInstance("HmacSHA256")</code></td></tr>
-  <tr><td class="b">Input encadeado</td><td><code>previousHash | entityType | entityId | action | userId | createdAt(ISO) | changesJson | organizationId</code> · separador pipe · ordem fixa</td></tr>
-  <tr><td class="b">Advisory lock</td><td><code>pg_advisory_xact_lock(organizationId)</code> dentro da transação · idêntico em Java e Node · previne fork de cadeia em escritas concorrentes</td></tr>
-  <tr><td class="b">Listener universal</td><td><strong>HibernateAuditEventListener</strong> intercepta PostInsert + PostUpdate + PostDelete <strong>para TODAS as entidades</strong> · exclui apenas <code>AuditLog</code> (anti-recursão)</td></tr>
-  <tr><td class="b">Fail-fast em produção</td><td>Se <code>hmacSecret</code> vazio em PROD → <code>IllegalStateException</code> bloqueia startup · em dev usa fallback <code>easynup-dev-fallback-key-not-for-production</code></td></tr>
-  <tr><td class="b">Métricas Prometheus</td><td><code>audit.hmac.write.success</code> (counter) · <code>audit.hmac.write.failure</code> (counter com tag exception) · <code>audit.hmac.write.duration</code> (timer p50/p95/p99)</td></tr>
+  <tr><td class="b">Versão da cadeia</td><td>Versão 3 · sincronizada bit-a-bit entre serviço Java (Spring Boot) e serviço Node (gateway + chat IA)</td></tr>
+  <tr><td class="b">Genesis hash</td><td>Hash inicial determinístico, idêntico em todos os serviços, marca o início da cadeia por organização</td></tr>
+  <tr><td class="b">Algoritmo</td><td>HMAC-SHA256 · chave secreta exclusiva da instalação · padrão criptográfico amplamente aceito (RFC 2104)</td></tr>
+  <tr><td class="b">Input encadeado</td><td>Hash do registro anterior + tipo da entidade + ID + ação + usuário + data ISO + delta das mudanças + organização · ordem fixa</td></tr>
+  <tr><td class="b">Lock por organização</td><td>Bloqueio transacional dedicado por organização · previne escritas concorrentes que poderiam bifurcar a cadeia · idêntico em Java e Node</td></tr>
+  <tr><td class="b">Captura universal</td><td>Listener Hibernate intercepta toda inserção, atualização e remoção <strong>de qualquer entidade auditável</strong> · sem decorator manual em cada classe</td></tr>
+  <tr><td class="b">Falha em produção</td><td>Sem chave secreta configurada em produção, o sistema <strong>não sobe</strong> — fail-fast intencional · em desenvolvimento usa fallback explícito</td></tr>
+  <tr><td class="b">Métricas de auditoria</td><td>Contadores de sucesso e falha (com tag de causa) e tempo de escrita com percentis (mediana, p95, p99) expostos em formato Prometheus</td></tr>
 </table>
 
 <div class="callout">
@@ -115,13 +115,13 @@
   </div>
   <div class="cap">
     <h4>L2 · RAG + Claude</h4>
-    <p>Modelo <code>claude-sonnet-4-5-20250929</code>. Retrieval Pinecone TOP_K=8 por namespace org. Tool-use forçado: <code>evaluate_compliance</code> com schema {status: PASS|FAIL|INDETERMINATE, reasoning ≤600 chars, citations[]}. Citation validation: chunk_id e text (mín 10 chars) verificados contra retrieval. Fail-soft: retrieval vazio · LLM indisponível · citação inválida → INDETERMINATE auditável.</p>
+    <p>Modelo Claude Sonnet com busca semântica em Pinecone (até 8 trechos relevantes por consulta, no namespace da organização). A IA é forçada a usar uma função estruturada (status PASS/FAIL/INDETERMINATE + raciocínio ≤600 chars + lista de citações). Cada citação é validada contra os trechos retornados — citação que não bate vira INDETERMINATE auditável, não falsa aprovação.</p>
     <div class="meta">latência ~2-5s · custo típico ~$0.030</div>
   </div>
   <div class="cap">
     <h4>L3 · Committee 3 LLMs</h4>
-    <p>Três modelos votam em paralelo: <strong>claude-sonnet-4-5</strong> + <strong>claude-opus-4-7</strong> + <strong>gemini-2.5-pro</strong>. Consenso por <code>ceil((N+1)/2)</code> maioria simples. Tolera N-1 falhas: cada membro com problema retorna INDETERMINATE com reason. Se não alcança consenso → <code>COMMITTEE_DISSENT</code> (revisão humana obrigatória). Custo somado: ~$0.030 + $0.050 + $0.020.</p>
-    <div class="meta">latência ~5-15s · custo típico ~$0.100 · usado em BLOCKING events</div>
+    <p>Três modelos votam em paralelo: <strong>Claude Sonnet</strong> + <strong>Claude Opus</strong> + <strong>Gemini Pro</strong>. Decisão por maioria simples (basta 2 dos 3 concordarem). Cada modelo com falha individual retorna INDETERMINATE com motivo — o comitê tolera até 1 falha. Se não houver maioria, o sistema marca divergência e exige revisão humana. Custo somado típico: cerca de $0,10 por validação.</p>
+    <div class="meta">latência 5-15s · usado em regras bloqueantes</div>
   </div>
 </div>
 
@@ -160,19 +160,19 @@
 
 <div class="grid3">
   <div class="cap">
-    <h4>AuditDashboard.vue</h4>
-    <p>KPIs (totalLogs, uniqueEntities, todayActions, integrityLabel Good/Warning/Critical) · charts 30 dias (atividade diária, distribuição por tipo de entidade, por tipo de ação CREATE/UPDATE/DELETE) · top users com rank.</p>
-    <div class="meta">846 linhas · 25 kb</div>
+    <h4>Painel de Auditoria</h4>
+    <p>Cards executivos: total de eventos, entidades únicas, ações no dia, indicador de integridade da cadeia (Verde/Amarelo/Vermelho). Charts 30 dias: atividade diária, distribuição por tipo de entidade, por tipo de ação (criação, atualização, remoção). Ranking dos usuários mais ativos.</p>
+    <div class="meta">visão consolidada por organização</div>
   </div>
   <div class="cap">
-    <h4>Audit por entidade</h4>
-    <p>AuditEmpresas · AuditContratos · AuditProjetos · cada um com visão filtrada do mesmo audit_log mas recortada pela entidade-alvo. KPI cards específicos (custo total, médias, horas), tabelas clicáveis com resize de coluna.</p>
-    <div class="meta">/audit/AuditEmpresas.vue + AuditContratos.vue + AuditProjetos.vue</div>
+    <h4>Auditoria por entidade</h4>
+    <p>Telas dedicadas para auditoria de Empresas, Contratos e Projetos — cada uma com visão filtrada do mesmo registro central, recortada pela entidade-alvo. KPI cards específicos (custo total, médias, horas), tabelas clicáveis com colunas ajustáveis.</p>
+    <div class="meta">recorte por área de interesse</div>
   </div>
   <div class="cap">
-    <h4>EntityAuditLog + AuditDiff</h4>
-    <p>Componentes embedded em qualquer tela de entidade. Timeline expansível com diff lado-a-lado (old → new). Hash do log #abc12def visível pra prova.</p>
-    <div class="meta">/components/EntityAuditLog.vue + audit/AuditDiff.vue</div>
+    <h4>Histórico embedded em qualquer tela</h4>
+    <p>Componente de timeline expansível disponível em qualquer entidade do sistema. Diff lado-a-lado mostra valor antes e depois de cada mudança. Hash do registro visível como prova de integridade pra exportação.</p>
+    <div class="meta">linha do tempo + diff + hash exportável</div>
   </div>
 </div>
 
@@ -181,14 +181,14 @@
 
 <div class="grid2">
   <div class="cap">
-    <h4>SentinelFindings.vue · SAST/DAST integrado</h4>
-    <p>Findings vêm via webhook <code>POST /api/sentinel-callback/pr-analyzed</code> com HMAC-SHA256 (header <code>X-Sentinel-Signature</code>), validado por <code>crypto.timingSafeEqual</code>. Mapping projectId Sentinel → contractId EasyNuP por env var. 4 status: OPEN / DIAGNOSED / FIX_APPLIED / VERIFIED. Toggle de captura controlado pela permissão <code>sentinel.capture</code>.</p>
-    <div class="meta">SentinelFindings.vue · ~30 kb</div>
+    <h4>Findings de SAST/DAST integrados</h4>
+    <p>Achados de segurança chegam via webhook assinado (HMAC-SHA256, validação timing-safe). Mapeamento automático entre projeto analisado e contrato em andamento. 4 status: aberto, diagnosticado, corrigido, verificado. Captura controlada por permissão dedicada.</p>
+    <div class="meta">tela dedicada · controlada por permissão</div>
   </div>
   <div class="cap">
-    <h4>CodeAnalysisPage.vue · 6 dimensões</h4>
-    <p>Upload ZIP/JS/TS/Java/Python/C#/Go (max 20 arquivos). Análise via tree-sitter. Saída: totalFiles, totalFunctions, totalClasses, totalLines, totalCodeSmells (critical/major/minor), hotspots, vulnerabilities, coverage, trends. Opcional: relatório IA estruturado. Export JSON + CSV por severidade.</p>
-    <div class="meta">CodeAnalysisPage.vue · 1506 linhas · 52 kb</div>
+    <h4>Análise de qualidade de código · 6 dimensões</h4>
+    <p>Upload de pacote (ZIP, JS, TS, Java, Python, C#, Go). Análise via parser de árvore sintática. Saída: contagem de arquivos/funções/classes/linhas, code smells (críticos/maiores/menores), hotspots de complexidade, vulnerabilidades, cobertura de testes, tendências históricas. Opcional: relatório IA estruturado. Exportação JSON + CSV por severidade.</p>
+    <div class="meta">parser de árvore sintática + scoring multidimensional</div>
   </div>
 </div>
 
@@ -203,8 +203,8 @@
   </div>
   <div class="cap">
     <h4>Triggers de imutabilidade</h4>
-    <p>Trigger PostgreSQL <code>trg_compliance_assessment_immutability</code> barra mutação quando status = COMPLETED ou FAILED. Decisões de finding (dismiss/resolve) também imutáveis após terminal status.</p>
-    <div class="meta">migration 0229</div>
+    <p>Gatilho no banco impede mutação de assessments concluídos (status COMPLETED ou FAILED). Decisões de finding (dismiss/resolve) também viram imutáveis após estado terminal — defesa em camada de dados, não só na aplicação.</p>
+    <div class="meta">imutabilidade no nível do banco</div>
   </div>
   <div class="cap">
     <h4>Compliance Copilot</h4>
