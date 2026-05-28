@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TR modelo · contratação de plataforma de gestão de contratos de TI · EasyNuP</title>
+<style>
+  :root{
+    --bg:#0a0d14; --panel:#161a22; --panel2:#121621; --panel3:#1a1f2c;
+    --line:#272c38; --line2:#1e2330;
+    --muted:#8a93a6; --muted2:#5d6679;
+    --ink:#f1f5fb; --ink-dim:#c3cbdb;
+    --core:#3b82f6; --core-bg:#0b2344; --core-br:#1e3a8a;
+    --comm:#10b981; --comm-bg:#052e24; --comm-br:#065f46;
+    --gold:#eab308; --gold-bg:#2a2109; --gold-br:#854d0e;
+    --ai:#a855f7; --ai-bg:#24123f; --ai-br:#5b21b6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:980px;margin:0 auto;padding:0 24px 96px}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .crumb a{color:var(--ink-dim)}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+  .doc-hero{padding:36px 0 28px;border-bottom:1px solid var(--line)}
+  .doc-hero .tag{display:inline-block;font-size:11px;color:var(--ai);background:var(--ai-bg);border:1px solid var(--ai-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:14px}
+  .doc-hero h1{font-size:34px;line-height:1.15;letter-spacing:-0.025em;margin:0 0 12px;font-weight:700}
+  .doc-hero p{margin:0;color:var(--ink-dim);font-size:15.5px;line-height:1.55}
+  .doc-meta{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-top:18px;font-size:13px;color:var(--ink-dim);display:flex;flex-wrap:wrap;gap:18px}
+  .doc-meta b{color:var(--ink)}
+  h2{font-size:22px;margin:42px 0 6px;letter-spacing:-0.015em;line-height:1.25;color:var(--ink)}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:12px;font-variant-numeric:tabular-nums}
+  h3{font-size:16px;margin:22px 0 8px;color:var(--ink);font-weight:600}
+  p{color:var(--ink-dim);margin:0 0 12px}
+  p strong{color:var(--ink)}
+  ul{color:var(--ink-dim);padding-left:22px;margin:6px 0 14px}
+  ul li{margin-bottom:5px}
+  ul li strong{color:var(--ink)}
+  .placeholder{color:var(--gold);font-style:italic;background:var(--gold-bg);border:1px dashed var(--gold-br);padding:3px 9px;border-radius:5px;font-size:13px;font-weight:600;font-family:ui-monospace,Menlo,monospace}
+  .req{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--core);border-radius:8px;padding:14px 18px;margin:10px 0}
+  .req .id{font-size:11px;color:var(--core);font-weight:700;letter-spacing:0.08em;text-transform:uppercase}
+  .req h4{font-size:15px;margin:6px 0 6px;color:var(--ink)}
+  .req p{margin:0;font-size:13.5px}
+  .req.crit{border-left-color:var(--gold)}
+  .req.crit .id{color:var(--gold)}
+  table.std{width:100%;border-collapse:collapse;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.5px}
+  table.std th,table.std td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+  table.std td.num{text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
+  .callout{background:linear-gradient(135deg,var(--core-bg) 0%,var(--ai-bg) 100%);border:1px solid var(--core-br);border-radius:12px;padding:18px 22px;margin:20px 0}
+  .callout h4{color:var(--ink);font-size:15px;margin:0 0 8px}
+  .callout p{margin:0;font-size:13.5px;line-height:1.55}
+  .back-strip{margin-top:48px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-dim);padding:6px 12px;border:1px solid var(--line);border-radius:8px;margin-left:6px}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+  footer{color:var(--muted);margin-top:32px;font-size:11.5px;border-top:1px solid var(--line);padding-top:18px;line-height:1.6}
+  @media print{
+    body{max-width:none;color:#000;background:#fff}
+    .crumb,.back-strip,footer{display:none}
+    h2,h3{color:#000;page-break-after:avoid}
+    p,li{color:#222}
+    .callout,.doc-meta,table.std,.req{border-color:#999;background:#f8f8f8}
+  }
+</style>
+</head>
+<body>
+
+<nav class="crumb">
+  <a href="/easynup2">EasyNuP</a> <span class="sep">›</span>
+  <a href="/easynup2/comercial">Comercial</a> <span class="sep">›</span>
+  <span class="now">TR modelo</span>
+</nav>
+
+<section class="doc-hero">
+  <span class="tag">Documento modelo · requisitos técnicos não-restritivos · agnóstico de fornecedor</span>
+  <h1>Termo de Referência (TR)<br>Plataforma de gestão de contratos de TI</h1>
+  <p>Modelo de requisitos técnicos mínimos para licitação. Construído para ser <strong>não-restritivo</strong> — qualquer fornecedor com a competência técnica mínima e o domínio brasileiro pode atender. Áreas marcadas com <span class="placeholder">[preencher]</span> são para o órgão complementar.</p>
+  <div class="doc-meta">
+    <span><b>Base legal:</b> Lei 14.133/2021 art. 6º · IN SGD/ME 94/2022</span>
+    <span><b>Versão:</b> modelo 1.0 · 2026-05</span>
+    <span><b>Critério de julgamento:</b> menor preço com requisitos técnicos qualificadores</span>
+    <span><b>Imprimir:</b> Ctrl+P</span>
+  </div>
+</section>
+
+<h2><span class="num">01</span>Objeto</h2>
+<p>Contratação de <strong>solução de software como serviço (SaaS)</strong> para gestão e compliance de contratos de Tecnologia da Informação no âmbito do <span class="placeholder">[Órgão]</span>, conforme requisitos técnicos, funcionais e de prestação de serviço descritos neste Termo de Referência.</p>
+
+<h2><span class="num">02</span>Justificativa e fundamentação legal</h2>
+<p>Vide <strong>Estudo Técnico Preliminar (ETP)</strong> anexo. Em síntese, a contratação fundamenta-se em:</p>
+<ul>
+  <li><strong>Lei 14.133/2021</strong> — Nova Lei de Licitações: art. 117 (fiscalização técnica), art. 137 §4º (IMR), art. 140 (TRP/TRD)</li>
+  <li><strong>IN SGD/ME 94/2022</strong> — contratação de soluções de TIC: art. 19 (IMR)</li>
+  <li><strong>Decreto 11.246/2022</strong> — execução de contratos administrativos</li>
+  <li><strong>Lei 13.709/2018 (LGPD)</strong> — proteção de dados pessoais tratados na plataforma</li>
+</ul>
+
+<h2><span class="num">03</span>Requisitos funcionais mínimos · obrigatórios</h2>
+<p>O fornecedor deve comprovar atendimento a <strong>100% dos requisitos abaixo</strong>. Cada requisito é demonstrável em ambiente de testes em até 5 dias úteis após pedido.</p>
+
+<h3>3.1 Modelagem jurídica nativa</h3>
+
+<div class="req crit">
+  <span class="id">RF-001 · crítico</span>
+  <h4>Modelagem nativa da Lei 14.133/2021</h4>
+  <p>A solução deve modelar como entidades de domínio (não como campo customizável): Termo de Referência, Termo de Recebimento Provisório (TRP, art. 140), Termo de Recebimento Definitivo (TRD, art. 140), atesto técnico fundamentado (art. 117 §1º), Instrumento de Medição de Resultado (IMR, art. 137 §4º), sanções escalonadas (art. 156).</p>
+</div>
+
+<div class="req crit">
+  <span class="id">RF-002 · crítico</span>
+  <h4>Atesto técnico fundamentado em artigo/inciso</h4>
+  <p>O sistema deve produzir parecer técnico de atesto contendo fundamentação automática em artigo e inciso da Lei 14.133/2021. Fiscal pode editar antes de finalizar. O ato administrativo é do fiscal, não do sistema.</p>
+</div>
+
+<div class="req crit">
+  <span class="id">RF-003 · crítico</span>
+  <h4>Apoio fundamentado à decisão (sem aplicação automática)</h4>
+  <p>Quando indicador de SLA é violado, o sistema deve apresentar ao gestor as opções cabíveis com fundamentação (cláusula contratual + arcabouço legal + histórico). <strong>O sistema NÃO deve aplicar glosa automaticamente</strong>: o ato administrativo é decisão do gestor, registrada com motivação obrigatória mínima de 100 caracteres.</p>
+</div>
+
+<h3>3.2 Modelos de remuneração</h3>
+
+<div class="req">
+  <span class="id">RF-010</span>
+  <h4>Cinco modelos de remuneração nativos</h4>
+  <p>A solução deve suportar nativamente: (a) Pontos de Função IFPUG, (b) SNAP Points, (c) UST com perfis e faixas, (d) USN (Unidade de Serviço Não-mensurável), (e) Preço Fixo. Modelos combinávies no mesmo contrato.</p>
+</div>
+
+<div class="req">
+  <span class="id">RF-011</span>
+  <h4>Analisador IFPUG embutido</h4>
+  <p>Fluxo de análise de Pontos de Função guiado por etapas conforme metodologia IFPUG (CPM versão atualizada), com canvas visual e catálogo customizável de funções.</p>
+</div>
+
+<h3>3.3 Fluxo operacional</h3>
+
+<div class="req">
+  <span class="id">RF-020</span>
+  <h4>Ordem de Serviço dinâmica</h4>
+  <p>OS rastreável adaptada ao modelo de remuneração do contrato. Apoio inteligente à criação (sugestão de profissional com perfil compatível). Importação em lote por planilha.</p>
+</div>
+
+<div class="req">
+  <span class="id">RF-021</span>
+  <h4>Aceite multi-estágio configurável</h4>
+  <p>Até 4 estágios configuráveis (TRP, verificação técnica, TRD, homologação). Cada estágio com responsável, prazo, checklist de evidências. Escalação automática se prazo estoura.</p>
+</div>
+
+<div class="req">
+  <span class="id">RF-022</span>
+  <h4>Apontamento de horas com timer</h4>
+  <p>Timesheet semanal com timer integrado, auto-save, visão agregada por empresa fornecedora.</p>
+</div>
+
+<div class="req">
+  <span class="id">RF-023</span>
+  <h4>Aferição de SLA em lote</h4>
+  <p>Indicadores medidos automaticamente (quando há fonte de dado integrada) ou manualmente com evidência anexada. Painel com atingidas/violadas/pendentes. Validação em lote.</p>
+</div>
+
+<h3>3.4 Auditoria</h3>
+
+<div class="req crit">
+  <span class="id">RF-030 · crítico</span>
+  <h4>Cadeia criptográfica de integridade</h4>
+  <p>Cada alteração registrada deve entrar em cadeia hash encadeada criptograficamente verificável. Alteração no banco deve quebrar a cadeia e ser detectada por verificação automática. <strong>Prova matemática</strong> defensável em TCU/CGU/MPU e em juízo.</p>
+</div>
+
+<div class="req">
+  <span class="id">RF-031</span>
+  <h4>Histórico de atividade com diff</h4>
+  <p>Quem fez o quê, quando, com diff antes/depois por campo. Filtros por entidade, ação, usuário, período. Hash exportável como prova.</p>
+</div>
+
+<div class="req">
+  <span class="id">RF-032</span>
+  <h4>Exportação probatória</h4>
+  <p>Qualquer trilha exportável com certificado de integridade criptográfica para entrega ao controle interno, MPU, TCU, CGU ou em processo judicial.</p>
+</div>
+
+<h3>3.5 IA com governança</h3>
+
+<div class="req crit">
+  <span class="id">RF-040 · crítico</span>
+  <h4>Três níveis de controle humano sobre IA</h4>
+  <p>A IA deve operar em três níveis: (a) consulta livre, (b) ação com confirmação humana, (c) ação sensível com aprovação humana obrigatória. Toda interação com IA registrada na cadeia de auditoria. <strong>Sem aplicação automática de ato administrativo pela IA.</strong> Aderente a EU AI Act (vigência 08/2026) e PL 2338/2023.</p>
+</div>
+
+<div class="req">
+  <span class="id">RF-041</span>
+  <h4>Consulta semântica isolada por organização</h4>
+  <p>Base de conhecimento (contratos, diretrizes, normativos) indexada em espaço semântico isolado por organização. Sem vazamento de dados entre clientes.</p>
+</div>
+
+<div class="req">
+  <span class="id">RF-042</span>
+  <h4>Garantia de não-treinamento de modelos com dados do contratante</h4>
+  <p>Fornecedor deve apresentar prova contratual com provedores de IA de que dados do contratante não são utilizados para treinamento dos modelos.</p>
+</div>
+
+<h3>3.6 Adaptabilidade</h3>
+
+<div class="req">
+  <span class="id">RF-050</span>
+  <h4>Campos customizáveis em qualquer entidade</h4>
+  <p>Configuração sem código, com pelo menos 8 tipos suportados (texto, número, data, seleção, marcador, vínculo). Campos customizados devem entrar automaticamente na cadeia de auditoria.</p>
+</div>
+
+<div class="req">
+  <span class="id">RF-051</span>
+  <h4>Workflow visual editável pelo gestor</h4>
+  <p>Editor drag-drop padrão de mercado (BPMN-compatível). Configuração versionada (rascunho → aprovação → publicação → reversão). Migração de instâncias entre versões.</p>
+</div>
+
+<div class="req">
+  <span class="id">RF-052</span>
+  <h4>Motor de regras configurável</h4>
+  <p>Catálogo amplo de eventos (criação, transição, prazo, etc.) × catálogo amplo de ações (notificar, bloquear, apoiar decisão, etc.). Editor visual sem código.</p>
+</div>
+
+<h2><span class="num">04</span>Requisitos não-funcionais</h2>
+
+<table class="std">
+  <tr><th>ID</th><th>Requisito</th><th>Valor mínimo</th></tr>
+  <tr><td class="b">RNF-001</td><td>Disponibilidade mensal (SLO)</td><td>99,5%</td></tr>
+  <tr><td class="b">RNF-002</td><td>RPO (Recovery Point Objective)</td><td>≤ 15 minutos</td></tr>
+  <tr><td class="b">RNF-003</td><td>RTO (Recovery Time Objective)</td><td>≤ 4 horas</td></tr>
+  <tr><td class="b">RNF-004</td><td>Hospedagem</td><td>nuvem nacional OU on-premise (à escolha do contratante)</td></tr>
+  <tr><td class="b">RNF-005</td><td>Cofre criptográfico da chave HMAC</td><td>KMS gerenciado / HashiCorp Vault / HSM dedicado</td></tr>
+  <tr><td class="b">RNF-006</td><td>Identidade federada</td><td>OIDC + SAML 2.0 + 2FA TOTP</td></tr>
+  <tr><td class="b">RNF-007</td><td>Isolamento entre organizações</td><td>multi-tenant com bloqueio por padrão (sem opt-in)</td></tr>
+  <tr><td class="b">RNF-008</td><td>Portabilidade de dados</td><td>export JSON aberto + CSV em até 30 dias úteis após solicitação</td></tr>
+  <tr><td class="b">RNF-009</td><td>Observabilidade</td><td>métricas padrão Prometheus + logs estruturados JSON</td></tr>
+  <tr><td class="b">RNF-010</td><td>Suporte técnico</td><td>12×5 mínimo · 24×7 em tier Enterprise · SLA 4h em incidente alto</td></tr>
+</table>
+
+<h2><span class="num">05</span>Qualificação técnica do fornecedor</h2>
+<ul>
+  <li>Atestado de capacidade técnica comprovando pelo menos <span class="placeholder">[2-5]</span> implantações similares em órgãos públicos brasileiros</li>
+  <li>Equipe técnica brasileira com domínio comprovado de Lei 14.133, IN SGD/ME 94 e Decreto 11.246</li>
+  <li>DPO designado e formalmente nomeado (Lei 13.709/2018 art. 41)</li>
+  <li>Roadmap de certificações declarado: SOC 2 Tipo I em até 12 meses · ISO/IEC 27001 em até 24 meses (cláusula resolutiva em caso de descumprimento)</li>
+  <li>Conformidade ao EU AI Act (vigência 08/2026) e PL 2338/2023 demonstrada por documento técnico</li>
+</ul>
+
+<h2><span class="num">06</span>Modelo de gestão e fiscalização (IN SGD/ME 94 art. 22)</h2>
+<table class="std">
+  <tr><th>Papel</th><th>Responsabilidade</th></tr>
+  <tr><td class="b">Gestor do contrato</td><td>Decisões estratégicas · aprovação de glosa · escalação · representação institucional</td></tr>
+  <tr><td class="b">Fiscal técnico</td><td>Aceite das OS · atesto técnico · medição de SLA · validação de entregáveis</td></tr>
+  <tr><td class="b">Fiscal administrativo</td><td>Conformidade documental · faturamento · retenções</td></tr>
+  <tr><td class="b">DPO do contratante</td><td>Canal direto com DPO da contratada · supervisão LGPD</td></tr>
+</table>
+
+<h2><span class="num">07</span>Modelo de execução (IN SGD/ME 94 art. 23)</h2>
+<p>Execução em <strong>4 fases sequenciais</strong> em 12 semanas (cliente médio):</p>
+<table class="std">
+  <tr><th>Fase</th><th>Duração</th><th>Entregável principal</th><th>Critério de aceite</th></tr>
+  <tr><td class="b">1 · Setup técnico</td><td>2 semanas</td><td>Plataforma provisionada · SSO funcional · cadastros mestres</td><td>Login bem-sucedido · acesso por 3 perfis distintos</td></tr>
+  <tr><td class="b">2 · Importação assistida</td><td>4 semanas</td><td>Contratos vigentes importados · SLAs configurados · workflow operacional</td><td>5+ contratos críticos importados e validados pelo fiscal</td></tr>
+  <tr><td class="b">3 · Ativação</td><td>4 semanas</td><td>Onboarding dos usuários · treinamento de IA · piloto com 3-5 contratos</td><td>Usuários autônomos · IA com qualidade ≥ baseline</td></tr>
+  <tr><td class="b">4 · Go-live</td><td>2 semanas</td><td>Migração completa · auditoria criptográfica ativa · primeiras decisões apoiadas</td><td>100% da carteira em produção · sem incidente bloqueante</td></tr>
+</table>
+
+<h2><span class="num">08</span>Modelo de pagamento (Lei 14.133 art. 142)</h2>
+<p>Pagamento mensal em parcelas fixas pelo serviço, sujeito a:</p>
+<ul>
+  <li><strong>Glosa por descumprimento de SLO</strong>: créditos proporcionais conforme tabela escalonada — 99,0%-99,5% = 5% de crédito · 95%-99% = 10% · &lt; 95% = 25% + direito de rescisão sem ônus</li>
+  <li><strong>Retenção fiscal padrão</strong>: IR · ISS · INSS · PCC conforme regime tributário do fornecedor</li>
+  <li><strong>Suspensão de pagamento</strong> em caso de descumprimento substancial de cláusula contratual, após contraditório</li>
+</ul>
+
+<h2><span class="num">09</span>Vigência e prorrogação</h2>
+<p>Vigência inicial de <span class="placeholder">[12 meses]</span>, prorrogável por iguais e sucessivos períodos até o limite legal da Lei 14.133/2021, mediante:</p>
+<ul>
+  <li>Avaliação de desempenho satisfatória (índice de cumprimento de SLA &gt; 95% no período)</li>
+  <li>Vantajosidade demonstrada (manutenção ou redução de preço unitário)</li>
+  <li>Manutenção das condições de habilitação técnica e fiscal</li>
+</ul>
+
+<h2><span class="num">10</span>Penalidades</h2>
+<p>Aplicáveis conforme art. 156 Lei 14.133/2021, escalonadas:</p>
+<ul>
+  <li><strong>Advertência:</strong> primeira ocorrência de descumprimento de obrigação acessória</li>
+  <li><strong>Multa:</strong> de 0,5% a 30% do valor mensal, conforme gravidade</li>
+  <li><strong>Impedimento de licitar e contratar:</strong> até 5 anos, em descumprimento substancial reiterado</li>
+  <li><strong>Declaração de inidoneidade:</strong> em fraude ou prejuízo grave</li>
+</ul>
+
+<div class="callout">
+  <h4>Importante · não-restritividade</h4>
+  <p>Este TR foi construído explicitamente para ser <strong>não-restritivo</strong>. Os requisitos descritos refletem capacidades observáveis em mais de uma solução de mercado e estão alinhados a normativos públicos. Qualquer fornecedor com competência técnica mínima e o domínio brasileiro de gestão contratual pública pode atender.</p>
+</div>
+
+<nav class="back-strip">
+  <a href="/easynup2/comercial" class="back">← Voltar ao modelo comercial</a>
+  <div class="next-links">
+    <a href="/easynup2/docs/etp-modelo">ETP modelo →</a>
+    <a href="/easynup2/docs/ripd-modelo">RIPD modelo →</a>
+  </div>
+</nav>
+
+<footer>
+  <p>Documento modelo · uso livre pelo órgão · sem amarração com NuPtechs · atualizado 2026-05.</p>
+  <p>Workshop de 4 horas gratuito disponível para apoio na construção: <a href="mailto:contato@nuptechs.com">contato@nuptechs.com</a></p>
+</footer>
+
+</body>
+</html>

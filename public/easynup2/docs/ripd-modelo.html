@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>RIPD modelo · Relatório de Impacto à Proteção de Dados · EasyNuP</title>
+<style>
+  :root{
+    --bg:#0a0d14; --panel:#161a22; --panel2:#121621; --panel3:#1a1f2c;
+    --line:#272c38; --line2:#1e2330;
+    --muted:#8a93a6; --muted2:#5d6679;
+    --ink:#f1f5fb; --ink-dim:#c3cbdb;
+    --core:#3b82f6; --core-bg:#0b2344; --core-br:#1e3a8a;
+    --comm:#10b981; --comm-bg:#052e24; --comm-br:#065f46;
+    --gold:#eab308; --gold-bg:#2a2109; --gold-br:#854d0e;
+    --ext:#f59e0b; --ext-bg:#2a1f0a; --ext-br:#78350f;
+    --danger:#ef4444; --danger-bg:#2a0f11; --danger-br:#7f1d1d;
+    --ok:#22c55e; --ok-bg:#06231a; --ok-br:#134e2c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:980px;margin:0 auto;padding:0 24px 96px}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .crumb a{color:var(--ink-dim)}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+  .doc-hero{padding:36px 0 28px;border-bottom:1px solid var(--line)}
+  .doc-hero .tag{display:inline-block;font-size:11px;color:var(--comm);background:var(--comm-bg);border:1px solid var(--comm-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:14px}
+  .doc-hero h1{font-size:34px;line-height:1.15;letter-spacing:-0.025em;margin:0 0 12px;font-weight:700}
+  .doc-hero p{margin:0;color:var(--ink-dim);font-size:15.5px;line-height:1.55}
+  .doc-meta{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-top:18px;font-size:13px;color:var(--ink-dim);display:flex;flex-wrap:wrap;gap:18px}
+  .doc-meta b{color:var(--ink)}
+  h2{font-size:22px;margin:42px 0 6px;letter-spacing:-0.015em;line-height:1.25;color:var(--ink)}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:12px;font-variant-numeric:tabular-nums}
+  h3{font-size:16px;margin:22px 0 8px;color:var(--ink);font-weight:600}
+  p{color:var(--ink-dim);margin:0 0 12px}
+  p strong{color:var(--ink)}
+  ul{color:var(--ink-dim);padding-left:22px;margin:6px 0 14px}
+  ul li{margin-bottom:5px}
+  ul li strong{color:var(--ink)}
+  .placeholder{color:var(--gold);font-style:italic;background:var(--gold-bg);border:1px dashed var(--gold-br);padding:3px 9px;border-radius:5px;font-size:13px;font-weight:600;font-family:ui-monospace,Menlo,monospace}
+  table.std{width:100%;border-collapse:collapse;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.5px}
+  table.std th,table.std td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+  table.std .risk-baixo{color:var(--ok);font-weight:700}
+  table.std .risk-medio{color:var(--ext);font-weight:700}
+  table.std .risk-alto{color:var(--danger);font-weight:700}
+  .callout{background:linear-gradient(135deg,var(--comm-bg) 0%,var(--core-bg) 100%);border:1px solid var(--comm-br);border-radius:12px;padding:18px 22px;margin:20px 0}
+  .callout h4{color:var(--ink);font-size:15px;margin:0 0 8px}
+  .callout p{margin:0;font-size:13.5px;line-height:1.55}
+  .back-strip{margin-top:48px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-dim);padding:6px 12px;border:1px solid var(--line);border-radius:8px;margin-left:6px}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+  footer{color:var(--muted);margin-top:32px;font-size:11.5px;border-top:1px solid var(--line);padding-top:18px;line-height:1.6}
+  @media print{
+    body{max-width:none;color:#000;background:#fff}
+    .crumb,.back-strip,footer{display:none}
+    h2,h3{color:#000;page-break-after:avoid}
+    p,li{color:#222}
+    .callout,.doc-meta,table.std{border-color:#999;background:#f8f8f8}
+  }
+</style>
+</head>
+<body>
+
+<nav class="crumb">
+  <a href="/easynup2">EasyNuP</a> <span class="sep">›</span>
+  <a href="/easynup2/conformidade">Conformidade</a> <span class="sep">›</span>
+  <span class="now">RIPD modelo</span>
+</nav>
+
+<section class="doc-hero">
+  <span class="tag">Documento modelo · síntese · entrega completa sob NDA</span>
+  <h1>Relatório de Impacto à Proteção de Dados (RIPD)<br>Plataforma EasyNuP · modelo sintético</h1>
+  <p>Versão pública sintética conforme <strong>LGPD art. 38</strong> e <strong>Guia de Boas Práticas RIPD da ANPD</strong>. A versão completa (≈40 páginas com fluxos detalhados, mapa de transferências, análises por categoria de titular) é entregue sob NDA durante a fase de qualificação técnica.</p>
+  <div class="doc-meta">
+    <span><b>Base legal:</b> Lei 13.709/2018 art. 5º, 37, 38, 50</span>
+    <span><b>Referência ANPD:</b> Guia de Boas Práticas RIPD · 2022</span>
+    <span><b>Controlador:</b> contratante (órgão público)</span>
+    <span><b>Operador:</b> NuPtechs Tecnologia Ltda</span>
+    <span><b>Versão:</b> sintética 1.0 · 2026-05</span>
+  </div>
+</section>
+
+<h2><span class="num">01</span>Identificação dos agentes de tratamento</h2>
+<table class="std">
+  <tr><th>Papel</th><th>Identificação</th><th>Contato</th></tr>
+  <tr><td class="b">Controlador (decide finalidade e meios)</td><td><span class="placeholder">[Órgão contratante · CNPJ · endereço]</span></td><td><span class="placeholder">[DPO · email institucional]</span></td></tr>
+  <tr><td class="b">Operador (processa em nome do controlador)</td><td>NuPtechs Tecnologia Ltda · CNPJ <span class="placeholder">[XX.XXX.XXX/0001-XX]</span></td><td>DPO designado · canal: <a href="mailto:dpo@nuptechs.com">dpo@nuptechs.com</a></td></tr>
+  <tr><td class="b">Sub-operadores (fornecedores de infraestrutura e IA)</td><td>Provedor de nuvem (a definir conforme tier) · Provedores de IA (configuráveis: Anthropic / OpenAI / Google / nacionais)</td><td>contratos com cláusula de não-treinamento com dados do contratante</td></tr>
+</table>
+
+<h2><span class="num">02</span>Descrição do tratamento</h2>
+
+<h3>2.1 Finalidades</h3>
+<ul>
+  <li><strong>Gestão operacional</strong> dos contratos de TI do órgão contratante (cadastro, execução, medição, decisão administrativa)</li>
+  <li><strong>Fiscalização técnica e administrativa</strong> conforme art. 117 da Lei 14.133/2021</li>
+  <li><strong>Auditoria interna e externa</strong> (TCU, CGU, MPU, controle interno)</li>
+  <li><strong>Apoio à decisão</strong> com IA (consulta, sugestão fundamentada — humano decide)</li>
+</ul>
+
+<h3>2.2 Bases legais (LGPD art. 7º e art. 11)</h3>
+<table class="std">
+  <tr><th>Tipo de dado</th><th>Base legal</th><th>Justificativa</th></tr>
+  <tr><td class="b">Dados de fiscais/gestores do órgão</td><td>Art. 7º II (cumprimento de obrigação legal)</td><td>Designação formal de fiscal e gestor é exigência da Lei 14.133/2021 art. 117</td></tr>
+  <tr><td class="b">Dados de representantes legais de fornecedores</td><td>Art. 7º V (execução de contrato)</td><td>Necessários para vinculação contratual e responsabilização</td></tr>
+  <tr><td class="b">Dados de profissionais alocados pelo fornecedor</td><td>Art. 7º V (execução de contrato)</td><td>Necessários para apontamento de horas e atesto técnico</td></tr>
+  <tr><td class="b">Logs de auditoria com identificação do usuário</td><td>Art. 7º II e VI (legítimo interesse de prestação de contas)</td><td>Trilha probatória exigida para fiscalização externa</td></tr>
+</table>
+
+<h3>2.3 Categorias de dados pessoais</h3>
+<ul>
+  <li><strong>Dados cadastrais comuns:</strong> nome, CPF, e-mail institucional, cargo, telefone</li>
+  <li><strong>Dados profissionais:</strong> matrícula, lotação, perfil técnico (para fiscais e profissionais alocados)</li>
+  <li><strong>Dados de execução:</strong> ações realizadas no sistema (audit log com identificação do autor)</li>
+  <li><strong>NÃO são tratados:</strong> dados sensíveis (LGPD art. 5º II), dados de menores, dados biométricos, dados de saúde, dados financeiros pessoais</li>
+</ul>
+
+<h3>2.4 Categorias de titulares</h3>
+<ul>
+  <li>Servidores públicos do órgão contratante atuando como fiscais e gestores</li>
+  <li>Representantes legais de empresas fornecedoras</li>
+  <li>Profissionais alocados pelas fornecedoras na execução dos contratos</li>
+  <li>Eventualmente, terceiros mencionados em documentos contratuais (testemunhas, peritos)</li>
+</ul>
+
+<h2><span class="num">03</span>Medidas de segurança técnicas e administrativas</h2>
+<table class="std">
+  <tr><th>Categoria</th><th>Medida</th></tr>
+  <tr><td class="b">Confidencialidade · transporte</td><td>TLS 1.3 obrigatório em todas as conexões; HSTS com preload</td></tr>
+  <tr><td class="b">Confidencialidade · repouso</td><td>Criptografia AES-256 do banco de dados; chave em cofre gerenciado (KMS/Vault/HSM conforme tier)</td></tr>
+  <tr><td class="b">Integridade</td><td>Cadeia criptográfica HMAC encadeada em toda alteração; reconciliação bit-a-bit entre serviços</td></tr>
+  <tr><td class="b">Disponibilidade</td><td>SLO 99,5% mensal · RPO ≤ 15min · RTO ≤ 4h · site de DR em região distinta</td></tr>
+  <tr><td class="b">Controle de acesso</td><td>OIDC/SAML federado; controle por papéis, atributos e relacionamentos; reforço automático de autenticação em ações sensíveis</td></tr>
+  <tr><td class="b">Auditoria</td><td>Logs estruturados de toda ação; histórico de atividade com diff antes/depois; exportação probatória</td></tr>
+  <tr><td class="b">Isolamento</td><td>Multi-tenant com bloqueio por padrão; impossibilidade arquitetural de vazamento entre organizações</td></tr>
+  <tr><td class="b">Privacidade por desenho</td><td>Anonimização técnica irreversível ao exercer direito ao esquecimento; backups antigos rotacionados em até 90 dias</td></tr>
+  <tr><td class="b">Resposta a incidente</td><td>Notificação ao controlador em até 48h conforme art. 48 LGPD; runbook documentado; exercitado em simulações periódicas</td></tr>
+  <tr><td class="b">Gestão de fornecedores (sub-operadores)</td><td>Contratos com cláusula explícita LGPD · cláusula de não-treinamento de IA com dados do contratante</td></tr>
+</table>
+
+<h2><span class="num">04</span>Análise de risco aos titulares</h2>
+
+<table class="std">
+  <tr><th>Cenário de risco</th><th>Probabilidade</th><th>Impacto</th><th>Risco residual</th><th>Mitigação principal</th></tr>
+  <tr>
+    <td class="b">Vazamento de dados entre organizações (cross-tenant)</td>
+    <td class="risk-baixo">Muito baixa</td>
+    <td class="risk-medio">Médio</td>
+    <td class="risk-baixo">Baixo</td>
+    <td>Isolamento arquitetural por construção (multi-tenant fail-closed); impossibilidade técnica de cross-tenant</td>
+  </tr>
+  <tr>
+    <td class="b">Acesso indevido a logs de auditoria por usuário não-autorizado</td>
+    <td class="risk-baixo">Baixa</td>
+    <td class="risk-medio">Médio</td>
+    <td class="risk-baixo">Baixo</td>
+    <td>Controle de acesso granular; permissão dedicada para visualização de auditoria; histórico de quem acessou o quê</td>
+  </tr>
+  <tr>
+    <td class="b">Comprometimento da chave HMAC da cadeia de auditoria</td>
+    <td class="risk-baixo">Muito baixa</td>
+    <td class="risk-alto">Alto</td>
+    <td class="risk-medio">Médio</td>
+    <td>Chave em cofre gerenciado (KMS/Vault/HSM); rotação trimestral; protocolo de re-anchor em caso de comprometimento detectado</td>
+  </tr>
+  <tr>
+    <td class="b">Resposta incorreta da IA aplicada como ato administrativo</td>
+    <td class="risk-baixo">Baixa</td>
+    <td class="risk-medio">Médio</td>
+    <td class="risk-baixo">Baixo</td>
+    <td>Arquitetura de 3 níveis de controle humano; IA nunca aplica ato administrativo sozinha; toda ação sensível exige aprovação humana com motivação</td>
+  </tr>
+  <tr>
+    <td class="b">Vazamento de dados via provedor de IA externo</td>
+    <td class="risk-baixo">Baixa</td>
+    <td class="risk-medio">Médio</td>
+    <td class="risk-baixo">Baixo</td>
+    <td>Cláusula contratual de não-treinamento; opção de hospedagem de IA em região brasileira (Bedrock SP); opção self-hosted on-premise para air-gap</td>
+  </tr>
+  <tr>
+    <td class="b">Indisponibilidade prolongada do serviço</td>
+    <td class="risk-baixo">Baixa</td>
+    <td class="risk-medio">Médio</td>
+    <td class="risk-baixo">Baixo</td>
+    <td>SLO 99,5% · DR site · runbook exercitado · cláusula de crédito por descumprimento</td>
+  </tr>
+  <tr>
+    <td class="b">Falha na anonimização ao exercer direito ao esquecimento</td>
+    <td class="risk-baixo">Muito baixa</td>
+    <td class="risk-medio">Médio</td>
+    <td class="risk-baixo">Baixo</td>
+    <td>Anonimização técnica irreversível (hash one-way); auditoria do procedimento na cadeia HMAC</td>
+  </tr>
+</table>
+
+<h2><span class="num">05</span>Direitos dos titulares (LGPD art. 18)</h2>
+<p>Os 9 direitos do titular são operacionalizados nativamente na plataforma (não dependem de pedido por e-mail):</p>
+<table class="std">
+  <tr><th>Direito</th><th>Como exercer</th><th>Prazo de resposta</th></tr>
+  <tr><td class="b">Confirmação da existência de tratamento</td><td>Interface "Meus dados" do usuário ou solicitação ao DPO</td><td>imediato (interface) · 15 dias úteis (DPO)</td></tr>
+  <tr><td class="b">Acesso aos dados</td><td>Export JSON na interface "Meus dados"</td><td>imediato</td></tr>
+  <tr><td class="b">Correção</td><td>Edição direta no perfil; ou via DPO</td><td>imediato (interface) · 15 dias (DPO)</td></tr>
+  <tr><td class="b">Anonimização / bloqueio / eliminação</td><td>Solicitação via DPO; anonimização técnica irreversível</td><td>15 dias úteis</td></tr>
+  <tr><td class="b">Portabilidade</td><td>Export em JSON aberto ou CSV plano</td><td>imediato</td></tr>
+  <tr><td class="b">Informação sobre compartilhamento</td><td>Documentação pública em <a href="/easynup2/conformidade">/easynup2/conformidade</a></td><td>permanente</td></tr>
+  <tr><td class="b">Informação sobre não-consentimento</td><td>Para tratamentos com base em consentimento, política deixa explícito</td><td>imediato</td></tr>
+  <tr><td class="b">Revogação do consentimento</td><td>Botão na interface "Meus dados" para tratamentos baseados em consentimento</td><td>imediato</td></tr>
+  <tr><td class="b">Oposição a tratamento ilegal</td><td>Via DPO; investigação em até 15 dias</td><td>15 dias úteis</td></tr>
+</table>
+
+<h2><span class="num">06</span>Conformidade com IA · EU AI Act + PL 2338/2023</h2>
+<p>Sistema de IA classificado como <strong>de alto risco</strong> quando aplicado a decisões administrativas. Medidas adotadas:</p>
+<ul>
+  <li><strong>Supervisão humana significativa:</strong> 3 níveis de controle (consulta livre / ação com confirmação / ação sensível com aprovação obrigatória); IA nunca aplica ato administrativo sozinha</li>
+  <li><strong>Transparência:</strong> cada resposta da IA cita a referência de origem (artigo, cláusula, exemplo)</li>
+  <li><strong>Rastreabilidade:</strong> toda interação IA (prompt + ação proposta + resultado + decisão humana) na cadeia criptográfica HMAC</li>
+  <li><strong>Direito a explicação (PL 2338 art. 7º):</strong> qualquer decisão tomada com apoio de IA explicita ação sugerida, evidência usada, humano decisor e motivação</li>
+  <li><strong>Gestão de risco:</strong> métricas de qualidade da IA por capacidade (precisão, taxa de fundamentação em evidência real)</li>
+</ul>
+
+<h2><span class="num">07</span>Conclusão</h2>
+<p>O tratamento descrito é compatível com a LGPD, com o Guia de Boas Práticas RIPD da ANPD e com requisitos prospectivos do EU AI Act (vigência 08/2026) e PL 2338/2023. <strong>Riscos residuais classificados como baixos</strong>, com medidas técnicas e administrativas proporcionais.</p>
+<p>O RIPD será <strong>revisado a cada 12 meses ou em mudança relevante de tratamento</strong> (novo fluxo de dados, mudança de finalidade, incidente de segurança).</p>
+
+<div class="callout">
+  <h4>Versão completa entregue sob NDA</h4>
+  <p>Esta é a versão sintética pública (resumo executivo). A versão completa do RIPD, com aproximadamente 40 páginas cobrindo cada um dos 5 fluxos principais de dados pessoais em detalhe, mapas de transferência de dados, análises por categoria de titular e procedimentos de resposta a incidente, está disponível mediante NDA assinado entre as partes. Solicitação via <a href="mailto:dpo@nuptechs.com">dpo@nuptechs.com</a>.</p>
+</div>
+
+<nav class="back-strip">
+  <a href="/easynup2/conformidade" class="back">← Voltar à página de conformidade</a>
+  <div class="next-links">
+    <a href="/easynup2/docs/etp-modelo">ETP modelo →</a>
+    <a href="/easynup2/docs/tr-modelo">TR modelo →</a>
+  </div>
+</nav>
+
+<footer>
+  <p>Documento modelo · resumo executivo · versão completa sob NDA · atualizado 2026-05.</p>
+  <p>DPO NuPtechs: <a href="mailto:dpo@nuptechs.com">dpo@nuptechs.com</a> · Encarregado oficialmente designado conforme LGPD art. 41.</p>
+</footer>
+
+</body>
+</html>
