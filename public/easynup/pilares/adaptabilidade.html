@@ -234,6 +234,29 @@
 <h2><span class="num">09</span>Conectores genéricos via YAML</h2>
 <p class="lead">Integração com sistemas externos (SAP, ComprasNet, TCU, Receita Federal, ERPs financeiros) modelada como Conector + manifesto declarativo em YAML com proteção contra injeção. Dispara ações via motor de regras e suporta consulta periódica agendada (cron-like) para sistemas sem webhook.</p>
 
+<h2><span class="num">10</span>Integrações governamentais brasileiras · prontas pra plugar</h2>
+<p class="lead">Dois manifestos pré-mapeados, disponíveis no repositório de exemplos da plataforma, prontos para ativação assim que o cliente disponibilizar credenciais. Sem retrabalho de engenharia — apenas configuração.</p>
+
+<div class="grid2">
+  <div class="cap" style="border-color:var(--teal-br)">
+    <h4>eSocial · Consulta de Regularidade via Gateway</h4>
+    <p>Manifesto de Conector já configurado para os 4 gateways mais usados (<strong>TecnoSpeed</strong>, <strong>L2Maker</strong>, <strong>apireceita.com.br</strong>, <strong>TST/CNDT gratuito</strong>). Cobre 4 consultas (Regularidade FGTS, CND Federal PGFN/RFB, CNDT TST, Situação CNPJ) e 2 envios de evento (S-1000 cadastro empregador, S-2200 admissão).</p>
+    <p style="margin-top:8px"><strong>Gatilhos pré-configurados:</strong> consulta automática ao cadastrar novo Vendor · bloqueio de pagamento se CNDT positiva · revisão periódica mensal de fornecedores ativos. Resultado vira campo do próprio Vendor com status agregado (OK · Atenção · Bloqueado).</p>
+    <div class="meta">Pré-requisito do cliente: contratar 1 gateway e fornecer chave de API</div>
+  </div>
+  <div class="cap" style="border-color:var(--teal-br)">
+    <h4>gov.br · Login Único do Cidadão · provedor OIDC</h4>
+    <p>Manifesto de Provider OIDC já configurado com endpoints corretos de <strong>staging</strong> e <strong>produção</strong>, PKCE obrigatório (S256), mapeamento de identidade (sub, email, name, CPF, nível de confiabilidade Bronze/Prata/Ouro), step-up automático para ações sensíveis (ex: exigir Ouro para fechamento de contrato &gt; R$ 100k).</p>
+    <p style="margin-top:8px"><strong>Pré-requisito legal:</strong> credenciamento por servidor com conta Prata/Ouro do órgão contratante. Aplicação tem que estar hospedada em domínio oficial (<code>.gov.br</code>, <code>.mil.br</code>, <code>.jus.br</code>, <code>.tc.br</code>, etc.) conforme Portaria SGD/MGI nº 7.076/2024. Staging permite demonstração imediata.</p>
+    <div class="meta">Pré-requisito do cliente: credenciamento via integracaoid@gestao.gov.br</div>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>O caminho honesto de integração governamental</h4>
+  <p><strong>O sistema não promete integração nativa.</strong> Promete <strong>arquitetura pronta</strong>: o framework de Conectores YAML (item 09) e o NuPIdentify v2 SDK (Pilar 3) já entendem os contratos técnicos do eSocial-via-gateway e do gov.br OIDC. Os manifestos estão escritos. <strong>Falta apenas decisão comercial do cliente</strong>: contratar gateway (no caso do eSocial) e credenciar a instância no gov.br (em domínio oficial do órgão). A partir daí: configuração, não código.</p>
+</div>
+
 <div class="callout">
   <h4>O significado real da Adaptabilidade</h4>
   <p>Sem adaptabilidade, o EasyNuP seria mais uma plataforma SaaS rígida que obrigaria cada órgão a se adequar a ela. Com adaptabilidade, é o oposto: <strong>o sistema se molda ao jeito de cada órgão, mantendo o rigor estrutural</strong>. Configuração nova passa por draft, revisão e aprovação — não vira mudança-em-produção-sem-trilha. Gestor configura suas próprias automações sem virar refém da TI. Quando órgão muda regra, vira nova versão do template, e instâncias em curso podem migrar sem reiniciar. <strong>Esse é o ponto que separa ferramenta de plataforma.</strong></p>
