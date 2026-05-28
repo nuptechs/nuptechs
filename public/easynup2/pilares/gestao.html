@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EasyNuP · Gestão · a lente do gestor — Pilar 4</title>
+<style>
+  :root{--bg:#0a0d14;--panel:#161a22;--panel2:#121621;--line:#272c38;--line2:#1e2330;--muted:#8a93a6;--muted2:#5d6679;--ink:#f1f5fb;--ink-dim:#c3cbdb;--ink-soft:#a1aabe;--core:#3b82f6;--core-bg:#0b2344;--core-br:#1e3a8a;--gold:#eab308;--gold-bg:#2a2109;--gold-br:#854d0e;--comm:#10b981;--comm-bg:#052e24;--comm-br:#065f46;--ai:#a855f7;--ai-bg:#24123f;--ai-br:#5b21b6}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:1280px;margin:0 auto;padding:0 24px 96px}
+  code{font:12.5px ui-monospace,Menlo,monospace;background:#0a0d14;border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--ink-dim)}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .crumb a{color:var(--ink-dim)}.crumb a:hover{color:var(--core)}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+  .sub-hero{padding:48px 0 40px;border-bottom:1px solid var(--line)}
+  .sub-hero .tag{display:inline-block;font-size:11px;color:var(--gold);background:var(--gold-bg);border:1px solid var(--gold-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .sub-hero h1{font-size:42px;line-height:1.1;letter-spacing:-0.03em;margin:0 0 16px;max-width:920px;font-weight:700}
+  .sub-hero h1 .grad{background:linear-gradient(120deg,#eab308 0%,#3b82f6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .sub-hero p.lead{font-size:17px;color:var(--ink-dim);margin:0 0 30px;max-width:880px;line-height:1.55}
+  .kpi-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:24px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px 16px}
+  .kpi .n{font-size:30px;font-weight:800;letter-spacing:-0.025em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+  .kpi .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:6px;font-weight:600}
+  h2{font-size:26px;margin:64px 0 8px;letter-spacing:-0.02em;line-height:1.2}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:14px;font-variant-numeric:tabular-nums}
+  h3{font-size:18px;margin:28px 0 10px;font-weight:600;letter-spacing:-0.01em}
+  p.lead{color:var(--ink-dim);max-width:900px;font-size:15.5px;line-height:1.6;margin:0 0 22px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .cap{background:var(--panel2);border:1px solid var(--line2);border-radius:10px;padding:14px 16px}
+  .cap h4{margin:0 0 6px;font-size:14px;color:var(--ink);font-weight:600}
+  .cap p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.5}
+  .cap p strong{color:var(--ink);font-weight:600}
+  .cap .meta{font-size:10.5px;color:var(--muted);margin-top:8px;padding-top:7px;border-top:1px solid var(--line2);font-style:italic}
+  table.std{width:100%;border-collapse:collapse;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+  table.std th,table.std td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+  table.std td.mono{font-family:ui-monospace,Menlo,monospace;color:var(--ink-dim);font-size:12px}
+  .callout{background:linear-gradient(135deg,var(--gold-bg) 0%,var(--core-bg) 100%);border:1px solid var(--gold-br);border-radius:14px;padding:22px 26px;margin-top:32px}
+  .callout h4{color:var(--ink);font-size:16px;margin:0 0 8px}
+  .callout p{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.55}
+  .callout p strong{color:var(--ink)}
+  .back-strip{margin-top:64px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px}
+  .back-strip a.back:hover{color:var(--core)}
+  .back-strip .next-links{display:flex;gap:10px;flex-wrap:wrap}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-soft);padding:6px 12px;border:1px solid var(--line);border-radius:8px}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+  footer{color:var(--muted);margin-top:32px;font-size:12px;border-top:1px solid var(--line);padding-top:18px;line-height:1.7}
+  footer a{color:var(--ink-dim)}
+  @media (max-width:900px){.sub-hero h1{font-size:32px}.kpi-bar{grid-template-columns:repeat(2,1fr)}.grid2,.grid3{grid-template-columns:1fr 1fr}h2{font-size:22px}}
+</style>
+</head>
+<body>
+
+<div class="crumb">
+  <a href="/easynup2">EasyNuP</a> <span class="sep">›</span>
+  <a href="/easynup2#pilares">Pilares</a> <span class="sep">›</span>
+  <span class="now">Gestão</span>
+</div>
+
+<section class="sub-hero">
+  <span class="tag">Pilar 4 · a lente do gestor sobre tudo</span>
+  <h1>Gestão · acompanhamento que <span class="grad">sem ferramenta sistêmica simplesmente não acontece</span></h1>
+  <p class="lead">Conhecer o contrato e registrar a execução não basta. Gestor precisa <strong>antecipar problema, intervir no tempo certo, ter contexto pra decidir</strong>. A camada de Gestão atravessa Setup, Execução e Auditoria entregando perspectivas executivas, radar de risco multi-dimensional, alertas inteligentes ranqueados, drill-down até o lançamento original, copilots contextuais e notificações multi-canal.</p>
+  <div class="kpi-bar">
+    <div class="kpi"><div class="n">5</div><div class="l">Perspectivas Gestão 360°</div></div>
+    <div class="kpi"><div class="n">5</div><div class="l">Dimensões do radar de risco</div></div>
+    <div class="kpi"><div class="n">4</div><div class="l">Canais de notificação</div></div>
+    <div class="kpi"><div class="n">12</div><div class="l">Gatilhos de alerta</div></div>
+    <div class="kpi"><div class="n">6</div><div class="l">Fases do ciclo de vida</div></div>
+  </div>
+</section>
+
+<h2><span class="num">01</span>Gestão 360° · cockpit executivo com 5 perspectivas</h2>
+<p class="lead">A tela Gestao360 reúne tudo o que o gestor precisa monitorar em um único cockpit. Cinco perspectivas intercambiáveis, cada uma com KPI strip dinâmica e badges de alertas. Drill-down em qualquer KPI leva até o lançamento que originou o número.</p>
+
+<table class="std">
+  <tr><th>Perspectiva</th><th>O que mostra</th></tr>
+  <tr><td class="b">Overview</td><td>Visão consolidada · radar de risco 5D · alertas inteligentes ranqueados · AI Copilot Panel · insights recomendados</td></tr>
+  <tr><td class="b">Execução</td><td>OSs em andamento por status · entregas pendentes · timesheets · taxa de aceite no prazo</td></tr>
+  <tr><td class="b">Financeiro</td><td>Pagamentos liberados (período) · glosas aplicadas · retenções acumuladas · valor consumido vs orçado</td></tr>
+  <tr><td class="b">Riscos</td><td>Findings críticos abertos · score por contrato/vendor/categoria · tendência de risco</td></tr>
+  <tr><td class="b">Conformidade</td><td>Health score por contrato · vendor ranking · findings por dimensão de compliance · janela 7/30/90/180/365 dias</td></tr>
+</table>
+
+<h2><span class="num">02</span>Radar de risco 5 dimensões · score consolidado por contrato</h2>
+<p class="lead">O radar mostra a saúde do contrato em 5 dimensões com benchmark histórico. Cada dimensão tem valor 0-100, label colorido por severidade, e quando ultrapassa limiar vira alerta priorizado no ticker.</p>
+
+<div class="grid3">
+  <div class="cap"><h4>Risco financeiro</h4><p>Burn rate, saldo projetado, glosas aplicadas, retenções fiscais — todos sob a ótica do orçamento contratado.</p></div>
+  <div class="cap"><h4>Risco operacional</h4><p>OSs atrasadas, backlog acumulado, profissionais alocados vs disponíveis, taxa de aceite no prazo.</p></div>
+  <div class="cap"><h4>Risco legal</h4><p>Findings com fundamentação legal pendentes, obrigações vencendo, exposição a sanção art. 156.</p></div>
+  <div class="cap"><h4>Risco de compliance</h4><p>Health score do Compliance Engine, percentual de checks PASS vs FAIL, COMMITTEE_DISSENT abertos.</p></div>
+  <div class="cap"><h4>Risco de mercado</h4><p>Vendor performance histórico, ratings, churn de profissionais críticos do fornecedor.</p></div>
+</div>
+
+<h2><span class="num">03</span>HomePage · ciclo de vida do contrato em 6 fases interativas</h2>
+<p class="lead">A tela inicial do gestor mostra o ciclo de vida completo do contrato em 6 fases clicáveis: <strong>Contratação → Execução → Medição → Glosa → Análise → Encerramento</strong>. Cada fase abre painel lateral com módulos disponíveis na etapa. KPI strip mostra valor sob gestão, contratos ativos, breakdown por tipo (PF, Alocação, Subscrição, UST/SNAP, Outros) e OS atrasadas.</p>
+
+<h2><span class="num">04</span>AI Copilot Panel · embedded em Gestao360</h2>
+<p class="lead">Widget na própria tela executiva que sugere ações estratégicas com priority-coded recommendations. Aprende com decisões anteriores do gestor. Não decide por ele, mostra opções com fundamentação.</p>
+
+<div class="grid2">
+  <div class="cap">
+    <h4>O que mostra</h4>
+    <p><strong>Health Score</strong> circular 0-100 · <strong>Critical Findings</strong> com impacto + categoria + título + métrica + recomendação · <strong>Trends</strong> com indicadores ↑↓ + description · <strong>Recommendations</strong> priorizadas com #N + title + expectedImpact.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>Origem auditável</h4>
+    <p>Source tag visível: "IA (modelo de IA jurídico atual)" ou "Regras". Snapshot metadata <code>collectedAt</code> em timestamp. Gateado por permissão <code>ai.access</code> via NuPIdentify.</p>
+    <div class="meta">tagging explícito</div>
+  </div>
+</div>
+
+<h2><span class="num">05</span>Alertas inteligentes ranqueados · não FIFO</h2>
+<p class="lead">Tipos: vigência expirando · glosa pendente · TRP atrasado · MTTR violado · bolsa UST próxima do limite · finding crítico aberto · OS sem aceite há N dias. Cada alerta clica e abre a entidade-fonte.</p>
+
+<div class="callout">
+  <h4>Ranking inteligente</h4>
+  <p>Alertas não são listados em ordem de criação. São <strong>classificados Critical / High / Medium / Low</strong> com ícones por tipo e ordenados pelo modelo combinando severidade + urgência temporal + impacto financeiro. Ticker em Gestao360 rotaciona mensagens dinâmicas com ícones SVG customizados (positive/negative trends).</p>
+</div>
+
+<h2><span class="num">06</span>Inbox de tarefas + Workflow Kanban + Tasks Calendar</h2>
+<p class="lead">Tudo o que pede ação do usuário (aprovar TRP, validar medição SLA, revisar finding crítico, confirmar glosa, atender escalação) cai numa caixa única com prazo, prioridade e contexto.</p>
+
+<table class="std">
+  <tr><th>Tela</th><th>Função</th></tr>
+  <tr><td class="b">TaskInbox</td><td>Lista plana com filtros: status (PENDING/CLAIMED/COMPLETED), type, priority, search debounced, overdue, include group. Summary cards (Pendentes/Em andamento/Atrasadas/Concluídas).</td></tr>
+  <tr><td class="b">TaskCalendar</td><td>Visão calendário das tarefas como eventos com sla_deadline. Drag-and-drop por dia.</td></tr>
+  <tr><td class="b">WorkflowKanbanPage</td><td>Kanban de instâncias de workflow por step (colunas) · drag-drop com <code>canTransitionTo()</code> validando se transição é permitida pelo template.</td></tr>
+</table>
+
+<h2><span class="num">07</span>Vendor Workspace · self-service do fornecedor</h2>
+<p class="lead">Fornecedor tem o seu próprio espaço com mesma infraestrutura de identidade federada + auditoria HMAC. Reduz e-mail e telefone, aumenta rastreabilidade.</p>
+
+<div class="grid3">
+  <div class="cap"><h4>Contratos vendor</h4><p>Lista filtrada de contratos onde a empresa é fornecedora ativa.</p></div>
+  <div class="cap"><h4>OS atribuídas + deliveries</h4><p>OSs com status, prazo, atividades · entregável (artefato)s submetidas com status ANALYZING/ATESTED/REJECTED/GLOSADO.</p></div>
+  <div class="cap"><h4>Dashboard de performance</h4><p>on-time%, completion%, ratings agregados — métricas que afetam vendor ranking.</p></div>
+</div>
+
+<h2><span class="num">08</span>Notificações multi-canal por regra</h2>
+<p class="lead">O motor de regras determina o canal por tipo de evento. Glosa &gt; R$50k pode ir por email + WhatsApp. Lembrete de TRP só por in-app. Tudo configurável por organização. Quatro canais reais implementados via Action Executors.</p>
+
+<table class="std">
+  <tr><th>Canal</th><th>Action Executor</th><th>Tecnologia</th></tr>
+  <tr><td class="b">Email</td><td>SendEmailActionExecutor</td><td>Nodemailer + templates Thymeleaf · locale resolution via Accept-Language</td></tr>
+  <tr><td class="b">In-app</td><td>CreateNotificationActionExecutor</td><td>motor de notificações → tabela notification + push WebSocket</td></tr>
+  <tr><td class="b">WhatsApp</td><td>integração WhatsApp</td><td>API WhatsApp via RestTemplate</td></tr>
+  <tr><td class="b">Telegram</td><td>integração Telegram</td><td>API Telegram Bot via RestTemplate</td></tr>
+</table>
+
+<h2><span class="num">09</span>Painéis especializados por área</h2>
+<table class="std">
+  <tr><th>Tela</th><th>Foco</th></tr>
+  <tr><td class="b">Dashboard</td><td>Visão consolidada da carteira contratual · summary row · insights row · ticker bar com alerts positive/negative</td></tr>
+  <tr><td class="b">ComplianceDashboardPage</td><td>Health score por contrato · vendor ranking · breakdown de findings · janela temporal configurável</td></tr>
+  <tr><td class="b">ContractAlerts</td><td>Tab de findings IA com severidade · ações acknowledge/resolve/manage por finding · sourceAnalyzer + confidence%</td></tr>
+  <tr><td class="b">ContractCommandCenter</td><td>Centro de operação por contrato com 6 tabs (Setup · Execução · Medição · Glosas · Licenças · Auditoria) · KPIs clicáveis no header</td></tr>
+  <tr><td class="b">SlaDashboard</td><td>Painel SLA com filtros por contrato e período</td></tr>
+</table>
+
+<div class="back-strip">
+  <a href="/easynup2" class="back">← Voltar para a visão geral</a>
+  <div class="next-links">
+    <a href="/easynup2/pilares/seguranca">← Pilar 3 · Segurança</a>
+    <a href="/easynup2/pilares/adaptabilidade">Pilar 5 · Adaptabilidade →</a>
+  </div>
+</div>
+
+<footer>
+  <p><strong>EasyNuP</strong> · plataforma NuPTechs · 2024–2026</p>
+  <p><a href="https://www.nuptechs.com">www.nuptechs.com</a> · <a href="https://www.nuptechs.com/sobre">sobre a empresa</a> · <a href="https://www.nuptechs.com/contato">fale conosco</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EasyNuP · Arcabouço Legal vivo — Pilar 1</title>
+<style>
+  :root{--bg:#0a0d14;--panel:#161a22;--panel2:#121621;--line:#272c38;--line2:#1e2330;--muted:#8a93a6;--muted2:#5d6679;--ink:#f1f5fb;--ink-dim:#c3cbdb;--ink-soft:#a1aabe;--core:#3b82f6;--core-bg:#0b2344;--core-br:#1e3a8a;--ai:#a855f7;--ai-bg:#24123f;--ai-br:#5b21b6;--comm:#10b981;--comm-bg:#052e24;--comm-br:#065f46;--gold:#eab308;--gold-bg:#2a2109;--gold-br:#854d0e}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:1280px;margin:0 auto;padding:0 24px 96px}
+  code{font:12.5px ui-monospace,Menlo,monospace;background:#0a0d14;border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--ink-dim)}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .crumb a{color:var(--ink-dim)}
+  .crumb a:hover{color:var(--core)}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+  .sub-hero{padding:48px 0 40px;border-bottom:1px solid var(--line)}
+  .sub-hero .tag{display:inline-block;font-size:11px;color:var(--core);background:var(--core-bg);border:1px solid var(--core-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .sub-hero h1{font-size:42px;line-height:1.1;letter-spacing:-0.03em;margin:0 0 16px;max-width:920px;font-weight:700}
+  .sub-hero h1 .grad{background:linear-gradient(120deg,#60a5fa 0%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .sub-hero p.lead{font-size:17px;color:var(--ink-dim);margin:0 0 30px;max-width:880px;line-height:1.55}
+  .kpi-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:24px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px 16px}
+  .kpi .n{font-size:30px;font-weight:800;letter-spacing:-0.025em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+  .kpi .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:6px;font-weight:600}
+  h2{font-size:26px;margin:64px 0 8px;letter-spacing:-0.02em;line-height:1.2}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:14px;font-variant-numeric:tabular-nums}
+  h3{font-size:18px;margin:28px 0 10px;font-weight:600;letter-spacing:-0.01em}
+  p.lead{color:var(--ink-dim);max-width:900px;font-size:15.5px;line-height:1.6;margin:0 0 22px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .cap{background:var(--panel2);border:1px solid var(--line2);border-radius:10px;padding:14px 16px}
+  .cap h4{margin:0 0 6px;font-size:14px;color:var(--ink);font-weight:600}
+  .cap p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.5}
+  .cap p strong{color:var(--ink);font-weight:600}
+  .cap .meta{font-size:10.5px;color:var(--muted);margin-top:8px;padding-top:7px;border-top:1px solid var(--line2);font-style:italic}
+  table.std{width:100%;border-collapse:collapse;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+  table.std th,table.std td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+  table.std td.mono{font-family:ui-monospace,Menlo,monospace;color:var(--ink-dim);font-size:12px}
+  .callout{background:linear-gradient(135deg,var(--core-bg) 0%,var(--ai-bg) 100%);border:1px solid var(--core-br);border-radius:14px;padding:22px 26px;margin-top:32px}
+  .callout h4{color:var(--ink);font-size:16px;margin:0 0 8px}
+  .callout p{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.55}
+  .callout p strong{color:var(--ink)}
+  .back-strip{margin-top:64px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px}
+  .back-strip a.back:hover{color:var(--core)}
+  .back-strip .next-links{display:flex;gap:10px;flex-wrap:wrap}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-soft);padding:6px 12px;border:1px solid var(--line);border-radius:8px}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+  footer{color:var(--muted);margin-top:32px;font-size:12px;border-top:1px solid var(--line);padding-top:18px;line-height:1.7}
+  footer a{color:var(--ink-dim)}
+  @media (max-width:900px){.sub-hero h1{font-size:32px}.kpi-bar{grid-template-columns:repeat(2,1fr)}.grid2,.grid3{grid-template-columns:1fr 1fr}h2{font-size:22px}}
+</style>
+</head>
+<body>
+
+<div class="crumb">
+  <a href="/easynup2">EasyNuP</a> <span class="sep">›</span>
+  <a href="/easynup2#pilares">Pilares</a> <span class="sep">›</span>
+  <span class="now">Arcabouço Legal vivo</span>
+</div>
+
+<section class="sub-hero">
+  <span class="tag">Pilar 1 · base normativa</span>
+  <h1>Arcabouço legal vivo · <span class="grad">não é PDF anexo, é entidade do domínio</span></h1>
+  <p class="lead">Lei 14.133/2021, IN SGD/ME 94/2022, Decreto 11.246/2022, LGPD e os normativos próprios de cada contratante são <strong>modelados como entidades de dados</strong>: hierarquia normativa, versionamento temporal, aplicabilidade automática por critério, obrigações com motor de validação configurável, indexação RAG nativa. A IA não inventa — cita evidência. O fiscal não improvisa — segue a regra cadastrada.</p>
+  <div class="kpi-bar">
+    <div class="kpi"><div class="n">7</div><div class="l">Entidades legais</div></div>
+    <div class="kpi"><div class="n">8</div><div class="l">Tipos de norma</div></div>
+    <div class="kpi"><div class="n">6</div><div class="l">Tipos de aplicabilidade</div></div>
+    <div class="kpi"><div class="n">3</div><div class="l">Motores de validação</div></div>
+    <div class="kpi"><div class="n">26</div><div class="l">Web services dedicados</div></div>
+  </div>
+</section>
+
+<h2><span class="num">01</span>Modelagem do corpus legal · da Lei ao Inciso</h2>
+<p class="lead">O sistema modela cada norma como entidade com hierarquia, versionamento e aplicabilidade. Toda decisão aponta para a versão vigente no instante — não para a norma "raw". Permite reconstruir, anos depois, qual versão estava valendo quando o gestor decidiu.</p>
+
+<table class="std">
+  <tr><th>Entidade</th><th>Para que serve</th></tr>
+  <tr><td class="b">LegalReference</td><td>Norma raiz. Campos: code unique 50-char, name, referenceType (8 tipos), summary, content, sourceUrl, documentStorageKey, effectiveDate/expirationDate, isGlobal (true=público, false=org-specific), parent (Lei→Decreto→Portaria→IN), replacedBy (revogação em cascata)</td></tr>
+  <tr><td class="b">LegalReferenceVersion</td><td>Snapshot imutável de norma em ponto temporal · permite rastreabilidade ("qual versão foi consultada?")</td></tr>
+  <tr><td class="b">LegalReferenceApplicability</td><td>6 tipos de aplicabilidade automática + config JSONB + effectiveFrom/To</td></tr>
+  <tr><td class="b">LegalObligation</td><td>Unidade atômica de fiscalização · FK para legal_reference_version_id (nunca raw) · validatorType + obligationType + severity + appliesToEventTypes + appliesToEntityTypes + sourceExcerpt + sourceArticle + sourceOffsets</td></tr>
+  <tr><td class="b">LegalObligationSuggestion</td><td>Sugestões extraídas por IA · workflow approval (PENDING → APPROVED · REJECTED)</td></tr>
+  <tr><td class="b">LegalFrameworkRule</td><td>Regra estruturada do arcabouço como entidade configurável (não código). 5 tipos de regra (compliance, dispensa, prazo, documento exigido, benefício ME/EPP), configuração em JSON, indexação RAG opcional.</td></tr>
+  <tr><td class="b">ContractLegalReference</td><td>Vínculo contrato ↔ norma com versão e data efetiva</td></tr>
+</table>
+
+<h2><span class="num">02</span>8 tipos de referência legal · cada um com seu papel</h2>
+
+<table class="std">
+  <tr><th>Tipo</th><th>Exemplo concreto</th></tr>
+  <tr><td class="b">LAW</td><td>Lei 14.133/2021 (Nova Lei de Licitações), Lei 13.709/2018 (LGPD)</td></tr>
+  <tr><td class="b">DECREE</td><td>Decreto 11.246/2022 (regulamenta atos de gestão)</td></tr>
+  <tr><td class="b">NORMATIVE_INSTRUCTION</td><td>IN SGD/ME 94/2022 (contratação de TIC pelo gov federal)</td></tr>
+  <tr><td class="b">ORDINANCE</td><td>Portarias específicas do órgão contratante</td></tr>
+  <tr><td class="b">RESOLUTION</td><td>Resoluções de conselhos profissionais ou agências reguladoras</td></tr>
+  <tr><td class="b">GUIDE</td><td>Guias de boas práticas, metodologias (IFPUG, COCOMO, etc.)</td></tr>
+  <tr><td class="b">CONTRACT_DOCUMENT</td><td>Documentos próprios do contrato (TR, ETP, anexos)</td></tr>
+  <tr><td class="b">CUSTOM_RULE</td><td>Regras customizadas pelo gestor (diretrizes internas que não são lei)</td></tr>
+</table>
+
+<h2><span class="num">03</span>6 tipos de aplicabilidade automática · sem catálogo manual</h2>
+<p class="lead">Cada norma cadastrada declara <em>quando ela se aplica</em>. O sistema deduz automaticamente quais contratos estão sob qual norma — sem o fiscal precisar "marcar" manualmente em cada contrato.</p>
+
+<table class="std">
+  <tr><th>Tipo de aplicabilidade</th><th>Config JSONB exemplo</th></tr>
+  <tr><td class="b mono">ALL</td><td>(sem config) — aplica a todos os contratos da organização</td></tr>
+  <tr><td class="b mono">BY_CONTRACT_TYPE</td><td><code>{"contract_types": ["TIC"]}</code> — só contratos de TI</td></tr>
+  <tr><td class="b mono">BY_ORGAN</td><td><code>{"organs": ["SGD/ME", "TCU"]}</code> — só contratantes específicos</td></tr>
+  <tr><td class="b mono">BY_CONTRACT_VALUE_RANGE</td><td><code>{"min_value": 50000, "max_value": 1000000}</code> — só faixa de valor</td></tr>
+  <tr><td class="b mono">BY_LICITATION_MODALITY</td><td><code>{"modalities": ["PREGAO_ELETRONICO", "DISPENSA"]}</code></td></tr>
+  <tr><td class="b mono">BY_EXPRESSION</td><td><code>{"expression": "contract.type == 'TIC' && contract.value &gt;= 50000"}</code> — FEEL custom</td></tr>
+</table>
+
+<h2><span class="num">04</span>3 motores de validação · L1 / L2 / L3 escolhidos por regra</h2>
+<p class="lead">Cada obrigação (LegalObligation) declara seu motor de validação adequado. Não tudo precisa de IA: regra simples ("contém cláusula X?") roda determinística em ~5ms. Regra interpretativa pede LLM com RAG. Regra bloqueante chama comitê multi-LLM.</p>
+
+<div class="grid3">
+  <div class="cap">
+    <h4>DETERMINISTIC · L1</h4>
+    <p>Avaliação FEEL via motor de regras DMN-compatível · regex · scope check. Latência ~5ms · custo ~$0. Para validações binárias diretas.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>RAG_LLM · L2</h4>
+    <p>modelo de IA jurídico 4.5 + índice semântico isolado por organização até 8 trechos relevantes + tool-use forçado · citação literal obrigatória · latência ~2-5s · custo ~$0.030. Para interpretação contextual.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>COMMITTEE · L3</h4>
+    <p>3 LLMs em paralelo (modelo de IA jurídico + Claude Opus + modelo de IA alternativo) com voto independente. Decisão por maioria simples (basta 2 dos 3 concordarem). Se não houver maioria, sinaliza divergência e exige revisão humana. Latência 5-15s · custo somado típico ~$0,10 por validação. Para regras bloqueantes.</p>
+    <div class="meta"></div>
+  </div>
+</div>
+
+<h2><span class="num">05</span>RAG legal · índice semântico isolado por organização com 3 namespaces isolados</h2>
+<p class="lead">Toda norma indexada é vetorizada e armazenada em namespace dedicado em índice semântico isolado por organização (vetorização de documentos ou vetorização alternativa via env var). Isolamento multi-tenant absoluto: diretrizes internas de um órgão jamais aparecem em consulta de outro.</p>
+
+<table class="std">
+  <tr><th>Namespace</th><th>Conteúdo</th></tr>
+  <tr><td class="b mono">legal-public</td><td>Lei 14.133/2021, LGPD, decretos federais, normativos federais aplicáveis — visível pra todas as organizações</td></tr>
+  <tr><td class="b mono">legal-internal-&lt;orgId&gt;</td><td>Normativos internos da organização específica · portarias do órgão</td></tr>
+  <tr><td class="b mono">guidelines-&lt;orgId&gt;</td><td>ManagerObservations (diretrizes do gestor) · isolado dos namespaces legais "oficiais"</td></tr>
+</table>
+
+<h2><span class="num">06</span>Acórdãos do TCU como entidade · não como nota de rodapé</h2>
+<p class="lead">O LegalReferenceType inclui contexto pra acórdãos TCU. Quando o TCU consolida orientação ("UST sem padronização é irregularidade"), o sistema cadastra como LegalReference + LegalObligation com validatorType adequado. As regras de validação derivadas <strong>passam a rodar automaticamente</strong> nos contratos novos.</p>
+
+<div class="callout">
+  <h4>Por que isso muda a régua para fiscalização TCU</h4>
+  <p>TCU sistematicamente aponta como irregularidade: UST sem padronização, fiscal sem qualificação técnica, atesto sem fundamentação (art. 117 §1º Lei 14.133), critério de medição inconsistente. O EasyNuP modela cada uma dessas exigências como <strong>regra executável no domínio</strong> — não como item em manual PDF. O órgão que opera o sistema atende essas exigências por desenho, não por treinamento individual.</p>
+</div>
+
+<h2><span class="num">07</span>26 web services Java dedicados</h2>
+<p class="lead">CRUD completo + busca semântica + reindex para cada entidade legal · todos auditados HMAC · todos com filtro isolamento por organização com bloqueio por padrão.</p>
+
+<table class="std">
+  <tr><th>Grupo</th><th>Endpoints</th></tr>
+  <tr><td class="b">LegalReference</td><td>Find · Create · Update · Delete (4)</td></tr>
+  <tr><td class="b">LegalReferenceVersion</td><td>Find (singular + lista) · Create · Update · Delete (5)</td></tr>
+  <tr><td class="b">LegalReferenceApplicability</td><td>Find · Create · Update · Delete (4)</td></tr>
+  <tr><td class="b">LegalObligation</td><td>Find (singular + lista) · Create · Update · Delete (5)</td></tr>
+  <tr><td class="b">LegalObligationSuggestion</td><td>Find · Approve · Reject (3)</td></tr>
+  <tr><td class="b">LegalFrameworkRule</td><td>Find (1)</td></tr>
+  <tr><td class="b">LegalCorpus</td><td>SearchLegalCorpus · ReindexLegalCorpus · TriggerObligationExtraction (3)</td></tr>
+  <tr><td class="b">ContractLegalReference</td><td>Find (1)</td></tr>
+</table>
+
+<div class="back-strip">
+  <a href="/easynup2" class="back">← Voltar para a visão geral</a>
+  <div class="next-links">
+    <a href="/easynup2/pilares/ia-cirurgica">Pilar 2 · IA cirúrgica →</a>
+    <a href="/easynup2/pilares/seguranca">Pilar 3 · Segurança →</a>
+  </div>
+</div>
+
+<footer>
+  <p><strong>EasyNuP</strong> · plataforma NuPTechs · 2024–2026</p>
+  <p><a href="https://www.nuptechs.com">www.nuptechs.com</a> · <a href="https://www.nuptechs.com/sobre">sobre a empresa</a> · <a href="https://www.nuptechs.com/contato">fale conosco</a></p>
+</footer>
+
+</body>
+</html>

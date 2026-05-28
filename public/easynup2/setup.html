@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EasyNuP · Setup — o contexto vira sistema operável</title>
+<style>
+  :root{
+    --bg:#0a0d14; --panel:#161a22; --panel2:#121621; --panel3:#1a1f2c;
+    --line:#272c38; --line2:#1e2330; --line3:#33394a;
+    --muted:#8a93a6; --muted2:#5d6679;
+    --ink:#f1f5fb; --ink-dim:#c3cbdb; --ink-soft:#a1aabe;
+    --core:#3b82f6; --core-bg:#0b2344; --core-br:#1e3a8a;
+    --comm:#10b981; --comm-bg:#052e24; --comm-br:#065f46;
+    --ai:#a855f7; --ai-bg:#24123f; --ai-br:#5b21b6;
+    --ext:#f59e0b; --ext-bg:#2a1f0a; --ext-br:#78350f;
+    --gold:#eab308; --gold-bg:#2a2109; --gold-br:#854d0e;
+    --ok:#22c55e; --ok-bg:#06231a; --ok-br:#134e2c;
+    --danger:#ef4444; --danger-bg:#2a0f11; --danger-br:#7f1d1d;
+    --pink:#ec4899; --pink-bg:#2a0b1c; --pink-br:#9d174d;
+    --teal:#14b8a6; --teal-bg:#062a26; --teal-br:#0f766e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:1280px;margin:0 auto;padding:0 24px 96px}
+  code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;background:#0a0d14;border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--ink-dim)}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* breadcrumb */
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);margin-bottom:0}
+  .crumb a{color:var(--ink-dim);text-decoration:none}
+  .crumb a:hover{color:var(--core)}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+
+  /* hero subpage */
+  .sub-hero{padding:48px 0 40px;border-bottom:1px solid var(--line)}
+  .sub-hero .tag{display:inline-block;font-size:11px;color:var(--core);background:var(--core-bg);border:1px solid var(--core-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .sub-hero h1{font-size:42px;line-height:1.1;letter-spacing:-0.03em;margin:0 0 16px;max-width:920px;font-weight:700}
+  .sub-hero h1 .grad{background:linear-gradient(120deg,#60a5fa 0%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .sub-hero p.lead{font-size:17px;color:var(--ink-dim);margin:0 0 30px;max-width:880px;line-height:1.55}
+
+  .kpi-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:24px 0 0}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px 16px}
+  .kpi .n{font-size:30px;font-weight:800;letter-spacing:-0.025em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+  .kpi .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:6px;font-weight:600}
+
+  /* sections */
+  h2{font-size:26px;margin:64px 0 8px;letter-spacing:-0.02em;line-height:1.2}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:14px;font-variant-numeric:tabular-nums}
+  h3{font-size:18px;margin:28px 0 10px;color:var(--ink);font-weight:600;letter-spacing:-0.01em}
+  p.lead{color:var(--ink-dim);max-width:900px;font-size:15.5px;line-height:1.6;margin:0 0 22px}
+
+  /* feature row + table */
+  .area{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:0;margin-top:24px;overflow:hidden}
+  .area-head{padding:22px 26px 16px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(59,130,246,0.04) 0%,transparent 100%)}
+  .area-head h3{margin:0 0 6px;font-size:19px;color:var(--ink)}
+  .area-head .desc{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.5;max-width:780px}
+  .area-body{padding:22px 26px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+
+  .cap{background:var(--panel2);border:1px solid var(--line2);border-radius:10px;padding:14px 16px}
+  .cap h4{margin:0 0 6px;font-size:14px;color:var(--ink);font-weight:600}
+  .cap p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.5}
+  .cap p strong{color:var(--ink);font-weight:600}
+  .cap .meta{font-size:10.5px;color:var(--muted);margin-top:8px;padding-top:7px;border-top:1px solid var(--line2);font-style:italic;letter-spacing:0.02em}
+
+  table.std{width:100%;border-collapse:collapse;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+  table.std th,table.std td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+  table.std td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  table.std td.mono{font-family:ui-monospace,Menlo,monospace;color:var(--ink-dim);font-size:12px}
+
+  ul.bullets{margin:8px 0 0;padding-left:0;list-style:none}
+  ul.bullets li{padding:8px 0 8px 22px;color:var(--ink-dim);font-size:14px;line-height:1.55;position:relative}
+  ul.bullets li::before{content:"";position:absolute;left:0;top:14px;width:8px;height:8px;border-radius:2px;background:var(--core)}
+  ul.bullets li strong{color:var(--ink);font-weight:600}
+
+  .tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .tag-list span{font-size:11px;padding:3px 9px;background:var(--panel2);border:1px solid var(--line);color:var(--ink-dim);border-radius:6px;letter-spacing:0.02em}
+
+  .callout{background:linear-gradient(135deg,var(--core-bg) 0%,var(--ai-bg) 100%);border:1px solid var(--core-br);border-radius:14px;padding:22px 26px;margin-top:32px}
+  .callout h4{color:var(--ink);font-size:16px;margin:0 0 8px}
+  .callout p{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.55}
+  .callout p strong{color:var(--ink)}
+
+  .pers{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+  .pers .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .pers .card h5{margin:0 0 6px;font-size:13px;color:var(--core);font-weight:700;letter-spacing:0.04em;text-transform:uppercase}
+  .pers .card p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.5}
+
+  /* footer subpage */
+  .back-strip{margin-top:64px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+  .back-strip a.back:hover{color:var(--core)}
+  .back-strip .next-links{display:flex;gap:10px;flex-wrap:wrap}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-soft);padding:6px 12px;border:1px solid var(--line);border-radius:8px;text-decoration:none}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+
+  footer{color:var(--muted);margin-top:32px;font-size:12px;border-top:1px solid var(--line);padding-top:18px;line-height:1.7}
+  footer a{color:var(--ink-dim)}
+
+  @media (max-width:900px){
+    .sub-hero h1{font-size:32px}
+    .kpi-bar{grid-template-columns:repeat(2,1fr)}
+    .grid2,.grid3,.pers{grid-template-columns:1fr 1fr}
+    h2{font-size:22px}
+  }
+</style>
+</head>
+<body>
+
+<div class="crumb">
+  <a href="/easynup2">EasyNuP</a> <span class="sep">›</span>
+  <a href="/easynup2#m1">Momento 1</a> <span class="sep">›</span>
+  <span class="now">Setup</span>
+</div>
+
+<section class="sub-hero">
+  <span class="tag">Momento 1 · Setup</span>
+  <h1>O contexto do contratante <span class="grad">vira sistema operável</span></h1>
+  <p class="lead">Antes de medir SLA, propor glosa ou validar aceite, o sistema precisa <strong>conhecer o contratante</strong>: arcabouço legal aplicável, diretrizes internas, estrutura organizacional, contratos vigentes, forma de remunerar cada tipo de fornecedor de TI, regras de conformidade exigidas. Tudo configurável em telas pensadas para o gestor — sem código, sem fornecedor da plataforma no caminho.</p>
+
+  <div class="kpi-bar">
+    <div class="kpi"><div class="n">101</div><div class="l">Entidades de configuração</div></div>
+    <div class="kpi"><div class="n">54</div><div class="l">Telas dedicadas</div></div>
+    <div class="kpi"><div class="n">25</div><div class="l">Feature toggles no Contrato</div></div>
+    <div class="kpi"><div class="n">8</div><div class="l">Domínios Schema-as-Code</div></div>
+    <div class="kpi"><div class="n">255</div><div class="l">Migrações cravadas</div></div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────────────────────── -->
+<!-- 1. Cadastros mestres -->
+<!-- ──────────────────────────────────────────────────────────────── -->
+<h2><span class="num">01</span>Cadastros mestres do contexto</h2>
+<p class="lead">A unidade de isolamento absoluto é a <strong>Organização</strong> (raiz da hierarquia multi-tenant). Dentro dela vivem todos os contratantes (órgãos públicos com UASG/CNPJ), empresas fornecedoras com representantes legais, projetos sob gestão, profissionais com perfis e requisitos técnicos.</p>
+
+<div class="grid3">
+  <div class="cap">
+    <h4>Organização &amp; Contratantes</h4>
+    <p>Organização raiz + <strong>ContractingEntity</strong> (entidades contratantes específicas como secretarias, autarquias, fundações) — cada uma com fiscalManager, tipo e isolamento de dados nativo.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>Empresas fornecedoras</h4>
+    <p><strong>Company</strong> + <strong>CompanyRepresentative</strong> (representantes legais) + <strong>Vendor</strong> + <strong>conta bancária do fornecedor</strong> com regime tributário, status legal e regime de retenção fiscal.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>Projetos &amp; profissionais</h4>
+    <p><strong>Project</strong> (vinculado a contratos), <strong>Professional</strong> com substituições controladas (ProfessionalSubstitution com motivo + urgência + vigência), <strong>Perfil profissional</strong> + <strong>Faixa de valor por perfil</strong> + <strong>RequisitoPerfil profissional</strong>.</p>
+    <div class="meta"></div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────────── -->
+<!-- 2. Wizard de Contrato -->
+<!-- ──────────────────────────────────────────────────────────────── -->
+<h2><span class="num">02</span>Wizard de Contrato com 7 blocos + Importação por IA</h2>
+<p class="lead">Sobe o PDF do contrato vencedor da licitação: a IA extrai partes, objeto, fases, SLAs, deflatores, perfis e remuneração. O Wizard segmenta tudo em 7 blocos revisáveis. Auto-save com retry, progress bar, readiness indicator (destaca passos obrigatórios faltando), painel de extração IA explicando origem de cada campo.</p>
+
+<table class="std">
+  <tr><th>Bloco</th><th>O que cobre</th><th>Componente</th></tr>
+  <tr><td class="b">PartiesBlock</td><td>Contratante, fornecedor, papéis e representantes</td><td class="mono">—</td></tr>
+  <tr><td class="b">ObjectBlock</td><td>Objeto contratual + modalidade licitatória + categorização + tags</td><td class="mono">—</td></tr>
+  <tr><td class="b">RemunerationBlock</td><td>Modelo principal (PF/SNAP/UST/Preço Fixo/Não-mensurável) + faixas por perfil</td><td class="mono">—</td></tr>
+  <tr><td class="b">SlaBlock</td><td>Templates de SLA + indicadores + calendários + severidade</td><td class="mono">—</td></tr>
+  <tr><td class="b">BalanceBlock</td><td>Saldo do contrato + reservas + projeção</td><td class="mono">—</td></tr>
+  <tr><td class="b">SectionsBlock</td><td>Seções de requisitos + módulos</td><td class="mono">—</td></tr>
+  <tr><td class="b">SanctionsBlock</td><td>Sanções, multas, penalidades graduadas</td><td class="mono">—</td></tr>
+</table>
+
+<div class="callout" style="margin-top:24px">
+  <h4>AI Import Panel · importação inteligente do PDF</h4>
+  <p>Painel embedded no Wizard que aceita upload direto de PDF (contrato) ou DOCX/XLSX/PPTX/HTML/EPUB (análise estruturada). Extração estruturada via Document Intelligence v2 (reconhecimento óptico de caracteres + seleção inteligente de modelo + chunkers semântico/hierárquico + indexação semântica isolada por organização + categorização de cláusulas conforme Lei 14.133). <strong>Cada campo sugerido pela IA carrega origem (página + cláusula)</strong> — o fiscal aprova com fundamentação.</p>
+</div>
+
+<h3 style="margin-top:36px">25 feature toggles no Contrato — cada órgão liga o que precisa</h3>
+<p class="lead">A entidade <code>Contract</code> tem 25 campos booleanos que ativam funcionalidades opcionais. Setup mínimo só liga o que aquele contrato exige. Sem inflar a UI com features irrelevantes.</p>
+
+<div class="tag-list">
+  <span>use functional point</span><span>use service orders</span><span>useaceite multi-estágio</span><span>use professional allocation</span>
+  <span>use timesheets</span><span>use milestones</span><span>use professional substitution</span><span>use divergences</span>
+  <span>use transition period</span><span>use custom fields</span><span>use licensing</span><span>use deflators</span>
+  <span>use contracted phases</span><span>useitens não-mensuráveis</span><span>use service classes</span><span>useitens de Preço Fixo</span>
+  <span>use snap points</span><span>block pf analysis if limit exceeded</span><span>block snap point analysis if limit exceeded</span>
+  <span>block service class analysis if limit exceeded</span><span>block non mensurable item analysis if limit exceeded</span>
+  <span>block fixed price service item analysis if limit exceeded</span><span>meppExclusive</span><span>meppReserveCota</span><span>is current</span>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────────── -->
+<!-- 3. Modelos de Remuneração -->
+<!-- ──────────────────────────────────────────────────────────────── -->
+<h2><span class="num">03</span>Modelos de remuneração TI · 5 frameworks nativos + licenças + cloud</h2>
+<p class="lead">Setor público brasileiro não tem "um" modelo de remuneração — tem cinco. O EasyNuP modela todos como entidades de domínio (não como campo de texto). Pode combinar mais de um no mesmo contrato. Cada framework tem catálogo, configuração avançada, análises históricas, deflators próprios.</p>
+
+<table class="std">
+  <tr><th>Framework</th><th>Para que tipo de fornecedor</th><th>Entidades-chave</th></tr>
+  <tr><td class="b">Pontos de Função (IFPUG)</td><td>Fábrica de software com escopo dimensionável</td><td class="mono">—</td></tr>
+  <tr><td class="b">SNAP Points</td><td>Software com aspectos não-funcionais (UI, segurança, performance)</td><td class="mono">—</td></tr>
+  <tr><td class="b">UST (Unidade de Serviço Técnico)</td><td>Infraestrutura, sustentação, alocação por perfil</td><td class="mono">—</td></tr>
+  <tr><td class="b">Não-mensurável (USN)</td><td>Setup, treinamento, serviços sem dimensão clara — com faixas de impacto</td><td class="mono">—</td></tr>
+  <tr><td class="b">Preço Fixo</td><td>Itens com escopo fechado, recebimento por entrega</td><td class="mono">—</td></tr>
+  <tr><td class="b">Licenciamento de software</td><td>Software de prateleira (perpetual, anual, named user, concurrent, core, RAM)</td><td class="mono">—</td></tr>
+  <tr><td class="b">Cloud (FinOps)</td><td>Provedor + categoria + item de serviço + contrato USN</td><td class="mono">—</td></tr>
+</table>
+
+<!-- ──────────────────────────────────────────────────────────────── -->
+<!-- 4. SLA + IMR -->
+<!-- ──────────────────────────────────────────────────────────────── -->
+<h2><span class="num">04</span>SLA, IMR e calendários úteis · medição com sutileza real</h2>
+<p class="lead">IMR (Instrumento de Medição de Resultado) é o mecanismo legal previsto na IN SGD/ME 94/2022 para ajustar pagamento conforme qualidade. O EasyNuP modela com profundidade real: <strong>faixas graduadas de penalidade</strong>, paradas justificadas que exigem evidência e auto-resume, calendários de dias úteis configuráveis por UF.</p>
+
+<div class="grid2">
+  <div class="cap">
+    <h4>SLA + Templates + Indicadores</h4>
+    <p><code>Sla</code> + <code>SlaTemplate</code> + <code>SlaTemplateIndicator</code> + <code>SlaIndicator</code> + <code>SlaCategory</code> + <code>SlaSeverityLevel</code>. Templates reutilizáveis por contratante; cada SLA do contrato pode herdar ou customizar.</p>
+    <div class="meta">7 entidades dedicadas a SLA setup</div>
+  </div>
+  <div class="cap">
+    <h4>Faixas graduadas de penalidade · SlaPaymentTierRange</h4>
+    <p>Não é multa fixa. <strong>achievementMin → achievementMax → paymentPercent</strong>. Ex: 95-100% paga 100%, 90-95% paga 50%, &lt;90% paga 0%. Penalidade proporcional ao desempenho real.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>Paradas justificadas · SlaStopCondition</h4>
+    <p>Manutenção planejada, hold do cliente, indisponibilidade externa: <strong>requiresEvidence</strong> + <strong>maxStopHours</strong> + <strong>autoResumeAfterHours</strong>. Excluídas do cálculo de medição, mas com prova obrigatória anexada.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>Calendários úteis · BusinessCalendar + SlaCalendar</h4>
+    <p>workDays em JSONB + feriados por UF + customizações (recesso de fim de ano, ponto facultativo do órgão). SLA mede sobre dias úteis reais do contratante.</p>
+    <div class="meta"></div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────────── -->
+<!-- 5. Aceite Multi-Estágio -->
+<!-- ──────────────────────────────────────────────────────────────── -->
+<h2><span class="num">05</span>Aceite multi-estágio · até N etapas configuráveis com checklists</h2>
+<p class="lead">A Lei 14.133 art. 140 prevê TRP (Termo de Recebimento Provisório) e TRD (Termo de Recebimento Definitivo). O EasyNuP modela com <strong>até N estágios configuráveis</strong> — não fica preso a TRP/TRD. Cada estágio com checklist JSONB, evidências obrigatórias, prazo próprio, regras de aprovação parcial.</p>
+
+<div class="grid2">
+  <div class="cap">
+    <h4>AcceptanceConfig</h4>
+    <p><strong>numberOfStages</strong> variável + <strong>allowsPartialAcceptance</strong> + vínculo a contrato. Configurado uma vez por contrato, aplicado a todas as OS que dependem de aceite.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>AcceptanceStageConfig por estágio</h4>
+    <p>stageOrder · deadlineDays · <strong>requiresEvidence</strong> (bool) · <strong>requiresChecklist</strong> (bool) · <strong>checklistItems</strong> (JSONB com validação customizada) · canPartiallyApprove · canReject · canReturnForCorrection · allowedRoles · notificationTemplate.</p>
+    <div class="meta"></div>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>Por que isso importa para o TCU</h4>
+  <p>O TCU sistematicamente aponta como irregularidade <strong>atesto sem fundamentação</strong> (art. 117 §1º Lei 14.133 obriga fundamentação em conformidade com especificações). Modelar o aceite como estágios com checklist + evidência obrigatória + fundamentação automática (via Atesto Inteligente no Momento Execução) protege o fiscal e o órgão. Não é "feature de UX" — é defesa em auditoria.</p>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────────── -->
+<!-- 6. Conformidade & Arcabouço Legal -->
+<!-- ──────────────────────────────────────────────────────────────── -->
+<h2><span class="num">06</span>Conformidade configurável por regime legal</h2>
+<p class="lead">Cada contratante escolhe os regimes legais aplicáveis (Lei 14.133, LGPD, normativos próprios) e define dimensões de conformidade (documental, fiscal, garantia, ANS, sanções). Cada dimensão tem regras vinculadas a artigos/incisos com obrigatoriedade. Cada regra escolhe o motor: validação determinística (regex/FEEL), IA com RAG, ou comitê multi-LLM.</p>
+
+<div class="grid3">
+  <div class="cap">
+    <h4>8 tipos de referência legal</h4>
+    <p>LegalReferenceType enum: <strong>LAW · DECREE · NORMATIVE_INSTRUCTION · ORDINANCE · RESOLUTION · GUIDE · CONTRACT_DOCUMENT · CUSTOM_RULE</strong>. Hierarquia normativa via parent + replacedBy (revogação em cascata). Versionamento temporal: toda decisão aponta para a versão vigente no instante.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>6 tipos de aplicabilidade automática</h4>
+    <p>ApplicabilityType: <strong>ALL · BY_CONTRACT_TYPE · BY_ORGAN · BY_CONTRACT_VALUE_RANGE · BY_LICITATION_MODALITY · BY_EXPRESSION</strong> (FEEL). Sem catalogação manual de "quais normas se aplicam a este contrato" — o sistema deduz pela aplicabilidade configurada na própria norma.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>Obrigações com 3 motores de validação</h4>
+    <p>LegalObligation com <strong>ValidatorType</strong>: DETERMINISTIC (FEEL ~5ms · L1), RAG_LLM (Claude + índice semântico isolado por organização ~2-5s · L2), COMMITTEE (multi-LLM consenso ~5-15s · L3 para BLOCKING events). Citation grounding obrigatória: <code>sourceExcerpt</code> + <code>sourceArticle</code> + offsets.</p>
+    <div class="meta"></div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────────── -->
+<!-- 7. Diretrizes do gestor -->
+<!-- ──────────────────────────────────────────────────────────────── -->
+<h2><span class="num">07</span>Diretrizes do gestor com postura · viés controlado</h2>
+<p class="lead">Gestor pode adicionar diretrizes que <strong>influenciam o comportamento da IA</strong> dentro do contrato — sem reescrever prompt, sem código. Cada diretriz traz uma categoria (Risco · Aceite · SLA · Glosa · Termo Aditivo · Geral) e uma postura (Rigorosa · Equilibrada · Flexível) com vigência obrigatória e motivo registrado. Configurações de injeção determinam <em>onde e como</em> cada diretriz entra no fluxo de IA.</p>
+
+<table class="std">
+  <tr><th>Conceito</th><th>Como funciona</th></tr>
+  <tr><td class="b">3 níveis de postura</td><td><strong>Rigorosa</strong> (apertar dentro do contrato: teto da faixa, evidência reforçada) · <strong>Equilibrada</strong> (caminho do meio, equivalente ao default da IA — diferença é auditabilidade da escolha) · <strong>Flexível</strong> (admitir margem dentro do contrato: piso da faixa, prazo de regularização)</td></tr>
+  <tr><td class="b">Salvaguardas obrigatórias</td><td>Quando postura ≠ null: <strong>effectiveFrom + effectiveTo obrigatório (máximo 365 dias)</strong>, <strong>reason obrigatório (mínimo 20 chars)</strong>, suggestedActions opcional, internalOnly default TRUE. Força renovação consciente, não vira "configuração que ninguém revisa".</td></tr>
+  <tr><td class="b">6 pontos de injeção × 3 modos</td><td>OrganizationGuidelineInjectionConfig mapeia cada ponto: <strong>RISK_ANALYZER · OS_ACCEPTANCE · EXECUTION_FINDING · SLA_PENALTY_JUSTIFICATION · SLA_DIVERGENCE_DECISION · TA_PARECER</strong> × modo <strong>AUTO</strong> (IA considera sempre) · <strong>SOB_DEMANDA</strong> (gestor clica "aplicar") · <strong>OFF</strong> (desligado temporariamente sem apagar).</td></tr>
+  <tr><td class="b">Indexação RAG isolada</td><td>Diretrizes vão pra namespace dedicado <code>guidelines-&lt;orgId&gt;</code> em índice semântico isolado por organização — isolado de <code>legal-public</code> e <code>legal-internal-&lt;orgId&gt;</code>. Postura de uma org não vaza para outra.</td></tr>
+</table>
+
+<!-- ──────────────────────────────────────────────────────────────── -->
+<!-- 8. Schema-as-Code -->
+<!-- ──────────────────────────────────────────────────────────────── -->
+<h2><span class="num">08</span>Schema-as-Code · 8 domínios versionados sem deploy</h2>
+<p class="lead">Configurações estruturais do sistema (custom fields, workflows, regras, playbooks, SLAs, tabelas de referência, layouts de formulário, regras de compliance) viram <strong>artefatos versionados</strong>. Draft → aprovação two-person-rule → versão imutável publicada → binding por ambiente (DRAFT/HOMOLOGATION/PRODUCTION) → rollback seguro apontando para parent_version.</p>
+
+<table class="std">
+  <tr><th>Domínio</th><th>O que governa</th></tr>
+  <tr><td class="b">CUSTOM_FIELD</td><td>Campos customizados por entidade (12 tipos disponíveis)</td></tr>
+  <tr><td class="b">WORKFLOW</td><td>Templates de workflow operacional com steps + transições</td></tr>
+  <tr><td class="b">RULE</td><td>Regras do motor (gatilho × condição × ação)</td></tr>
+  <tr><td class="b">PLAYBOOK</td><td>Playbooks reutilizáveis (analyzer playbook, risk playbook)</td></tr>
+  <tr><td class="b">SLA</td><td>Definições de SLA + indicadores + calendário</td></tr>
+  <tr><td class="b">REF_TABLE</td><td>Tabelas de referência (enumerações customizáveis por org)</td></tr>
+  <tr><td class="b">FORM_LAYOUT</td><td>Layout de formulários por entity type</td></tr>
+  <tr><td class="b">COMPLIANCE_RULE</td><td>Regras do Compliance Engine (mapeadas por LegalFramework)</td></tr>
+</table>
+
+<div class="grid2" style="margin-top:24px">
+  <div class="cap">
+    <h4>ConfigDraftApproval · two-person-rule</h4>
+    <p>Cada draft precisa de aprovador distinto do criador. Decisão APPROVED ou REJECTED com reasonText obrigatório. <strong>Imutável após decisão</strong> — pra mudar, novo draft. Unique constraint (draft_id, approver_user_id) previne reaprovação.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>ConfigEnvironmentBinding · promoção entre ambientes</h4>
+    <p>Mesma versão publicada pode ter binding DRAFT → HOMOLOGATION → PRODUCTION com timestamp e quem promoveu. Rollback emergencial via novo binding apontando parent_version. Auditável ponta-a-ponta.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>AnalyzerOrgConfig · IA calibrada por organização</h4>
+    <p>Cada cliente sobrescreve config de analyzer (modelo IA, threshold de risco, prompts) via config_json JSONB editável pelo gestor. Cache CachePort 5min TTL. Multi-tenant por desenho.</p>
+    <div class="meta"></div>
+  </div>
+  <div class="cap">
+    <h4>AnalyzerPlaybook · marketplace e versionamento</h4>
+    <p>Playbooks com visibility <strong>PRIVATE · CATALOG · MARKETPLACE</strong> — base para ecossistema futuro de troca de boas práticas entre órgãos. ContractRiskPlaybook tem <code>frozen</code>, <code>version</code>, <code>rulesHash</code> para integridade.</p>
+    <div class="meta"></div>
+  </div>
+</div>
+
+<!-- Persona -->
+<h2><span class="num">09</span>Quem opera o Setup</h2>
+<div class="pers">
+  <div class="card">
+    <h5>Gestor sênior</h5>
+    <p>Modela contratos (Wizard 7 blocos), configura formas de remuneração, publica SLAs e estágios de aceite. Operacional + decisão.</p>
+  </div>
+  <div class="card">
+    <h5>Compliance officer</h5>
+    <p>Mantém arcabouço legal vivo, cadastra obrigações com motor de validação adequado, ajusta dimensões de conformidade por regime.</p>
+  </div>
+  <div class="card">
+    <h5>Admin de catálogos</h5>
+    <p>Cadastros mestres (empresas, fornecedores, profissionais, projetos), perfis e faixas de valor, calendários de dias úteis.</p>
+  </div>
+  <div class="card">
+    <h5>Arquiteto da plataforma</h5>
+    <p>Schema-as-Code (custom fields, workflows, regras, layouts) — aprovação two-person-rule. Promove entre DRAFT/HOMOLOGATION/PRODUCTION.</p>
+  </div>
+</div>
+
+<!-- Voltar -->
+<div class="back-strip">
+  <a href="/easynup2" class="back">← Voltar para a visão geral</a>
+  <div class="next-links">
+    <a href="/easynup2/execucao">Momento 2 · Execução →</a>
+    <a href="/easynup2/auditoria">Momento 3 · Auditoria →</a>
+  </div>
+</div>
+
+<footer>
+  <p><strong>EasyNuP</strong> · plataforma NuPTechs · 2024–2026 · construída sobre Lei 14.133/2021, IN SGD/ME 94/2022, Decreto 11.246/2022, LGPD · IFPUG · IMR conforme jurisprudência TCU.</p>
+  <p>Plataforma NuPTechs · <a href="https://www.nuptechs.com">www.nuptechs.com</a> · <a href="https://www.nuptechs.com/sobre">sobre a empresa</a> · <a href="https://www.nuptechs.com/contato">fale conosco</a></p>
+</footer>
+
+</body>
+</html>
