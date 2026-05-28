@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ETP modelo · contratação de plataforma de gestão de contratos de TI · EasyNuP</title>
+<style>
+  :root{
+    --bg:#0a0d14; --panel:#161a22; --panel2:#121621; --panel3:#1a1f2c;
+    --line:#272c38; --line2:#1e2330;
+    --muted:#8a93a6; --muted2:#5d6679;
+    --ink:#f1f5fb; --ink-dim:#c3cbdb;
+    --core:#3b82f6; --core-bg:#0b2344; --core-br:#1e3a8a;
+    --comm:#10b981; --comm-bg:#052e24; --comm-br:#065f46;
+    --ext:#f59e0b; --ext-bg:#2a1f0a; --ext-br:#78350f;
+    --gold:#eab308; --gold-bg:#2a2109; --gold-br:#854d0e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:980px;margin:0 auto;padding:0 24px 96px}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .crumb a{color:var(--ink-dim)}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+  .doc-hero{padding:36px 0 28px;border-bottom:1px solid var(--line)}
+  .doc-hero .tag{display:inline-block;font-size:11px;color:var(--gold);background:var(--gold-bg);border:1px solid var(--gold-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:14px}
+  .doc-hero h1{font-size:34px;line-height:1.15;letter-spacing:-0.025em;margin:0 0 12px;font-weight:700}
+  .doc-hero p{margin:0;color:var(--ink-dim);font-size:15.5px;line-height:1.55}
+  .doc-meta{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-top:18px;font-size:13px;color:var(--ink-dim);display:flex;flex-wrap:wrap;gap:18px}
+  .doc-meta b{color:var(--ink)}
+  h2{font-size:22px;margin:42px 0 6px;letter-spacing:-0.015em;line-height:1.25;color:var(--ink)}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:12px;font-variant-numeric:tabular-nums}
+  h3{font-size:16px;margin:22px 0 8px;color:var(--ink);font-weight:600}
+  p{color:var(--ink-dim);margin:0 0 12px}
+  p strong{color:var(--ink)}
+  ul{color:var(--ink-dim);padding-left:22px;margin:6px 0 14px}
+  ul li{margin-bottom:5px}
+  ul li strong{color:var(--ink)}
+  .placeholder{color:var(--gold);font-style:italic;background:var(--gold-bg);border:1px dashed var(--gold-br);padding:3px 9px;border-radius:5px;font-size:13px;font-weight:600;font-family:ui-monospace,Menlo,monospace}
+  .legal{font-size:12.5px;color:var(--muted);font-style:italic;margin-top:6px;padding-top:6px;border-top:1px dotted var(--line2)}
+  table.std{width:100%;border-collapse:collapse;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.5px}
+  table.std th,table.std td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+  .callout{background:linear-gradient(135deg,var(--core-bg) 0%,var(--gold-bg) 100%);border:1px solid var(--core-br);border-radius:12px;padding:18px 22px;margin:24px 0}
+  .callout h4{color:var(--ink);font-size:15px;margin:0 0 8px}
+  .callout p{margin:0;font-size:13.5px;line-height:1.55}
+  .back-strip{margin-top:48px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-dim);padding:6px 12px;border:1px solid var(--line);border-radius:8px;margin-left:6px}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+  footer{color:var(--muted);margin-top:32px;font-size:11.5px;border-top:1px solid var(--line);padding-top:18px;line-height:1.6}
+  @media print{
+    body{max-width:none;color:#000;background:#fff}
+    .crumb,.back-strip,footer{display:none}
+    h2,h3{color:#000;page-break-after:avoid}
+    p,li{color:#222}
+    .callout,.doc-meta,table.std{border-color:#999;background:#f8f8f8}
+  }
+</style>
+</head>
+<body>
+
+<nav class="crumb">
+  <a href="/easynup2">EasyNuP</a> <span class="sep">›</span>
+  <a href="/easynup2/comercial">Comercial</a> <span class="sep">›</span>
+  <span class="now">ETP modelo</span>
+</nav>
+
+<section class="doc-hero">
+  <span class="tag">Documento modelo · uso pelo órgão · agnóstico de fornecedor</span>
+  <h1>Estudo Técnico Preliminar (ETP)<br>Contratação de plataforma de gestão de contratos de TI</h1>
+  <p>Modelo de referência seguindo a estrutura mínima da <strong>IN SGD/ME 94/2022 art. 11</strong> e da <strong>Lei 14.133/2021 art. 18</strong>. Áreas marcadas com <span class="placeholder">[preencher]</span> são para o órgão complementar com sua realidade.</p>
+  <div class="doc-meta">
+    <span><b>Base legal:</b> Lei 14.133/2021 · IN SGD/ME 94/2022</span>
+    <span><b>Versão:</b> modelo 1.0 · 2026-05</span>
+    <span><b>Uso:</b> editar livremente · sem amarração com NuPtechs</span>
+    <span><b>Imprimir:</b> Ctrl+P (otimizado pra PDF)</span>
+  </div>
+</section>
+
+<h2><span class="num">01</span>Necessidade da contratação</h2>
+<p><span class="placeholder">[Descrever o problema institucional]</span> O <span class="placeholder">[Órgão]</span> mantém atualmente uma carteira de aproximadamente <span class="placeholder">[N]</span> contratos ativos de Tecnologia da Informação, totalizando valor anual estimado de R$ <span class="placeholder">[XX milhões]</span>. A gestão é hoje executada por meio de <span class="placeholder">[planilhas eletrônicas / sistema legado / processo manual]</span>, gerando os seguintes problemas:</p>
+<ul>
+  <li><strong>Fiscalização contratual fragmentada</strong> — controle distribuído entre fiscais com critérios não padronizados; perda de rastreabilidade entre evento ocorrido e ato administrativo correspondente</li>
+  <li><strong>Atesto técnico genérico</strong> — pareceres sem fundamentação em artigo ou inciso da Lei 14.133, expondo o fiscal à responsabilização pessoal (art. 117)</li>
+  <li><strong>Glosa contratual subexercida</strong> — instrumentos legais previstos (IMR/SLA, art. 137 §4º) raramente aplicados por receio de contestação e falta de fundamentação estruturada</li>
+  <li><strong>Auditoria reativa</strong> — quando órgão de controle externo solicita trilha probatória, levantamento exige semanas de trabalho manual</li>
+  <li><strong>Heterogeneidade de modelos de remuneração</strong> — contratos por Pontos de Função, UST, USN, Preço Fixo e Cloud convivem sem ferramenta única que modele cada modalidade</li>
+</ul>
+
+<h3>1.1 Alinhamento estratégico</h3>
+<p>A contratação está alinhada ao <span class="placeholder">[Planejamento Estratégico Institucional / Plano Diretor de TIC / Plano de Transformação Digital do Governo]</span>, especificamente aos objetivos:</p>
+<ul>
+  <li><span class="placeholder">[OE 1 — modernização da gestão de contratos]</span></li>
+  <li><span class="placeholder">[OE 2 — conformidade Lei 14.133/2021]</span></li>
+  <li><span class="placeholder">[OE 3 — redução de risco regulatório]</span></li>
+</ul>
+
+<h2><span class="num">02</span>Área requisitante e responsáveis</h2>
+<table class="std">
+  <tr><th>Papel</th><th>Identificação</th></tr>
+  <tr><td class="b">Área demandante</td><td><span class="placeholder">[Diretoria de TI / Secretaria de TIC / Coordenação de Contratos]</span></td></tr>
+  <tr><td class="b">Integrante demandante</td><td><span class="placeholder">[Nome · matrícula · cargo]</span></td></tr>
+  <tr><td class="b">Integrante técnico</td><td><span class="placeholder">[Nome · matrícula · cargo · CRA/CREA se aplicável]</span></td></tr>
+  <tr><td class="b">Integrante administrativo</td><td><span class="placeholder">[Nome · matrícula · cargo]</span></td></tr>
+  <tr><td class="b">Autoridade superior</td><td><span class="placeholder">[Diretor · Secretário · Reitor]</span></td></tr>
+</table>
+
+<h2><span class="num">03</span>Levantamento de soluções de mercado</h2>
+<p>Foram identificadas 5 categorias de solução para o problema descrito:</p>
+
+<table class="std">
+  <tr>
+    <th>Categoria</th>
+    <th>Exemplos</th>
+    <th>Viabilidade · análise sumária</th>
+  </tr>
+  <tr>
+    <td class="b">CLM internacional genérico</td>
+    <td>SAP Ariba + Icertis · Docusign CLM · ServiceNow</td>
+    <td>Não modela conceitos da Lei 14.133 (TRP/TRD, IMR, atesto fundamentado, glosa via deflator). Customização exigida de 9-18 meses. Custo de licença + implantação proibitivo para órgão médio.</td>
+  </tr>
+  <tr>
+    <td class="b">ERP governamental</td>
+    <td>Sistemas estruturantes do governo federal</td>
+    <td>Foco em financeiro-fiscal, não em gestão contratual operacional. Não cobre OS, aceite multi-estágio, análise por PF/UST, atesto inteligente.</td>
+  </tr>
+  <tr>
+    <td class="b">Planilhas + drive</td>
+    <td>Excel + Google Drive</td>
+    <td>Custo aparente zero. Custo real: horas operacionais perdidas, ausência de trilha probatória, glosa subexercida, risco regulatório.</td>
+  </tr>
+  <tr>
+    <td class="b">Plataforma nacional especializada</td>
+    <td><span class="placeholder">[EasyNuP (NuPtechs) e outros similares identificados]</span></td>
+    <td>Modela nativamente Lei 14.133, IMR/SLA, 5 modalidades de remuneração TI, atesto fundamentado, auditoria criptográfica. Implantação 12 semanas. Custo viável para órgão médio.</td>
+  </tr>
+  <tr>
+    <td class="b">Desenvolvimento próprio</td>
+    <td>Equipe interna</td>
+    <td>Não recomendável: complexidade alta (Lei 14.133 + IFPUG + IMR + auditoria), risco de NIH, prazo &gt; 24 meses, ausência de jurisprudência consolidada sobre desenvolvimento próprio em domínio especializado de mercado.</td>
+  </tr>
+</table>
+
+<h3>3.1 Conclusão do levantamento</h3>
+<p>A categoria <strong>Plataforma nacional especializada</strong> apresenta melhor relação custo-benefício, melhor aderência à Lei 14.133 e menor tempo de entrega.</p>
+
+<h2><span class="num">04</span>Requisitos da contratação</h2>
+
+<h3>4.1 Requisitos funcionais mínimos</h3>
+<ul>
+  <li>Modelagem nativa de TRP/TRD multi-estágio (art. 140 Lei 14.133)</li>
+  <li>Atesto técnico fundamentado com referência automática a artigo/inciso (art. 117 §1º)</li>
+  <li>IMR / SLA com indicadores, severidade, faixas de penalidade, calendários de dias úteis (art. 19 IN SGD/ME 94)</li>
+  <li>5 modelos de remuneração nativos: Pontos de Função (IFPUG), SNAP, UST, USN, Preço Fixo</li>
+  <li>Cadeia auditável de integridade criptográfica para sustentar prova em TCU/CGU/MPU</li>
+  <li>Workflow visual editável pelo gestor (sem código)</li>
+  <li>Campos customizáveis em qualquer entidade do domínio</li>
+  <li>Isolamento de dados por organização (multi-tenant) com bloqueio por padrão</li>
+  <li>Importação assistida por IA de contratos em PDF</li>
+  <li>Apoio fundamentado à decisão de glosa (sem aplicação automática de ato administrativo por máquina)</li>
+</ul>
+
+<h3>4.2 Requisitos não-funcionais</h3>
+<ul>
+  <li><strong>Disponibilidade:</strong> SLO mínimo de 99,5% mensal</li>
+  <li><strong>RPO:</strong> ≤ 15 minutos</li>
+  <li><strong>RTO:</strong> ≤ 4 horas</li>
+  <li><strong>Conformidade LGPD:</strong> DPO designado pela contratada, RIPD modelo fornecido, registro de operações conforme art. 37</li>
+  <li><strong>Conformidade EU AI Act / PL 2338/2023:</strong> IA com supervisão humana significativa, auditoria de toda interação</li>
+  <li><strong>Identidade federada:</strong> integração com SSO corporativo (Google Workspace / Microsoft / gov.br)</li>
+  <li><strong>Hospedagem:</strong> nuvem nacional OU on-premise no datacenter do contratante (a critério do órgão)</li>
+  <li><strong>Portabilidade de dados:</strong> export em formato JSON aberto + CSV em até 30 dias úteis após solicitação (Lei 14.133 art. 92)</li>
+</ul>
+
+<h3>4.3 Requisitos de qualificação técnica do fornecedor</h3>
+<ul>
+  <li>Pelo menos <span class="placeholder">[2-5]</span> implantações similares comprovadas (atestado de capacidade técnica)</li>
+  <li>Roadmap declarado de certificações: SOC 2 Tipo I em até 12 meses, ISO/IEC 27001 em até 24 meses (cláusula resolutiva em caso de descumprimento)</li>
+  <li>DPO designado e formalmente nomeado</li>
+  <li>Equipe técnica brasileira com domínio público de Lei 14.133, IN SGD/ME 94 e Decreto 11.246</li>
+</ul>
+
+<h2><span class="num">05</span>Estimativa das quantidades</h2>
+<table class="std">
+  <tr><th>Item</th><th>Quantidade</th><th>Período</th></tr>
+  <tr><td class="b">Contratos de TI sob gestão</td><td><span class="placeholder">[N]</span></td><td>contínuo</td></tr>
+  <tr><td class="b">Usuários nomeados (fiscais + gestores)</td><td><span class="placeholder">[N]</span></td><td>contínuo</td></tr>
+  <tr><td class="b">Ambientes (produção + homologação)</td><td>2</td><td>contínuo</td></tr>
+  <tr><td class="b">Workshop de implantação</td><td>16 horas</td><td>fase inicial</td></tr>
+  <tr><td class="b">Suporte técnico</td><td>12×5 com SLA 4h em incidente alto</td><td>contínuo</td></tr>
+</table>
+
+<h2><span class="num">06</span>Estimativa do valor da contratação</h2>
+<p>Valor estimado obtido por meio de:</p>
+<ul>
+  <li>Pesquisa em <span class="placeholder">[3-5]</span> fornecedores qualificados (atas anexas)</li>
+  <li>Adesão a contratos similares vigentes em outros órgãos (referências citadas)</li>
+  <li>Mediana entre cotações obtidas</li>
+</ul>
+<p><strong>Valor estimado total para 36 meses:</strong> R$ <span class="placeholder">[valor]</span> (mensalidade média R$ <span class="placeholder">[valor]</span> + implantação inicial R$ <span class="placeholder">[valor]</span>).</p>
+<div class="callout">
+  <h4>Calculadora ROI disponível</h4>
+  <p>O órgão pode usar a <a href="/easynup2/comercial">calculadora ROI interativa</a> como referência preliminar de TCO/payback ajustando para sua carteira real.</p>
+</div>
+
+<h2><span class="num">07</span>Justificativa para o parcelamento ou não da solução</h2>
+<p>A solução <strong>não deve ser parcelada</strong>. Trata-se de plataforma integrada cujos módulos (Setup · Execução · Auditoria) operam sobre o mesmo modelo de dados, mesma cadeia de auditoria criptográfica e mesma base de conhecimento legal. Parcelar geraria perda de integridade da trilha auditável — falha grave do ponto de vista da Lei 14.133.</p>
+
+<h2><span class="num">08</span>Resultado pretendido</h2>
+<ul>
+  <li><strong>Redução de aproximadamente 70%</strong> no tempo de fechamento de novo contrato</li>
+  <li><strong>Aumento da glosa fundamentada exercida</strong> (referência conservadora: 5×) com base probatória sólida</li>
+  <li><strong>Trilha auditável de 100% das ações</strong>, exportável em formato probatório com integridade criptográfica</li>
+  <li><strong>Redução do tempo médio de parecer técnico</strong> de dias para minutos</li>
+  <li><strong>Eliminação da exposição à responsabilização pessoal</strong> do fiscal por atesto sem fundamentação</li>
+</ul>
+
+<h2><span class="num">09</span>Providências a serem adotadas pela Administração</h2>
+<ul>
+  <li>Designação formal dos fiscais e gestor do contrato (art. 117 Lei 14.133)</li>
+  <li>Capacitação inicial dos usuários durante o workshop de implantação</li>
+  <li>Adesão dos fornecedores atuais ao acesso self-service (área do fornecedor)</li>
+  <li>Configuração de provedor de identidade federada (Google Workspace / Microsoft / gov.br) para SSO</li>
+  <li>Definição de DPO do contratante para canal direto com DPO da contratada (LGPD)</li>
+</ul>
+
+<h2><span class="num">10</span>Posicionamento conclusivo da equipe de planejamento</h2>
+<p>A equipe de planejamento da contratação <strong>conclui pela viabilidade e necessidade da contratação</strong>, recomendando o prosseguimento do processo licitatório/de aquisição pela modalidade <span class="placeholder">[pregão eletrônico / dispensa por inexigibilidade art. 74 III "a" / credenciamento marketplace gov.br]</span>, observados os requisitos detalhados no item 4 e a estimativa de valor do item 6.</p>
+
+<p class="legal">Este ETP segue o disposto na Lei 14.133/2021 art. 18 §1º e na IN SGD/ME 94/2022. Sua aprovação é condição para o início da fase externa da contratação.</p>
+
+<nav class="back-strip">
+  <a href="/easynup2/comercial" class="back">← Voltar ao modelo comercial</a>
+  <div class="next-links">
+    <a href="/easynup2/docs/tr-modelo">TR modelo →</a>
+    <a href="/easynup2/docs/ripd-modelo">RIPD modelo →</a>
+  </div>
+</nav>
+
+<footer>
+  <p>Documento modelo · uso livre pelo órgão · sem amarração com NuPtechs · atualizado 2026-05.</p>
+  <p>Em caso de dúvida na adaptação: <a href="mailto:contato@nuptechs.com">contato@nuptechs.com</a> · workshop de 4 horas gratuito disponível para apoio na construção.</p>
+</footer>
+
+</body>
+</html>

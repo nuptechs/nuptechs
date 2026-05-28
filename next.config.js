@@ -150,6 +150,8 @@ const nextConfig = {
       { source: "/easynup2/implantacoes/", destination: "/easynup2/implantacoes.html" },
       { source: "/easynup2/pilares/:slug", destination: "/easynup2/pilares/:slug.html" },
       { source: "/easynup2/pilares/:slug/", destination: "/easynup2/pilares/:slug.html" },
+      { source: "/easynup2/docs/:slug", destination: "/easynup2/docs/:slug.html" },
+      { source: "/easynup2/docs/:slug/", destination: "/easynup2/docs/:slug.html" },
       // Sistema solar — nup-energy hospedado no Railway próprio.
       // Vitrine atua como proxy externo (URL pública mantida).
       // assets do Vite ficam sob /energy-assets/ pra não colidir com /assets/ da Marketing.

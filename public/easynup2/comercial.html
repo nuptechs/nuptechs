@@ -60,12 +60,29 @@
   .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
   .calc-card{background:linear-gradient(135deg,var(--panel) 0%,var(--panel3) 100%);border:1px solid var(--line);border-radius:14px;padding:24px}
   .calc-card h4{margin:0 0 16px;font-size:17px;color:var(--ink)}
-  .calc-line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dotted var(--line2);font-size:13.5px;color:var(--ink-dim)}
+  .calc-line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dotted var(--line2);font-size:13.5px;color:var(--ink-dim);gap:8px}
   .calc-line:last-child{border-bottom:none}
-  .calc-line .v{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+  .calc-line .v{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
   .calc-line.total{border-top:2px solid var(--line);margin-top:10px;padding-top:14px;font-size:15.5px;color:var(--ink);font-weight:700}
   .calc-line.total .v{font-size:18px;color:var(--gold)}
   .calc-line.total.comm .v{color:var(--comm)}
+
+  /* calculadora interativa */
+  .calc-inputs{background:linear-gradient(135deg,var(--core-bg) 0%,var(--panel) 100%);border:1px solid var(--core-br);border-radius:14px;padding:24px 26px;margin-top:24px}
+  .calc-inputs h4{margin:0 0 6px;font-size:17px;color:var(--ink)}
+  .calc-inputs .hint{margin:0 0 18px;font-size:13px;color:var(--ink-dim);line-height:1.5}
+  .calc-inputs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .calc-input{display:flex;flex-direction:column;gap:6px}
+  .calc-input label{font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;line-height:1.3}
+  .calc-input input,.calc-input select{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--ink);font-size:14px;font-weight:600;font-family:inherit;font-variant-numeric:tabular-nums;outline:none;transition:border-color .15s}
+  .calc-input input:focus,.calc-input select:focus{border-color:var(--core)}
+  .calc-input .unit{font-size:10.5px;color:var(--muted);margin-top:2px;font-style:italic}
+  .calc-result-banner{background:linear-gradient(135deg,var(--comm-bg) 0%,var(--core-bg) 100%);border:1px solid var(--comm-br);border-radius:14px;padding:22px 26px;margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .calc-result-cell{text-align:center}
+  .calc-result-cell .v{font-size:30px;font-weight:800;color:var(--comm);letter-spacing:-0.025em;font-variant-numeric:tabular-nums;line-height:1.1}
+  .calc-result-cell .v.gold{color:var(--gold)} .calc-result-cell .v.ink{color:var(--ink)}
+  .calc-result-cell .l{font-size:12px;color:var(--ink-dim);margin-top:6px;font-weight:600}
+  .calc-result-cell .sub{font-size:11px;color:var(--muted);margin-top:3px;font-style:italic}
 
   table.std{width:100%;border-collapse:collapse;margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
   table.std th,table.std td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
@@ -174,32 +191,159 @@
   </div>
 </div>
 
-<h2><span class="num">02</span>TCO de referência · 3 anos</h2>
-<p class="lead">Comparação entre adotar o EasyNuP (tier Profissional) e seguir com o cenário-base atual em órgão típico com 60 contratos de TI ativos sob gestão (carteira média R$ 80 milhões).</p>
+<h2><span class="num">02</span>Calculadora ROI · ajuste à realidade do seu órgão</h2>
+<p class="lead">Modelo conservador. Ajuste os 4 parâmetros abaixo conforme seu cenário. O cálculo recalcula em tempo real: TCO em 3 anos, retorno conservador, ROI e payback.</p>
 
-<div class="calc-grid">
+<div class="calc-inputs">
+  <h4>Premissas do seu órgão</h4>
+  <p class="hint">Comece com os defaults (órgão médio) e ajuste o que diverge. Sem nada salvo no servidor — cálculo só no seu navegador.</p>
+  <div class="calc-inputs-grid">
+    <div class="calc-input">
+      <label for="in-contratos">Contratos de TI ativos</label>
+      <input id="in-contratos" type="number" min="5" max="500" step="1" value="60">
+      <span class="unit">unidade</span>
+    </div>
+    <div class="calc-input">
+      <label for="in-carteira">Carteira total sob gestão</label>
+      <input id="in-carteira" type="number" min="1" max="2000" step="1" value="80">
+      <span class="unit">R$ milhões</span>
+    </div>
+    <div class="calc-input">
+      <label for="in-fiscais">Fiscais e gestores envolvidos</label>
+      <input id="in-fiscais" type="number" min="1" max="50" step="1" value="4">
+      <span class="unit">pessoas</span>
+    </div>
+    <div class="calc-input">
+      <label for="in-tier">Tier escolhido</label>
+      <select id="in-tier">
+        <option value="starter">Starter · R$ 10k/mês</option>
+        <option value="prof" selected>Profissional · R$ 30k/mês</option>
+        <option value="ent">Enterprise · R$ 80k/mês</option>
+      </select>
+      <span class="unit">tier do EasyNuP</span>
+    </div>
+  </div>
+
+  <div class="calc-result-banner">
+    <div class="calc-result-cell">
+      <div class="v gold" id="out-tco">R$ 1,27M</div>
+      <div class="l">Total investido · 3 anos</div>
+      <div class="sub">licença + implantação + integrações</div>
+    </div>
+    <div class="calc-result-cell">
+      <div class="v" id="out-retorno">R$ 3,65M</div>
+      <div class="l">Retorno conservador · 3 anos</div>
+      <div class="sub">glosa + horas + risco regulatório</div>
+    </div>
+    <div class="calc-result-cell">
+      <div class="v ink" id="out-roi">~187%</div>
+      <div class="l">ROI esperado</div>
+      <div class="sub">payback em <span id="out-payback">~13 meses</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="calc-grid" style="margin-top:24px">
   <div class="calc-card">
-    <h4>Cenário A · adotar EasyNuP Profissional</h4>
-    <div class="calc-line"><span>Licença SaaS (R$ 30 mil/mês × 36 meses)</span><span class="v">R$ 1,08M</span></div>
-    <div class="calc-line"><span>Implantação inicial (12 semanas)</span><span class="v">R$ 120k</span></div>
-    <div class="calc-line"><span>Treinamento contínuo (anual)</span><span class="v">R$ 30k</span></div>
-    <div class="calc-line"><span>Integrações customizadas (1ª)</span><span class="v">R$ 40k</span></div>
-    <div class="calc-line total"><span>Total investido em 3 anos</span><span class="v">R$ 1,27M</span></div>
+    <h4>Cenário A · adotar EasyNuP</h4>
+    <div class="calc-line"><span>Licença SaaS (mensalidade × 36 meses)</span><span class="v" id="out-licenca">R$ 1,08M</span></div>
+    <div class="calc-line"><span>Implantação inicial</span><span class="v" id="out-impl">R$ 120k</span></div>
+    <div class="calc-line"><span>Treinamento contínuo (3 anos)</span><span class="v" id="out-trein">R$ 30k</span></div>
+    <div class="calc-line"><span>Integrações customizadas</span><span class="v" id="out-integ">R$ 40k</span></div>
+    <div class="calc-line total"><span>Total investido em 3 anos</span><span class="v" id="out-totalA">R$ 1,27M</span></div>
   </div>
   <div class="calc-card">
     <h4>Cenário B · seguir com planilha + ferramenta genérica</h4>
-    <div class="calc-line"><span>Licenças de ferramentas atuais (estimativa)</span><span class="v">R$ 90k</span></div>
-    <div class="calc-line"><span>Horas operacionais perdidas com controle manual<br><span style="color:var(--muted);font-size:11px;font-weight:500">(4 fiscais × 20h/semana × 50 semanas × R$ 80/h × 3 anos)</span></span><span class="v">R$ 960k</span></div>
-    <div class="calc-line"><span>Glosa contratual não-exercida (1% da carteira/ano)<br><span style="color:var(--muted);font-size:11px;font-weight:500">(R$ 800k × 3 anos)</span></span><span class="v">R$ 2,4M</span></div>
-    <div class="calc-line"><span>Risco regulatório (provisão conservadora)</span><span class="v">R$ 200k</span></div>
-    <div class="calc-line total"><span>Custo total do "não-fazer"</span><span class="v">R$ 3,65M</span></div>
+    <div class="calc-line"><span>Licenças de ferramentas atuais</span><span class="v" id="out-licB">R$ 90k</span></div>
+    <div class="calc-line"><span>Horas operacionais perdidas<br><span style="color:var(--muted);font-size:11px;font-weight:500" id="out-horasdesc">(4 fiscais × 20h × 50 sem × R$ 80/h × 3 anos)</span></span><span class="v" id="out-horas">R$ 960k</span></div>
+    <div class="calc-line"><span>Glosa contratual não-exercida (1% da carteira/ano)<br><span style="color:var(--muted);font-size:11px;font-weight:500" id="out-glosadesc">(R$ 800k × 3 anos)</span></span><span class="v" id="out-glosa">R$ 2,4M</span></div>
+    <div class="calc-line"><span>Risco regulatório (provisão)</span><span class="v" id="out-risco">R$ 200k</span></div>
+    <div class="calc-line total"><span>Custo total do "não-fazer"</span><span class="v" id="out-totalB">R$ 3,65M</span></div>
   </div>
 </div>
 
 <div class="callout">
-  <h4>Diferença líquida em 3 anos: R$ 2,38 milhões a favor do EasyNuP</h4>
-  <p>Premissa conservadora: apenas <strong>1% da carteira em glosa fundamentada antes não exercida</strong> + <strong>50% das horas operacionais economizadas</strong> + provisão pequena de risco regulatório. <strong>ROI esperado: ~187%</strong> em 3 anos. Sem contar ganho qualitativo (auditoria zero-achado, redução de exposição pessoal do fiscal).</p>
+  <h4>Diferença líquida em 3 anos: <span id="out-diff">R$ 2,38 milhões</span> a favor do EasyNuP</h4>
+  <p>Premissa conservadora: apenas <strong>1% da carteira em glosa fundamentada antes não exercida</strong> + <strong>50% das horas operacionais economizadas</strong> + provisão pequena de risco regulatório. Sem contar ganho qualitativo (auditoria zero-achado, redução de exposição pessoal do fiscal).</p>
+  <p style="margin-top:10px;font-size:13px;font-style:italic;color:var(--muted)">Modelo simplificado para conversa inicial. Cotação final detalhada considerando escopo real do órgão é sob consulta — sem amarração.</p>
 </div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const fmtBRL = v => {
+    if (v >= 1_000_000) return 'R$ ' + (v/1_000_000).toFixed(2).replace('.', ',') + 'M';
+    if (v >= 1_000) return 'R$ ' + Math.round(v/1_000) + 'k';
+    return 'R$ ' + Math.round(v);
+  };
+  const tierPrice = { starter: 10000, prof: 30000, ent: 80000 };
+  const implPrice = { starter: 50000, prof: 120000, ent: 280000 };
+  const treinPrice = { starter: 15000, prof: 30000, ent: 60000 };
+  const integPrice = { starter: 0, prof: 40000, ent: 120000 };
+  const tierLabel = { starter: 'Starter', prof: 'Profissional', ent: 'Enterprise' };
+
+  function recalc(){
+    const contratos = parseInt($('in-contratos').value) || 60;
+    const carteiraMI = parseFloat($('in-carteira').value) || 80; // milhões
+    const fiscais = parseInt($('in-fiscais').value) || 4;
+    const tier = $('in-tier').value;
+
+    // ── Cenário A · investimento EasyNuP ──
+    const licencaMensal = tierPrice[tier];
+    const licenca3y = licencaMensal * 36;
+    const impl = implPrice[tier];
+    const trein = treinPrice[tier];
+    const integ = integPrice[tier];
+    const totalA = licenca3y + impl + trein + integ;
+
+    // ── Cenário B · custo do não-fazer ──
+    const licB = 90000; // estimativa fixa ferramentas atuais
+    // horas: fiscais × 20h/sem × 50 sem × R$ 80/h × 3 anos
+    const horas = fiscais * 20 * 50 * 80 * 3;
+    // glosa: 1% da carteira / ano × 3 anos
+    const carteira = carteiraMI * 1_000_000;
+    const glosa = carteira * 0.01 * 3;
+    // risco regulatório: 0,25% da carteira (provisão)
+    const risco = carteira * 0.0025;
+    const totalB = licB + horas + glosa + risco;
+
+    // ── Métricas ──
+    const diff = totalB - totalA;
+    const roi = totalA > 0 ? Math.round((diff / totalA) * 100) : 0;
+    // payback em meses: investimento / ganho mensal (ganho 3y / 36)
+    const ganhoMensal = diff / 36;
+    const payback = ganhoMensal > 0 ? Math.round(totalA / ganhoMensal) : 0;
+
+    // ── Render ──
+    $('out-licenca').textContent = fmtBRL(licenca3y) + ' (' + fmtBRL(licencaMensal) + '/mês)';
+    $('out-impl').textContent = fmtBRL(impl);
+    $('out-trein').textContent = fmtBRL(trein);
+    $('out-integ').textContent = integ > 0 ? fmtBRL(integ) : 'não incluso';
+    $('out-totalA').textContent = fmtBRL(totalA);
+
+    $('out-licB').textContent = fmtBRL(licB);
+    $('out-horas').textContent = fmtBRL(horas);
+    $('out-horasdesc').textContent = '(' + fiscais + ' fiscais × 20h × 50 sem × R$ 80/h × 3 anos)';
+    $('out-glosa').textContent = fmtBRL(glosa);
+    $('out-glosadesc').textContent = '(' + fmtBRL(carteira * 0.01) + ' × 3 anos)';
+    $('out-risco').textContent = fmtBRL(risco);
+    $('out-totalB').textContent = fmtBRL(totalB);
+
+    $('out-tco').textContent = fmtBRL(totalA);
+    $('out-retorno').textContent = fmtBRL(diff > 0 ? diff : 0);
+    $('out-roi').textContent = roi > 0 ? '~' + roi + '%' : 'sem retorno';
+    $('out-payback').textContent = payback > 0 && payback < 36 ? '~' + payback + ' meses' : (payback >= 36 ? 'além de 3 anos' : '—');
+    $('out-diff').textContent = fmtBRL(diff > 0 ? diff : 0);
+  }
+
+  ['in-contratos','in-carteira','in-fiscais','in-tier'].forEach(id => {
+    const el = $(id);
+    el.addEventListener('input', recalc);
+    el.addEventListener('change', recalc);
+  });
+  recalc();
+})();
+</script>
 
 <h2><span class="num">03</span>Modalidades de contratação · três caminhos legais</h2>
 
@@ -243,23 +387,32 @@
 </table>
 
 <h2><span class="num">04</span>Workshop sem custo · construção de ETP e TR</h2>
-<p class="lead">A NuPtechs oferece um workshop de 4 horas <strong>sem custo</strong> para áreas técnicas que estão estruturando ETP/TR de contratação de plataforma de gestão de contratos de TI.</p>
+<p class="lead">A NuPtechs oferece um workshop de 4 horas <strong>sem custo</strong> para áreas técnicas que estão estruturando ETP/TR de contratação de plataforma de gestão de contratos de TI. Para acelerar, já disponibilizamos as <strong>minutas modelo</strong> abaixo — leitura prévia opcional antes do workshop.</p>
 
-<table class="std">
-  <tr>
-    <th>O que entregamos</th>
-    <th>Característica importante</th>
-  </tr>
-  <tr><td class="b">Minuta inicial de ETP</td><td>Agnóstica de fornecedor · baseada em IN SGD/ME 94</td></tr>
-  <tr><td class="b">Minuta inicial de TR</td><td>Com requisitos técnicos mínimos não-restritivos</td></tr>
-  <tr><td class="b">Mapa de risco</td><td>Riscos típicos de plataforma SaaS de gestão contratual</td></tr>
-  <tr><td class="b">Matriz de critérios técnicos</td><td>O que pedir e o que NÃO pedir (evita direcionamento)</td></tr>
-  <tr><td class="b">Cálculo preliminar de valor estimado</td><td>Baseado em referências de mercado</td></tr>
-</table>
+<div class="tier-grid" style="margin-top:18px">
+  <div class="tier">
+    <div class="name">Modelo de ETP</div>
+    <h4>Estudo Técnico Preliminar</h4>
+    <p class="pitch">Modelo de 10 seções alinhado à IN SGD/ME 94 art. 11 e Lei 14.133 art. 18. Pré-preenchido com texto comum; áreas marcadas <code>[preencher]</code> para o órgão complementar com sua realidade.</p>
+    <a href="/easynup2/docs/etp-modelo" class="cta">Abrir modelo de ETP →</a>
+  </div>
+  <div class="tier">
+    <div class="name">Modelo de TR</div>
+    <h4>Termo de Referência</h4>
+    <p class="pitch">Requisitos técnicos mínimos <strong>não-restritivos</strong> (~30 requisitos funcionais + 10 não-funcionais). Construído para ser atendível por mais de um fornecedor — sem direcionamento.</p>
+    <a href="/easynup2/docs/tr-modelo" class="cta">Abrir modelo de TR →</a>
+  </div>
+  <div class="tier">
+    <div class="name">Workshop opcional</div>
+    <h4>4 horas com sua equipe</h4>
+    <p class="pitch">Saímos do workshop com a minuta adaptada à realidade do seu órgão, mapa de risco, matriz de critérios técnicos e cálculo preliminar de valor estimado.</p>
+    <a href="mailto:contato@nuptechs.com?subject=Workshop%20ETP%20TR" class="cta">Agendar workshop →</a>
+  </div>
+</div>
 
 <div class="callout">
   <h4>Sem amarração</h4>
-  <p>O workshop é genuinamente agnóstico: os documentos produzidos servem para que o órgão contrate <strong>qualquer fornecedor</strong> — inclusive a competição. É posicionamento de mercado consciente: confiamos que a comparação técnica nos favorece. Solicitação via <a href="mailto:contato@nuptechs.com?subject=Workshop%20ETP%20TR">contato@nuptechs.com</a>.</p>
+  <p>Os modelos são genuinamente agnósticos: os documentos produzidos servem para que o órgão contrate <strong>qualquer fornecedor</strong> — inclusive a competição. É posicionamento de mercado consciente: confiamos que a comparação técnica nos favorece.</p>
 </div>
 
 <h2><span class="num">05</span>Cláusulas contratuais modelo</h2>
