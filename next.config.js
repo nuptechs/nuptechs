@@ -131,6 +131,25 @@ const nextConfig = {
       { source: "/easynup/auditoria/", destination: "/easynup/auditoria.html" },
       { source: "/easynup/pilares/:slug", destination: "/easynup/pilares/:slug.html" },
       { source: "/easynup/pilares/:slug/", destination: "/easynup/pilares/:slug.html" },
+      // ── easynup2 (revisão dupla-lente comercial+técnico) ────
+      { source: "/easynup2", destination: "/easynup2/index.html" },
+      { source: "/easynup2/", destination: "/easynup2/index.html" },
+      { source: "/easynup2/setup", destination: "/easynup2/setup.html" },
+      { source: "/easynup2/setup/", destination: "/easynup2/setup.html" },
+      { source: "/easynup2/execucao", destination: "/easynup2/execucao.html" },
+      { source: "/easynup2/execucao/", destination: "/easynup2/execucao.html" },
+      { source: "/easynup2/auditoria", destination: "/easynup2/auditoria.html" },
+      { source: "/easynup2/auditoria/", destination: "/easynup2/auditoria.html" },
+      { source: "/easynup2/arquitetura", destination: "/easynup2/arquitetura.html" },
+      { source: "/easynup2/arquitetura/", destination: "/easynup2/arquitetura.html" },
+      { source: "/easynup2/conformidade", destination: "/easynup2/conformidade.html" },
+      { source: "/easynup2/conformidade/", destination: "/easynup2/conformidade.html" },
+      { source: "/easynup2/comercial", destination: "/easynup2/comercial.html" },
+      { source: "/easynup2/comercial/", destination: "/easynup2/comercial.html" },
+      { source: "/easynup2/implantacoes", destination: "/easynup2/implantacoes.html" },
+      { source: "/easynup2/implantacoes/", destination: "/easynup2/implantacoes.html" },
+      { source: "/easynup2/pilares/:slug", destination: "/easynup2/pilares/:slug.html" },
+      { source: "/easynup2/pilares/:slug/", destination: "/easynup2/pilares/:slug.html" },
       // Sistema solar — nup-energy hospedado no Railway próprio.
       // Vitrine atua como proxy externo (URL pública mantida).
       // assets do Vite ficam sob /energy-assets/ pra não colidir com /assets/ da Marketing.
