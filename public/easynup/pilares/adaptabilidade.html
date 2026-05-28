@@ -124,8 +124,8 @@
   <p>Cada campo configura: minLength, maxLength, minValue, maxValue, pattern (regex) com patternMessage customizado. Visibilidade condicional via expressão FEEL — campo aparece só quando outro campo tem valor X. <strong>visibleInStatuses · editableInStatuses · requiredInStatuses</strong> em CSV permitem comportamento diferente por estado da entidade. <strong>visibleToRoles · editableByRoles</strong> aplicam RBAC granular por campo.</p>
 </div>
 
-<h2><span class="num">03</span>Workflow Engine · 47 classes Java em 13 sub-domínios</h2>
-<p class="lead">Motor de workflow próprio (não wrapper de Camunda). 13 sub-domínios cobrem todas as capacidades de orquestração BPMN-like + features avançadas como migração de instâncias em vivo.</p>
+<h2><span class="num">03</span>Workflow Engine · 13 capacidades de orquestração</h2>
+<p class="lead">Motor de workflow implementado dentro da plataforma, otimizado pro modelo de domínio de contratos administrativos brasileiros. As 13 capacidades cobrem todas as necessidades de orquestração tipo BPMN — incluindo a feature avançada de migração de instâncias em vivo (mudança de template sem reiniciar processos em andamento).</p>
 
 <table class="std">
   <tr><th>Sub-domínio</th><th>Capacidade</th></tr>
@@ -198,7 +198,7 @@
 <div class="grid2">
   <div class="cap">
     <h4>9 formatos suportados</h4>
-    <p>XLSX · XLS · CSV · DOCX · DOC · PDF · TXT · EML · MSG. Upload drag-drop em <strong>OnboardingChat.vue</strong> (64 KB) com sidebar de files + proposal summary.</p>
+    <p>XLSX · XLS · CSV · DOCX · DOC · PDF · TXT · EML · MSG. Upload drag-drop com sidebar de arquivos enviados + resumo da proposta gerada pela IA.</p>
   </div>
   <div class="cap">
     <h4>Proposta estruturada</h4>
@@ -212,7 +212,7 @@
 <div class="grid2">
   <div class="cap">
     <h4>4 telas dedicadas</h4>
-    <p>SpreadsheetImport (motor 177 KB) · SpreadsheetImportWorkspace (workspace de drafts 67 KB) · SpreadsheetJobsDashboard (monitor) · SpreadsheetTemplatesPage (catálogo de templates).</p>
+    <p><strong>Motor de importação</strong> (preview + mapeamento sugerido por IA + validação) · <strong>Workspace de rascunhos</strong> (retomar importação interrompida) · <strong>Dashboard de jobs</strong> (monitoramento de execução) · <strong>Catálogo de templates</strong> (mapeamentos aprendidos reusáveis).</p>
   </div>
   <div class="cap">
     <h4>4 prompts especialistas + consent LGPD</h4>
@@ -232,7 +232,7 @@
 </table>
 
 <h2><span class="num">09</span>Conectores genéricos via YAML</h2>
-<p class="lead">Integração com sistema externo (SAP, ComprasNet, TCU, Receita Federal, ERP financeiro) modelada como Connector + manifest YAML. Manifest até 256 KB com SafeConstructor anti-injection. ConnectorActionExecutor dispara ações via motor de regras. ConnectorPollingTrigger executa polling cron-like.</p>
+<p class="lead">Integração com sistemas externos (SAP, ComprasNet, TCU, Receita Federal, ERPs financeiros) modelada como Conector + manifesto declarativo em YAML com proteção contra injeção. Dispara ações via motor de regras e suporta consulta periódica agendada (cron-like) para sistemas sem webhook.</p>
 
 <div class="callout">
   <h4>O significado real da Adaptabilidade</h4>

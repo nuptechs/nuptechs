@@ -89,7 +89,7 @@
   <tr><td class="b">LegalReferenceApplicability</td><td>6 tipos de aplicabilidade automática + config JSONB + effectiveFrom/To</td></tr>
   <tr><td class="b">LegalObligation</td><td>Unidade atômica de fiscalização · FK para legal_reference_version_id (nunca raw) · validatorType + obligationType + severity + appliesToEventTypes + appliesToEntityTypes + sourceExcerpt + sourceArticle + sourceOffsets</td></tr>
   <tr><td class="b">LegalObligationSuggestion</td><td>Sugestões extraídas por IA · workflow approval (PENDING → APPROVED · REJECTED)</td></tr>
-  <tr><td class="b">LegalFrameworkRule</td><td>Substitui 1.4k LOC hardcoded · ruleType (5 tipos) · config JSONB · indexedInRag · ragDocumentId</td></tr>
+  <tr><td class="b">LegalFrameworkRule</td><td>Regra estruturada do arcabouço como entidade configurável (não código). 5 tipos de regra (compliance, dispensa, prazo, documento exigido, benefício ME/EPP), configuração em JSON, indexação RAG opcional.</td></tr>
   <tr><td class="b">ContractLegalReference</td><td>Vínculo contrato ↔ norma com versão e data efetiva</td></tr>
 </table>
 
@@ -136,7 +136,7 @@
   </div>
   <div class="cap">
     <h4>COMMITTEE · L3</h4>
-    <p>3 LLMs paralelo (Sonnet + Opus + Gemini Pro) · consenso ≥ ceil((N+1)/2) · tolera N-1 falhas · COMMITTEE_DISSENT obriga revisão humana · latência 5-15s · custo ~$0.100. Para BLOCKING events.</p>
+    <p>3 LLMs em paralelo (Claude Sonnet + Claude Opus + Gemini Pro) com voto independente. Decisão por maioria simples (basta 2 dos 3 concordarem). Se não houver maioria, sinaliza divergência e exige revisão humana. Latência 5-15s · custo somado típico ~$0,10 por validação. Para regras bloqueantes.</p>
     <div class="meta">ValidatorType.COMMITTEE</div>
   </div>
 </div>
@@ -146,7 +146,7 @@
 
 <table class="std">
   <tr><th>Namespace</th><th>Conteúdo</th></tr>
-  <tr><td class="b mono">legal-public</td><td>Lei 14.133, LGPD, RDC, decretos federais — visível pra todas as organizações</td></tr>
+  <tr><td class="b mono">legal-public</td><td>Lei 14.133/2021, LGPD, decretos federais, normativos federais aplicáveis — visível pra todas as organizações</td></tr>
   <tr><td class="b mono">legal-internal-&lt;orgId&gt;</td><td>Normativos internos da organização específica · portarias do órgão</td></tr>
   <tr><td class="b mono">guidelines-&lt;orgId&gt;</td><td>ManagerObservations (diretrizes do gestor) · isolado dos namespaces legais "oficiais"</td></tr>
 </table>

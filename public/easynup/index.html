@@ -579,7 +579,7 @@
             <div class="icon">⑦</div>
             <div class="text">
               <h5>Configuração de conformidade por regime legal</h5>
-              <p>Cada contratante escolhe os regimes que se aplicam (Lei 14.133, LGPD, RDC, normativos próprios) e define dimensões de conformidade (documental, fiscal, garantia, ANS, sanções) com regras vinculadas a artigos/incisos. Cada regra escolhe o motor: validação determinística, IA com RAG, ou comitê multi-LLM.</p>
+              <p>Cada contratante escolhe os regimes que se aplicam (Lei 14.133, LGPD, normativos próprios do órgão) e define dimensões de conformidade (documental, fiscal, garantia, ANS, sanções) com regras vinculadas a artigos/incisos. Cada regra escolhe o motor: validação determinística, IA com RAG, ou comitê multi-LLM.</p>
             </div>
           </div>
 
@@ -1081,8 +1081,8 @@
       </div>
       <div class="item">
         <h5>Segurança operacional · observabilidade</h5>
-        <p>Métricas Prometheus custom por rota (audit.hmac.write.success, .failure, .duration com percentis 0.5/0.95/0.99). Sentinel Probe rastreia sessão do navegador até o banco com correlação cross-process. Quando algo quebra, equipe sabe em segundos onde foi.</p>
-        <span class="anchor">métricas HMAC · Sentinel Probe</span>
+        <p>Métricas Prometheus custom por rota com percentis (mediana, p95, p99) de latência da cadeia de auditoria. Sentinel Probe rastreia sessão do navegador até o banco com correlação cross-process. Quando algo quebra, equipe sabe em segundos onde foi.</p>
+        <span class="anchor">observabilidade nativa</span>
       </div>
     </div>
     <div style="padding:14px 32px 22px;border-top:1px solid var(--line2);text-align:right">
