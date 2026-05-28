@@ -180,10 +180,10 @@
 
 <table class="std">
   <tr><th>Tool</th><th>Tier</th><th>Função</th></tr>
-  <tr><td class="b mono">find_execution_findings</td><td>read</td><td>Consulta findings (SLA, prazo, qualidade) — IA descobre findingId antes de glosar</td></tr>
-  <tr><td class="b mono">create_service_order</td><td>write</td><td>Cria OS em contrato (requer contractId, code, title) com confirmação humana</td></tr>
-  <tr><td class="b mono">apply_compliance_deflator</td><td>sensitive</td><td>Aplica deflator sugerido (requer findingId + pfAnalysisId, IA NUNCA inventa)</td></tr>
-  <tr><td class="b mono">attach_acceptance_evidence</td><td>write</td><td>Anexa evidência (requer acceptanceId + legalObligationId + justificativa ≥10 chars)</td></tr>
+  <tr><td class="b">find_execution_findings</td><td>read</td><td>Consulta achados de execução (SLA, prazo, qualidade) para a IA contextualizar a conversa antes de qualquer ação</td></tr>
+  <tr><td class="b">create_service_order</td><td>write</td><td>Cria Ordem de Serviço em contrato (requer contrato, código e título). Pede confirmação humana antes de registrar</td></tr>
+  <tr><td class="b">apply_compliance_deflator</td><td>sensitive</td><td>Aplica um deflator <strong>previamente cadastrado em contrato</strong> a partir de achado registrado. A IA jamais inventa o deflator nem o valor — só executa o ato administrativo se o gestor aprovar na fila de aprovação humana</td></tr>
+  <tr><td class="b">attach_acceptance_evidence</td><td>write</td><td>Anexa evidência a uma etapa de aceite (requer aceite, obrigação legal vinculada e justificativa com no mínimo 10 caracteres)</td></tr>
 </table>
 
 <h2><span class="num">08</span>Knowledge Base · Pinecone gerenciado pelo gestor</h2>
