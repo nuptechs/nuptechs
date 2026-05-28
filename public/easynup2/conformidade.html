@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EasyNuP · Conformidade — LGPD, Lei 14.133, EU AI Act, ISO em curso</title>
+<style>
+  :root{
+    --bg:#0a0d14; --panel:#161a22; --panel2:#121621; --panel3:#1a1f2c;
+    --line:#272c38; --line2:#1e2330; --line3:#33394a;
+    --muted:#8a93a6; --muted2:#5d6679;
+    --ink:#f1f5fb; --ink-dim:#c3cbdb; --ink-soft:#a1aabe;
+    --core:#3b82f6; --core-bg:#0b2344; --core-br:#1e3a8a;
+    --comm:#10b981; --comm-bg:#052e24; --comm-br:#065f46;
+    --ai:#a855f7; --ai-bg:#24123f; --ai-br:#5b21b6;
+    --ext:#f59e0b; --ext-bg:#2a1f0a; --ext-br:#78350f;
+    --gold:#eab308; --gold-bg:#2a2109; --gold-br:#854d0e;
+    --ok:#22c55e; --ok-bg:#06231a; --ok-br:#134e2c;
+    --danger:#ef4444; --danger-bg:#2a0f11; --danger-br:#7f1d1d;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:1280px;margin:0 auto;padding:0 24px 96px}
+  code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;background:#0a0d14;border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--ink-dim)}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .crumb a{color:var(--ink-dim);text-decoration:none}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+
+  .sub-hero{padding:48px 0 40px;border-bottom:1px solid var(--line)}
+  .sub-hero .tag{display:inline-block;font-size:11px;color:var(--comm);background:var(--comm-bg);border:1px solid var(--comm-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .sub-hero h1{font-size:42px;line-height:1.1;letter-spacing:-0.03em;margin:0 0 16px;max-width:920px;font-weight:700}
+  .sub-hero h1 .grad{background:linear-gradient(120deg,#10b981 0%,#3b82f6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .sub-hero p.lead{font-size:17px;color:var(--ink-dim);margin:0 0 30px;max-width:880px;line-height:1.55}
+
+  h2{font-size:26px;margin:64px 0 8px;letter-spacing:-0.02em;line-height:1.2}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:14px;font-variant-numeric:tabular-nums}
+  h3{font-size:18px;margin:28px 0 10px;color:var(--ink);font-weight:600}
+  p.lead{color:var(--ink-dim);max-width:900px;font-size:15.5px;line-height:1.6;margin:0 0 22px}
+
+  table.std{width:100%;border-collapse:collapse;margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
+  table.std th,table.std td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+  table.std .status-ok{color:var(--ok);font-weight:700}
+  table.std .status-prog{color:var(--ext);font-weight:700}
+  table.std .status-plan{color:var(--muted);font-weight:500;font-style:italic}
+
+  .callout{background:linear-gradient(135deg,var(--comm-bg) 0%,var(--core-bg) 100%);border:1px solid var(--comm-br);border-radius:14px;padding:22px 26px;margin-top:24px}
+  .callout h4{color:var(--ink);font-size:16px;margin:0 0 8px}
+  .callout p{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.55}
+  .callout p strong{color:var(--ink)}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  .cap{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .cap .badge-top{display:inline-block;font-size:10.5px;color:var(--comm);background:var(--comm-bg);border:1px solid var(--comm-br);padding:3px 9px;border-radius:999px;letter-spacing:0.08em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+  .cap h4{margin:0 0 8px;font-size:15px;color:var(--ink);font-weight:600}
+  .cap p{margin:0 0 8px;color:var(--ink-dim);font-size:13.5px;line-height:1.55}
+  .cap ul{margin:6px 0 0;padding-left:18px;color:var(--ink-dim);font-size:13px;line-height:1.55}
+  .cap ul li{margin-bottom:4px}
+
+  .back-strip{margin-top:64px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+  .back-strip a.back:hover{color:var(--core)}
+  .back-strip .next-links{display:flex;gap:10px;flex-wrap:wrap}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-soft);padding:6px 12px;border:1px solid var(--line);border-radius:8px;text-decoration:none}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+
+  footer{color:var(--muted);margin-top:32px;font-size:12px;border-top:1px solid var(--line);padding-top:18px;line-height:1.7}
+  footer a{color:var(--ink-dim)}
+
+  @media (max-width:900px){
+    .sub-hero h1{font-size:32px}
+    .grid3{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<nav class="crumb">
+  <a href="/easynup2">EasyNuP</a> <span class="sep">›</span>
+  <span class="now">Conformidade</span>
+</nav>
+
+<section class="sub-hero">
+  <span class="tag">Para DPO · jurídico · compliance · controle interno</span>
+  <h1>Conformidade <span class="grad">comprovada</span>, não declarada.</h1>
+  <p class="lead">Esta página reúne tudo que o DPO do seu órgão, o jurídico e a Comissão de Contratação vão pedir antes de assinar: status real de certificações, RIPD modelo, designação de DPO, mapeamento Lei 14.133 ↔ entidade, política de retenção, conformidade IA com EU AI Act e PL 2338/2023. <strong>Documentos disponíveis sob NDA para análise técnica formal.</strong></p>
+</section>
+
+<h2><span class="num">01</span>LGPD · Lei Geral de Proteção de Dados</h2>
+<p class="lead">A conformidade LGPD não é "checklist por fora", é regra arquitetural desde o primeiro commit da plataforma.</p>
+
+<div class="grid3">
+  <div class="cap">
+    <span class="badge-top">DPO designado</span>
+    <h4>Encarregado de Dados nomeado</h4>
+    <p>NuPtechs Tecnologia Ltda tem <strong>DPO formalmente designado</strong> com canal de contato público publicado (LGPD art. 41 §1º). Canal direto ao DPO do contratante via portal dedicado.</p>
+    <ul>
+      <li>E-mail dedicado para titulares de dados</li>
+      <li>SLA de resposta de 15 dias úteis (art. 19)</li>
+      <li>Cooperação formal com ANPD</li>
+    </ul>
+  </div>
+  <div class="cap">
+    <span class="badge-top">Registro de operações</span>
+    <h4>Mapeamento de tratamento (art. 37)</h4>
+    <p>Registro completo de operações de tratamento mantido por área e por tipo de dado, com bases legais documentadas, prazos de retenção e destinatários.</p>
+    <ul>
+      <li>Mapeamento entidade ↔ dado pessoal ↔ base legal</li>
+      <li>Atualizado a cada release com impacto em PII</li>
+      <li>Disponível para inspeção ANPD em até 24h</li>
+    </ul>
+  </div>
+  <div class="cap">
+    <span class="badge-top">RIPD modelo</span>
+    <h4>Relatório de Impacto pronto</h4>
+    <p>Modelo de RIPD (Relatório de Impacto à Proteção de Dados) <strong>já preenchido para os fluxos do EasyNuP</strong> — entregue como anexo do contrato. Cliente adapta apenas ao seu contexto institucional.</p>
+    <ul>
+      <li>Cobertura dos 5 principais fluxos de dados pessoais</li>
+      <li>Análise de risco + medidas de mitigação documentadas</li>
+      <li>Reduz semanas de trabalho do DPO do cliente</li>
+    </ul>
+  </div>
+  <div class="cap">
+    <span class="badge-top">Direitos do titular</span>
+    <h4>Operacionalizados nativamente (art. 18)</h4>
+    <p>Os 9 direitos do titular não são pedido por e-mail — são botão na interface do gestor de dados pessoais:</p>
+    <ul>
+      <li>Acesso aos dados (export JSON)</li>
+      <li>Correção / anonimização</li>
+      <li>Eliminação ("direito ao esquecimento")</li>
+      <li>Portabilidade (CSV/JSON aberto)</li>
+      <li>Revogação de consentimento</li>
+    </ul>
+  </div>
+  <div class="cap">
+    <span class="badge-top">Categoria operador</span>
+    <h4>Papéis explicitados em contrato</h4>
+    <p>Contrato deixa claro: <strong>cliente é controlador</strong> (decide finalidade), <strong>NuPtechs é operador</strong> (processa em nome). Termo de tratamento ajustado conforme orientações ANPD.</p>
+    <ul>
+      <li>Cláusula contratual padrão LGPD</li>
+      <li>Sub-operadores listados (provedores IA, nuvem)</li>
+      <li>Notificação de incidente ≤ 48h ao cliente</li>
+    </ul>
+  </div>
+  <div class="cap">
+    <span class="badge-top">Anonimização</span>
+    <h4>Garantia técnica de irreversibilidade</h4>
+    <p>Quando titular exerce direito ao esquecimento, anonimização é técnica (não apenas "marcar como deletado") com garantia documentada de irreversibilidade conforme art. 12.</p>
+    <ul>
+      <li>Dados pessoais substituídos por hash one-way</li>
+      <li>Backups antigos rotacionados em até 90 dias</li>
+      <li>Auditoria do procedimento via cadeia HMAC</li>
+    </ul>
+  </div>
+</div>
+
+<h2><span class="num">02</span>Certificações e auditorias · status real</h2>
+<p class="lead"><strong>Não declaramos certificações que ainda não temos.</strong> Aqui o status verdadeiro com previsão de marcos. Roadmap honesto serve para construir cláusula contratual de exigência futura de certificação no edital.</p>
+
+<table class="std">
+  <tr>
+    <th>Certificação / Norma</th>
+    <th>Escopo</th>
+    <th>Status</th>
+    <th>Previsão</th>
+  </tr>
+  <tr>
+    <td class="b">Conformidade LGPD</td>
+    <td>Lei 13.709/2018 · art. 37 (registro), art. 38 (RIPD), art. 41 (DPO)</td>
+    <td class="status-ok">✓ em vigor</td>
+    <td>auto-avaliação documentada, validada para inspeção ANPD</td>
+  </tr>
+  <tr>
+    <td class="b">Conformidade Lei 14.133 / IN SGD/ME 94</td>
+    <td>Mapeamento artigo-a-artigo entre dispositivo legal e entidade do sistema</td>
+    <td class="status-ok">✓ em vigor</td>
+    <td>parecer técnico interno arquivado</td>
+  </tr>
+  <tr>
+    <td class="b">SOC 2 Tipo I</td>
+    <td>Controles de segurança, disponibilidade e confidencialidade (snapshot)</td>
+    <td class="status-prog">⚙ auditoria iniciada</td>
+    <td>4º trimestre 2026</td>
+  </tr>
+  <tr>
+    <td class="b">SOC 2 Tipo II</td>
+    <td>Mesmos controles, observados ao longo de 6-12 meses</td>
+    <td class="status-plan">○ planejada</td>
+    <td>2º trimestre 2027 (após Tipo I)</td>
+  </tr>
+  <tr>
+    <td class="b">ISO/IEC 27001</td>
+    <td>Sistema de gestão de segurança da informação</td>
+    <td class="status-prog">⚙ gap analysis concluído</td>
+    <td>1º semestre 2027</td>
+  </tr>
+  <tr>
+    <td class="b">ISO/IEC 27701</td>
+    <td>Extensão da ISO 27001 para privacidade (alinhado LGPD/GDPR)</td>
+    <td class="status-plan">○ planejada</td>
+    <td>após ISO 27001 · 2º semestre 2027</td>
+  </tr>
+  <tr>
+    <td class="b">ISO/IEC 42001</td>
+    <td>Gestão de IA responsável (alinhado EU AI Act)</td>
+    <td class="status-plan">○ avaliação inicial</td>
+    <td>2027-2028</td>
+  </tr>
+  <tr>
+    <td class="b">e-PING / e-ARQ</td>
+    <td>Padrões de interoperabilidade do governo federal</td>
+    <td class="status-ok">✓ aderente</td>
+    <td>auto-declaração técnica disponível</td>
+  </tr>
+</table>
+
+<div class="callout">
+  <h4>Como usar este roadmap no edital</h4>
+  <p>Órgão que exija certificação no momento da contratação pode <strong>condicionar a manutenção contratual à apresentação da certificação no prazo do roadmap</strong>. Cláusula sugerida: "A contratada compromete-se a apresentar certificação SOC 2 Tipo I até 31/12/2026 e ISO 27001 até 30/06/2027, sob pena de rescisão sem ônus para o contratante." Documentamos premissas e nos comprometemos com prazos defensáveis.</p>
+</div>
+
+<h2><span class="num">03</span>Conformidade com Lei de IA · EU AI Act + PL 2338/2023</h2>
+<p class="lead">O EU AI Act entra em vigor em <strong>agosto/2026</strong> com aplicação extraterritorial — afeta qualquer sistema de IA usado por entidades da UE ou que processe dados de cidadãos da UE. O PL 2338/2023 brasileiro está em tramitação avançada. Sistemas de IA classificados como "alto risco" enfrentam requisitos pesados de governança. <strong>O EasyNuP nasceu compatível.</strong></p>
+
+<table class="std">
+  <tr>
+    <th>Requisito de IA de alto risco</th>
+    <th>Como o EasyNuP atende</th>
+  </tr>
+  <tr>
+    <td class="b">Supervisão humana significativa</td>
+    <td>Arquitetura de 3 níveis de controle: consulta livre / ação com confirmação / ação sensível com aprovação obrigatória. Toda decisão administrativa exige humano confirmando.</td>
+  </tr>
+  <tr>
+    <td class="b">Transparência sobre decisão</td>
+    <td>Cada resposta de IA cita a referência de origem (artigo, cláusula, exemplo). Fundamentação completa preservada e auditável.</td>
+  </tr>
+  <tr>
+    <td class="b">Rastreabilidade e log de ações</td>
+    <td>Toda interação IA (prompt + ação proposta + resultado + decisão humana) entra na cadeia criptográfica HMAC. Reconstrução perfeita de qualquer episódio.</td>
+  </tr>
+  <tr>
+    <td class="b">Qualidade dos dados de treino</td>
+    <td>Não usamos dados do cliente para treinar modelos (cláusula contratual padrão com provedores). Cliente pode restringir provedores que aceita.</td>
+  </tr>
+  <tr>
+    <td class="b">Robustez e segurança técnica</td>
+    <td>Fallback automático entre provedores. Modelos isolados por organização (sem cross-tenant). Validação de saída antes de cada ato administrativo.</td>
+  </tr>
+  <tr>
+    <td class="b">Gestão de risco</td>
+    <td>Análise de risco da IA por capacidade documentada (precision/recall, latência observada, taxa de fundamentação em evidência real). Painel "qualidade da IA" sempre acessível.</td>
+  </tr>
+  <tr>
+    <td class="b">Direito a explicação (PL 2338 art. 7º)</td>
+    <td>Toda decisão tomada com apoio de IA explicita: qual ação foi sugerida, qual evidência foi usada, qual humano decidiu, com qual motivação.</td>
+  </tr>
+</table>
+
+<h2><span class="num">04</span>Mapeamento Lei 14.133 ↔ entidade do sistema</h2>
+<p class="lead">Para validação do escritório jurídico do cliente. Demonstra que o sistema modela o que a lei pede — não interpreta, não adapta, não suaviza.</p>
+
+<table class="std">
+  <tr>
+    <th>Lei 14.133 · dispositivo</th>
+    <th>Conceito</th>
+    <th>Entidade no sistema</th>
+  </tr>
+  <tr>
+    <td class="b">Art. 18-25</td>
+    <td>Etapa de Planejamento da Contratação · ETP · TR</td>
+    <td>Contract Wizard (7 blocos) + ContractDraft com versionamento</td>
+  </tr>
+  <tr>
+    <td class="b">Art. 78-83</td>
+    <td>Modalidades de licitação</td>
+    <td>ContractModalidade enum + Procurement</td>
+  </tr>
+  <tr>
+    <td class="b">Art. 96-102</td>
+    <td>Garantias contratuais</td>
+    <td>ContractGuarantee com vigência e cobertura</td>
+  </tr>
+  <tr>
+    <td class="b">Art. 115-122</td>
+    <td>Execução do contrato · fiscalização</td>
+    <td>ServiceOrder + Acceptance + Timesheet + ContractFiscal</td>
+  </tr>
+  <tr>
+    <td class="b">Art. 117 §1º I-III</td>
+    <td>Atesto técnico fundamentado</td>
+    <td>Acceptance.finalRemarks (motivação obrigatória) + Atesto Inteligente com fundamentação automática</td>
+  </tr>
+  <tr>
+    <td class="b">Art. 140</td>
+    <td>Recebimento provisório e definitivo (TRP/TRD)</td>
+    <td>AcceptanceStage com até 4 estágios configuráveis</td>
+  </tr>
+  <tr>
+    <td class="b">Art. 137 §4º · IN art. 19</td>
+    <td>IMR · Instrumento de Medição de Resultado</td>
+    <td>SlaTemplate + SlaIndicator + SlaMeasurement + Deflator</td>
+  </tr>
+  <tr>
+    <td class="b">Art. 156</td>
+    <td>Sanções escalonadas</td>
+    <td>ContractSanction com 5 níveis + workflow de aplicação</td>
+  </tr>
+  <tr>
+    <td class="b">Decreto 11.246 · Lei 14.133 art. 92</td>
+    <td>Portabilidade de dados em SaaS</td>
+    <td>Export endpoint + retenção pós-cancelamento documentada</td>
+  </tr>
+</table>
+
+<h2><span class="num">05</span>Política de retenção e exclusão</h2>
+
+<table class="std">
+  <tr>
+    <th>Tipo de dado</th>
+    <th>Retenção ativa</th>
+    <th>Arquivo frio</th>
+    <th>Exclusão</th>
+  </tr>
+  <tr>
+    <td class="b">Contratos · OS · execução</td>
+    <td>indefinida enquanto contrato ativo</td>
+    <td>5 anos após encerramento (CGU)</td>
+    <td>após 5 anos · arquivo CGU</td>
+  </tr>
+  <tr>
+    <td class="b">Cadeia de auditoria</td>
+    <td>indefinida</td>
+    <td>10 anos exigência fiscal</td>
+    <td>nunca (prova matemática)</td>
+  </tr>
+  <tr>
+    <td class="b">Dados pessoais de fiscais/gestores</td>
+    <td>enquanto vinculados</td>
+    <td>2 anos após desligamento</td>
+    <td>conforme art. 16 LGPD</td>
+  </tr>
+  <tr>
+    <td class="b">Backups</td>
+    <td>90 dias quente</td>
+    <td>7 anos frio</td>
+    <td>rotação automática</td>
+  </tr>
+  <tr>
+    <td class="b">Logs de aplicação</td>
+    <td>90 dias</td>
+    <td>1 ano comprimido</td>
+    <td>rotação automática</td>
+  </tr>
+  <tr>
+    <td class="b">Logs de segurança</td>
+    <td>180 dias</td>
+    <td>3 anos</td>
+    <td>conforme exigência forense</td>
+  </tr>
+</table>
+
+<h2><span class="num">06</span>Documentos disponíveis sob NDA</h2>
+<p class="lead">Materiais que entregamos durante a fase de qualificação técnica formal, sob acordo de confidencialidade:</p>
+
+<ul style="margin-top:18px;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px">
+  <li style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--ink-dim);font-size:14px;line-height:1.5"><strong style="color:var(--ink)">✓ Mapeamento entidade↔artigo completo</strong> — planilha cruzando todos os artigos da Lei 14.133 com as entidades JPA do sistema</li>
+  <li style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--ink-dim);font-size:14px;line-height:1.5"><strong style="color:var(--ink)">✓ RIPD modelo preenchido</strong> — 40 páginas cobrindo os 5 fluxos principais de dados pessoais</li>
+  <li style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--ink-dim);font-size:14px;line-height:1.5"><strong style="color:var(--ink)">✓ Termo de tratamento de dados</strong> — modelo de contrato controlador-operador alinhado ANPD</li>
+  <li style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--ink-dim);font-size:14px;line-height:1.5"><strong style="color:var(--ink)">✓ Cláusulas contratuais de fornecedores de IA</strong> — provas de que dados do cliente não são usados para treino</li>
+  <li style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--ink-dim);font-size:14px;line-height:1.5"><strong style="color:var(--ink)">✓ Documento de conformidade EU AI Act + PL 2338/2023</strong> — análise técnica de aderência aos requisitos de sistema de IA de alto risco</li>
+  <li style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--ink-dim);font-size:14px;line-height:1.5"><strong style="color:var(--ink)">✓ Política de incidente · runbook · plano de continuidade</strong></li>
+  <li style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--ink-dim);font-size:14px;line-height:1.5"><strong style="color:var(--ink)">✓ Resultados de pen-test e auditoria de código</strong> (atualizado anualmente)</li>
+</ul>
+
+<div class="callout">
+  <h4>Como solicitar acesso</h4>
+  <p>Solicitação via <a href="mailto:contato@nuptechs.com?subject=NDA%20Conformidade%20EasyNuP">contato@nuptechs.com</a> com assunto "NDA Conformidade EasyNuP". Modelo de NDA padronizado disponível; assinatura digital ICP-Brasil aceita. Liberação dos documentos em até 3 dias úteis após NDA assinado.</p>
+</div>
+
+<nav class="back-strip">
+  <a href="/easynup2" class="back">← Voltar para a visão geral</a>
+  <div class="next-links">
+    <a href="/easynup2/arquitetura">Arquitetura →</a>
+    <a href="/easynup2/comercial">Modelo comercial →</a>
+    <a href="/easynup2/implantacoes">Implantações →</a>
+  </div>
+</nav>
+
+<footer>
+  <p>EasyNuP · plataforma NuPTechs · documentação de conformidade para due diligence · <a href="mailto:contato@nuptechs.com">contato@nuptechs.com</a></p>
+</footer>
+
+</body>
+</html>

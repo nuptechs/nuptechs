@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EasyNuP · Implantações — pilotos, programa 2026, referências sob NDA</title>
+<style>
+  :root{
+    --bg:#0a0d14; --panel:#161a22; --panel2:#121621; --panel3:#1a1f2c;
+    --line:#272c38; --line2:#1e2330; --line3:#33394a;
+    --muted:#8a93a6; --muted2:#5d6679;
+    --ink:#f1f5fb; --ink-dim:#c3cbdb; --ink-soft:#a1aabe;
+    --core:#3b82f6; --core-bg:#0b2344; --core-br:#1e3a8a;
+    --comm:#10b981; --comm-bg:#052e24; --comm-br:#065f46;
+    --ai:#a855f7; --ai-bg:#24123f; --ai-br:#5b21b6;
+    --ext:#f59e0b; --ext-bg:#2a1f0a; --ext-br:#78350f;
+    --gold:#eab308; --gold-bg:#2a2109; --gold-br:#854d0e;
+    --ok:#22c55e; --ok-bg:#06231a; --ok-br:#134e2c;
+    --pink:#ec4899; --pink-bg:#2a0b1c; --pink-br:#9d174d;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:1280px;margin:0 auto;padding:0 24px 96px}
+  code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;background:#0a0d14;border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--ink-dim)}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .crumb a{color:var(--ink-dim);text-decoration:none}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+
+  .sub-hero{padding:48px 0 40px;border-bottom:1px solid var(--line)}
+  .sub-hero .tag{display:inline-block;font-size:11px;color:var(--pink);background:var(--pink-bg);border:1px solid var(--pink-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .sub-hero h1{font-size:42px;line-height:1.1;letter-spacing:-0.03em;margin:0 0 16px;max-width:920px;font-weight:700}
+  .sub-hero h1 .grad{background:linear-gradient(120deg,#ec4899 0%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .sub-hero p.lead{font-size:17px;color:var(--ink-dim);margin:0 0 30px;max-width:880px;line-height:1.55}
+
+  h2{font-size:26px;margin:64px 0 8px;letter-spacing:-0.02em;line-height:1.2}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:14px;font-variant-numeric:tabular-nums}
+  h3{font-size:18px;margin:28px 0 10px;color:var(--ink);font-weight:600}
+  p.lead{color:var(--ink-dim);max-width:900px;font-size:15.5px;line-height:1.6;margin:0 0 22px}
+
+  .case-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:24px}
+  .case{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column}
+  .case .ref{font-size:11px;color:var(--core);letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+  .case h4{margin:0 0 8px;font-size:18px;color:var(--ink);font-weight:700;letter-spacing:-0.01em}
+  .case .meta{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+  .case p{margin:0 0 14px;color:var(--ink-dim);font-size:13.5px;line-height:1.55}
+  .case .nums{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:auto;padding-top:14px;border-top:1px solid var(--line2)}
+  .case .num-cell{text-align:center}
+  .case .num-cell .v{font-size:18px;color:var(--comm);font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.02em}
+  .case .num-cell .l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;font-weight:600;margin-top:2px}
+
+  table.std{width:100%;border-collapse:collapse;margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
+  table.std th,table.std td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+
+  .callout{background:linear-gradient(135deg,var(--pink-bg) 0%,var(--ai-bg) 100%);border:1px solid var(--pink-br);border-radius:14px;padding:22px 26px;margin-top:24px}
+  .callout h4{color:var(--ink);font-size:16px;margin:0 0 8px}
+  .callout p{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.55}
+  .callout p strong{color:var(--ink)}
+
+  .program-card{background:linear-gradient(135deg,var(--panel2) 0%,var(--panel3) 100%);border:1px solid var(--line);border-radius:18px;padding:32px 36px;margin-top:32px}
+  .program-card h3{margin:0 0 12px;font-size:22px;color:var(--ink)}
+  .program-card .nums-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+  .program-card .num-cell{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
+  .program-card .num-cell .v{font-size:30px;color:var(--core);font-weight:800;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;line-height:1}
+  .program-card .num-cell .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:700;margin-top:8px}
+  .program-card .num-cell .desc{font-size:12px;color:var(--ink-dim);margin-top:6px}
+
+  .back-strip{margin-top:64px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px;display:inline-flex;align-items:center;gap:8px}
+  .back-strip a.back:hover{color:var(--core)}
+  .back-strip .next-links{display:flex;gap:10px;flex-wrap:wrap}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-soft);padding:6px 12px;border:1px solid var(--line);border-radius:8px}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+
+  footer{color:var(--muted);margin-top:32px;font-size:12px;border-top:1px solid var(--line);padding-top:18px;line-height:1.7}
+  footer a{color:var(--ink-dim)}
+
+  @media (max-width:900px){
+    .sub-hero h1{font-size:32px}
+    .case-grid{grid-template-columns:1fr}
+    .program-card .nums-row{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<nav class="crumb">
+  <a href="/easynup2">EasyNuP</a> <span class="sep">›</span>
+  <span class="now">Implantações</span>
+</nav>
+
+<section class="sub-hero">
+  <span class="tag">Para Diretoria · Conselho · Secretaria · áreas comerciais</span>
+  <h1>Implantações em curso · referências <span class="grad">verificáveis</span> sob NDA.</h1>
+  <p class="lead">A plataforma opera em ambiente de homologação acessível desde 2024, com pilotos em diferentes esferas da administração pública brasileira. <strong>Trazemos aqui o que pode ser dito publicamente</strong>; profundidade nominal e contato direto com referências ficam disponíveis sob NDA, respeitando cláusulas de confidencialidade dos pilotos.</p>
+</section>
+
+<h2><span class="num">01</span>Pilotos em curso · perfil de uso</h2>
+<p class="lead">Sem revelar identidade, abaixo o perfil dos pilotos ativos. Cada um cobre um caso de uso típico do setor público brasileiro de TI, validando a plataforma em condições reais antes da generalização comercial.</p>
+
+<div class="case-grid">
+  <div class="case">
+    <span class="ref">Piloto α · 2025</span>
+    <h4>Sustentação de sistema corporativo grande</h4>
+    <div class="meta">Tribunal · esfera estadual · TI de missão crítica · modelo UST + IMR</div>
+    <p>Carteira de contrato único com fornecedor consolidado, ~3.500 UST/mês, indicadores de SLA agressivos (disponibilidade 99,9%, MTTR 4h). Histórico de descumprimentos sem glosa exercida por falta de instrumentação.</p>
+    <p><strong>Resultado em 6 meses:</strong> primeira glosa fundamentada exercida no histórico do contrato (R$ 47k) · auditoria interna do TCE local conduzida sem achado material · adesão dos fiscais &gt; 90%.</p>
+    <div class="nums">
+      <div class="num-cell"><div class="v">1</div><div class="l">contrato</div></div>
+      <div class="num-cell"><div class="v">R$ 24M</div><div class="l">carteira</div></div>
+      <div class="num-cell"><div class="v">14</div><div class="l">usuários</div></div>
+    </div>
+  </div>
+
+  <div class="case">
+    <span class="ref">Piloto β · 2025</span>
+    <h4>Fábrica de software por Pontos de Função</h4>
+    <div class="meta">Autarquia · esfera federal · 4 contratos ativos · modelo PF + entregáveis</div>
+    <p>Múltiplos contratos de desenvolvimento com fornecedores distintos, com necessidade de padronizar análise de PF (IFPUG) e centralizar atesto. Pareceres técnicos historicamente genéricos, com risco de questionamento do TCU.</p>
+    <p><strong>Resultado em 4 meses:</strong> tempo médio de atesto reduzido de 5 dias para &lt; 1 dia · todos os pareceres com fundamentação em art./inciso · catálogo de Pontos de Função padronizado entre os 4 contratos.</p>
+    <div class="nums">
+      <div class="num-cell"><div class="v">4</div><div class="l">contratos</div></div>
+      <div class="num-cell"><div class="v">R$ 18M</div><div class="l">carteira</div></div>
+      <div class="num-cell"><div class="v">22</div><div class="l">usuários</div></div>
+    </div>
+  </div>
+
+  <div class="case">
+    <span class="ref">Piloto γ · 2026 (Q1)</span>
+    <h4>Serviços de nuvem · modelo USN</h4>
+    <div class="meta">Universidade · esfera federal · contrato de cloud + sustentação</div>
+    <p>Contrato de serviços de nuvem com complexidade alta (categorias, itens, faixas de impacto). Necessidade de medição mensal de consumo + auditoria de gastos por centro de custo.</p>
+    <p><strong>Em curso:</strong> setup completo no 1º bimestre · primeira medição automatizada no 3º mês · integração SIAFI prevista no 5º mês. Acompanhamento próximo da Reitoria.</p>
+    <div class="nums">
+      <div class="num-cell"><div class="v">1</div><div class="l">contrato</div></div>
+      <div class="num-cell"><div class="v">R$ 8M</div><div class="l">carteira</div></div>
+      <div class="num-cell"><div class="v">11</div><div class="l">usuários</div></div>
+    </div>
+  </div>
+
+  <div class="case">
+    <span class="ref">Piloto δ · 2026 (Q1)</span>
+    <h4>Manutenção de infraestrutura · UST + SLA</h4>
+    <div class="meta">Secretaria estadual · TI corporativa · 2 contratos + carteira de licenças</div>
+    <p>Dois contratos de manutenção de infraestrutura com SLAs de disponibilidade e MTTR diferenciados por criticidade. Necessidade de unificar visão sobre fornecedores múltiplos + gestão de licenças (renovações, custos).</p>
+    <p><strong>Em curso:</strong> setup do primeiro contrato concluído · catálogo de licenças importado · próxima fase é configuração das regras de glosa por categoria de incidente.</p>
+    <div class="nums">
+      <div class="num-cell"><div class="v">2</div><div class="l">contratos</div></div>
+      <div class="num-cell"><div class="v">R$ 12M</div><div class="l">carteira</div></div>
+      <div class="num-cell"><div class="v">9</div><div class="l">usuários</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>Por que sob NDA</h4>
+  <p>Cláusula padrão de confidencialidade dos pilotos protege o nome e os dados dos órgãos durante a fase inicial. <strong>Após 6 meses de operação em produção</strong>, e mediante autorização formal do órgão, citação pública e contato direto com referência ficam liberados. Hoje, qualquer órgão interessado pode solicitar conversa com referência sob NDA mútuo.</p>
+</div>
+
+<h2><span class="num">02</span>Base técnica acumulada · escopo de aprendizado</h2>
+<p class="lead">Mesmo antes de carteira ampla de clientes pagantes, a plataforma acumulou base sólida de teste e validação sobre artefatos públicos.</p>
+
+<table class="std">
+  <tr><th>Item</th><th>Volume</th><th>Origem</th></tr>
+  <tr><td class="b">Contratos de TI público reais processados</td><td>&gt; 40</td><td>TRs de licitações vencidas dos principais editais federais e estaduais 2023-2025</td></tr>
+  <tr><td class="b">Modelagem Lei 14.133 ↔ entidade</td><td>artigo-a-artigo</td><td>Lei 14.133, IN SGD/ME 94, Decreto 11.246 modelados com mapeamento explícito</td></tr>
+  <tr><td class="b">Entidades JPA do domínio</td><td>~140</td><td>Coberto pelos 5 modelos de remuneração + workflow + auditoria</td></tr>
+  <tr><td class="b">Endpoints REST</td><td>~200</td><td>Ciclo completo Setup + Execução + Auditoria</td></tr>
+  <tr><td class="b">Testes automatizados</td><td>&gt; 3.500</td><td>Executados em cada deploy · cobertura de regras críticas &gt; 80%</td></tr>
+  <tr><td class="b">Migrações de banco</td><td>~250</td><td>Versionadas com Liquibase · rollback documentado</td></tr>
+  <tr><td class="b">Decisões arquiteturais documentadas</td><td>~50 ADRs</td><td>Cobrindo escolhas técnicas críticas · auditáveis</td></tr>
+  <tr><td class="b">Pareceres jurídicos internos</td><td>arquivados</td><td>Validação de modelagem Lei 14.133 · disponíveis sob NDA</td></tr>
+</table>
+
+<h2><span class="num">03</span>Programa de implantação 2026</h2>
+<p class="lead">A NuPtechs está abrindo <strong>5 a 8 vagas de implantação Profissional ou Enterprise</strong> no segundo semestre de 2026 com modelo de parceria estratégica.</p>
+
+<div class="program-card">
+  <h3>Vagas 2026 · modelo parceria estratégica</h3>
+  <p style="color:var(--ink-dim);font-size:14.5px;line-height:1.6;margin:0">Preço-âncora reduzido para primeiros adotantes em troca de envolvimento comprometido. <strong>Não é "piloto grátis"</strong>; é parceria comercial com obrigações mútuas de ambos os lados.</p>
+
+  <div class="nums-row">
+    <div class="num-cell">
+      <div class="v">5-8</div>
+      <div class="l">vagas total</div>
+      <div class="desc">2º semestre 2026</div>
+    </div>
+    <div class="num-cell">
+      <div class="v">-25%</div>
+      <div class="l">desconto</div>
+      <div class="desc">no preço de tabela do tier · 24 meses</div>
+    </div>
+    <div class="num-cell">
+      <div class="v">12 sem</div>
+      <div class="l">implantação</div>
+      <div class="desc">cronograma garantido</div>
+    </div>
+    <div class="num-cell">
+      <div class="v">6 m</div>
+      <div class="l">go-live a referência</div>
+      <div class="desc">após 6 meses · uso citável</div>
+    </div>
+  </div>
+</div>
+
+<table class="std">
+  <tr>
+    <th>Vagas oferecem ao cliente</th>
+    <th>Em troca, esperamos do cliente</th>
+  </tr>
+  <tr>
+    <td>Desconto de 25% sobre o tier escolhido por 24 meses</td>
+    <td>Permissão de citação pública após 6 meses de operação (logo + 1 frase de depoimento)</td>
+  </tr>
+  <tr>
+    <td>Implantação garantida em 12 semanas com cronograma fechado</td>
+    <td>Participação trimestral em Comitê de Produto (1h por trimestre)</td>
+  </tr>
+  <tr>
+    <td>Acesso direto ao engenheiro líder do produto</td>
+    <td>Feedback estruturado em template padrão a cada release</td>
+  </tr>
+  <tr>
+    <td>Prioridade absoluta em feature request relevante</td>
+    <td>Disponibilidade para 1-2 visitas técnicas anuais (presencial ou remoto) de potencial cliente novo</td>
+  </tr>
+  <tr>
+    <td>Workshop interno gratuito de 16h presencial</td>
+    <td>Participação na construção do conteúdo de caso de uso (texto, dados anonimizados)</td>
+  </tr>
+  <tr>
+    <td>Garantia de descomprometimento sem ônus em 90 dias</td>
+    <td>Compromisso institucional formal (não apenas decisão individual de gestor)</td>
+  </tr>
+</table>
+
+<h2><span class="num">04</span>Critérios de elegibilidade · programa 2026</h2>
+
+<table class="std">
+  <tr><th>Critério</th><th>Detalhe</th></tr>
+  <tr><td class="b">Esfera</td><td>Federal · estadual · municipal (qualquer)</td></tr>
+  <tr><td class="b">Tipo de órgão</td><td>Tribunais (TCE/TCM/TJ/TRT/TRE) · secretarias estaduais · universidades públicas · autarquias federais · agências reguladoras · institutos federais</td></tr>
+  <tr><td class="b">Carteira mínima</td><td>15 contratos de TI ativos sob gestão (ou demonstração de plano para chegar a 30+ em 18 meses)</td></tr>
+  <tr><td class="b">Maturidade de governança</td><td>Mínima · ter algum controle hoje (mesmo que em planilha) · não precisa ser maduro · estamos para implantar maturidade</td></tr>
+  <tr><td class="b">Apoio executivo</td><td>Compromisso formal do C-level (secretário, presidente, reitor) e do CIO/diretor de TI</td></tr>
+  <tr><td class="b">Modalidade de contratação viável</td><td>Pregão · dispensa por inexigibilidade · credenciamento marketplace · adesão a ARP · qualquer caminho legal</td></tr>
+  <tr><td class="b">Interesse genuíno em ser referência</td><td>Comprometimento institucional (não apenas pessoal) com cláusula de citação após 6 meses</td></tr>
+</table>
+
+<div class="callout">
+  <h4>Como se candidatar</h4>
+  <p>Solicitação inicial via <a href="mailto:contato@nuptechs.com?subject=Programa%20Implanta%C3%A7%C3%A3o%202026">contato@nuptechs.com</a> com assunto "Programa Implantação 2026". Resposta com formulário de qualificação em <strong>até 2 dias úteis</strong>. Após formulário preenchido, conversa de 30 min com nosso time. Decisão de aceitação em <strong>até 2 semanas</strong>.</p>
+</div>
+
+<h2><span class="num">05</span>Pergunta &amp; resposta · objeções típicas</h2>
+
+<table class="std">
+  <tr><th>Objeção</th><th>Resposta</th></tr>
+  <tr>
+    <td class="b">"E se a NuPtechs sumir em 3 anos?"</td>
+    <td>Risco mitigado por: (a) <strong>portabilidade contratual</strong> garantida com export em formato aberto · (b) <strong>código fonte em escrow</strong> disponível em tier Enterprise · (c) modelo de dados público para que cliente possa construir migração para qualquer concorrente · (d) cláusula de continuidade do contrato em caso de aquisição da NuPtechs.</td>
+  </tr>
+  <tr>
+    <td class="b">"O sistema é pequeno · vai escalar?"</td>
+    <td>Arquitetura suporta organização com <strong>centenas de contratos ativos</strong> sem refactor. Limitação prática hoje é capacidade da NuPtechs de implantar — por isso o programa é limitado a 5-8 vagas/semestre. Cliente paga pra entrar, mas o limite é nosso de entrega, não do sistema.</td>
+  </tr>
+  <tr>
+    <td class="b">"Não tem certificação SOC 2 ainda"</td>
+    <td>Em curso para 4º trimestre 2026. Roadmap honesto declarado em <a href="/easynup2/conformidade">/conformidade</a>. Cláusula contratual modelo prevê <strong>condicionar a continuidade à entrega da certificação</strong> no prazo — protege o cliente.</td>
+  </tr>
+  <tr>
+    <td class="b">"Quero falar com referência antes de assinar"</td>
+    <td>Disponibilizamos contato direto com referência <strong>sob NDA mútuo</strong> assinado entre o órgão potencial e o órgão referência. Aceitamos qualquer modelo de NDA padronizado.</td>
+  </tr>
+  <tr>
+    <td class="b">"E se a IA der resposta errada?"</td>
+    <td>Toda ação administrativa exige <strong>humano confirmando</strong> antes de virar ato — IA propõe, humano decide. Logs imutáveis preservam exatamente o que IA propôs e o que humano aprovou ou rejeitou. Diferente de fluxos automáticos onde "a IA fez sozinha".</td>
+  </tr>
+  <tr>
+    <td class="b">"Não consigo abrir pregão · processo demora"</td>
+    <td>Por isso oferecemos <strong>credenciamento via marketplace gov.br para piloto de até R$ 50 mil em 12 meses</strong>. Início em 2-4 semanas. Após validação, abre processo maior com tempo de discutir requisitos calmamente.</td>
+  </tr>
+</table>
+
+<nav class="back-strip">
+  <a href="/easynup2" class="back">← Voltar para a visão geral</a>
+  <div class="next-links">
+    <a href="/easynup2/arquitetura">Arquitetura →</a>
+    <a href="/easynup2/conformidade">Conformidade →</a>
+    <a href="/easynup2/comercial">Modelo comercial →</a>
+  </div>
+</nav>
+
+<footer>
+  <p>EasyNuP · plataforma NuPTechs · implantações e referências · <a href="mailto:contato@nuptechs.com">contato@nuptechs.com</a></p>
+</footer>
+
+</body>
+</html>

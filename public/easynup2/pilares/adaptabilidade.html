@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EasyNuP · Adaptabilidade · cada órgão moldando — Pilar 5</title>
+<style>
+  :root{--bg:#0a0d14;--panel:#161a22;--panel2:#121621;--line:#272c38;--line2:#1e2330;--muted:#8a93a6;--muted2:#5d6679;--ink:#f1f5fb;--ink-dim:#c3cbdb;--ink-soft:#a1aabe;--core:#3b82f6;--core-bg:#0b2344;--core-br:#1e3a8a;--teal:#14b8a6;--teal-bg:#062a26;--teal-br:#0f766e;--ai:#a855f7;--ai-bg:#24123f;--ai-br:#5b21b6}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:1280px;margin:0 auto;padding:0 24px 96px}
+  code{font:12.5px ui-monospace,Menlo,monospace;background:#0a0d14;border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--ink-dim)}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .crumb a{color:var(--ink-dim)}.crumb a:hover{color:var(--core)}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+  .sub-hero{padding:48px 0 40px;border-bottom:1px solid var(--line)}
+  .sub-hero .tag{display:inline-block;font-size:11px;color:var(--teal);background:var(--teal-bg);border:1px solid var(--teal-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .sub-hero h1{font-size:42px;line-height:1.1;letter-spacing:-0.03em;margin:0 0 16px;max-width:920px;font-weight:700}
+  .sub-hero h1 .grad{background:linear-gradient(120deg,#14b8a6 0%,#3b82f6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .sub-hero p.lead{font-size:17px;color:var(--ink-dim);margin:0 0 30px;max-width:880px;line-height:1.55}
+  .kpi-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:24px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px 16px}
+  .kpi .n{font-size:30px;font-weight:800;letter-spacing:-0.025em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+  .kpi .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:6px;font-weight:600}
+  h2{font-size:26px;margin:64px 0 8px;letter-spacing:-0.02em;line-height:1.2}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:14px;font-variant-numeric:tabular-nums}
+  h3{font-size:18px;margin:28px 0 10px;font-weight:600;letter-spacing:-0.01em}
+  p.lead{color:var(--ink-dim);max-width:900px;font-size:15.5px;line-height:1.6;margin:0 0 22px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .cap{background:var(--panel2);border:1px solid var(--line2);border-radius:10px;padding:14px 16px}
+  .cap h4{margin:0 0 6px;font-size:14px;color:var(--ink);font-weight:600}
+  .cap p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.5}
+  .cap p strong{color:var(--ink);font-weight:600}
+  .cap .meta{font-size:10.5px;color:var(--muted);margin-top:8px;padding-top:7px;border-top:1px solid var(--line2);font-style:italic}
+  table.std{width:100%;border-collapse:collapse;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+  table.std th,table.std td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+  table.std td.mono{font-family:ui-monospace,Menlo,monospace;color:var(--ink-dim);font-size:12px}
+  .callout{background:linear-gradient(135deg,var(--teal-bg) 0%,var(--core-bg) 100%);border:1px solid var(--teal-br);border-radius:14px;padding:22px 26px;margin-top:32px}
+  .callout h4{color:var(--ink);font-size:16px;margin:0 0 8px}
+  .callout p{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.55}
+  .callout p strong{color:var(--ink)}
+  .back-strip{margin-top:64px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px}
+  .back-strip a.back:hover{color:var(--core)}
+  .back-strip .next-links{display:flex;gap:10px;flex-wrap:wrap}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-soft);padding:6px 12px;border:1px solid var(--line);border-radius:8px}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+  footer{color:var(--muted);margin-top:32px;font-size:12px;border-top:1px solid var(--line);padding-top:18px;line-height:1.7}
+  footer a{color:var(--ink-dim)}
+  @media (max-width:900px){.sub-hero h1{font-size:32px}.kpi-bar{grid-template-columns:repeat(2,1fr)}.grid2,.grid3{grid-template-columns:1fr 1fr}h2{font-size:22px}}
+</style>
+</head>
+<body>
+
+<div class="crumb">
+  <a href="/easynup2">EasyNuP</a> <span class="sep">›</span>
+  <a href="/easynup2#pilares">Pilares</a> <span class="sep">›</span>
+  <span class="now">Adaptabilidade</span>
+</div>
+
+<section class="sub-hero">
+  <span class="tag">Pilar 5 · cada órgão moldando sem virar refém</span>
+  <h1>Adaptabilidade · o sistema se ajusta a cada cliente, <span class="grad">em qualquer momento, sem código</span></h1>
+  <p class="lead">Cada contratante público é diferente: nomenclatura própria, processos internos, regras complementares, integrações específicas. Sistema engessado não serve, "tudo pode" vira bagunça. A Adaptabilidade atravessa Setup, Execução e Auditoria como <strong>configuração estrutural sem código</strong>: custom fields em qualquer entidade, automação por templates versionados, motor de regras editável pelo gestor, importação inteligente que aprende. Cada órgão moldando, sem virar bloqueio do fornecedor da plataforma.</p>
+  <div class="kpi-bar">
+    <div class="kpi"><div class="n">8</div><div class="l">Domínios Schema-as-Code</div></div>
+    <div class="kpi"><div class="n">12</div><div class="l">Tipos de Custom Field</div></div>
+    <div class="kpi"><div class="n">13</div><div class="l">Sub-domínios workflow</div></div>
+    <div class="kpi"><div class="n">9</div><div class="l">Formatos no Onboarding IA</div></div>
+    <div class="kpi"><div class="n">22</div><div class="l">Action Executors prontos</div></div>
+  </div>
+</section>
+
+<h2><span class="num">01</span>Schema-as-Code · 8 domínios versionados com governança</h2>
+<p class="lead">Configurações estruturais viram <strong>artefatos versionados</strong>: draft → aprovação two-person-rule → versão imutável publicada → binding por ambiente → rollback seguro. O órgão evita o caos da "configuração-em-produção sem trilha" — sem perder agilidade.</p>
+
+<table class="std">
+  <tr><th>Domínio</th><th>O que governa</th></tr>
+  <tr><td class="b">CUSTOM_FIELD</td><td>Campos customizados por entidade (12 tipos disponíveis)</td></tr>
+  <tr><td class="b">WORKFLOW</td><td>Templates de workflow operacional com steps + transições</td></tr>
+  <tr><td class="b">RULE</td><td>Regras do motor (gatilho × condição × ação)</td></tr>
+  <tr><td class="b">PLAYBOOK</td><td>Playbooks reutilizáveis (analyzer playbook, risk playbook)</td></tr>
+  <tr><td class="b">SLA</td><td>Definições de SLA + indicadores + calendário</td></tr>
+  <tr><td class="b">REF_TABLE</td><td>Tabelas de referência (enumerações customizáveis por org)</td></tr>
+  <tr><td class="b">FORM_LAYOUT</td><td>Layout de formulários por entity type</td></tr>
+  <tr><td class="b">COMPLIANCE_RULE</td><td>Regras do Compliance Engine (mapeadas por LegalFramework)</td></tr>
+</table>
+
+<div class="grid2" style="margin-top:24px">
+  <div class="cap">
+    <h4>ConfigDraftApproval · two-person-rule</h4>
+    <p>Cada draft precisa de aprovador distinto do criador. Decision APPROVED ou REJECTED com reasonText obrigatório. <strong>Imutável após decisão</strong> — pra mudar, novo draft. Unique constraint (draft_id, approver_user_id) previne reaprovação.</p>
+  </div>
+  <div class="cap">
+    <h4>ConfigEnvironmentBinding · promoção entre ambientes</h4>
+    <p>Mesma versão publicada pode ter binding <strong>DRAFT → HOMOLOGATION → PRODUCTION</strong> com timestamp e quem promoveu. Rollback emergencial via novo binding apontando parent_version. Auditável ponta-a-ponta.</p>
+  </div>
+</div>
+
+<h2><span class="num">02</span>Custom Fields · 12 tipos em qualquer entidade</h2>
+<p class="lead">O órgão precisa de "Número SIAFI" no Contrato? "Etapa do PPA" na OS? "Centro de custo SEI" no lançamento financeiro? Configurar sem código, com tipos certos, validação inline, visibilidade condicional, ordenação.</p>
+
+<table class="std">
+  <tr><th>Tipo</th><th>Para que serve</th></tr>
+  <tr><td class="b mono">TEXT · TEXTAREA</td><td>Texto curto e texto longo livres</td></tr>
+  <tr><td class="b mono">NUMBER · DECIMAL · CURRENCY</td><td>Numérico inteiro, decimal e monetário</td></tr>
+  <tr><td class="b mono">DATE · DATETIME</td><td>Data simples e data+hora</td></tr>
+  <tr><td class="b mono">BOOLEAN</td><td>Sim/Não</td></tr>
+  <tr><td class="b mono">SELECT · MULTI_SELECT · RADIO · CHECKBOX</td><td>Listas controladas (mono e multi)</td></tr>
+  <tr><td class="b mono">FILE</td><td>Upload de arquivo</td></tr>
+  <tr><td class="b mono">USER</td><td>Referência a usuário do sistema</td></tr>
+  <tr><td class="b mono">LOOKUP</td><td>Referência a outra entidade</td></tr>
+</table>
+
+<div class="callout">
+  <h4>Validação e visibilidade condicional</h4>
+  <p>Cada campo configura: minLength, maxLength, minValue, maxValue, pattern (regex) com patternMessage customizado. Visibilidade condicional via expressão FEEL — campo aparece só quando outro campo tem valor X. <strong>visibleInStatuses · editableInStatuses · requiredInStatuses</strong> em CSV permitem comportamento diferente por estado da entidade. <strong>visibleToRoles · editableByRoles</strong> aplicam RBAC granular por campo.</p>
+</div>
+
+<h2><span class="num">03</span>Workflow Engine · 13 capacidades de orquestração</h2>
+<p class="lead">Motor de workflow implementado dentro da plataforma, otimizado pro modelo de domínio de contratos administrativos brasileiros. As 13 capacidades cobrem todas as necessidades de orquestração tipo BPMN — incluindo a feature avançada de migração de instâncias em vivo (mudança de template sem reiniciar processos em andamento).</p>
+
+<table class="std">
+  <tr><th>Sub-domínio</th><th>Capacidade</th></tr>
+  <tr><td class="b">callback</td><td>WorkflowCallbackToken · espera resposta assíncrona de integração externa sem bloquear</td></tr>
+  <tr><td class="b">compensation</td><td>Saga pattern · rollback automático de steps em transações longas</td></tr>
+  <tr><td class="b">errorboundary</td><td>Captura exceções com retry/fallback/escalação por tipo de erro</td></tr>
+  <tr><td class="b">event</td><td>WorkflowEvent · pub/sub interno entre steps</td></tr>
+  <tr><td class="b">migration</td><td>WorkflowInstanceMigration com step_mappings JSON · <strong>atualiza template em vivo sem reiniciar instâncias</strong> em andamento</td></tr>
+  <tr><td class="b">modification</td><td>Pausa/retoma/pula steps em instâncias rodando · sem reiniciar</td></tr>
+  <tr><td class="b">multiinstance</td><td>Loop paralelo ou sequencial sobre coleção (cada item gera instância)</td></tr>
+  <tr><td class="b">script</td><td>WorkflowScriptExecution avalia expressão FEEL inline · FeelEvaluator/CamundaFeelEvaluator/FeelToSpelTranslator</td></tr>
+  <tr><td class="b">timer</td><td>WorkflowTimerEvent + WorkflowTimerEventLog · fixed/cron/relative · escalação automática</td></tr>
+  <tr><td class="b">sla</td><td>WorkflowStepSlaEnforcementService · SLA por step (não só por workflow inteiro)</td></tr>
+  <tr><td class="b">scheduler</td><td>Job scheduling assíncrono</td></tr>
+  <tr><td class="b">sourceoftruth</td><td>Canonical data source pra reconstrução de estado</td></tr>
+  <tr><td class="b">repository</td><td>Persistência das entidades de workflow</td></tr>
+</table>
+
+<h2><span class="num">04</span>Motor de Decisões DMN nativo · FEEL + BKMs</h2>
+<p class="lead">Decisões complexas viram tabelas DMN nativas sem dependência de Camunda DMN engine. Sandbox FEEL pra testar expressões em tempo real, editor XML DMN, Entity JSON tester, result box. Business Knowledge Models (BKMs) são funções reutilizáveis em FEEL.</p>
+
+<div class="grid3">
+  <div class="cap">
+    <h4>DecisionService</h4>
+    <p>Mapeamento de DRG reutilizáveis · <code>root_decision_ids</code> + <code>output_decision_ids</code> CSV. Pode ser invocado inline em workflow templates como sub-processo.</p>
+  </div>
+  <div class="cap">
+    <h4>DmnPlaygroundPage</h4>
+    <p>Sandbox visual: editor FEEL com syntax highlight · editor XML DMN raw · Entity JSON tester · result box em tempo real · export/import .dmn pra interop.</p>
+  </div>
+  <div class="cap">
+    <h4>BusinessKnowledgeModels</h4>
+    <p>BKMs com parâmetros JSON + body FEEL · funções reutilizáveis em múltiplas decisões. Hit policies DMN standard + COLLECT aggregations (SUM, MIN, MAX, COUNT, LIST).</p>
+  </div>
+</div>
+
+<h2><span class="num">05</span>Motor de Regras visual · 12 gatilhos × 22 ações</h2>
+<p class="lead">O gestor cria suas próprias automações no editor visual drag-drop. 12 tipos de gatilho × 22 Action Executors prontos. Sem código.</p>
+
+<table class="std">
+  <tr><th>Gatilhos (12)</th><th>Quando dispara</th></tr>
+  <tr><td class="b mono">STATUS_CHANGED</td><td>Status da entidade muda</td></tr>
+  <tr><td class="b mono">DEADLINE_REACHED</td><td>Prazo atingido</td></tr>
+  <tr><td class="b mono">SCHEDULED</td><td>Execução agendada (cron-like)</td></tr>
+  <tr><td class="b mono">FIELD_CHANGED</td><td>Campo específico alterado</td></tr>
+  <tr><td class="b mono">ENTITY_CREATED</td><td>Nova entidade criada</td></tr>
+  <tr><td class="b mono">MANUAL</td><td>Disparado manualmente via UI</td></tr>
+  <tr><td class="b mono">SLA_THRESHOLD_REACHED</td><td>SLA atingiu limiar (75%, 90%, 99%)</td></tr>
+  <tr><td class="b mono">MEASUREMENT_APPROVED</td><td>Medição SLA aprovada</td></tr>
+  <tr><td class="b mono">DEFLATOR_APPLIED</td><td>Quando o gestor aplica formalmente um deflator (notificações de seguimento, registro contábil, etc)</td></tr>
+  <tr><td class="b mono">DELIVERY_ARTIFACT_CREATED</td><td>entregável (artefato) submetido (Compliance Engine)</td></tr>
+  <tr><td class="b mono">DELIVERY_ANALYZED</td><td>Análise de entrega concluída</td></tr>
+  <tr><td class="b mono">COMPLIANCE_FINDING_RAISED</td><td>ComplianceFinding criado</td></tr>
+</table>
+
+<table class="std">
+  <tr><th>Ações (22) · agrupadas</th><th>Categoria</th></tr>
+  <tr><td class="b mono">MOVE_STATUS · SET_FIELD · ASSIGN_USER</td><td>Mutação direta</td></tr>
+  <tr><td class="b mono">CALCULATE_DEDUCTION · CREATE_FINANCIAL_ENTRY · SUGGEST_DEFLATOR</td><td>Financeiro / Glosa</td></tr>
+  <tr><td class="b mono">CREATE_HUMAN_TASK · CREATE_DIVERGENCE · CREATE_SLA_MEASUREMENT</td><td>Workflow / Operação</td></tr>
+  <tr><td class="b mono">CREATE_COMPLIANCE_FINDING · CREATE_NOTIFICATION · FLAG_AUDIT</td><td>Compliance / Auditoria</td></tr>
+  <tr><td class="b mono">SEND_EMAIL · SEND_WHATSAPP · SEND_TELEGRAM</td><td>Notificação multi-canal</td></tr>
+  <tr><td class="b mono">BLOCK_TRANSITION · BLOCK_OPERATION · REQUIRE_JUSTIFICATION</td><td>Bloqueio / Controle</td></tr>
+  <tr><td class="b mono">WEBHOOK · HTTP_REQUEST · CONNECTOR_ACTION · EXECUTE_SCRIPT</td><td>Integração externa</td></tr>
+</table>
+
+<h2><span class="num">06</span>Onboarding Inteligente · IA propõe estrutura a partir de docs</h2>
+<p class="lead">Cliente novo sobe documentos do processo dele. A IA analisa e propõe a estrutura: entidades a criar, custom fields necessários, workflow steps, automações iniciais. Wizard 4-step do upload ao deploy efetivo. <strong>Time to value drasticamente reduzido.</strong></p>
+
+<div class="grid2">
+  <div class="cap">
+    <h4>9 formatos suportados</h4>
+    <p>XLSX · XLS · CSV · DOCX · DOC · PDF · TXT · EML · MSG. Upload drag-drop com sidebar de arquivos enviados + resumo da proposta gerada pela IA.</p>
+  </div>
+  <div class="cap">
+    <h4>Proposta estruturada</h4>
+    <p><code>processName · entities · fields · workflow.steps · automations</code>. Re-edit a partir do <strong>interface dedicada</strong> (histórico). Deploy efetivo via <strong>interface dedicada</strong> wizard 4-step (upload → descrição → proposta IA → deploy).</p>
+  </div>
+</div>
+
+<h2><span class="num">07</span>Spreadsheet Mapper IA · importação em lote auto-aprendente</h2>
+<p class="lead">Sua equipe joga uma planilha (OS, fornecedores, profissionais, itens de catálogo) no sistema. A IA detecta colunas, sugere mapeamento, importa 1 vez. Da próxima planilha similar, o sistema reconhece pelo fingerprint Jaccard determinístico e auto-aplica o mapeamento — só pede 1 clique de confirmação.</p>
+
+<div class="grid2">
+  <div class="cap">
+    <h4>4 telas dedicadas</h4>
+    <p><strong>Motor de importação</strong> (preview + mapeamento sugerido por IA + validação) · <strong>Workspace de rascunhos</strong> (retomar importação interrompida) · <strong>Dashboard de jobs</strong> (monitoramento de execução) · <strong>Catálogo de templates</strong> (mapeamentos aprendidos reusáveis).</p>
+  </div>
+  <div class="cap">
+    <h4>4 prompts especialistas + consent LGPD</h4>
+    <p>APF_IFPUG · SERVICE_ORDER · MEASUREMENT · GENERIC baseline. Consent guard com 3 níveis (STRUCTURE_ONLY · STRUCTURE_PLUS_MASKED_SAMPLE · STRUCTURE_PLUS_RAW_SAMPLE) com janela 24h. Anti-prompt-injection via regex + nonce.</p>
+  </div>
+</div>
+
+<h2><span class="num">08</span>Tema, mensagens e identidade por organização</h2>
+<p class="lead">Cada cliente preserva sua identidade visual e tom de voz. A plataforma some no plano de fundo.</p>
+
+<table class="std">
+  <tr><th>Customização</th><th>Como funciona</th></tr>
+  <tr><td class="b">Aparência</td><td>Logo, cores accent + categorias (8+), tipografia, dark/light/system, paletas predefinidas. Live preview enquanto edita.</td></tr>
+  <tr><td class="b">Labels do sistema</td><td>"OS" pode virar "Ordem de Execução". Sobrescrição via cascata: org override → global override → fallback padrão.</td></tr>
+  <tr><td class="b">Mensagens (i18n)</td><td>HybridMessageSource com cascata 3 níveis · Caffeine cache 60s TTL · 10k entries max · hot-reload sem Redis pub/sub.</td></tr>
+  <tr><td class="b">Mensagens sensíveis</td><td>Tags <code>sensitive:financial</code> · <code>sensitive:legal</code> · <code>sensitive:auth</code> exigem approval workflow (decisão arquitetural documentada). Two-eyes obrigatório pra mudança em texto que pode virar prejuízo.</td></tr>
+</table>
+
+<h2><span class="num">09</span>Conectores genéricos via YAML</h2>
+<p class="lead">Integração com sistemas externos (SAP, ComprasNet, TCU, Receita Federal, ERPs financeiros) modelada como Conector + manifesto declarativo em YAML com proteção contra injeção. Dispara ações via motor de regras e suporta consulta periódica agendada (cron-like) para sistemas sem webhook.</p>
+
+<h2><span class="num">10</span>Integrações governamentais brasileiras · prontas pra plugar</h2>
+<p class="lead">Dois manifestos pré-mapeados, disponíveis no repositório de exemplos da plataforma, prontos para ativação assim que o cliente disponibilizar credenciais. Sem retrabalho de engenharia — apenas configuração.</p>
+
+<div class="grid2">
+  <div class="cap" style="border-color:var(--teal-br)">
+    <h4>eSocial · Consulta de Regularidade via Gateway</h4>
+    <p>Manifesto de Conector já configurado para os 4 gateways mais usados (<strong>TecnoSpeed</strong>, <strong>L2Maker</strong>, <strong>apireceita.com.br</strong>, <strong>TST/CNDT gratuito</strong>). Cobre 4 consultas (Regularidade FGTS, CND Federal PGFN/RFB, CNDT TST, Situação CNPJ) e 2 envios de evento (S-1000 cadastro empregador, S-2200 admissão).</p>
+    <p style="margin-top:8px"><strong>Gatilhos pré-configurados:</strong> consulta automática ao cadastrar novo Vendor · bloqueio de pagamento se CNDT positiva · revisão periódica mensal de fornecedores ativos. Resultado vira campo do próprio Vendor com status agregado (OK · Atenção · Bloqueado).</p>
+    <div class="meta">Pré-requisito do cliente: contratar 1 gateway e fornecer chave de API</div>
+  </div>
+  <div class="cap" style="border-color:var(--teal-br)">
+    <h4>gov.br · Login Único do Cidadão · provedor OIDC</h4>
+    <p>Manifesto de Provider OIDC já configurado com endpoints corretos de <strong>staging</strong> e <strong>produção</strong>, protocolo de segurança OAuth padrão, mapeamento de identidade (sub, email, name, CPF, nível de confiabilidade Bronze/Prata/Ouro), step-up automático para ações sensíveis (ex: exigir Ouro para fechamento de contrato &gt; R$ 100k).</p>
+    <p style="margin-top:8px"><strong>Pré-requisito legal:</strong> credenciamento por servidor com conta Prata/Ouro do órgão contratante. Aplicação tem que estar hospedada em domínio oficial (<code>.gov.br</code>, <code>.mil.br</code>, <code>.jus.br</code>, <code>.tc.br</code>, etc.) conforme Portaria SGD/MGI nº 7.076/2024. Staging permite demonstração imediata.</p>
+    <div class="meta">Pré-requisito do cliente: credenciamento via integracaoid@gestao.gov.br</div>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>O caminho honesto de integração governamental</h4>
+  <p><strong>O sistema não promete integração nativa.</strong> Promete <strong>arquitetura pronta</strong>: o framework de Conectores YAML (item 09) e o NuPIdentify v2 SDK (Pilar 3) já entendem os contratos técnicos do eSocial-via-gateway e do gov.br OIDC. Os manifestos estão escritos. <strong>Falta apenas decisão comercial do cliente</strong>: contratar gateway (no caso do eSocial) e credenciar a instância no gov.br (em domínio oficial do órgão). A partir daí: configuração, não código.</p>
+</div>
+
+<div class="callout">
+  <h4>O significado real da Adaptabilidade</h4>
+  <p>Sem adaptabilidade, o EasyNuP seria mais uma plataforma SaaS rígida que obrigaria cada órgão a se adequar a ela. Com adaptabilidade, é o oposto: <strong>o sistema se molda ao jeito de cada órgão, mantendo o rigor estrutural</strong>. Configuração nova passa por draft, revisão e aprovação — não vira mudança-em-produção-sem-trilha. Gestor configura suas próprias automações sem virar refém da TI. Quando órgão muda regra, vira nova versão do template, e instâncias em curso podem migrar sem reiniciar. <strong>Esse é o ponto que separa ferramenta de plataforma.</strong></p>
+</div>
+
+<div class="back-strip">
+  <a href="/easynup2" class="back">← Voltar para a visão geral</a>
+  <div class="next-links">
+    <a href="/easynup2/pilares/gestao">← Pilar 4 · Gestão</a>
+    <a href="/easynup2/pilares/arcabouco-legal">Pilar 1 · Arcabouço Legal →</a>
+  </div>
+</div>
+
+<footer>
+  <p><strong>EasyNuP</strong> · plataforma NuPTechs · 2024–2026</p>
+  <p><a href="https://www.nuptechs.com">www.nuptechs.com</a> · <a href="https://www.nuptechs.com/sobre">sobre a empresa</a> · <a href="https://www.nuptechs.com/contato">fale conosco</a></p>
+</footer>
+
+</body>
+</html>

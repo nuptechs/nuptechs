@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EasyNuP · Auditoria — três faces da mesma verdade</title>
+<style>
+  :root{--bg:#0a0d14;--panel:#161a22;--panel2:#121621;--panel3:#1a1f2c;--line:#272c38;--line2:#1e2330;--line3:#33394a;--muted:#8a93a6;--muted2:#5d6679;--ink:#f1f5fb;--ink-dim:#c3cbdb;--ink-soft:#a1aabe;--core:#3b82f6;--core-bg:#0b2344;--core-br:#1e3a8a;--comm:#10b981;--comm-bg:#052e24;--comm-br:#065f46;--ai:#a855f7;--ai-bg:#24123f;--ai-br:#5b21b6;--ext:#f59e0b;--ext-bg:#2a1f0a;--ext-br:#78350f;--gold:#eab308;--gold-bg:#2a2109;--gold-br:#854d0e;--ok:#22c55e;--ok-bg:#06231a;--ok-br:#134e2c;--danger:#ef4444;--danger-bg:#2a0f11;--danger-br:#7f1d1d;--pink:#ec4899;--pink-bg:#2a0b1c;--pink-br:#9d174d;--teal:#14b8a6;--teal-bg:#062a26;--teal-br:#0f766e}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:1280px;margin:0 auto;padding:0 24px 96px}
+  code{font:12.5px ui-monospace,Menlo,monospace;background:#0a0d14;border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--ink-dim)}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .crumb a{color:var(--ink-dim)}
+  .crumb a:hover{color:var(--core)}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+  .sub-hero{padding:48px 0 40px;border-bottom:1px solid var(--line)}
+  .sub-hero .tag{display:inline-block;font-size:11px;color:var(--pink);background:var(--pink-bg);border:1px solid var(--pink-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .sub-hero h1{font-size:42px;line-height:1.1;letter-spacing:-0.03em;margin:0 0 16px;max-width:920px;font-weight:700}
+  .sub-hero h1 .grad{background:linear-gradient(120deg,#ec4899 0%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .sub-hero p.lead{font-size:17px;color:var(--ink-dim);margin:0 0 30px;max-width:880px;line-height:1.55}
+  .kpi-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:24px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px 16px}
+  .kpi .n{font-size:30px;font-weight:800;letter-spacing:-0.025em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+  .kpi .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:6px;font-weight:600}
+  h2{font-size:26px;margin:64px 0 8px;letter-spacing:-0.02em;line-height:1.2}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:14px;font-variant-numeric:tabular-nums}
+  h3{font-size:18px;margin:28px 0 10px;font-weight:600;letter-spacing:-0.01em}
+  p.lead{color:var(--ink-dim);max-width:900px;font-size:15.5px;line-height:1.6;margin:0 0 22px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .cap{background:var(--panel2);border:1px solid var(--line2);border-radius:10px;padding:14px 16px}
+  .cap h4{margin:0 0 6px;font-size:14px;color:var(--ink);font-weight:600}
+  .cap p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.5}
+  .cap p strong{color:var(--ink);font-weight:600}
+  .cap .meta{font-size:10.5px;color:var(--muted);margin-top:8px;padding-top:7px;border-top:1px solid var(--line2);font-style:italic}
+  table.std{width:100%;border-collapse:collapse;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+  table.std th,table.std td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+  table.std td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  table.std td.mono{font-family:ui-monospace,Menlo,monospace;color:var(--ink-dim);font-size:12px}
+  .callout{background:linear-gradient(135deg,var(--pink-bg) 0%,var(--ai-bg) 100%);border:1px solid var(--pink-br);border-radius:14px;padding:22px 26px;margin-top:32px}
+  .callout h4{color:var(--ink);font-size:16px;margin:0 0 8px}
+  .callout p{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.55}
+  .callout p strong{color:var(--ink)}
+  .pers{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+  .pers .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .pers .card h5{margin:0 0 6px;font-size:13px;color:var(--pink);font-weight:700;letter-spacing:0.04em;text-transform:uppercase}
+  .pers .card p{margin:0;color:var(--ink-dim);font-size:13px;line-height:1.5}
+  .back-strip{margin-top:64px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px;display:inline-flex;align-items:center;gap:8px}
+  .back-strip a.back:hover{color:var(--core)}
+  .back-strip .next-links{display:flex;gap:10px;flex-wrap:wrap}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-soft);padding:6px 12px;border:1px solid var(--line);border-radius:8px}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+  footer{color:var(--muted);margin-top:32px;font-size:12px;border-top:1px solid var(--line);padding-top:18px;line-height:1.7}
+  footer a{color:var(--ink-dim)}
+  @media (max-width:900px){.sub-hero h1{font-size:32px}.kpi-bar{grid-template-columns:repeat(2,1fr)}.grid2,.grid3,.pers{grid-template-columns:1fr 1fr}h2{font-size:22px}}
+</style>
+</head>
+<body>
+
+<div class="crumb">
+  <a href="/easynup2">EasyNuP</a> <span class="sep">›</span>
+  <a href="/easynup2#m3">Momento 3</a> <span class="sep">›</span>
+  <span class="now">Auditoria</span>
+</div>
+
+<section class="sub-hero">
+  <span class="tag">Momento 3 · Auditoria</span>
+  <h1>Três faces da mesma verdade · <span class="grad">operacional, jurídica, técnica</span></h1>
+  <p class="lead">Toda decisão precisa ser reconstruível com precisão matemática. Pagamento aprovado, glosa aplicada, OS aberta, escalação acionada — quem fez, quando, sob qual fundamentação. <strong>A auditoria não é módulo separado: é camada presente em cada ação do sistema</strong>, com cadeia cadeia criptográfica que detecta alteração que detecta qualquer alteração indevida no banco e indicadores que sustentam decisão sobre pagamento, glosa, multa e integridade.</p>
+  <div class="kpi-bar">
+    <div class="kpi"><div class="n">3</div><div class="l">Camadas de validação L1/L2/L3</div></div>
+    <div class="kpi"><div class="n">21</div><div class="l">Categorias de risco</div></div>
+    <div class="kpi"><div class="n">3</div><div class="l">Modelos LLM no comitê</div></div>
+    <div class="kpi"><div class="n">v3</div><div class="l">Versão da cadeia HMAC</div></div>
+    <div class="kpi"><div class="n">7</div><div class="l">Telas dedicadas</div></div>
+  </div>
+</section>
+
+<h2><span class="num">01</span>Cadeia cadeia criptográfica que detecta alteração · prova matemática reconstruível</h2>
+<p class="lead">Toda alteração em entidade auditável entra numa cadeia hash criptográfica encadeada. Mexer no banco quebra a cadeia. Reconciliação reconciliação exata entre serviços entre Java e Node garante consistência cross-service. Prova matemática verificável — vale em TCU, CGU, MPU, juízo.</p>
+
+<table class="std">
+  <tr><th>Elemento</th><th>Implementação verificada</th></tr>
+  <tr><td class="b">Versão da cadeia</td><td>Versão 3 · sincronizada bit-a-bit entre serviço Java (serviço Java) e serviço Node (gateway + chat IA)</td></tr>
+  <tr><td class="b">Genesis hash</td><td>Hash inicial determinístico, idêntico em todos os serviços, marca o início da cadeia por organização</td></tr>
+  <tr><td class="b">Algoritmo</td><td>HMAC-SHA256 · chave secreta exclusiva da instalação · padrão criptográfico amplamente aceito (RFC 2104)</td></tr>
+  <tr><td class="b">Input encadeado</td><td>Hash do registro anterior + tipo da entidade + ID + ação + usuário + data ISO + delta das mudanças + organização · ordem fixa</td></tr>
+  <tr><td class="b">Lock por organização</td><td>Bloqueio transacional dedicado por organização · previne escritas concorrentes que poderiam bifurcar a cadeia · idêntico em Java e Node</td></tr>
+  <tr><td class="b">Captura universal</td><td>Listener Hibernate intercepta toda inserção, atualização e remoção <strong>de qualquer entidade auditável</strong> · sem decorator manual em cada classe</td></tr>
+  <tr><td class="b">Falha em produção</td><td>Sem chave secreta configurada em produção, o sistema <strong>não sobe</strong> — fail-fast intencional · em desenvolvimento usa fallback explícito</td></tr>
+  <tr><td class="b">Métricas de auditoria</td><td>Contadores de sucesso e falha (com tag de causa) e tempo de escrita com percentis (mediana, p95, p99) expostos em formato Prometheus</td></tr>
+</table>
+
+<div class="callout">
+  <h4>O significado de "reconciliação exata entre serviços"</h4>
+  <p>Java (serviço Java) e gateway de integração compartilham a <strong>mesma cadeia HMAC</strong>. Quando Chat IA cria um lançamento via tool sensível, o registro entra na cadeia com o mesmo algoritmo + advisory lock que o Spring usa. <strong>A integridade não é por serviço — é por organização.</strong> Pacote compartilhado: <code>biblioteca compartilhada de auditoria</code>.</p>
+</div>
+
+<h2><span class="num">02</span>Compliance Engine em 3 camadas · custo escalonado</h2>
+<p class="lead">Validação por camadas: L1 determinística (rápida e barata), L2 com IA + RAG (quando precisa interpretação), L3 com comitê multi-LLM (quando severidade é bloqueante). Cada regra escolhe o motor adequado ao seu custo/qualidade.</p>
+
+<div class="grid3">
+  <div class="cap">
+    <h4>L1 · Determinística</h4>
+    <p>Analyzers locais paralelos no <strong>orquestrador de conformidade.java</strong>. Verificações regex, FEEL, scope check. Cria assessment status=COMPUTING, marca entregável (artefato).status=ANALYZING, executa lista de analyzers, agrega findings, marca COMPLETED ou FAILED. Resiliente: analyzer individual que falha não impede outros.</p>
+    <div class="meta">latência tipicamente &lt;1s · custo ~$0</div>
+  </div>
+  <div class="cap">
+    <h4>L2 · RAG + Claude</h4>
+    <p>Modelo modelo de IA jurídico com busca semântica em índice semântico isolado por organização (até 8 trechos relevantes por consulta, no namespace da organização). A IA é forçada a usar uma função estruturada (status PASS/FAIL/INDETERMINATE + raciocínio ≤600 chars + lista de citações). Cada citação é validada contra os trechos retornados — citação que não bate vira INDETERMINATE auditável, não falsa aprovação.</p>
+    <div class="meta">latência ~2-5s · custo típico ~$0.030</div>
+  </div>
+  <div class="cap">
+    <h4>L3 · Committee 3 LLMs</h4>
+    <p>Três modelos votam em paralelo: <strong>modelo de IA jurídico</strong> + <strong>Claude Opus</strong> + <strong>modelo de IA alternativo</strong>. Decisão por maioria simples (basta 2 dos 3 concordarem). Cada modelo com falha individual retorna INDETERMINATE com motivo — o comitê tolera até 1 falha. Se não houver maioria, o sistema marca divergência e exige revisão humana. Custo somado típico: cerca de $0,10 por validação.</p>
+    <div class="meta">latência 5-15s · usado em regras bloqueantes</div>
+  </div>
+</div>
+
+<h2><span class="num">03</span>Risk Analyzer · 21 categorias taxonomizadas (10 omissões + 11 defeitos)</h2>
+<p class="lead">A taxonomia de risco contratual do EasyNuP é frozen em código (<code>módulo dedicado</code>) — não muda por release sem auditoria. Cobre as omissões mais cobradas pelo TCU e os defeitos contratuais mais comuns em TI pública.</p>
+
+<div class="grid2">
+  <div class="cap">
+    <h4>10 OMISSIONS · cláusula obrigatória ausente</h4>
+    <p>OBJETO_VAGO · MATRIZ_RISCO · FISCAL_DESIGNADO · GARANTIA_EXECUCAO · CRITERIO_MEDICAO · SANCOES · REAJUSTE · LGPD · PROPRIEDADE_INTELECTUAL · NIVEIS_SERVICO_SLA</p>
+  </div>
+  <div class="cap">
+    <h4>11 DEFECTS · cláusula presente mas defeituosa</h4>
+    <p>FORO_INVALIDO · SANCAO_DESPROPORCIONAL · PRAZO_ABUSIVO · GARANTIA_EXCESSIVA · CLAUSULA_LEONINA · SLA_SEM_FORMULA · PI_AMBIGUO · DEPENDENCIA_FORNECEDOR · LGPD_RETENCAO · SUBCONTRATACAO_ABERTA · REFERENCIA_EXTERNA</p>
+  </div>
+</div>
+
+<h3>Workers do Risk Analyzer</h3>
+<table class="std">
+  <tr><th>Worker</th><th>Função</th></tr>
+  <tr><td class="b">componente dedicado</td><td>Orquestrador principal · clip documento ≤200k chars · modelo de IA jurídico com tool-use forçado SUBMIT_FINDINGS_TOOL</td></tr>
+  <tr><td class="b">componente dedicado</td><td>Aplica playbook cascade (org → leaf) com 4 rule types: severity_overrides · forbidden_patterns · numeric_thresholds · required_categories</td></tr>
+  <tr><td class="b">componente dedicado</td><td>3 modelos anotam paralelo · agrupa findings por (risk_category, evidence_kind, span proximity) · committee_agreement 3/3 → 1.0, 2/3 → 0.667</td></tr>
+  <tr><td class="b">componente dedicado</td><td>Geração de dataset sintético pra benchmark</td></tr>
+  <tr><td class="b">componente dedicado</td><td>Roda contratos do dataset, compara vs golden-set humano, persiste métricas (precision, recall, F1)</td></tr>
+  <tr><td class="b">componente dedicado</td><td>Valida que offsets das citações batem com documento real · auto-corrige ou rejeita</td></tr>
+</table>
+
+<div class="callout">
+  <h4>Sanitização e qualidade dos findings</h4>
+  <p>Findings com <code>achados com baixa confiança descartados</code> são descartados automaticamente. Severity floor por categoria (CRITICAL/HIGH/MEDIUM/LOW). <code>needs_human_review</code> ativa quando confidence intermediária. Rate limit: 5 análises/min por usuário (custo Anthropic real). Cache content-addressable via <code>buildRiskAnalysisCacheKey</code>.</p>
+</div>
+
+<h2><span class="num">04</span>Auditoria operacional · diff + trilha por entidade</h2>
+<p class="lead">A camada operacional registra "quem fez o quê, quando, sob qual estado". Diff antes/depois por campo, filtros multi-dimensionais, hash exportável como prova, visões segregadas por entidade.</p>
+
+<div class="grid3">
+  <div class="cap">
+    <h4>Painel de Auditoria</h4>
+    <p>Cards executivos: total de eventos, entidades únicas, ações no dia, indicador de integridade da cadeia (Verde/Amarelo/Vermelho). Charts 30 dias: atividade diária, distribuição por tipo de entidade, por tipo de ação (criação, atualização, remoção). Ranking dos usuários mais ativos.</p>
+    <div class="meta">visão consolidada por organização</div>
+  </div>
+  <div class="cap">
+    <h4>Auditoria por entidade</h4>
+    <p>Telas dedicadas para auditoria de Empresas, Contratos e Projetos — cada uma com visão filtrada do mesmo registro central, recortada pela entidade-alvo. KPI cards específicos (custo total, médias, horas), tabelas clicáveis com colunas ajustáveis.</p>
+    <div class="meta">recorte por área de interesse</div>
+  </div>
+  <div class="cap">
+    <h4>Histórico embedded em qualquer tela</h4>
+    <p>Componente de timeline expansível disponível em qualquer entidade do sistema. Diff lado-a-lado mostra valor antes e depois de cada mudança. Hash do registro visível como prova de integridade pra exportação.</p>
+    <div class="meta">linha do tempo + diff + hash exportável</div>
+  </div>
+</div>
+
+<h2><span class="num">05</span>Auditoria técnica · análise automatizada de segurança do código + Análise de qualidade do código</h2>
+<p class="lead">A camada técnica audita o próprio código entregue pelo fornecedor. Análise automática de segurança (estática e dinâmica), métricas de qualidade, vulnerabilidades, complexidade ciclomática.</p>
+
+<div class="grid2">
+  <div class="cap">
+    <h4>Achados de segurança do código integrados</h4>
+    <p>Achados de segurança chegam via webhook assinado (HMAC-SHA256, validação timing-safe). Mapeamento automático entre projeto analisado e contrato em andamento. 4 status: aberto, diagnosticado, corrigido, verificado. Captura controlada por permissão dedicada.</p>
+    <div class="meta">tela dedicada · controlada por permissão</div>
+  </div>
+  <div class="cap">
+    <h4>Análise de qualidade de código · 6 dimensões</h4>
+    <p>Upload de pacote (ZIP, JS, TS, Java, Python, C#, Go). Análise via parser de árvore sintática. Saída: contagem de arquivos/funções/classes/linhas, code smells (críticos/maiores/menores), hotspots de complexidade, vulnerabilidades, cobertura de testes, tendências históricas. Opcional: relatório IA estruturado. Exportação JSON + CSV por severidade.</p>
+    <div class="meta">parser de árvore sintática + scoring multidimensional</div>
+  </div>
+</div>
+
+<h2><span class="num">06</span>Auditoria jurídica · Compliance + Atesto Inteligente</h2>
+<p class="lead">A camada jurídica vincula tudo o que acontece a artigo/inciso da legislação aplicável. ComplianceFinding traz <code>citation_literal</code> + <code>sourceArticle</code> + <code>sourceOffsetStart/End</code>. Atesto Inteligente fundamenta parecer.</p>
+
+<div class="grid3">
+  <div class="cap">
+    <h4>ComplianceCheckResult</h4>
+    <p>validator_type_id (REGEX/RAG_LLM/COMMITTEE), validator_output (JSONB com chunk_id, citations, votos individuais do committee, reasoning), status (PASS/FAIL/INDETERMINATE/DISMISSED), denormaliza legal_obligation_id pra evitar JOIN.</p>
+    <div class="meta">defesa tribunal-ready</div>
+  </div>
+  <div class="cap">
+    <h4>Triggers de imutabilidade</h4>
+    <p>Gatilho no banco impede mutação de assessments concluídos (status COMPLETED ou FAILED). Decisões de finding (dismiss/resolve) também viram imutáveis após estado terminal — defesa em camada de dados, não só na aplicação.</p>
+    <div class="meta">imutabilidade no nível do banco</div>
+  </div>
+  <div class="cap">
+    <h4>Compliance Copilot</h4>
+    <p>Tela conversacional com RAG retrieval + LLM grounded. Pergunta livre → resposta com citations (chunk_id + text + article) + reasoning + actionsSuggested + latencyMs + model. Não inventa — sempre cita evidência.</p>
+    
+  </div>
+</div>
+
+<h2><span class="num">07</span>Risk Analytics + Benchmark · qualidade da análise IA</h2>
+<p class="lead">Não basta a IA analisar — precisa medir qualidade da análise. RiskAnalyticsPage mostra métricas executivas. RiskBenchmarkReview permite revisão humana de labels (cria golden-set). RiskPlaybooks customizam análise por contrato.</p>
+
+<table class="std">
+  <tr><th>Métrica</th><th>O que mede</th></tr>
+  <tr><td class="b">Total analyses · cache hits · failures</td><td>Volume e eficiência do pipeline</td></tr>
+  <tr><td class="b">Total cost USD · avg cost / analysis</td><td>Custo agregado e médio (Anthropic + OpenAI + Gemini)</td></tr>
+  <tr><td class="b">Latência p95 / avg (ms)</td><td>Tempo de resposta</td></tr>
+  <tr><td class="b">Citation grounding % (meta ≥95%)</td><td>Quanto das citações são válidas — proxy de "a IA não está inventando"</td></tr>
+  <tr><td class="b">Tier distribution RED / YELLOW / GREEN</td><td>Como contratos são classificados em risco</td></tr>
+  <tr><td class="b">Top categories · confirmed · false positives · critical count</td><td>Por categoria taxonomia: quantos achados, quantos confirmados em review humano, quantos foram false positive, quantos críticos</td></tr>
+</table>
+
+<h2><span class="num">08</span>Indicadores para decisão · painel consolidado</h2>
+<p class="lead">Tudo o que o gestor precisa pra <strong>dormir tranquilo ou agir antes da auditoria externa</strong> chegar. Combinação de fonte operacional + jurídica + técnica num painel único.</p>
+
+<div class="grid3">
+  <div class="cap"><h4>Pagamentos liberados (período)</h4><p>Soma de lançamento financeiro com status PAID no período · filtrável por contratante, fornecedor, contrato.</p></div>
+  <div class="cap"><h4>Glosas aplicadas</h4><p>Soma de ComplianceFinding com suggestedDeflator aplicado · valor retido + valor liberado após contestação.</p></div>
+  <div class="cap"><h4>Multas contratuais</h4><p>Penalidades formais aplicadas via cláusulas de sanção · histórico de execução.</p></div>
+  <div class="cap"><h4>OS abertas via IA</h4><p>Quantas Ordens de Serviço foram criadas via Chat IA com aprovação humana · auditoria do uso de IA.</p></div>
+  <div class="cap"><h4>Integridade da cadeia</h4><p>Label GOOD / WARNING / CRITICAL · refletindo verificação contínua do HMAC chain · com timestamp da última verificação.</p></div>
+  <div class="cap"><h4>SecurityEvent 24h</h4><p>Eventos rejeitados (login bloqueado, webhook HMAC inválido, permission denied) · agregados na janela 24h · alert level dinâmico.</p></div>
+</div>
+
+<h2><span class="num">09</span>Exportação probatória · pra auditoria externa</h2>
+<p class="lead">Qualquer trilha pode ser exportada com identificadores de integridade. Como cada audit_log carrega <code>hash</code> + <code>previous_hash</code> determinísticos (HmacSHA256), qualquer ferramenta externa consegue recomputar e validar a cadeia. ComplianceFinding com evidence + citation literal é defensável em tribunal. Não é PDF gerado dinamicamente — é prova matemática reconstruível.</p>
+
+<h2><span class="num">10</span>Quem opera a Auditoria</h2>
+<div class="pers">
+  <div class="card"><h5>Auditor interno</h5><p>Acompanha AuditDashboard + ActivityHistory · investiga divergências · exporta trilhas pra TCU/CGU/MPU.</p></div>
+  <div class="card"><h5>Comitê L3 Compliance</h5><p>Revisa findings BLOCKING que caíram em COMMITTEE_DISSENT · assina parecer com fundamentação · two-eyes obrigatório.</p></div>
+  <div class="card"><h5>CISO / SecOps</h5><p>Monitora SentinelFindings + SecurityEvent · gerencia eventos rejeitados · responde a incidentes de segurança em tempo real.</p></div>
+  <div class="card"><h5>Risk Officer</h5><p>Analisa RiskAnalytics · revisa golden-set via RiskBenchmarkReview · ajusta playbooks por tipo de contrato.</p></div>
+</div>
+
+<div class="back-strip">
+  <a href="/easynup2" class="back">← Voltar para a visão geral</a>
+  <div class="next-links">
+    <a href="/easynup2/setup">← Momento 1 · Setup</a>
+    <a href="/easynup2/execucao">← Momento 2 · Execução</a>
+  </div>
+</div>
+
+<footer>
+  <p><strong>EasyNuP</strong> · plataforma NuPTechs · 2024–2026</p>
+  <p><a href="https://www.nuptechs.com">www.nuptechs.com</a> · <a href="https://www.nuptechs.com/sobre">sobre a empresa</a> · <a href="https://www.nuptechs.com/contato">fale conosco</a></p>
+</footer>
+
+</body>
+</html>

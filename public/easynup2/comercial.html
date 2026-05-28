@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EasyNuP · Modelo comercial — TCO, ROI, cláusulas, modalidades de contratação</title>
+<style>
+  :root{
+    --bg:#0a0d14; --panel:#161a22; --panel2:#121621; --panel3:#1a1f2c;
+    --line:#272c38; --line2:#1e2330; --line3:#33394a;
+    --muted:#8a93a6; --muted2:#5d6679;
+    --ink:#f1f5fb; --ink-dim:#c3cbdb; --ink-soft:#a1aabe;
+    --core:#3b82f6; --core-bg:#0b2344; --core-br:#1e3a8a;
+    --comm:#10b981; --comm-bg:#052e24; --comm-br:#065f46;
+    --ai:#a855f7; --ai-bg:#24123f; --ai-br:#5b21b6;
+    --ext:#f59e0b; --ext-bg:#2a1f0a; --ext-br:#78350f;
+    --gold:#eab308; --gold-bg:#2a2109; --gold-br:#854d0e;
+    --ok:#22c55e; --ok-bg:#06231a; --ok-br:#134e2c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  body{max-width:1280px;margin:0 auto;padding:0 24px 96px}
+  code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;background:#0a0d14;border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--ink-dim)}
+  a{color:var(--core);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  .crumb{padding:18px 0 10px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+  .crumb a{color:var(--ink-dim);text-decoration:none}
+  .crumb .sep{margin:0 8px;color:var(--muted2)}
+  .crumb .now{color:var(--ink)}
+
+  .sub-hero{padding:48px 0 40px;border-bottom:1px solid var(--line)}
+  .sub-hero .tag{display:inline-block;font-size:11px;color:var(--gold);background:var(--gold-bg);border:1px solid var(--gold-br);padding:5px 13px;border-radius:999px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .sub-hero h1{font-size:42px;line-height:1.1;letter-spacing:-0.03em;margin:0 0 16px;max-width:920px;font-weight:700}
+  .sub-hero h1 .grad{background:linear-gradient(120deg,#eab308 0%,#10b981 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .sub-hero p.lead{font-size:17px;color:var(--ink-dim);margin:0 0 30px;max-width:880px;line-height:1.55}
+
+  h2{font-size:26px;margin:64px 0 8px;letter-spacing:-0.02em;line-height:1.2}
+  h2 .num{color:var(--muted);font-weight:500;margin-right:14px;font-variant-numeric:tabular-nums}
+  h3{font-size:18px;margin:28px 0 10px;color:var(--ink);font-weight:600}
+  p.lead{color:var(--ink-dim);max-width:900px;font-size:15.5px;line-height:1.6;margin:0 0 22px}
+
+  /* tier */
+  .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+  .tier{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px 26px;display:flex;flex-direction:column;position:relative}
+  .tier.featured{border-color:var(--core);background:linear-gradient(180deg,var(--core-bg) 0%,var(--panel) 80%)}
+  .tier .ribbon{position:absolute;top:-12px;right:24px;background:var(--core);color:white;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:6px;font-weight:700}
+  .tier .name{font-size:13px;color:var(--core);letter-spacing:0.12em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+  .tier h4{font-size:22px;color:var(--ink);font-weight:700;margin:0 0 8px;letter-spacing:-0.02em}
+  .tier .pitch{font-size:13.5px;color:var(--ink-dim);line-height:1.55;margin:0 0 18px}
+  .tier .ref-price{font-size:15px;color:var(--ink);font-weight:600;margin-bottom:18px}
+  .tier .ref-price b{color:var(--core);font-variant-numeric:tabular-nums;font-weight:700}
+  .tier .ref-price .small{display:block;font-size:11.5px;color:var(--muted);margin-top:4px;font-weight:500}
+  .tier ul{margin:0 0 18px;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .tier ul li{font-size:13px;color:var(--ink-dim);line-height:1.5;display:flex;gap:8px}
+  .tier ul li::before{content:"✓";color:var(--comm);font-weight:700;flex-shrink:0}
+  .tier ul li.x::before{content:"—";color:var(--muted)}
+
+  /* calc */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+  .calc-card{background:linear-gradient(135deg,var(--panel) 0%,var(--panel3) 100%);border:1px solid var(--line);border-radius:14px;padding:24px}
+  .calc-card h4{margin:0 0 16px;font-size:17px;color:var(--ink)}
+  .calc-line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dotted var(--line2);font-size:13.5px;color:var(--ink-dim)}
+  .calc-line:last-child{border-bottom:none}
+  .calc-line .v{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+  .calc-line.total{border-top:2px solid var(--line);margin-top:10px;padding-top:14px;font-size:15.5px;color:var(--ink);font-weight:700}
+  .calc-line.total .v{font-size:18px;color:var(--gold)}
+  .calc-line.total.comm .v{color:var(--comm)}
+
+  table.std{width:100%;border-collapse:collapse;margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
+  table.std th,table.std td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
+  table.std th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.07em;background:#0e1219}
+  table.std tr:last-child td{border-bottom:none}
+  table.std td.b{color:var(--ink);font-weight:600}
+  table.std td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+
+  .callout{background:linear-gradient(135deg,var(--core-bg) 0%,var(--ai-bg) 100%);border:1px solid var(--core-br);border-radius:14px;padding:22px 26px;margin-top:24px}
+  .callout h4{color:var(--ink);font-size:16px;margin:0 0 8px}
+  .callout p{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.55}
+  .callout p strong{color:var(--ink)}
+
+  .clause-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:18px}
+  .clause{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+  .clause h5{margin:0 0 8px;font-size:14px;color:var(--core);text-transform:uppercase;letter-spacing:0.08em;font-weight:700}
+  .clause p{margin:0;color:var(--ink-dim);font-size:13.5px;line-height:1.6;font-family:Georgia,serif;font-style:italic}
+  .clause p strong{color:var(--ink);font-style:normal;font-weight:600}
+
+  .back-strip{margin-top:64px;padding:22px 0;border-top:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .back-strip a.back{color:var(--ink-dim);font-size:14px;display:inline-flex;align-items:center;gap:8px}
+  .back-strip a.back:hover{color:var(--core)}
+  .back-strip .next-links{display:flex;gap:10px;flex-wrap:wrap}
+  .back-strip .next-links a{font-size:12.5px;color:var(--ink-soft);padding:6px 12px;border:1px solid var(--line);border-radius:8px}
+  .back-strip .next-links a:hover{border-color:var(--core);color:var(--core)}
+
+  footer{color:var(--muted);margin-top:32px;font-size:12px;border-top:1px solid var(--line);padding-top:18px;line-height:1.7}
+  footer a{color:var(--ink-dim)}
+
+  @media (max-width:900px){
+    .sub-hero h1{font-size:32px}
+    .tier-grid,.calc-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<nav class="crumb">
+  <a href="/easynup2">EasyNuP</a> <span class="sep">›</span>
+  <span class="now">Modelo comercial</span>
+</nav>
+
+<section class="sub-hero">
+  <span class="tag">Para Comissão de Contratação · CFO · controle interno</span>
+  <h1>Modelo comercial <span class="grad">transparente</span> · TCO calculado · cláusulas modelo.</h1>
+  <p class="lead">Tudo o que sua Comissão de Contratação, o financeiro e o controle interno vão pedir antes de aprovar a aquisição: três tiers de licenciamento com preço de referência, TCO em 3 anos comparado a cenário-base, calculadora ROI por porte de carteira, modelos de cláusula contratual em LGPD/portabilidade/SLA, modalidades de contratação viáveis e workshop sem custo para construção de ETP/TR.</p>
+</section>
+
+<h2><span class="num">01</span>Tiers de licenciamento</h2>
+<p class="lead">Modelo SaaS por <strong>carteira contratual sob gestão</strong> (volume + complexidade), não por usuário — alinhado à dinâmica do setor público onde número de fiscais é fixo mas carteira cresce. Preços de referência abaixo; ajuste fino conforme escopo, modalidade de implantação e exigências de conformidade.</p>
+
+<div class="tier-grid">
+  <div class="tier">
+    <div class="name">Starter</div>
+    <h4>Para órgão pequeno</h4>
+    <p class="pitch">Até 20 contratos de TI ativos · até 30 usuários · 1 ambiente (produção). Ideal para pilotos, secretarias menores, autarquias compactas.</p>
+    <div class="ref-price"><b>R$ 8-12 mil/mês</b><span class="small">faixa de referência · cotação final sob consulta</span></div>
+    <ul>
+      <li>Plataforma SaaS em nuvem nacional</li>
+      <li>5 modelos de remuneração TI · TRP/TRD · IMR/SLA</li>
+      <li>IA com 3 níveis de controle humano</li>
+      <li>Auditoria criptográfica · exportação probatória</li>
+      <li>Suporte por e-mail · resposta em 1 dia útil</li>
+      <li>Implantação 6 semanas</li>
+      <li class="x">Sem ambiente de homologação dedicado</li>
+      <li class="x">Sem integrações governamentais customizadas</li>
+      <li class="x">Sem opção on-premise</li>
+    </ul>
+  </div>
+
+  <div class="tier featured">
+    <span class="ribbon">Recomendado</span>
+    <div class="name">Profissional</div>
+    <h4>Para órgão médio</h4>
+    <p class="pitch">Até 80 contratos de TI ativos · até 120 usuários · 2 ambientes (produção + homologação). Cobre a maioria dos órgãos médios brasileiros.</p>
+    <div class="ref-price"><b>R$ 25-40 mil/mês</b><span class="small">faixa de referência · cotação final sob consulta</span></div>
+    <ul>
+      <li>Tudo do Starter, mais:</li>
+      <li>Workflow visual com 5 modelos pré-prontos</li>
+      <li>Onboarding inteligente + importação adaptativa</li>
+      <li>Comitê multi-modelo de IA (validação L3)</li>
+      <li>Integração eSocial (gateway de regularidade)</li>
+      <li>Integração gov.br Login Único</li>
+      <li>Suporte 12×5 · SLA 4h em incidente alto</li>
+      <li>Workshop de implantação 16h presencial/remoto</li>
+      <li>Implantação 12 semanas</li>
+    </ul>
+  </div>
+
+  <div class="tier">
+    <div class="name">Enterprise</div>
+    <h4>Para órgão grande · on-premise</h4>
+    <p class="pitch">Carteira ilimitada · usuários ilimitados · ambientes ilimitados · on-premise ou nuvem privada do cliente. Para órgãos federais grandes, tribunais superiores, grandes universidades.</p>
+    <div class="ref-price"><b>A partir de R$ 80 mil/mês</b><span class="small">+ implantação · cotação sob consulta</span></div>
+    <ul>
+      <li>Tudo do Profissional, mais:</li>
+      <li>Instalação on-premise ou nuvem privada</li>
+      <li>Cofre de chave criptográfica em HSM dedicado</li>
+      <li>Integrações customizadas (SEI, SIAFI, Receita)</li>
+      <li>SLA contratual com crédito por descumprimento</li>
+      <li>Suporte 24×7 · SLA 1h em incidente crítico</li>
+      <li>DPO designado dedicado · canal direto</li>
+      <li>Roadmap colaborativo · prioridade de feature</li>
+      <li>Implantação 16-24 semanas</li>
+    </ul>
+  </div>
+</div>
+
+<h2><span class="num">02</span>TCO de referência · 3 anos</h2>
+<p class="lead">Comparação entre adotar o EasyNuP (tier Profissional) e seguir com o cenário-base atual em órgão típico com 60 contratos de TI ativos sob gestão (carteira média R$ 80 milhões).</p>
+
+<div class="calc-grid">
+  <div class="calc-card">
+    <h4>Cenário A · adotar EasyNuP Profissional</h4>
+    <div class="calc-line"><span>Licença SaaS (R$ 30 mil/mês × 36 meses)</span><span class="v">R$ 1,08M</span></div>
+    <div class="calc-line"><span>Implantação inicial (12 semanas)</span><span class="v">R$ 120k</span></div>
+    <div class="calc-line"><span>Treinamento contínuo (anual)</span><span class="v">R$ 30k</span></div>
+    <div class="calc-line"><span>Integrações customizadas (1ª)</span><span class="v">R$ 40k</span></div>
+    <div class="calc-line total"><span>Total investido em 3 anos</span><span class="v">R$ 1,27M</span></div>
+  </div>
+  <div class="calc-card">
+    <h4>Cenário B · seguir com planilha + ferramenta genérica</h4>
+    <div class="calc-line"><span>Licenças de ferramentas atuais (estimativa)</span><span class="v">R$ 90k</span></div>
+    <div class="calc-line"><span>Horas operacionais perdidas com controle manual<br><span style="color:var(--muted);font-size:11px;font-weight:500">(4 fiscais × 20h/semana × 50 semanas × R$ 80/h × 3 anos)</span></span><span class="v">R$ 960k</span></div>
+    <div class="calc-line"><span>Glosa contratual não-exercida (1% da carteira/ano)<br><span style="color:var(--muted);font-size:11px;font-weight:500">(R$ 800k × 3 anos)</span></span><span class="v">R$ 2,4M</span></div>
+    <div class="calc-line"><span>Risco regulatório (provisão conservadora)</span><span class="v">R$ 200k</span></div>
+    <div class="calc-line total"><span>Custo total do "não-fazer"</span><span class="v">R$ 3,65M</span></div>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>Diferença líquida em 3 anos: R$ 2,38 milhões a favor do EasyNuP</h4>
+  <p>Premissa conservadora: apenas <strong>1% da carteira em glosa fundamentada antes não exercida</strong> + <strong>50% das horas operacionais economizadas</strong> + provisão pequena de risco regulatório. <strong>ROI esperado: ~187%</strong> em 3 anos. Sem contar ganho qualitativo (auditoria zero-achado, redução de exposição pessoal do fiscal).</p>
+</div>
+
+<h2><span class="num">03</span>Modalidades de contratação · três caminhos legais</h2>
+
+<table class="std">
+  <tr>
+    <th>Modalidade</th>
+    <th>Base legal</th>
+    <th>Quando usar</th>
+    <th>Prazo típico</th>
+  </tr>
+  <tr>
+    <td class="b">Pregão eletrônico</td>
+    <td>Lei 14.133 arts. 28-29 · IN SGD/ME 94</td>
+    <td>Padrão para serviços de TI. ETP/TR pré-modelado fornecemos como referência. Critério: menor preço com requisitos técnicos mínimos qualificadores.</td>
+    <td>3-5 meses do edital ao contrato</td>
+  </tr>
+  <tr>
+    <td class="b">Dispensa por inexigibilidade</td>
+    <td>Lei 14.133 art. 74 III "a"</td>
+    <td>Quando órgão consegue demonstrar que combinação de requisitos (Lei 14.133 nativa + auditoria criptográfica + 5 modelos TI + on-premise viável) é exclusiva no mercado. Modelo de parecer disponível.</td>
+    <td>1-2 meses</td>
+  </tr>
+  <tr>
+    <td class="b">Credenciamento marketplace gov.br</td>
+    <td>Lei 14.133 art. 75 II</td>
+    <td>Para órgãos federais com permissão de uso do marketplace · projetos-piloto até R$ 50 mil/12 meses. Útil para validar antes de processo maior.</td>
+    <td>2-4 semanas</td>
+  </tr>
+  <tr>
+    <td class="b">Dispensa por valor</td>
+    <td>Lei 14.133 art. 75 II</td>
+    <td>Valor abaixo do limite legal (2026: R$ 57.512 para compra; R$ 115.024 para obras). Apenas piloto curto Starter.</td>
+    <td>1-3 semanas</td>
+  </tr>
+  <tr>
+    <td class="b">Adesão a ata de Registro de Preços</td>
+    <td>Lei 14.133 art. 86</td>
+    <td>Se órgão "carona" puder aderir a ARP já vigente de outro órgão. Em discussão com órgãos parceiros.</td>
+    <td>2-4 semanas</td>
+  </tr>
+</table>
+
+<h2><span class="num">04</span>Workshop sem custo · construção de ETP e TR</h2>
+<p class="lead">A NuPtechs oferece um workshop de 4 horas <strong>sem custo</strong> para áreas técnicas que estão estruturando ETP/TR de contratação de plataforma de gestão de contratos de TI.</p>
+
+<table class="std">
+  <tr>
+    <th>O que entregamos</th>
+    <th>Característica importante</th>
+  </tr>
+  <tr><td class="b">Minuta inicial de ETP</td><td>Agnóstica de fornecedor · baseada em IN SGD/ME 94</td></tr>
+  <tr><td class="b">Minuta inicial de TR</td><td>Com requisitos técnicos mínimos não-restritivos</td></tr>
+  <tr><td class="b">Mapa de risco</td><td>Riscos típicos de plataforma SaaS de gestão contratual</td></tr>
+  <tr><td class="b">Matriz de critérios técnicos</td><td>O que pedir e o que NÃO pedir (evita direcionamento)</td></tr>
+  <tr><td class="b">Cálculo preliminar de valor estimado</td><td>Baseado em referências de mercado</td></tr>
+</table>
+
+<div class="callout">
+  <h4>Sem amarração</h4>
+  <p>O workshop é genuinamente agnóstico: os documentos produzidos servem para que o órgão contrate <strong>qualquer fornecedor</strong> — inclusive a competição. É posicionamento de mercado consciente: confiamos que a comparação técnica nos favorece. Solicitação via <a href="mailto:contato@nuptechs.com?subject=Workshop%20ETP%20TR">contato@nuptechs.com</a>.</p>
+</div>
+
+<h2><span class="num">05</span>Cláusulas contratuais modelo</h2>
+<p class="lead">Modelos que recomendamos sejam incorporados ao instrumento contratual — protegem o cliente e formalizam os compromissos do fornecedor.</p>
+
+<div class="clause-grid">
+  <div class="clause">
+    <h5>Cláusula 1 · Portabilidade de dados</h5>
+    <p>"Em caso de rescisão contratual, a <strong>CONTRATADA garante exportação completa dos dados</strong> em formato JSON aberto com schema documentado público + CSV plano por entidade, em prazo não superior a <strong>30 (trinta) dias úteis</strong>, sem custo adicional. A CONTRATADA disponibiliza ainda, pelo mesmo prazo, <strong>90 dias de acesso em modo somente-leitura</strong> à plataforma para execução de exportações adicionais."</p>
+  </div>
+  <div class="clause">
+    <h5>Cláusula 2 · Disponibilidade e SLA</h5>
+    <p>"A CONTRATADA compromete-se com <strong>disponibilidade mensal mínima de 99,5%</strong> da plataforma, com janela de manutenção programada não excedente a <strong>4 horas mensais</strong> em horário não-comercial. Descumprimento gera crédito proporcional na fatura do mês seguinte, escalonado pela duração do incidente, conforme tabela: 99,0%-99,5% = 5% de crédito; 95,0%-99,0% = 10%; abaixo de 95,0% = 25% + direito de rescisão sem ônus."</p>
+  </div>
+  <div class="clause">
+    <h5>Cláusula 3 · LGPD · controlador-operador</h5>
+    <p>"As partes reconhecem expressamente que a <strong>CONTRATANTE é controladora</strong> dos dados pessoais tratados na plataforma, definindo finalidades e meios; a <strong>CONTRATADA atua como operadora</strong> conforme art. 5º incisos VI e VII da Lei 13.709/2018. A CONTRATADA notificará a CONTRATANTE de qualquer incidente de segurança envolvendo dados pessoais em prazo <strong>não superior a 48 (quarenta e oito) horas</strong>, com relatório técnico completo."</p>
+  </div>
+  <div class="clause">
+    <h5>Cláusula 4 · Conformidade IA</h5>
+    <p>"A CONTRATADA declara que o sistema de IA empregado: (a) <strong>não utiliza dados da CONTRATANTE para treinamento</strong> dos modelos do provedor; (b) registra toda interação com IA na cadeia auditável; (c) mantém arquitetura de <strong>supervisão humana significativa</strong> em ações com impacto administrativo, conforme requisitos do EU AI Act (aplicável a partir de 08/2026) e do Projeto de Lei 2338/2023."</p>
+  </div>
+  <div class="clause">
+    <h5>Cláusula 5 · Roadmap de certificações (opcional)</h5>
+    <p>"A CONTRATADA <strong>compromete-se a obter as seguintes certificações</strong> nos prazos máximos estabelecidos: SOC 2 Tipo I até 31/12/2026; ISO/IEC 27001 até 30/06/2027; ISO/IEC 27701 até 31/12/2027. Atraso superior a <strong>90 (noventa) dias</strong> em qualquer marco autoriza a CONTRATANTE a rescindir o contrato sem ônus, mantida a garantia de portabilidade prevista na Cláusula 1."</p>
+  </div>
+  <div class="clause">
+    <h5>Cláusula 6 · Hospedagem de IA (opcional)</h5>
+    <p>"A CONTRATADA configura a plataforma para que <strong>todo processamento de IA ocorra em provedores hospedados em território brasileiro</strong> ou em provedor self-hosted na infraestrutura on-premise da CONTRATANTE, garantindo conformidade com requisitos de residência de dados quando aplicáveis. Mudanças nessa configuração exigem aprovação prévia da CONTRATANTE."</p>
+  </div>
+</div>
+
+<h2><span class="num">06</span>Próximos passos</h2>
+
+<table class="std">
+  <tr><th>Etapa</th><th>O que acontece</th><th>Quem inicia</th></tr>
+  <tr>
+    <td class="b">1 · Conversa inicial</td>
+    <td>15 minutos por telefone/vídeo · qualificação rápida do porte e necessidade</td>
+    <td>cliente solicita via e-mail</td>
+  </tr>
+  <tr>
+    <td class="b">2 · Demonstração técnica</td>
+    <td>45 minutos · sobre contrato real do cliente · sem PowerPoint, com o sistema rodando</td>
+    <td>NuPtechs agenda em 48h</td>
+  </tr>
+  <tr>
+    <td class="b">3 · Workshop ETP/TR (opcional · sem custo)</td>
+    <td>4 horas · entrega das minutas iniciais</td>
+    <td>cliente solicita</td>
+  </tr>
+  <tr>
+    <td class="b">4 · Documentação técnica sob NDA</td>
+    <td>RIPD modelo, mapeamento Lei 14.133, contratos de provedores IA</td>
+    <td>após NDA assinado</td>
+  </tr>
+  <tr>
+    <td class="b">5 · Proposta comercial formal</td>
+    <td>Cotação detalhada · TCO custom · cronograma de implantação</td>
+    <td>após validação técnica</td>
+  </tr>
+  <tr>
+    <td class="b">6 · Modalidade de contratação</td>
+    <td>Apoio na construção do processo (pregão, dispensa, credenciamento)</td>
+    <td>NuPtechs disponibiliza referências</td>
+  </tr>
+</table>
+
+<div class="callout">
+  <h4>Contato direto</h4>
+  <p>Agendamento de qualquer etapa via <a href="mailto:contato@nuptechs.com?subject=Comercial%20EasyNuP">contato@nuptechs.com</a>. Tempo médio de resposta: <strong>1 dia útil</strong> para conversa inicial, <strong>48 horas</strong> para agendamento de demo.</p>
+</div>
+
+<nav class="back-strip">
+  <a href="/easynup2" class="back">← Voltar para a visão geral</a>
+  <div class="next-links">
+    <a href="/easynup2/arquitetura">Arquitetura →</a>
+    <a href="/easynup2/conformidade">Conformidade →</a>
+    <a href="/easynup2/implantacoes">Implantações →</a>
+  </div>
+</nav>
+
+<footer>
+  <p>EasyNuP · plataforma NuPTechs · informações comerciais · <a href="mailto:contato@nuptechs.com">contato@nuptechs.com</a></p>
+</footer>
+
+</body>
+</html>
