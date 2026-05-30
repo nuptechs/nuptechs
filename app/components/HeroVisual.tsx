@@ -54,7 +54,7 @@ export default function HeroVisual() {
               </svg>
             </span>
             <span className="hero-dashboard__feed-text">
-              Sprint <strong>FlowOps</strong> iniciado
+              Sprint <strong>EasyNuP</strong> iniciado
             </span>
             <span className="hero-dashboard__feed-time">2h</span>
           </div>
@@ -77,7 +77,7 @@ export default function HeroVisual() {
               </svg>
             </span>
             <span className="hero-dashboard__feed-text">
-              <strong>DataPulse</strong> — 99.9% uptime
+              <strong>NuPIdentify</strong> — 99.9% uptime
             </span>
             <span className="hero-dashboard__feed-time">1d</span>
           </div>
