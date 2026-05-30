@@ -167,9 +167,9 @@ const values = [
 
 const milestones = [
   { year: "2022", event: "Fundação da NuPtechs em Brasília com foco em automação e sistemas sob medida." },
-  { year: "2023", event: "Primeiros 100 projetos entregues. Lançamento dos produtos FlowOps e DataPulse em beta." },
-  { year: "2024", event: "Expansão para clientes em toda a América Latina. Linha de produtos SaaS: 6 produtos lançados." },
-  { year: "2025", event: "Internacionalização: site, atendimento e contratos em PT, EN e ES. +200 projetos entregues." },
+  { year: "2023", event: "Primeiros 100 projetos entregues. Primeiras plataformas internas em produção (EasyNuP, NuPIdentify)." },
+  { year: "2024", event: "Expansão para clientes em toda a América Latina. Suite de produtos cresce com NuP-School, NuP-Sales, NuP-Sentinel e nupai-gateway." },
+  { year: "2025", event: "Internacionalização: site, atendimento e contratos em PT, EN e ES. 15 produtos próprios em produção, +200 projetos entregues." },
 ];
 
 const team = [

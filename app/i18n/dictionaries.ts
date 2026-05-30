@@ -14,7 +14,7 @@ export const dictionaries = {
     },
     hero: {
       title: "We build infrastructure for enterprise software",
-      lead: "14 products in production. 1.2M+ lines of code. EasyNuP alone is already past 590k LOC — engineering that runs in Brazil's largest federal agencies.",
+      lead: "15 products in production. 1.2M+ lines of code. EasyNuP alone is already past 590k LOC — engineering that runs in Brazil's largest federal agencies.",
       ctaPrimary: "Explore products",
       ctaSecondary: "GitHub",
     },
@@ -23,7 +23,7 @@ export const dictionaries = {
     },
     products: {
       eyebrow: "Products",
-      title: "14 products. Real code in production.",
+      title: "15 products. Real code in production.",
       lead: "Each product was born from real needs in government and enterprise projects. No prototypes — code running in production with thousands of users.",
     },
     blog: {
@@ -56,7 +56,7 @@ export const dictionaries = {
       lead: "Have an engineering challenge? Need an enterprise platform? Talk to us — we love complex problems.",
     },
     footer: {
-      tagline: "Software engineering for enterprise infrastructure. 14 products in production.",
+      tagline: "Software engineering for enterprise infrastructure. 15 products in production.",
       company: "Company",
       about: "About",
       platforms: "Platforms",
@@ -65,15 +65,15 @@ export const dictionaries = {
     },
     about: {
       pageTitle: "About NuPtechs",
-      pageDescription: "Meet NuPtechs: senior software engineering team with 14 products in production, 1.2M+ lines of code, and 18+ years of government IT experience.",
+      pageDescription: "Meet NuPtechs: senior software engineering team with 15 products in production, 1.2M+ lines of code, and 18+ years of government IT experience.",
       ogTitle: "About NuPtechs — Who we are and how we work",
-      ogDescription: "Senior team, 14 shipped products, 1.2M+ lines of production code. Meet the engineering company behind enterprise-grade software.",
+      ogDescription: "Senior team, 15 shipped products, 1.2M+ lines of production code. Meet the engineering company behind enterprise-grade software.",
       eyebrow: "Who we are",
       heroTitle: "Engineering that solves real problems.",
-      heroLead: "NuPtechs builds enterprise infrastructure — from identity management to AI-powered debugging. 14 products in production, running in Brazil's largest federal agencies.",
+      heroLead: "NuPtechs builds enterprise infrastructure — from identity management to AI-powered debugging. 15 products in production, running in Brazil's largest federal agencies.",
       stats: [
         { value: "1.2M+", label: "lines of code" },
-        { value: "14", label: "shipped products" },
+        { value: "15", label: "shipped products" },
         { value: "12,300+", label: "automated tests" },
         { value: "18+", label: "years in gov IT" },
       ],
@@ -91,12 +91,12 @@ export const dictionaries = {
         { icon: "innovation", title: "Applied innovation", body: "We use AI and modern technologies where they generate real value — not for the sake of being trendy." },
       ],
       timelineEyebrow: "Our journey",
-      timelineTitle: "From idea to 14 products in production.",
+      timelineTitle: "From idea to 15 products in production.",
       timeline: [
         { year: "2022", title: "Foundation", body: "NuPtechs is founded in Brasília with a clear mission: build production-grade software with quality, speed, and transparency." },
         { year: "2023", title: "First platforms", body: "EasyNuP and NuPIdentify launched. Consolidation in enterprise contract management and identity & access management." },
         { year: "2024", title: "AI products", body: "Launch of Sentinel, Manifest, NuP-Chunks — AI-powered tools for debugging, security analysis, and document processing." },
-        { year: "2025", title: "Scale", body: "14 products in production. 1.2M+ lines of code. Expansion to serve US and global markets." },
+        { year: "2025", title: "Scale", body: "15 products in production. 1.2M+ lines of code. Expansion to serve US and global markets." },
       ],
       teamEyebrow: "Team",
       teamTitle: "Senior engineers, lean structure.",
@@ -137,7 +137,7 @@ export const dictionaries = {
     },
     hero: {
       title: "Construimos infraestructura para software empresarial",
-      lead: "14 productos en producción. 1,2M+ líneas de código. Solo EasyNuP ya supera 590k — ingeniería que opera en las mayores agencias del gobierno de Brasil.",
+      lead: "15 productos en producción. 1,2M+ líneas de código. Solo EasyNuP ya supera 590k — ingeniería que opera en las mayores agencias del gobierno de Brasil.",
       ctaPrimary: "Explorar productos",
       ctaSecondary: "GitHub",
     },
@@ -146,7 +146,7 @@ export const dictionaries = {
     },
     products: {
       eyebrow: "Productos",
-      title: "14 productos. Código real en producción.",
+      title: "15 productos. Código real en producción.",
       lead: "Cada producto nació de necesidades reales en proyectos de gobierno y enterprise. Sin prototipos — código que corre en producción con miles de usuarios.",
     },
     blog: {
@@ -179,7 +179,7 @@ export const dictionaries = {
       lead: "¿Tienes un desafío de ingeniería? ¿Necesitas una plataforma enterprise? Habla con nosotros — nos encantan los problemas complejos.",
     },
     footer: {
-      tagline: "Ingeniería de software para infraestructura empresarial. 14 productos en producción.",
+      tagline: "Ingeniería de software para infraestructura empresarial. 15 productos en producción.",
       company: "Empresa",
       about: "Nosotros",
       platforms: "Plataformas",
@@ -188,15 +188,15 @@ export const dictionaries = {
     },
     about: {
       pageTitle: "Sobre NuPtechs",
-      pageDescription: "Conoce a NuPtechs: equipo de ingeniería de software con 14 productos en producción, 1,2M+ líneas de código y 18+ años de experiencia en TI gubernamental.",
+      pageDescription: "Conoce a NuPtechs: equipo de ingeniería de software con 15 productos en producción, 1,2M+ líneas de código y 18+ años de experiencia en TI gubernamental.",
       ogTitle: "Sobre NuPtechs — Quiénes somos y cómo trabajamos",
-      ogDescription: "Equipo senior, 14 productos entregados, 1,2M+ líneas de código en producción. Conoce la empresa de ingeniería detrás de software de grado empresarial.",
+      ogDescription: "Equipo senior, 15 productos entregados, 1,2M+ líneas de código en producción. Conoce la empresa de ingeniería detrás de software de grado empresarial.",
       eyebrow: "Quiénes somos",
       heroTitle: "Ingeniería que resuelve problemas reales.",
-      heroLead: "NuPtechs construye infraestructura empresarial — de gestión de identidad a debugging con IA. 14 productos en producción, operando en las mayores agencias federales de Brasil.",
+      heroLead: "NuPtechs construye infraestructura empresarial — de gestión de identidad a debugging con IA. 15 productos en producción, operando en las mayores agencias federales de Brasil.",
       stats: [
         { value: "1,2M+", label: "líneas de código" },
-        { value: "14", label: "productos entregados" },
+        { value: "15", label: "productos entregados" },
         { value: "12.300+", label: "tests automatizados" },
         { value: "18+", label: "años en TI gov" },
       ],
@@ -214,12 +214,12 @@ export const dictionaries = {
         { icon: "innovation", title: "Innovación aplicada", body: "Usamos IA y tecnologías modernas donde generan valor real — no por estar de moda." },
       ],
       timelineEyebrow: "Nuestro camino",
-      timelineTitle: "De la idea a 14 productos en producción.",
+      timelineTitle: "De la idea a 15 productos en producción.",
       timeline: [
         { year: "2022", title: "Fundación", body: "NuPtechs es fundada en Brasília con una misión clara: construir software de grado producción con calidad, velocidad y transparencia." },
         { year: "2023", title: "Primeras plataformas", body: "Lanzamiento de EasyNuP y NuPIdentify. Consolidación en gestión de contratos empresariales e identidad y control de acceso." },
         { year: "2024", title: "Productos de IA", body: "Lanzamiento de Sentinel, Manifest, NuP-Chunks — herramientas con IA para debugging, análisis de seguridad y procesamiento de documentos." },
-        { year: "2025", title: "Escala", body: "14 productos en producción. 1,2M+ líneas de código. Expansión para atender mercados de EE. UU. y globales." },
+        { year: "2025", title: "Escala", body: "15 productos en producción. 1,2M+ líneas de código. Expansión para atender mercados de EE. UU. y globales." },
       ],
       teamEyebrow: "Equipo",
       teamTitle: "Ingenieros senior, estructura lean.",

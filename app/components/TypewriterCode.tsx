@@ -8,7 +8,7 @@ const STATUS_CHIPS = [
 ];
 
 const METRICS = [
-  { label: "systems", value: "14 live" },
+  { label: "systems", value: "15 live" },
   { label: "tests", value: "12,300+" },
   { label: "latency", value: "42ms" },
 ];

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { allPosts } from "./blog/posts";
+import { products as productCatalog } from "./data/products";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
@@ -12,14 +13,7 @@ const servicesPt = [
   "seguranca-compliance",
 ];
 
-const products = [
-  "flowops",
-  "datapulse",
-  "bookflow",
-  "chatcore",
-  "stocksync",
-  "peopledesk"
-];
+const products = productCatalog.map((p) => p.slug);
 
 const blogSlugs = Object.keys(allPosts);
 
