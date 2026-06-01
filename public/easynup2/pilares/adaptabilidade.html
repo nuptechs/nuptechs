@@ -124,7 +124,36 @@
   <p>Cada campo configura: minLength, maxLength, minValue, maxValue, pattern (regex) com patternMessage customizado. Visibilidade condicional via expressão FEEL — campo aparece só quando outro campo tem valor X. <strong>visibleInStatuses · editableInStatuses · requiredInStatuses</strong> em CSV permitem comportamento diferente por estado da entidade. <strong>visibleToRoles · editableByRoles</strong> aplicam RBAC granular por campo.</p>
 </div>
 
-<h2><span class="num">03</span>Workflow Engine · 13 capacidades de orquestração</h2>
+<h2><span class="num">03</span>Em linguagem de quem usa · por que cada "limite" é, na verdade, uma vantagem</h2>
+<p class="lead">Toda a engenharia descrita acima existe pra cumprir uma promessa simples pra quem fica na tela todo dia: <strong>liberdade pra moldar o sistema ao seu órgão, sem nunca abrir mão de velocidade, segurança e confiança no dado</strong>. Os limites técnicos não são teimosia de fornecedor — são exatamente o que impede que o uso intenso de um órgão deixe a plataforma lenta ou insegura pros demais. Traduzindo, sem jargão:</p>
+
+<table class="std">
+  <tr><th>O que a plataforma faz por baixo</th><th>O que você ganha na prática</th></tr>
+  <tr><td class="b">Até 50 campos personalizados por tela, com teto de tamanho generoso por registro</td><td>Liberdade ampla pra criar os campos do seu órgão — e a garantia de que nenhuma tela vai ficar lenta, por mais que outros órgãos também personalizem os deles.</td></tr>
+  <tr><td class="b">Confere os dados toda vez que você salva</td><td>Dado inválido nunca entra. Se digitar uma data onde devia ser número, o aviso aparece na hora — não vira um problema descoberto meses depois, numa auditoria.</td></tr>
+  <tr><td class="b">A mesma regra é checada na tela, no servidor e no próprio banco</td><td>Cinto, airbag e freio: nem por integração, nem por importação em lote, nem por acesso técnico direto entra algo fora da regra. Pra órgão público que precisa <strong>provar</strong> a confiabilidade do dado, isso é decisivo.</td></tr>
+  <tr><td class="b">Cada órgão enxerga apenas os próprios dados</td><td>Vários contratantes na mesma plataforma, com isolamento total entre eles — sem risco de um ver o contrato do outro.</td></tr>
+  <tr><td class="b">Campos que aparecem, somem ou se calculam conforme o contexto</td><td>Telas inteligentes: o campo "Justificativa de prorrogação" só aparece se o contrato foi prorrogado. Menos digitação, menos erro, menos treinamento de equipe.</td></tr>
+  <tr><td class="b">Tudo isso por configuração, não por código</td><td>O gestor adapta a plataforma sozinho, em minutos — sem abrir chamado de TI, sem esperar uma nova versão, sem virar refém do fornecedor.</td></tr>
+</table>
+
+<div class="grid2" style="margin-top:24px">
+  <div class="cap">
+    <h4>A analogia da gaveta de fichas</h4>
+    <p>Pense em cada tela como uma gaveta de fichas. Você adiciona quantas fichas precisar — mas se enfiar fichas demais, ou uma ficha gigante, abrir a gaveta toda vez fica lento. O limite mantém a gaveta <strong>sempre rápida de abrir</strong>, pra você e pra todos os órgãos que dividem a mesma plataforma.</p>
+  </div>
+  <div class="cap">
+    <h4>Flexibilidade não custa estabilidade</h4>
+    <p>Na maioria dos sistemas, "deixar customizar tudo" vira lentidão e bagunça; "ser estável e seguro" vira engessamento. Aqui você não escolhe entre os dois: <strong>eles vêm juntos por desenho</strong>. A liberdade tem um teto generoso justamente pra que a estabilidade seja garantida — não apesar dele.</p>
+  </div>
+</div>
+
+<div class="callout">
+  <h4>O que isso significa na hora de decidir</h4>
+  <p>Você adapta o EasyNuP ao seu órgão <strong>hoje, sem um projeto de desenvolvimento</strong> — poupando o custo e o tempo de mobilizar uma equipe de TI pra cada ajuste. Em troca, ganha a garantia de que tudo o que entra é válido, rápido, isolado por órgão e auditável de ponta a ponta. <strong>Flexibilidade de planilha, com a confiabilidade de um sistema corporativo e a rastreabilidade que o setor público exige.</strong> É essa combinação — e não cada recurso isolado — que separa uma ferramenta de uma plataforma.</p>
+</div>
+
+<h2><span class="num">04</span>Workflow Engine · 13 capacidades de orquestração</h2>
 <p class="lead">Motor de workflow implementado dentro da plataforma, otimizado pro modelo de domínio de contratos administrativos brasileiros. As 13 capacidades cobrem todas as necessidades de orquestração tipo BPMN — incluindo a feature avançada de migração de instâncias em vivo (mudança de template sem reiniciar processos em andamento).</p>
 
 <table class="std">
@@ -144,7 +173,7 @@
   <tr><td class="b">repository</td><td>Persistência das entidades de workflow</td></tr>
 </table>
 
-<h2><span class="num">04</span>Motor de Decisões DMN nativo · FEEL + BKMs</h2>
+<h2><span class="num">05</span>Motor de Decisões DMN nativo · FEEL + BKMs</h2>
 <p class="lead">Decisões complexas viram tabelas DMN nativas sem dependência de Camunda DMN engine. Sandbox FEEL pra testar expressões em tempo real, editor XML DMN, Entity JSON tester, result box. Business Knowledge Models (BKMs) são funções reutilizáveis em FEEL.</p>
 
 <div class="grid3">
@@ -162,7 +191,7 @@
   </div>
 </div>
 
-<h2><span class="num">05</span>Motor de Regras visual · 12 gatilhos × 22 ações</h2>
+<h2><span class="num">06</span>Motor de Regras visual · 12 gatilhos × 22 ações</h2>
 <p class="lead">O gestor cria suas próprias automações no editor visual drag-drop. 12 tipos de gatilho × 22 Action Executors prontos. Sem código.</p>
 
 <table class="std">
@@ -192,7 +221,7 @@
   <tr><td class="b mono">WEBHOOK · HTTP_REQUEST · CONNECTOR_ACTION · EXECUTE_SCRIPT</td><td>Integração externa</td></tr>
 </table>
 
-<h2><span class="num">06</span>Onboarding Inteligente · IA propõe estrutura a partir de docs</h2>
+<h2><span class="num">07</span>Onboarding Inteligente · IA propõe estrutura a partir de docs</h2>
 <p class="lead">Cliente novo sobe documentos do processo dele. A IA analisa e propõe a estrutura: entidades a criar, custom fields necessários, workflow steps, automações iniciais. Wizard 4-step do upload ao deploy efetivo. <strong>Time to value drasticamente reduzido.</strong></p>
 
 <div class="grid2">
@@ -206,7 +235,7 @@
   </div>
 </div>
 
-<h2><span class="num">07</span>Spreadsheet Mapper IA · importação em lote auto-aprendente</h2>
+<h2><span class="num">08</span>Spreadsheet Mapper IA · importação em lote auto-aprendente</h2>
 <p class="lead">Sua equipe joga uma planilha (OS, fornecedores, profissionais, itens de catálogo) no sistema. A IA detecta colunas, sugere mapeamento, importa 1 vez. Da próxima planilha similar, o sistema reconhece pelo fingerprint Jaccard determinístico e auto-aplica o mapeamento — só pede 1 clique de confirmação.</p>
 
 <div class="grid2">
@@ -220,7 +249,7 @@
   </div>
 </div>
 
-<h2><span class="num">08</span>Tema, mensagens e identidade por organização</h2>
+<h2><span class="num">09</span>Tema, mensagens e identidade por organização</h2>
 <p class="lead">Cada cliente preserva sua identidade visual e tom de voz. A plataforma some no plano de fundo.</p>
 
 <table class="std">
@@ -231,10 +260,10 @@
   <tr><td class="b">Mensagens sensíveis</td><td>Tags <code>sensitive:financial</code> · <code>sensitive:legal</code> · <code>sensitive:auth</code> exigem approval workflow (decisão arquitetural documentada). Two-eyes obrigatório pra mudança em texto que pode virar prejuízo.</td></tr>
 </table>
 
-<h2><span class="num">09</span>Conectores genéricos via YAML</h2>
+<h2><span class="num">10</span>Conectores genéricos via YAML</h2>
 <p class="lead">Integração com sistemas externos (SAP, ComprasNet, TCU, Receita Federal, ERPs financeiros) modelada como Conector + manifesto declarativo em YAML com proteção contra injeção. Dispara ações via motor de regras e suporta consulta periódica agendada (cron-like) para sistemas sem webhook.</p>
 
-<h2><span class="num">10</span>Integrações governamentais brasileiras · prontas pra plugar</h2>
+<h2><span class="num">11</span>Integrações governamentais brasileiras · prontas pra plugar</h2>
 <p class="lead">Dois manifestos pré-mapeados, disponíveis no repositório de exemplos da plataforma, prontos para ativação assim que o cliente disponibilizar credenciais. Sem retrabalho de engenharia — apenas configuração.</p>
 
 <div class="grid2">
