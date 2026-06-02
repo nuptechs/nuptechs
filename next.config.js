@@ -94,6 +94,9 @@ const nextConfig = {
   // ── Rewrites ──────────────────────────────────────────
   async rewrites() {
     return [
+      // ── Mapa navegável da Arquitetura Corporativa (dashboard estático) ──
+      { source: "/arquitetura", destination: "/arquitetura/index.html" },
+      { source: "/arquitetura/", destination: "/arquitetura/index.html" },
       // Demos estáticas Vue empacotadas em /public/* — rotas não-listadas,
       // bloqueadas em robots e fora do sitemap.
       { source: "/padaria", destination: "/padaria/index.html" },
