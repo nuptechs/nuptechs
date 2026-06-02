@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NuPtechs · Arquitetura Corporativa — Mapa Navegável</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="./cytoscape.min.js"></script>
+<style>
+  /* Paleta de marca NuPtechs (alinhada ao site institucional — globals.css) */
+  :root {
+    --bg:#07080a; --panel:#12131a; --panel2:#0d0e12; --line:rgba(255,255,255,.07);
+    --txt:#f0f1f5; --muted:#9898ab; --muted2:#64647a;
+    --accent:#8b7cff; --accent2:#5ce1e6;
+    --p1:#6c8cff; --p2:#8b7cff; --p3:#34e0d2; --p4:#f0b35b;
+    --ext:#64748b; --lib:#5ce1e6; --site:#9898ab;
+    --ok:#3ddc84; --target:#f0b35b; --bad:#ff6b6b; --na:#2a2b36;
+  }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; background:var(--bg); color:var(--txt);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  #app { display:grid; grid-template-rows:auto 1fr; height:100vh; }
+  header { padding:13px 22px; border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(18,19,26,.92),rgba(7,8,10,.85)); backdrop-filter:blur(12px);
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+  /* logo wordmark NuPtechs (espelha o header do site) */
+  .brand { display:flex; align-items:center; gap:9px; padding-right:16px; border-right:1px solid var(--line); margin-right:4px; }
+  .brand-dot { width:9px; height:9px; border-radius:50%; background:var(--accent2);
+    box-shadow:0 0 0 0 rgba(92,225,230,.7); animation:pulse 2.4s infinite; }
+  @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(92,225,230,.55)} 70%{box-shadow:0 0 0 8px rgba(92,225,230,0)} 100%{box-shadow:0 0 0 0 rgba(92,225,230,0)} }
+  .brand-text { font-family:"Manrope",sans-serif; font-weight:800; font-size:18px; letter-spacing:-.3px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  header h1 { font-family:"Manrope",sans-serif; font-size:15px; margin:0; font-weight:700; letter-spacing:.1px; }
+  header h1 small { color:var(--muted); font-weight:500; font-size:11.5px; display:block; margin-top:2px; font-family:"Inter",sans-serif; }
+  .pill { font-size:11px; padding:3px 9px; border-radius:999px; border:1px solid var(--line); color:var(--muted); }
+  .controls { margin-left:auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .btn { font-size:12px; padding:6px 11px; border-radius:8px; border:1px solid var(--line);
+    background:var(--panel); color:var(--txt); cursor:pointer; transition:.15s; }
+  .btn:hover { border-color:#33476e; background:#16223a; }
+  .btn.active { background:#1d2d4d; border-color:#3b82f6; color:#cfe0ff; }
+  select { font-size:12px; padding:6px 8px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--txt); }
+  main { display:grid; grid-template-columns:1fr 380px; overflow:hidden; }
+  #cy { width:100%; height:100%; background:
+    radial-gradient(900px 600px at 72% 28%,rgba(139,124,255,.10),transparent 60%),
+    radial-gradient(800px 560px at 24% 80%,rgba(92,225,230,.08),transparent 60%),
+    radial-gradient(1200px 700px at 50% 40%,#0d0e16,#07080a); }
+  aside { border-left:1px solid var(--line); background:var(--panel2); overflow-y:auto; padding:16px; }
+  .legend { display:flex; gap:14px; flex-wrap:wrap; font-size:11px; color:var(--muted); margin-top:6px; }
+  .legend span { display:inline-flex; align-items:center; gap:5px; }
+  .dot { width:11px; height:11px; border-radius:50%; display:inline-block; }
+  .ln { width:20px; height:0; border-top:2px solid var(--muted); display:inline-block; }
+  .ln.dash { border-top-style:dashed; border-color:var(--target); }
+  h2.sec { font-size:11px; text-transform:uppercase; letter-spacing:.8px; color:var(--muted2); margin:18px 0 8px; }
+  /* detail panel */
+  #detail .empty { color:var(--muted); font-size:13px; line-height:1.6; }
+  .node-title { font-size:18px; font-weight:700; display:flex; align-items:center; gap:9px; }
+  .tag { font-size:10px; padding:2px 8px; border-radius:6px; font-weight:600; }
+  .kv { display:grid; grid-template-columns:90px 1fr; gap:6px 10px; font-size:13px; margin-top:12px; }
+  .kv dt { color:var(--muted); }
+  .kv dd { margin:0; }
+  .adopt { display:flex; gap:6px; margin-top:12px; flex-wrap:wrap; }
+  .chip { font-size:11px; padding:4px 9px; border-radius:7px; border:1px solid var(--line); display:flex; gap:5px; align-items:center; }
+  .badge { font-size:11px; padding:4px 10px; border-radius:7px; font-weight:600; display:inline-block; margin-top:12px; }
+  .desc { font-size:13px; color:#c4d2e8; line-height:1.55; margin-top:12px; }
+  .rec { font-size:12.5px; line-height:1.5; margin-top:6px; padding:10px 12px; border-radius:9px; background:#0c1424; border:1px solid var(--line); }
+  /* matrix */
+  table { width:100%; border-collapse:collapse; font-size:11.5px; margin-top:6px; }
+  th,td { padding:5px 6px; text-align:center; border-bottom:1px solid #16223a; }
+  th { color:var(--muted2); font-weight:600; font-size:10px; text-transform:uppercase; }
+  td.app { text-align:left; color:#cdd9ec; cursor:pointer; white-space:nowrap; }
+  td.app:hover { color:#fff; text-decoration:underline; }
+  .m { font-weight:700; }
+  .m.yes { color:var(--ok); } .m.target { color:var(--target); }
+  .m.no { color:#3f4f6e; } .m.na { color:#2c3850; }
+  footer { font-size:10.5px; color:var(--muted2); padding:8px 16px; border-top:1px solid var(--line); }
+  .statgrid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:6px; }
+  .stat { background:#0c1424; border:1px solid var(--line); border-radius:9px; padding:9px 11px; }
+  .stat b { font-size:19px; display:block; }
+  .stat small { color:var(--muted); font-size:10.5px; }
+  .gap-flag { color:var(--target); }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <span class="brand"><span class="brand-dot"></span><span class="brand-text">NuPtechs</span></span>
+    <h1>Arquitetura Corporativa
+      <small>Mapa navegável · TOGAF baseline 2026-06-02 · clique num nó para detalhar</small>
+    </h1>
+    <span class="pill" id="counter">24 repositórios</span>
+    <div class="controls">
+      <button class="btn active" id="tgtBtn">Mostrar gaps (alvos 🎯)</button>
+      <select id="matFilter">
+        <option value="all">Todas as maturidades</option>
+        <option value="prod">🟢 Produção</option>
+        <option value="mvp">🟡 MVP / ativo</option>
+        <option value="stagnant">🔴 Estagnado</option>
+      </select>
+      <select id="layout">
+        <option value="cose">Layout: orgânico</option>
+        <option value="concentric">Layout: pilares ao centro</option>
+        <option value="grid">Layout: grade</option>
+      </select>
+      <button class="btn" id="fit">Centralizar</button>
+    </div>
+  </header>
+  <main>
+    <div id="cy"></div>
+    <aside>
+      <div id="detail">
+        <div class="empty">
+          <strong style="color:var(--txt)">Os 4 pilares de plataforma</strong><br/>
+          <span style="color:var(--p1)">●</span> P1 Identidade (NuPIdentify)
+          <span style="color:var(--p2)">●</span> P2 Pacotes (nup-platform)<br/>
+          <span style="color:var(--p3)">●</span> P3 IA (nupai-gateway)
+          <span style="color:var(--p4)">●</span> P4 Qualidade (Sentinel)<br/><br/>
+          Linha <b style="color:var(--ok)">sólida</b> = pilar adotado hoje.
+          Linha <b style="color:var(--target)">tracejada</b> = adoção-alvo (gap de consolidação).
+          <div class="legend" style="margin-top:14px">
+            <span><span class="ln"></span> adota</span>
+            <span><span class="ln dash"></span> alvo (gap)</span>
+            <span><span class="dot" style="background:var(--ok)"></span>produção</span>
+            <span><span class="dot" style="background:var(--target)"></span>mvp</span>
+            <span><span class="dot" style="background:var(--bad)"></span>estagnado</span>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="sec">Saúde da plataforma</h2>
+      <div class="statgrid" id="stats"></div>
+
+      <h2 class="sec">Matriz de adoção dos pilares</h2>
+      <table id="matrix">
+        <thead><tr><th class="app" style="text-align:left">Produto</th><th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>Audit</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </aside>
+  </main>
+  <footer id="foot"></footer>
+</div>
+
+<script>
+/* ============================================================
+   FONTE DE DADOS — extraída da EA TOGAF (evidência por repo).
+   Ver docs/enterprise-architecture/ no nup-platform.
+   adoption: yes | target | na | no   (por pilar P1..P4 + audit)
+   ============================================================ */
+const PILLARS = {
+  p1:{name:"NuPIdentify",label:"P1 · Identidade",color:"var(--p1)",desc:"IdP central — OIDC·SAML·SCIM·RBAC·ABAC·ReBAC·MFA·billing."},
+  p2:{name:"nup-platform",label:"P2 · Pacotes",color:"var(--p2)",desc:"~30 pacotes @nuptechs/* — payments·billing·messaging·voice·conference·shared-kernel."},
+  p3:{name:"nupai-gateway",label:"P3 · IA",color:"var(--p3)",desc:"Gateway LLM hexagonal provider-agnostic — RAG·guardrails·MCP. Subutilizado."},
+  p4:{name:"nup-sentinel",label:"P4 · Qualidade",color:"var(--p4)",desc:"Orquestrador de inteligência de código — diagnose→correct→verify→PR."}
+};
+const APPS = [
+  // pilares
+  {id:"NuPIdentify",pillar:"p1",type:"pillar",mat:"prod",loc:"51k",stack:"Node·Drizzle·React·Redis",
+   purpose:"Provedor de identidade central do parque (IdP).",rec:"Investir — pilar P1.",ad:{}},
+  {id:"nup-platform",pillar:"p2",type:"pillar",mat:"prod",loc:"36k",stack:"TS·Turborepo·tsup",
+   purpose:"Monorepo de pacotes compartilhados @nuptechs/*.",rec:"Investir — pilar P2. (hospeda esta EA)",ad:{}},
+  {id:"nupai-gateway",pillar:"p3",type:"pillar",mat:"mvp",loc:"14k",stack:"TS·14 ports·LiteLLM·Pinecone",
+   purpose:"Gateway de LLM provider-agnostic. Existe p/ unificar IA — adoção zero.",rec:"Investir/endurecer — habilita a Onda 2.",ad:{}},
+  {id:"nup-sentinel",pillar:"p4",type:"pillar",mat:"prod",loc:"30k",stack:"Node·17 ports·MCP·Anthropic",
+   purpose:"Hub orquestrador de qualidade/segurança de código.",rec:"Investir — pilar P4 + produto futuro.",ad:{}},
+  // componentes do P4
+  {id:"manifest",pillar:"p4c",type:"component",mat:"prod",loc:"35k",stack:"Node·Drizzle·Java engine·OPA Rego",
+   purpose:"Análise estática auth/schema; gera OpenAPI·Policy Matrix·OPA·compliance-report.",rec:"Componente P4 — compliance BR.",ad:{p1:"yes",p4:"yes",audit:"yes"}},
+  {id:"probe",pillar:"p4c",type:"component",mat:"mvp",loc:"37k",stack:"TS·Playwright·WS·Turborepo",
+   purpose:"Captura runtime browser/network/DB com correlation engine.",rec:"Componente P4 — sinal de runtime.",ad:{p4:"yes"}},
+  {id:"codelens",pillar:"p4c",type:"component",mat:"prod",loc:"13k",stack:"TS·AST·PageRank·Anthropic",
+   purpose:"Análise AST/grafo/dead-code; explicação IA com citação verificada.",rec:"Componente P4 — emit ao hub.",ad:{p4:"yes"}},
+  // produtos
+  {id:"easynup",pillar:null,type:"product",mat:"prod",loc:"608k",stack:"Java21·Spring·Vue·Express·PG16",
+   purpose:"FLAGSHIP — gestão de contratos públicos (Lei 14.133). 210 entidades, 266 migrations, 42 ADRs, audit HMAC, IA jurídica.",
+   rec:"Investir — fosso de domínio, ativo nº 1.",ad:{p1:"yes",p2:"target",p3:"target",p4:"yes",audit:"yes"}},
+  {id:"NuP-School",pillar:null,type:"product",mat:"prod",loc:"210k",stack:"React·Express5·Drizzle·mediasoup",
+   purpose:"Gestão escolar — BNCC, famílias, gamificação, aula ao vivo, pagamentos.",
+   rec:"Investir — vertical forte e bem integrado.",ad:{p1:"yes",p2:"yes",p3:"no",p4:"yes",audit:"target"}},
+  {id:"nup-study",pillar:null,type:"product",mat:"prod",loc:"151k",stack:"React·Express4·Drizzle·Pinecone",
+   purpose:"Aprendizagem adaptativa IA (concursos) — flashcards, mapas, RAG, voice.",
+   rec:"Consolidar — forte; puxar p/ P2/P3. Sair do Replit.",ad:{p1:"yes",p2:"target",p3:"target",p4:"no",audit:"target"}},
+  {id:"NuP-Sales",pillar:null,type:"product",mat:"mvp",loc:"31k",stack:"Express5·Drizzle·React19·Expo·hexagonal",
+   purpose:"Varejo/PDV/e-commerce/fidelidade (web+mobile), 3 perfis.",
+   rec:"Consolidar — MVP bem arquitetado, completar.",ad:{p1:"yes",p2:"yes",p3:"na",p4:"no",audit:"no"}},
+  {id:"NuP-Salon-Client",pillar:null,type:"product",mat:"mvp",loc:"6.7k",stack:"React Native·Expo·socket.io",
+   purpose:"App mobile cliente de salão/barbearia (white-label).",
+   rec:"Consolidar — migrar auth p/ IdP.",ad:{p1:"target",p2:"yes",p3:"na",p4:"no",audit:"no"}},
+  {id:"kan",pillar:null,type:"product",mat:"mvp",loc:"32k",stack:"Express·Drizzle·Neon·React·CQRS",
+   purpose:"Kanban — boards/WIP/custom fields/teams/audit.",
+   rec:"Consolidar — já usa IdP; padronizar deploy.",ad:{p1:"yes",p2:"no",p3:"na",p4:"no",audit:"no"}},
+  {id:"nup-aim",pillar:null,type:"product",mat:"mvp",loc:"34k",stack:"Express·Drizzle·React·Gemini·OCR",
+   purpose:"Impact Analysis + FPA IFPUG (5 estágios, anti-alucinação).",
+   rec:"Reposicionar — avaliar fusão FPA→easynup.",ad:{p1:"yes",p2:"no",p3:"target",p4:"no",audit:"no"}},
+  {id:"Orbit",pillar:null,type:"product",mat:"mvp",loc:"15k",stack:"Express·PG·Bull·React19·hexagonal",
+   purpose:"Marketing IA p/ PMEs — geração de conteúdo, 90 endpoints. ⚠️ segredo exposto no docker-compose.",
+   rec:"Decidir — vertical fora do ecossistema. Rotacionar chave JÁ.",ad:{p1:"target",p2:"no",p3:"target",p4:"no",audit:"no"}},
+  {id:"NupTechs-AIHub",pillar:null,type:"product",mat:"mvp",loc:"15k",stack:"FastAPI·LangChain·React·Ollama·Pinecone",
+   purpose:"Hub de serviços de IA (RAG, sumarização, catálogo). Infra frágil (Ollama via túnel).",
+   rec:"Absorver — capacidades → nupai-gateway; descontinuar app.",ad:{p1:"target",p2:"no",p3:"target",p4:"no",audit:"no"}},
+  {id:"NuP-Chunks",pillar:null,type:"product",mat:"stagnant",loc:"92k",stack:"Flask·SQLAlchemy·Pinecone·Mistral",
+   purpose:"Pré-processamento de docs + RAG + chat semântico. Estagnado desde abril.",
+   rec:"Absorver/Arquivar — RAG → recipe do gateway.",ad:{p1:"target",p2:"no",p3:"target",p4:"no",audit:"no"}},
+  {id:"NuP-Services",pillar:null,type:"product",mat:"stagnant",loc:"13k",stack:"Express4·Drizzle·Neon·Socket.io",
+   purpose:"Marketplace hiperlocal de serviços. Outlier total — fora de todos os contratos de plataforma.",
+   rec:"Arquivar/Reposicionar — MVP abandonado.",ad:{p1:"target",p2:"no",p3:"na",p4:"no",audit:"no"}},
+  // libs
+  {id:"nup-xlsx-core",pillar:null,type:"lib",mat:"prod",loc:"4.7k",stack:"TS·tsup·fflate·Edge",
+   purpose:"Parser .xlsx/CSV leve com resolução de estilos. Publicado GH Packages.",
+   rec:"Manter — base da família xlsx.",ad:{}},
+  {id:"nup-xlsx-preview",pillar:null,type:"lib",mat:"prod",loc:"14k",stack:"TS·React/Vue/Vanilla",
+   purpose:"Visualizador Excel virtual-scroll. CONSUMIDO pelo easynup.",
+   rec:"Manter — em uso real.",ad:{}},
+  {id:"nup-xlsx-tokens",pillar:null,type:"lib",mat:"prod",loc:"11k",stack:"TS·tsup·WCAG themes",
+   purpose:"Design tokens p/ estilos de Excel. Publicado GH Packages.",
+   rec:"Manter — dep transitiva.",ad:{}},
+  {id:"nup-xlsx-editor",pillar:null,type:"lib",mat:"mvp",loc:"7.7k",stack:"React·Express·Drizzle (demo)",
+   purpose:"Editor estilo Sheets — lib ainda não extraída/publicada.",
+   rec:"Decidir — extrair lib ou manter demo.",ad:{}},
+  // site / util
+  {id:"nuptechs",pillar:null,type:"site",mat:"prod",loc:"—",stack:"Next.js14·Drizzle·Pinecone",
+   purpose:"Portal institucional + vitrine (16 produtos, pitch /easynup·/easynup2).",
+   rec:"Manter — vitrine comercial.",ad:{}},
+  {id:"nuptechs-nfc",pillar:null,type:"util",mat:"util",loc:"0.3k",stack:"Kotlin·Android HCE",
+   purpose:"Cartão de visita NFC (emula tag → nuptechs.com/comercial). Não é repo git.",
+   rec:"Manter — utilitário.",ad:{}}
+];
+
+const MAT_COLOR={prod:"#3ddc84",mvp:"#f0b35b",stagnant:"#ff6b6b",util:"#64748b"};
+const MAT_LABEL={prod:"🟢 Produção",mvp:"🟡 MVP/ativo",stagnant:"🔴 Estagnado",util:"⚙️ Utilitário"};
+const AD_SYM={yes:"✅",target:"🎯",no:"⬜",na:"—"};
+const AD_TXT={yes:"adota",target:"alvo (gap)",no:"não",na:"n/a"};
+const TYPE_LABEL={pillar:"PILAR",component:"COMPONENTE P4",product:"PRODUTO",lib:"BIBLIOTECA",site:"SITE",util:"UTILITÁRIO"};
+
+/* build graph elements */
+function buildElements(){
+  const els=[];
+  for(const k in PILLARS){
+    els.push({data:{id:"PILLAR_"+k,label:PILLARS[k].label,kind:"pillar",pk:k}});
+  }
+  for(const a of APPS){
+    if(a.type==="pillar") continue; // pillar node já representado pelo PILLAR_*
+    els.push({data:{id:a.id,label:a.id,kind:a.type,mat:a.mat}});
+  }
+  // edges de adoção: app -> pilar
+  for(const a of APPS){
+    if(a.type==="pillar"){ // ligar pilar-app ao seu PILLAR_ node? skip, pillar é o próprio
+      continue;
+    }
+    const ad=a.ad||{};
+    for(const pk of ["p1","p2","p3","p4"]){
+      const v=ad[pk];
+      if(v==="yes"||v==="target"){
+        els.push({data:{id:a.id+"_"+pk,source:a.id,target:"PILLAR_"+pk,rel:v}});
+      }
+    }
+    // componentes do P4 ligam ao PILLAR_p4
+    if(a.type==="component"){
+      els.push({data:{id:a.id+"_p4c",source:a.id,target:"PILLAR_p4",rel:"yes"}});
+    }
+  }
+  return els;
+}
+
+const cy=cytoscape({
+  container:document.getElementById("cy"),
+  elements:buildElements(),
+  wheelSensitivity:.22,
+  style:[
+    {selector:"node",style:{
+      "label":"data(label)","color":"#dce6f5","font-size":"11px","text-valign":"bottom","text-margin-y":"5px",
+      "background-color":"#1b2840","border-width":2,"border-color":"#33476e","width":34,"height":34,
+      "text-outline-width":2,"text-outline-color":"#0b1220","font-weight":"600"
+    }},
+    {selector:'node[kind="pillar"]',style:{
+      "width":74,"height":74,"font-size":"13px","font-weight":"700","shape":"round-rectangle",
+      "background-opacity":.95,"border-width":3
+    }},
+    {selector:'node[pk="p1"]',style:{"background-color":"#1e2a52","border-color":"#6c8cff"}},
+    {selector:'node[pk="p2"]',style:{"background-color":"#2c2456","border-color":"#8b7cff"}},
+    {selector:'node[pk="p3"]',style:{"background-color":"#0e3a36","border-color":"#34e0d2"}},
+    {selector:'node[pk="p4"]',style:{"background-color":"#43350f","border-color":"#f0b35b"}},
+    {selector:'node[mat="prod"]',style:{"border-color":"#3ddc84"}},
+    {selector:'node[mat="mvp"]',style:{"border-color":"#f0b35b"}},
+    {selector:'node[mat="stagnant"]',style:{"border-color":"#ff6b6b"}},
+    {selector:'node[kind="lib"]',style:{"shape":"diamond","background-color":"#0c2c3a"}},
+    {selector:'node[kind="site"]',style:{"shape":"hexagon","background-color":"#23262d"}},
+    {selector:'node[kind="util"]',style:{"shape":"hexagon","background-color":"#1a1f28","width":24,"height":24}},
+    {selector:'node[kind="component"]',style:{"shape":"round-rectangle","background-color":"#2a2410"}},
+    {selector:"edge",style:{
+      "width":1.6,"line-color":"#2f6b4a","target-arrow-color":"#2f6b4a","target-arrow-shape":"triangle",
+      "curve-style":"bezier","arrow-scale":.8,"opacity":.7
+    }},
+    {selector:'edge[rel="yes"]',style:{"line-color":"#2f8a57","target-arrow-color":"#2f8a57"}},
+    {selector:'edge[rel="target"]',style:{"line-color":"#f0b35b","target-arrow-color":"#f0b35b","line-style":"dashed","opacity":.85}},
+    {selector:".dim",style:{"opacity":.12}},
+    {selector:".hl",style:{"opacity":1,"border-width":4,"border-color":"#cfe0ff"}},
+    {selector:"edge.hl",style:{"width":3,"opacity":1}}
+  ],
+  layout:{name:"cose",animate:true,padding:40,nodeRepulsion:9000,idealEdgeLength:90,nodeOverlap:14}
+});
+
+const appById=Object.fromEntries(APPS.map(a=>[a.id,a]));
+const pillarMeta={p1:PILLARS.p1,p2:PILLARS.p2,p3:PILLARS.p3,p4:PILLARS.p4};
+
+/* ---------- detail panel ---------- */
+function showDetail(id){
+  const el=document.getElementById("detail");
+  if(id.startsWith("PILLAR_")){
+    const pk=id.replace("PILLAR_",""); const p=pillarMeta[pk];
+    const consumers=APPS.filter(a=>a.ad&&(a.ad[pk]==="yes")).map(a=>a.id);
+    const targets=APPS.filter(a=>a.ad&&(a.ad[pk]==="target")).map(a=>a.id);
+    el.innerHTML=`<div class="node-title"><span class="dot" style="background:${p.color};width:15px;height:15px"></span>${p.label}</div>
+      <div class="desc">${p.desc}</div>
+      <h2 class="sec">Adotam hoje (${consumers.length})</h2>
+      <div class="adopt">${consumers.map(c=>`<span class="chip" onclick="showDetail('${c}');focusNode('${c}')">✅ ${c}</span>`).join("")||'<span class="empty">—</span>'}</div>
+      <h2 class="sec gap-flag">Alvos de adoção 🎯 (${targets.length})</h2>
+      <div class="adopt">${targets.map(c=>`<span class="chip" style="border-color:#5a4410" onclick="showDetail('${c}');focusNode('${c}')">🎯 ${c}</span>`).join("")||'<span class="empty">nenhum</span>'}</div>`;
+    return;
+  }
+  const a=appById[id]; if(!a) return;
+  const adChips=["p1","p2","p3","p4","audit"].map(pk=>{
+    const v=(a.ad||{})[pk]||"no"; const lab=pk==="audit"?"Audit":pk.toUpperCase();
+    const col=v==="yes"?"var(--ok)":v==="target"?"var(--target)":v==="na"?"var(--na)":"#3f4f6e";
+    return `<span class="chip" style="border-color:${col}33"><b style="color:${col}">${AD_SYM[v]}</b> ${lab}</span>`;
+  }).join("");
+  el.innerHTML=`
+    <div class="node-title">${a.id}
+      <span class="tag" style="background:${MAT_COLOR[a.mat]}22;color:${MAT_COLOR[a.mat]}">${MAT_LABEL[a.mat]}</span>
+    </div>
+    <span class="tag" style="background:#1a2740;color:var(--muted)">${TYPE_LABEL[a.type]}</span>
+    <div class="desc">${a.purpose}</div>
+    <dl class="kv">
+      <dt>Stack</dt><dd>${a.stack}</dd>
+      <dt>Escala</dt><dd>~${a.loc} LOC</dd>
+    </dl>
+    <h2 class="sec">Adoção dos pilares</h2>
+    <div class="adopt">${adChips}</div>
+    <div class="rec"><b style="color:var(--target)">▸ Recomendação:</b> ${a.rec}</div>`;
+}
+window.showDetail=showDetail;
+window.focusNode=function(id){
+  const n=cy.getElementById(id); if(!n.length) return;
+  cy.elements().removeClass("hl dim");
+  const nb=n.closedNeighborhood();
+  cy.elements().not(nb).addClass("dim"); nb.addClass("hl");
+  cy.animate({center:{eles:n},zoom:1.3},{duration:350});
+};
+
+cy.on("tap","node",e=>{ const id=e.target.id(); showDetail(id); window.focusNode(id); });
+cy.on("tap",e=>{ if(e.target===cy){ cy.elements().removeClass("hl dim"); } });
+
+/* ---------- controls ---------- */
+let showTargets=true;
+document.getElementById("tgtBtn").onclick=function(){
+  showTargets=!showTargets; this.classList.toggle("active",showTargets);
+  cy.edges('[rel="target"]').style("display",showTargets?"element":"none");
+};
+document.getElementById("matFilter").onchange=function(){
+  const v=this.value;
+  cy.nodes().forEach(n=>{
+    if(n.data("kind")==="pillar"){ n.style("display","element"); return; }
+    const show=(v==="all")|| n.data("mat")===v;
+    n.style("display",show?"element":"none");
+  });
+};
+document.getElementById("layout").onchange=function(){ runLayout(this.value); };
+document.getElementById("fit").onclick=()=>cy.animate({fit:{padding:40}},{duration:350});
+function runLayout(name){
+  let opt={name,animate:true,padding:40};
+  if(name==="cose") opt={...opt,nodeRepulsion:9000,idealEdgeLength:90,nodeOverlap:14};
+  if(name==="concentric") opt={...opt,concentric:n=>n.data("kind")==="pillar"?10:1,levelWidth:()=>1,minNodeSpacing:30};
+  cy.layout(opt).run();
+}
+
+/* ---------- stats ---------- */
+function buildStats(){
+  const prods=APPS.filter(a=>a.type==="product");
+  const p1yes=prods.filter(a=>a.ad.p1==="yes").length;
+  const p3any=prods.filter(a=>a.ad.p3==="target").length; // querem IA mas via gateway
+  const gaps=APPS.filter(a=>Object.values(a.ad||{}).includes("target")).length;
+  const stags=APPS.filter(a=>a.mat==="stagnant").length;
+  document.getElementById("stats").innerHTML=`
+    <div class="stat"><b style="color:var(--ok)">${p1yes}/${prods.length}</b><small>produtos via NuPIdentify (P1)</small></div>
+    <div class="stat"><b style="color:var(--target)">5</b><small>stacks de IA paralelos (alvo: 1)</small></div>
+    <div class="stat"><b class="gap-flag">${gaps}</b><small>repos com gap de adoção 🎯</small></div>
+    <div class="stat"><b style="color:var(--bad)">${stags}</b><small>satélites estagnados</small></div>`;
+}
+
+/* ---------- matrix ---------- */
+function buildMatrix(){
+  const tb=document.querySelector("#matrix tbody"); tb.innerHTML="";
+  APPS.filter(a=>a.type==="product"||a.type==="component").forEach(a=>{
+    const cell=pk=>{const v=(a.ad||{})[pk]||"no";return `<td class="m ${v}">${AD_SYM[v]}</td>`;};
+    tb.insertAdjacentHTML("beforeend",
+      `<tr><td class="app" onclick="showDetail('${a.id}');focusNode('${a.id}')">${a.id}</td>
+       ${cell("p1")}${cell("p2")}${cell("p3")}${cell("p4")}${cell("audit")}</tr>`);
+  });
+}
+
+buildStats(); buildMatrix();
+document.getElementById("foot").textContent=
+  "Fonte: docs/enterprise-architecture/ (TOGAF ADM, evidência por repo) · "+APPS.length+" repositórios · ✅ adota · 🎯 alvo de consolidação · ⬜ não · — n/a · Cytoscape.js";
+cy.ready(()=>cy.fit(undefined,40));
+</script>
+</body>
+</html>
