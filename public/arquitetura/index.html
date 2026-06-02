@@ -150,8 +150,8 @@
 const PILLARS = {
   p1:{name:"NuPIdentify",label:"P1 · Identidade",color:"var(--p1)",desc:"IdP central — OIDC·SAML·SCIM·RBAC·ABAC·ReBAC·MFA·billing."},
   p2:{name:"nup-platform",label:"P2 · Pacotes",color:"var(--p2)",desc:"~30 pacotes @nuptechs/* — payments·billing·messaging·voice·conference·shared-kernel."},
-  p3:{name:"nupai-gateway",label:"P3 · IA",color:"var(--p3)",desc:"Gateway LLM hexagonal provider-agnostic — RAG·guardrails·MCP. Subutilizado."},
-  p4:{name:"nup-sentinel",label:"P4 · Qualidade",color:"var(--p4)",desc:"Orquestrador de inteligência de código — diagnose→correct→verify→PR."}
+  p3:{name:"nupai-gateway",label:"P3 · IA",color:"var(--p3)",desc:"Gateway LLM hexagonal provider-agnostic (17 portas) — RAG·guardrails·MCP. ⚠️ Sem deploy de produção + adoção zero."},
+  p4:{name:"nup-sentinel",label:"P4 · Qualidade",color:"var(--p4)",desc:"Orquestrador de inteligência de código — diagnose→correct→verify(LLM)→PR. Loop self-healing NÃO fecha (sem teste real). Compliance: LGPD/SOC2/OPA (Lei 14.133 vive no easynup)."}
 };
 const APPS = [
   // pilares
@@ -159,21 +159,21 @@ const APPS = [
    purpose:"Provedor de identidade central do parque (IdP).",rec:"Investir — pilar P1.",ad:{}},
   {id:"nup-platform",pillar:"p2",type:"pillar",mat:"prod",loc:"36k",stack:"TS·Turborepo·tsup",
    purpose:"Monorepo de pacotes compartilhados @nuptechs/*.",rec:"Investir — pilar P2. (hospeda esta EA)",ad:{}},
-  {id:"nupai-gateway",pillar:"p3",type:"pillar",mat:"mvp",loc:"14k",stack:"TS·14 ports·LiteLLM·Pinecone",
-   purpose:"Gateway de LLM provider-agnostic. Existe p/ unificar IA — adoção zero.",rec:"Investir/endurecer — habilita a Onda 2.",ad:{}},
+  {id:"nupai-gateway",pillar:"p3",type:"pillar",mat:"mvp",loc:"14k",stack:"TS·17 ports·LiteLLM·Pinecone",
+   purpose:"Gateway de LLM provider-agnostic (adapters reais). Existe p/ unificar IA — ⚠️ adoção zero E sem deploy de produção (sem Dockerfile/railway).",rec:"Endurecer+deployar (WP-IA-0) ANTES de migrar consumidores — habilita a Onda 2.",ad:{}},
   {id:"nup-sentinel",pillar:"p4",type:"pillar",mat:"prod",loc:"30k",stack:"Node·17 ports·MCP·Anthropic",
    purpose:"Hub orquestrador de qualidade/segurança de código.",rec:"Investir — pilar P4 + produto futuro.",ad:{}},
   // componentes do P4
   {id:"manifest",pillar:"p4c",type:"component",mat:"prod",loc:"35k",stack:"Node·Drizzle·Java engine·OPA Rego",
-   purpose:"Análise estática auth/schema; gera OpenAPI·Policy Matrix·OPA·compliance-report.",rec:"Componente P4 — compliance BR.",ad:{p1:"yes",p4:"yes",audit:"yes"}},
+   purpose:"Análise estática auth/schema; gera OpenAPI·Policy Matrix·OPA·compliance-report (LGPD Art.37 + SOC2 — NÃO Lei 14.133).",rec:"Componente P4 — compliance LGPD/SOC2 genérico.",ad:{p1:"yes",p4:"yes",audit:"yes"}},
   {id:"probe",pillar:"p4c",type:"component",mat:"mvp",loc:"37k",stack:"TS·Playwright·WS·Turborepo",
    purpose:"Captura runtime browser/network/DB com correlation engine.",rec:"Componente P4 — sinal de runtime.",ad:{p4:"yes"}},
   {id:"codelens",pillar:"p4c",type:"component",mat:"prod",loc:"13k",stack:"TS·AST·PageRank·Anthropic",
    purpose:"Análise AST/grafo/dead-code; explicação IA com citação verificada.",rec:"Componente P4 — emit ao hub.",ad:{p4:"yes"}},
   // produtos
-  {id:"easynup",pillar:null,type:"product",mat:"prod",loc:"608k",stack:"Java21·Spring·Vue·Express·PG16",
-   purpose:"FLAGSHIP — gestão de contratos públicos (Lei 14.133). 210 entidades, 266 migrations, 42 ADRs, audit HMAC, IA jurídica.",
-   rec:"Investir — fosso de domínio, ativo nº 1.",ad:{p1:"yes",p2:"target",p3:"target",p4:"yes",audit:"yes"}},
+  {id:"easynup",pillar:null,type:"product",mat:"prod",loc:"608k",stack:"Java21·Spring 3.5·Vue·Express·PG16",
+   purpose:"FLAGSHIP — gestão de contratos públicos (Lei 14.133 modelada no domínio). 210 entidades, 267 migrations, 634 WsV1, 42 ADRs, audit HMAC. ⚠️ RLS dormente — isolamento multi-tenant só na app.",
+   rec:"Investir — fosso de domínio, ativo nº 1. Ativar RLS (R2) + completar direito LGPD (R4).",ad:{p1:"yes",p2:"target",p3:"target",p4:"yes",audit:"yes"}},
   {id:"NuP-School",pillar:null,type:"product",mat:"prod",loc:"210k",stack:"React·Express5·Drizzle·mediasoup",
    purpose:"Gestão escolar — BNCC, famílias, gamificação, aula ao vivo, pagamentos.",
    rec:"Investir — vertical forte e bem integrado.",ad:{p1:"yes",p2:"yes",p3:"no",p4:"yes",audit:"target"}},
@@ -190,8 +190,8 @@ const APPS = [
    purpose:"Kanban — boards/WIP/custom fields/teams/audit.",
    rec:"Consolidar — já usa IdP; padronizar deploy.",ad:{p1:"yes",p2:"no",p3:"na",p4:"no",audit:"no"}},
   {id:"nup-aim",pillar:null,type:"product",mat:"mvp",loc:"34k",stack:"Express·Drizzle·React·Gemini·OCR",
-   purpose:"Impact Analysis + FPA IFPUG (5 estágios, anti-alucinação).",
-   rec:"Reposicionar — avaliar fusão FPA→easynup.",ad:{p1:"yes",p2:"no",p3:"target",p4:"no",audit:"no"}},
+   purpose:"Impact Analysis + FPA IFPUG (5 estágios, anti-alucinação). ⚠️ JWT_SECRET hardcoded versionado no .replit.",
+   rec:"Reposicionar — avaliar fusão FPA→easynup. Rotacionar JWT secret.",ad:{p1:"yes",p2:"no",p3:"target",p4:"no",audit:"no"}},
   {id:"Orbit",pillar:null,type:"product",mat:"mvp",loc:"15k",stack:"Express·PG·Bull·React19·hexagonal",
    purpose:"Marketing IA p/ PMEs — geração de conteúdo, 90 endpoints. ⚠️ segredo exposto no docker-compose.",
    rec:"Decidir — vertical fora do ecossistema. Rotacionar chave JÁ.",ad:{p1:"target",p2:"no",p3:"target",p4:"no",audit:"no"}},
