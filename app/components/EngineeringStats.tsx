@@ -12,10 +12,10 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { value: 1.2, suffix: "M+", decimals: 1, label: { pt: "linhas de código em produção", en: "lines of production code", es: "líneas de código en producción" }, sublabel: { pt: "em 15 produtos próprios", en: "across 15 proprietary products", es: "en 15 productos propios" } },
-  { value: 12.3, suffix: "k+", decimals: 1, label: { pt: "testes automatizados", en: "automated tests", es: "tests automatizados" }, sublabel: { pt: "unitários, integração, e2e", en: "unit, integration, e2e", es: "unitarios, integración, e2e" } },
+  { value: 200, suffix: "+", label: { pt: "projetos entregues", en: "projects delivered", es: "proyectos entregados" }, sublabel: { pt: "para governo e enterprise", en: "for government and enterprise", es: "para gobierno y enterprise" } },
+  { value: 15, suffix: "", label: { pt: "produtos próprios em produção", en: "proprietary products in production", es: "productos propios en producción" }, sublabel: { pt: "SaaS, plataformas e bibliotecas", en: "SaaS, platforms and libraries", es: "SaaS, plataformas y bibliotecas" } },
   { value: 17, suffix: "+", label: { pt: "órgãos governamentais", en: "government agencies", es: "órganos gubernamentales" }, sublabel: { pt: "federal, estadual, distrital", en: "federal, state, municipal", es: "federal, estatal, municipal" } },
-  { value: 18, suffix: "+", label: { pt: "anos em TI governamental", en: "years in gov IT", es: "años en TI gubernamental" }, sublabel: { pt: "Caixa, Serpro, TRF, ANVISA…", en: "Caixa, Serpro, TRF, ANVISA…", es: "Caixa, Serpro, TRF, ANVISA…" } },
+  { value: 18, suffix: "+", label: { pt: "anos de experiência em TI gov", en: "years of gov IT experience", es: "años de experiencia en TI gov" }, sublabel: { pt: "do nosso fundador — Caixa, Serpro, TRF…", en: "of our founder — Caixa, Serpro, TRF…", es: "de nuestro fundador — Caixa, Serpro, TRF…" } },
 ];
 
 function useCountUp(target: number, duration: number, active: boolean, decimals = 0) {
