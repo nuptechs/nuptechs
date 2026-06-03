@@ -34,6 +34,11 @@ export async function GET(request: NextRequest) {
   const cookieStore = await cookies();
   const savedState = cookieStore.get("oidc_state")?.value;
   const codeVerifier = cookieStore.get("oidc_verifier")?.value;
+  const rawReturn = cookieStore.get("oidc_return")?.value || "";
+  const returnTo =
+    rawReturn.startsWith("/") && !rawReturn.startsWith("//") && !rawReturn.includes("\\")
+      ? rawReturn
+      : "/admin";
 
   if (!savedState || !codeVerifier || state !== savedState) {
     console.error("[CALLBACK] STATE MISMATCH", { hasSavedState: !!savedState, hasVerifier: !!codeVerifier, stateMatch: state === savedState, stateFromUrl: state?.substring(0, 10), stateFromCookie: savedState?.substring(0, 10) });
@@ -66,7 +71,7 @@ export async function GET(request: NextRequest) {
     // Set ALL cookies on the redirect response object directly
     // (cookies() + NextResponse.redirect() may not merge Set-Cookie headers reliably)
     console.error(`[CALLBACK] SUCCESS — creating session. sub=${claims.sub} email=${(claims as any).email} permissions=[${permissions.join(',')}] jwtLen=${sessionJwt.length}`);
-    const response = NextResponse.redirect(new URL("/admin", SITE_URL));
+    const response = NextResponse.redirect(new URL(returnTo, SITE_URL));
     const cookieDomain = getCookieDomain();
     console.error(`[CALLBACK] Setting cookie domain=${cookieDomain} secure=${process.env.NODE_ENV === 'production'} SITE_URL=${SITE_URL}`);
     response.cookies.set(SESSION_COOKIE_NAME, sessionJwt, {
@@ -87,6 +92,14 @@ export async function GET(request: NextRequest) {
       ...(cookieDomain && { domain: cookieDomain }),
     });
     response.cookies.set("oidc_verifier", "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 0,
+      ...(cookieDomain && { domain: cookieDomain }),
+    });
+    response.cookies.set("oidc_return", "", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
