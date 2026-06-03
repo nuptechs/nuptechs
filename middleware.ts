@@ -19,10 +19,21 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  // Only protect /admin routes (not auth API routes)
-  if (!pathname.startsWith("/admin")) {
+  // Rotas protegidas por NuPIdentify (login obrigatório): admin + docs + dashboard de arquitetura.
+  const PROTECTED_PREFIXES = ["/admin", "/docs", "/arquitetura"];
+  const isProtected = PROTECTED_PREFIXES.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`)
+  );
+  if (!isProtected) {
     return NextResponse.next();
   }
+
+  // Volta para a página originalmente pedida após o login.
+  const loginUrl = (): URL => {
+    const u = new URL("/api/auth/login", SITE_URL);
+    u.searchParams.set("returnTo", pathname + request.nextUrl.search);
+    return u;
+  };
 
   const token = request.cookies.get(COOKIE_NAME)?.value;
   const allCookieNames = request.cookies.getAll().map(c => c.name);
@@ -31,7 +42,7 @@ export async function middleware(request: NextRequest) {
 
   if (!token) {
     console.error(`[MW] NO SESSION COOKIE → redirect to login`);
-    return NextResponse.redirect(new URL("/api/auth/login", SITE_URL));
+    return NextResponse.redirect(loginUrl());
   }
 
   try {
@@ -40,8 +51,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   } catch (err: any) {
     console.error(`[MW] JWT VERIFY FAILED: ${err.code || err.message || err}`);
-    // Invalid or expired session — redirect to login
-    const response = NextResponse.redirect(new URL("/api/auth/login", SITE_URL));
+    // Invalid or expired session — redirect to login (preservando returnTo)
+    const response = NextResponse.redirect(loginUrl());
     response.cookies.delete(COOKIE_NAME);
     return response;
   }
