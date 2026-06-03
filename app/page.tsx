@@ -69,6 +69,8 @@ const jsonLd = {
         "https://github.com/nuptechs"
       ],
       knowsAbout: [
+        "Enterprise Architecture (TOGAF)",
+        "Corporate Architecture Consulting",
         "Enterprise Contract Management",
         "Identity & Access Management (IAM)",
         "AI-Powered Code Analysis",
@@ -142,7 +144,7 @@ export default function Home() {
           <div className="hero-eng-layout">
             <div className="hero-copy hero-copy--left">
               <TextReveal as="h1" className="display-title" delay={100}>
-                Construímos infraestrutura para software empresarial
+                Sistemas críticos exigem engenharia que não falha
               </TextReveal>
 
               <p className="lead" data-reveal style={{ transitionDelay: '300ms' }}>
@@ -191,6 +193,46 @@ export default function Home() {
       <section className="eng-band" aria-label="Números de engenharia">
         <div className="inner">
           <EngineeringStats />
+        </div>
+      </section>
+
+      {/* ── Consultoria · Arquitetura Corporativa / TOGAF ─── */}
+      <section id="consultoria" className="page-section bg-[var(--surface)]" aria-labelledby="consultoria-heading">
+        <div className="inner">
+          <div className="grid gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-start">
+            <div data-reveal="left">
+              <span className="eyebrow mb-4 block" data-genesis="fast">Consultoria</span>
+              <h2 id="consultoria-heading" className="section-heading mb-4" data-genesis>
+                Consultoria em Arquitetura Corporativa e mapeamento TOGAF
+              </h2>
+              <p className="lead mb-6" data-genesis>
+                Antes de escrever código, ajudamos sua organização a enxergar o todo. Mapeamos negócio, dados, aplicações e tecnologia segundo o framework <strong>TOGAF</strong>, conectando estratégia a execução — com a mesma profundidade de engenharia que sustenta nossos 15 produtos em produção.
+              </p>
+              <div className="flex flex-wrap items-center gap-4">
+                <a href="#contato" className="btn btn-primary" data-magnetic>
+                  Falar com um arquiteto
+                  <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+                <p className="text-xs text-[var(--subtle)]">Diagnóstico inicial em 24h · Sem compromisso</p>
+              </div>
+            </div>
+
+            <ul className="consultoria-grid" data-reveal="right" data-reveal-group>
+              {[
+                { t: "Arquitetura de Negócio", d: "Capacidades, processos e value streams mapeados e alinhados aos objetivos estratégicos." },
+                { t: "Arquitetura de Dados & Aplicações", d: "Catálogo de sistemas, fluxos de informação e dependências para decisões com base em evidência." },
+                { t: "Arquitetura Tecnológica", d: "Infraestrutura, integrações e padrões técnicos sob o ADM do TOGAF, do baseline ao target." },
+                { t: "Roadmap de Transição", d: "Análise de gaps e plano de evolução priorizado — o caminho concreto do estado atual ao desejado." },
+              ].map((item) => (
+                <li key={item.t} className="consultoria-card" data-reveal-item>
+                  <h3 className="consultoria-card__title">{item.t}</h3>
+                  <p className="consultoria-card__text">{item.d}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
