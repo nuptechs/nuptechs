@@ -3994,6 +3994,52 @@ a, button {
   }
 }
 
+/* ─── Consultoria · Arquitetura Corporativa / TOGAF ───────── */
+.consultoria-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.consultoria-card {
+  padding: 1.25rem 1.3rem;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--border));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 84%, white 16%), var(--surface));
+  box-shadow: 0 10px 30px rgba(8, 15, 30, 0.07);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.consultoria-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 38%, var(--border));
+  box-shadow: 0 16px 42px rgba(8, 15, 30, 0.12);
+}
+
+.consultoria-card__title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0 0 0.45rem;
+}
+
+.consultoria-card__text {
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--subtle);
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .consultoria-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ─── Code Window (TypewriterCode) ────────────────────────── */
 .code-window {
   border-radius: 16px;
