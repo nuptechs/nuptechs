@@ -8,8 +8,8 @@ description: "Comparativo técnico e prático das três principais ferramentas d
 keywords: ["Grafana vs Metabase", "Superset open-source BI", "melhor ferramenta BI PME", "dashboard open-source gratuito", "comparativo BI 2026", "Metabase self-hosted", "Grafana dashboards", "Apache Superset SQL Lab", "BI para pequenas empresas"],
 readTime: "24 min",
 publishedAt: "2026-02-28",
-updatedAt: "2026-04-10",
-author: { name: "NuPtechs", role: "Business Intelligence" },
+updatedAt: "2026-02-28",
+author: { name: "Yuri Francis", role: "Fundador, NuPtechs" },
 executiveSummary: "As três principais ferramentas de BI open-source atendem públicos diferentes: Metabase é ideal para equipes de negócio não-técnicas que precisam de self-service (gestores criando seus próprios dashboards), Grafana é imbatível para monitoramento de infraestrutura e métricas em tempo real (APIs, SLAs, DevOps), e Apache Superset é a escolha para equipes de dados que vivem em SQL e precisam de análises exploratórias avançadas. Este guia compara as três em 12 critérios técnicos, mostra benchmarks de performance por volume de dados, analisa custos reais de self-hosted vs. cloud, apresenta exemplos de dashboards por setor e oferece uma matriz de decisão por perfil de empresa.",
 keyTakeaways: [
   "Metabase é a escolha padrão para equipes não-técnicas — interface mais intuitiva e self-service",

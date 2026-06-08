@@ -8,8 +8,8 @@ description: "Passo a passo técnico e estratégico para empresas que querem aut
 keywords: ["API WhatsApp Business", "integrar WhatsApp sistema empresarial", "automação WhatsApp", "chatbot WhatsApp", "WhatsApp Cloud API", "BSP WhatsApp Brasil"],
 readTime: "26 min",
 publishedAt: "2026-02-12",
-updatedAt: "2026-04-10",
-author: { name: "NuPtechs", role: "Integrações & APIs" },
+updatedAt: "2026-02-12",
+author: { name: "Yuri Francis", role: "Fundador, NuPtechs" },
 executiveSummary: "O WhatsApp é o canal com maior taxa de abertura no Brasil (>90%), mas integrá-lo de forma errada pode resultar em ban permanente, multas por LGPD e custos ocultos. Este guia cobre a diferença entre API oficial e soluções gambiarra, o modelo de cobrança por conversa, a arquitetura de produção com webhook + fila + IA, 4 casos de uso com ROI calculado, gestão obrigatória de opt-in/LGPD, implementação passo a passo para o primeiro bot, e os 6 erros que mais causam problemas em produção.",
 keyTakeaways: [
   "Use apenas a API oficial da Meta (Cloud API ou BSP) — soluções não-oficiais resultam em ban permanente",

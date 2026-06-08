@@ -8,8 +8,8 @@ description: "Aprenda a receber eventos de qualquer sistema via webhook e automa
 keywords: ["webhook tutorial", "integração webhook n8n", "como usar webhook", "webhooks para iniciantes", "automação sem código webhook", "n8n webhook trigger", "validação HMAC webhook", "padrões de integração webhook"],
 readTime: "24 min",
 publishedAt: "2026-02-14",
-updatedAt: "2026-04-10",
-author: { name: "NuPtechs", role: "Integrações & APIs" },
+updatedAt: "2026-02-14",
+author: { name: "Yuri Francis", role: "Fundador, NuPtechs" },
 executiveSummary: "Webhooks são o mecanismo padrão para integrar sistemas em tempo real: em vez de perguntar a cada X segundos se algo mudou (polling), o sistema te avisa instantaneamente quando o evento ocorre. Combinado com n8n (plataforma de automação open-source), qualquer pessoa cria integrações visuais sem escrever código. Este guia cobre a teoria mínima de webhooks, como configurar receivers no n8n, segurança obrigatória (HMAC, idempotência, rate limiting), 8 padrões de automação prontos para produção, debug e monitoramento, e como escalar de 100 para 50.000 webhooks/dia.",
 keyTakeaways: [
   "Webhook é uma URL que seu sistema expõe para receber dados de outros sistemas em tempo real — modelo push, não pull",

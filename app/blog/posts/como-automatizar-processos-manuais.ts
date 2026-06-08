@@ -8,8 +8,8 @@ description: "Descubra as 5 tarefas que mais consomem tempo em operações e com
 keywords: ["automação de processos manuais", "liberar tempo equipe", "RPA empresarial", "fluxos automatizados", "n8n automação", "integração de sistemas", "automação operacional"],
 readTime: "22 min",
 publishedAt: "2026-02-15",
-updatedAt: "2026-04-10",
-author: { name: "NuPtechs", role: "Engenharia & Automação" },
+updatedAt: "2026-02-15",
+author: { name: "Yuri Francis", role: "Fundador, NuPtechs" },
 executiveSummary: "Empresas brasileiras perdem em média 25 a 40 horas semanais por equipe operacional com tarefas repetitivas que poderiam ser automatizadas. Este guia completo apresenta as 5 categorias de processos mais desperdiçadores, um framework de priorização em 3 perguntas, comparativo de ferramentas (n8n vs Make vs Zapier), 4 casos reais com ROI documentado e um checklist para começar esta semana.",
 snapshot: [
   { label: "Custo invisível", value: "Uma equipe de 5 pessoas pode desperdiçar mais de R$ 92,4 mil por ano em tarefas repetitivas." },
@@ -241,7 +241,7 @@ sections: [
   {
     id: "casos-reais",
     heading: "4 casos reais: de meses de trabalho manual a minutos",
-    content: `<p>Números abstratos convencem a razão. Histórias concretas convencem a ação. Aqui estão 4 casos reais de automações que implementamos (nomes das empresas omitidos por acordos de confidencialidade, mas os números são reais).</p>
+    content: `<p>Números abstratos convencem a razão. Histórias concretas convencem a ação. Aqui estão 4 exemplos ilustrativos de automações no padrão das que implementamos — cenários representativos, com números aproximados para fins didáticos.</p>
 
 <h3>Caso 1: Clínica de fisioterapia — agendamentos por WhatsApp</h3>
 <p><strong>Antes:</strong> 3 recepcionistas recebiam agendamentos por WhatsApp e copiavam manualmente para o sistema de gestão da clínica. Erros frequentes: paciente agendado no horário errado, consultas duplicadas, confirmações esquecidas.</p>

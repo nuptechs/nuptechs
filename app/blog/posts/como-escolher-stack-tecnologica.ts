@@ -8,8 +8,8 @@ description: "Os critérios que engenheiros seniores usam para definir linguagem
 keywords: ["como escolher stack tecnológica", "linguagem de programação para projeto", "arquitetura de software empresarial", "stack tecnológica 2026", "Java vs Node vs Python", "PostgreSQL vs MongoDB"],
 readTime: "28 min",
 publishedAt: "2026-02-18",
-updatedAt: "2026-04-10",
-author: { name: "NuPtechs", role: "Engenharia de Software" },
+updatedAt: "2026-02-18",
+author: { name: "Yuri Francis", role: "Fundador, NuPtechs" },
 executiveSummary: "A stack tecnológica define o custo de manutenção, a velocidade de entrega e a escalabilidade do sistema pelos próximos 5 a 10 anos. Este guia apresenta os 5 critérios que engenheiros seniores usam para decidir, uma matriz de decisão por tipo de projeto, comparativos reais de linguagens e bancos de dados, os 7 erros fatais de decisão, stacks recomendadas por cenário, e um framework para avaliar quando é hora de migrar.",
 keyTakeaways: [
   "Avalie por: fit com o problema, maturidade do ecossistema, pool de profissionais, custo em escala e velocidade de iteração",
