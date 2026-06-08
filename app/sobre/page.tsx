@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sobre a NuPtechs — Quem somos e como trabalhamos",
     description:
-      "Equipe sênior, metodologia ágil e entrega em semanas. Conheça a empresa por trás de +200 projetos de software.",
+      "Equipe sênior, metodologia ágil e entrega em semanas. Conheça a empresa por trás de +70 projetos de software.",
     url: `${siteUrl}/sobre`,
     type: "website",
     locale: "pt_BR",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     site: "@nuptechs",
     title: "Sobre a NuPtechs — Quem somos e como trabalhamos",
     description:
-      "Equipe sênior, metodologia ágil e entrega em semanas. Conheça a empresa por trás de +200 projetos de software.",
+      "Equipe sênior, metodologia ágil e entrega em semanas. Conheça a empresa por trás de +70 projetos de software.",
     images: [`${siteUrl}/og?title=Sobre+a+NuPtechs&sub=Equipe+sênior%2C+metodologia+ágil&lang=pt`],
   },
 };
@@ -169,7 +169,7 @@ const milestones = [
   { year: "2022", event: "Fundação da NuPtechs em Brasília com foco em automação e sistemas sob medida." },
   { year: "2023", event: "Primeiros 100 projetos entregues. Primeiras plataformas internas em produção (EasyNuP, NuPIdentify)." },
   { year: "2024", event: "Expansão para clientes em toda a América Latina. Suite de produtos cresce com NuP-School, NuP-Sales, NuP-Sentinel e nupai-gateway." },
-  { year: "2025", event: "Internacionalização: site, atendimento e contratos em PT, EN e ES. 15 produtos próprios em produção, +200 projetos entregues." },
+  { year: "2025", event: "Internacionalização: site, atendimento e contratos em PT, EN e ES. 15 produtos próprios em produção, +70 projetos entregues." },
 ];
 
 const team = [
@@ -188,7 +188,7 @@ const team = [
 ];
 
 const stats = [
-  { value: "+200", label: "Projetos entregues" },
+  { value: "+70", label: "Projetos entregues" },
   { value: "98%", label: "Taxa de satisfação" },
   { value: "7 dias", label: "Da contratação à 1ª versão" },
   { value: "24h", label: "Diagnóstico grátis" },
@@ -312,7 +312,7 @@ export default function SobrePage() {
             <div className="mb-12 max-w-xl">
               <span className="eyebrow mb-3 block">Nossa história</span>
               <h2 id="historia-heading" className="section-heading">
-                Da primeira linha ao +200º projeto.
+                Da primeira linha ao +70º projeto.
               </h2>
             </div>
             <div className="relative">

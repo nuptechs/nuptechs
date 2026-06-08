@@ -107,7 +107,7 @@ export default function HeroVisual() {
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
           <path d="M6 1l1.5 3h3l-2.5 1.8.9 3L6 7.2 3.1 8.8l.9-3L1.5 4h3L6 1z" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round"/>
         </svg>
-        +200 projetos entregues
+        +70 projetos entregues
       </div>
     </div>
   );

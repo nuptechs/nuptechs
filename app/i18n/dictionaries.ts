@@ -72,7 +72,7 @@ export const dictionaries = {
       heroTitle: "Engineering that solves real problems.",
       heroLead: "Founded in 2022 in Brasília, NuPtechs builds enterprise infrastructure — from identity management to AI-powered debugging. 15 products in production, running in Brazil's largest federal agencies.",
       stats: [
-        { value: "200+", label: "projects delivered" },
+        { value: "70+", label: "projects delivered" },
         { value: "15", label: "shipped products" },
         { value: "17+", label: "government agencies" },
         { value: "18+", label: "years in gov IT" },
@@ -195,7 +195,7 @@ export const dictionaries = {
       heroTitle: "Ingeniería que resuelve problemas reales.",
       heroLead: "Fundada en 2022 en Brasília, NuPtechs construye infraestructura empresarial — de gestión de identidad a debugging con IA. 15 productos en producción, operando en las mayores agencias federales de Brasil.",
       stats: [
-        { value: "200+", label: "proyectos entregados" },
+        { value: "70+", label: "proyectos entregados" },
         { value: "15", label: "productos entregados" },
         { value: "17+", label: "órganos gubernamentales" },
         { value: "18+", label: "años en TI gov" },

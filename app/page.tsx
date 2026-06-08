@@ -28,7 +28,7 @@ const jsonLd = {
       "@id": `${siteUrl}/#website`,
       url: siteUrl,
       name: "NuPtechs",
-      description: "Engenharia de software para infraestrutura empresarial. 15 produtos próprios em produção e 200+ projetos entregues, com conformidade Lei 14.133/2021 e LGPD, auditoria à prova de adulteração e operação on-premise.",
+      description: "Engenharia de software para infraestrutura empresarial. 15 produtos próprios em produção e 70+ projetos entregues, com conformidade Lei 14.133/2021 e LGPD, auditoria à prova de adulteração e operação on-premise.",
       inLanguage: ["pt-BR", "en-US", "es-419"],
       potentialAction: {
         "@type": "SearchAction",
@@ -53,7 +53,7 @@ const jsonLd = {
       email: "nuptechs@nuptechs.com",
       telephone: "+55-61-99369-1692",
       foundingDate: "2022",
-      description: "Empresa de engenharia de software com 15 produtos próprios em produção — entre SaaS, plataformas, bibliotecas e ferramentas de infraestrutura — além de 200+ projetos entregues. 18+ anos de experiência em TI governamental.",
+      description: "Empresa de engenharia de software com 15 produtos próprios em produção — entre SaaS, plataformas, bibliotecas e ferramentas de infraestrutura — além de 70+ projetos entregues. 18+ anos de experiência em TI governamental.",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Brasília",
@@ -84,7 +84,7 @@ const jsonLd = {
       mainEntity: [
         { "@type": "Question", name: "Qual é o stack tecnológico da NuPtechs?", acceptedAnswer: { "@type": "Answer", text: "Trabalhamos com as principais tecnologias do mercado, escolhendo a melhor ferramenta para cada camada. Java 21 + Spring Boot e Node.js + Express para backends, React, Vue 3 e Next.js para frontends web e React Native + Expo para mobile, Python + FastAPI para pipelines de IA e processamento de documentos, PostgreSQL + Drizzle ORM para dados relacionais e Pinecone para busca vetorial, Claude, GPT-4 e Gemini para LLMs, Docker, Turborepo e CI/CD automatizado para infraestrutura." } },
         { "@type": "Question", name: "A NuPtechs trabalha com o setor público?", acceptedAnswer: { "@type": "Answer", text: "Sim. Nosso fundador acumula 18+ anos de experiência em TI governamental, com projetos para Caixa Econômica Federal, Serpro, TRF, ANVISA, Anatel e mais de 12 outros órgãos federais." } },
-        { "@type": "Question", name: "Quantos produtos próprios a NuPtechs mantém em produção?", acceptedAnswer: { "@type": "Answer", text: "Mantemos 15 produtos próprios em produção — entre SaaS, plataformas, bibliotecas e ferramentas de infraestrutura — além de mais de 200 projetos entregues. A engenharia é pronta para o setor público: conformidade com a Lei 14.133/2021 e a LGPD, auditoria à prova de adulteração e operação on-premise." } }
+        { "@type": "Question", name: "Quantos produtos próprios a NuPtechs mantém em produção?", acceptedAnswer: { "@type": "Answer", text: "Mantemos 15 produtos próprios em produção — entre SaaS, plataformas, bibliotecas e ferramentas de infraestrutura — além de mais de 70 projetos entregues. A engenharia é pronta para o setor público: conformidade com a Lei 14.133/2021 e a LGPD, auditoria à prova de adulteração e operação on-premise." } }
       ]
     }
   ]
@@ -148,7 +148,7 @@ export default function Home() {
               </TextReveal>
 
               <p className="lead" data-reveal style={{ transitionDelay: '300ms' }}>
-                +200 projetos entregues e 15 produtos próprios em produção — entre SaaS, plataformas e bibliotecas. Engenharia pronta para o setor público: conformidade com a Lei 14.133/2021 e a LGPD, auditoria à prova de adulteração e operação on-premise.
+                +70 projetos entregues e 15 produtos próprios em produção — entre SaaS, plataformas e bibliotecas. Engenharia pronta para o setor público: conformidade com a Lei 14.133/2021 e a LGPD, auditoria à prova de adulteração e operação on-premise.
               </p>
 
               <div className="flex flex-wrap gap-3 mt-2" data-reveal style={{ transitionDelay: '500ms' }}>
@@ -261,7 +261,7 @@ export default function Home() {
               15 produtos próprios — SaaS, plataformas e bibliotecas em produção.
             </TextReveal>
             <p className="lead" data-genesis>
-              Além dos +200 projetos entregues para governo e enterprise, a NuPtechs mantém 15 produtos próprios — alguns por assinatura, outros como plataformas, bibliotecas e ferramentas de infraestrutura. Todos nasceram de demandas reais e já rodam em produção.
+              Além dos +70 projetos entregues para governo e enterprise, a NuPtechs mantém 15 produtos próprios — alguns por assinatura, outros como plataformas, bibliotecas e ferramentas de infraestrutura. Todos nasceram de demandas reais e já rodam em produção.
             </p>
           </div>
           <ProductShowcase />

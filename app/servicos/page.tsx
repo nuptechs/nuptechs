@@ -215,7 +215,7 @@ export default function ServicosIndex() {
               {/* Stats strip */}
               <div className="svc-stats">
                 {[
-                  { value: "+200", label: "projetos entregues" },
+                  { value: "+70", label: "projetos entregues" },
                   { value: "4sem", label: "do contrato ao MVP" },
                   { value: "98%", label: "taxa de satisfação" },
                 ].map((s) => (
