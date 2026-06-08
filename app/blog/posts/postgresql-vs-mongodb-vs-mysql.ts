@@ -8,8 +8,8 @@ description: "Comparativo técnico e prático dos três bancos de dados mais usa
 keywords: ["PostgreSQL vs MongoDB", "MySQL vs PostgreSQL 2026", "banco de dados relacional vs NoSQL", "quando usar MongoDB", "como escolher banco de dados", "pgvector embeddings", "banco de dados para SaaS", "migração MySQL para PostgreSQL"],
 readTime: "26 min",
 publishedAt: "2026-02-23",
-updatedAt: "2026-04-10",
-author: { name: "NuPtechs", role: "Engenharia de Software" },
+updatedAt: "2026-02-23",
+author: { name: "Yuri Francis", role: "Fundador, NuPtechs" },
 executiveSummary: "A escolha do banco de dados é a decisão técnica mais difícil de reverter em um projeto. PostgreSQL é a resposta correta para 80% dos novos projetos — relacional, ACID, com JSON nativo, busca vetorial (pgvector) e geoespacial (PostGIS). MongoDB é a escolha certa para dados com estrutura altamente variável e escrita intensiva (IoT, logs, catálogos). MySQL mantém relevância em stacks legadas PHP/WordPress. Este guia compara os três em 12 critérios técnicos, apresenta benchmarks reais de performance, analisa custos operacionais por perfil e mostra como arquitetar sistemas multi-banco que usam o banco certo para cada tipo de dado.",
 keyTakeaways: [
   "PostgreSQL resolve 80% dos casos — é relacional, robusto, open-source e cresce sem reescrever",

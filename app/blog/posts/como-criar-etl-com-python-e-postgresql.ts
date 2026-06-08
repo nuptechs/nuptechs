@@ -8,8 +8,8 @@ description: "Tutorial completo para construir um pipeline ETL (Extract, Transfo
 keywords: ["ETL Python PostgreSQL", "pipeline de dados Python", "pandas ETL tutorial", "como criar ETL", "data pipeline simples"],
 readTime: "11 min",
 publishedAt: "2026-02-26",
-updatedAt: "2026-04-10",
-author: { name: "NuPtechs", role: "Business Intelligence" },
+updatedAt: "2026-02-26",
+author: { name: "Yuri Francis", role: "Fundador, NuPtechs" },
 keyTakeaways: [
   "ETL = Extract (buscar dados), Transform (limpar e formatar), Load (gravar no destino)",
   "Stack mínima: Python 3.11 + pandas + SQLAlchemy + psycopg2 + python-dotenv",

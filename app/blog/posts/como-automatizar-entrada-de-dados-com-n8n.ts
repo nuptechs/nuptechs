@@ -8,8 +8,8 @@ description: "Aprenda a criar fluxos no n8n que eliminam o trabalho manual de co
 keywords: ["n8n tutorial", "automatizar entrada de dados", "n8n passo a passo", "fluxo automático n8n", "integração sem código", "n8n docker self-hosted", "n8n vs Zapier", "n8n CRM ERP integração"],
 readTime: "26 min",
 publishedAt: "2026-02-20",
-updatedAt: "2026-04-10",
-author: { name: "NuPtechs", role: "Engenharia & Automação" },
+updatedAt: "2026-02-20",
+author: { name: "Yuri Francis", role: "Fundador, NuPtechs" },
 executiveSummary: "n8n é a ferramenta open-source mais poderosa para automatizar entrada de dados sem escrever código. Em 1 hora você conecta dois sistemas que antes exigiam copiar manualmente. Este tutorial cobre: instalação em 5 minutos com Docker, o primeiro fluxo do zero ao deploy, 6 padrões de automação prontos para produção (formulário→planilha, CRM→ERP, e-mail→banco, NF→contabilidade, estoque→alerta, onboarding→multi-sistema), comparativo com Zapier/Make por custo e volume, segurança e credenciais, tratamento de erros robusto, e o roadmap para escalar de 1 fluxo para uma operação inteira automatizada.",
 keyTakeaways: [
   "n8n é open-source, auto-hospedável e tem 400+ integrações nativas — sem custo de licença por execução",

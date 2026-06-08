@@ -8,8 +8,8 @@ description: "Uma jornada épica pela história da tecnologia, das primeiras fer
 keywords: ["história da tecnologia", "evolução tecnológica", "revolução industrial", "era da informação", "inteligência artificial", "história da computação", "inovação tecnológica"],
 readTime: "18 min",
 publishedAt: "2026-03-01",
-updatedAt: "2026-04-10",
-author: { name: "NuPtechs", role: "Engenharia & Pesquisa" },
+updatedAt: "2026-03-01",
+author: { name: "Yuri Francis", role: "Fundador, NuPtechs" },
 keyTakeaways: [
   "A tecnologia começa há 3,3 milhões de anos com ferramentas de pedra — somos inventores por natureza",
   "A escrita (c. 3500 a.C.) foi a primeira 'tecnologia de informação' — e mudou tudo",

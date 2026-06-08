@@ -8,8 +8,8 @@ description: "Guia prático para criar um sistema de busca inteligente sobre doc
 keywords: ["RAG empresarial", "Retrieval-Augmented Generation", "IA sobre documentos internos", "chatbot com base de conhecimento", "RAG implementação", "busca vetorial documentos", "LLM dados proprietários"],
 readTime: "26 min",
 publishedAt: "2026-02-17",
-updatedAt: "2026-04-10",
-author: { name: "NuPtechs", role: "IA & Machine Learning" },
+updatedAt: "2026-02-17",
+author: { name: "Yuri Francis", role: "Fundador, NuPtechs" },
 executiveSummary: "RAG (Retrieval-Augmented Generation) permite que um LLM responda perguntas sobre dados da sua empresa — manuais, contratos, base de conhecimento — com citação de fontes e sem alucinação. Este guia cobre a teoria mínima necessária, a stack de produção (LlamaIndex + OpenAI + Pinecone), implementação passo a passo em 2 semanas, os 8 erros que mais degradam qualidade, estratégias avançadas de chunking e re-ranking, custos reais por volume, e métricas de avaliação automatizada com RAGAS.",
 keyTakeaways: [
   "RAG = Busca vetorial + LLM: o modelo responde com base nos seus documentos, não no treinamento geral",

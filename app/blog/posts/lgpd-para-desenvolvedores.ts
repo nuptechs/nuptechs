@@ -8,8 +8,8 @@ description: "Guia técnico e prático da Lei Geral de Proteção de Dados para 
 keywords: ["LGPD desenvolvedores", "LGPD implementação técnica", "proteção de dados código", "LGPD checklist", "conformidade LGPD software", "privacy by design", "criptografia dados pessoais"],
 readTime: "22 min",
 publishedAt: "2026-02-19",
-updatedAt: "2026-04-10",
-author: { name: "NuPtechs", role: "Engenharia de Software" },
+updatedAt: "2026-02-19",
+author: { name: "Yuri Francis", role: "Fundador, NuPtechs" },
 executiveSummary: "A LGPD não é um problema jurídico — é um problema de engenharia. Este guia mostra exatamente o que precisa mudar no código: como documentar bases legais no banco, implementar os 8 direitos do titular com queries reais, configurar criptografia em repouso com pgcrypto, pseudonimizar logs, construir pipeline de anonimização, responder a incidentes em 72h, e auditar compliance com testes automatizados. Inclui exemplos de código em SQL, JavaScript e TypeScript, checklist completo, e análise dos casos reais de sanção da ANPD.",
 keyTakeaways: [
   "LGPD exige base legal para cada dado coletado — consentimento é só uma das 10 bases legais",
