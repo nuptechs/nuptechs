@@ -24,7 +24,7 @@ export const dictionaries = {
     products: {
       eyebrow: "Products",
       title: "15 products. Real code in production.",
-      lead: "Each product was born from real needs in government and enterprise projects. No prototypes — code running in production with thousands of users.",
+      lead: "Each product was born from real needs in enterprise projects. No prototypes — code running in production with thousands of users.",
     },
     blog: {
       eyebrow: "Engineering & Ideas",
@@ -147,7 +147,7 @@ export const dictionaries = {
     products: {
       eyebrow: "Productos",
       title: "15 productos. Código real en producción.",
-      lead: "Cada producto nació de necesidades reales en proyectos de gobierno y enterprise. Sin prototipos — código que corre en producción con miles de usuarios.",
+      lead: "Cada producto nació de necesidades reales en proyectos empresariales. Sin prototipos — código que corre en producción con miles de usuarios.",
     },
     blog: {
       eyebrow: "Ingeniería e Ideas",

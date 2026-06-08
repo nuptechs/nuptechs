@@ -261,7 +261,7 @@ export default function Home() {
               15 produtos próprios — SaaS, plataformas e bibliotecas em produção.
             </TextReveal>
             <p className="lead" data-genesis>
-              Além dos +70 projetos entregues para governo e enterprise, a NuPtechs mantém 15 produtos próprios — alguns por assinatura, outros como plataformas, bibliotecas e ferramentas de infraestrutura. Todos nasceram de demandas reais e já rodam em produção.
+              Além dos +70 projetos entregues, a NuPtechs mantém 15 produtos próprios — alguns por assinatura, outros como plataformas, bibliotecas e ferramentas de infraestrutura. Todos nasceram de demandas reais e já rodam em produção.
             </p>
           </div>
           <ProductShowcase />
