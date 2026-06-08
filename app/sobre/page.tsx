@@ -239,7 +239,7 @@ export default function SobrePage() {
                   Construímos software que <em>resolve problemas reais</em>.
                 </h1>
                 <p className="lead mb-6">
-                  Somos uma empresa brasileira de desenvolvimento de software sob medida, automação com IA e produtos SaaS — fundada com uma premissa simples: <strong>empresas merecem tecnologia que funciona de verdade, entregue no prazo, com custo previsível.</strong>
+                  Somos uma empresa brasileira de desenvolvimento de software sob medida, automação com IA e produtos SaaS, <strong>fundada em 2022 em Brasília</strong> — com uma premissa simples: <strong>empresas merecem tecnologia que funciona de verdade, entregue no prazo, com custo previsível.</strong>
                 </p>
                 <p className="text-[var(--muted)] leading-relaxed mb-8">
                   Não somos uma consultoria de PowerPoint. Somos engenheiros que escrevem código, entregam demos em semanas e ficam disponíveis após o deploy. Com base em Brasília e atendendo clientes em todo o Brasil e América Latina.
