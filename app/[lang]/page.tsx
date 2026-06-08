@@ -30,12 +30,12 @@ export default function LangPage({ params }: { params: { lang: string } }) {
   const esUrl = `${siteUrl}/es`;
   const heroProof = lang === "en"
     ? [
-        { kpi: "15", label: "live products" },
+        { kpi: "13", label: "live products" },
         { kpi: "14.133", label: "compliance-native" },
         { kpi: "Gov", label: "federal-grade expertise" },
       ]
     : [
-        { kpi: "15", label: "productos en producción" },
+        { kpi: "13", label: "productos en producción" },
         { kpi: "14.133", label: "conformidad nativa" },
         { kpi: "Gov", label: "experiencia federal crítica" },
       ];
