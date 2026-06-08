@@ -70,7 +70,7 @@ export const dictionaries = {
       ogDescription: "Senior team, 15 shipped products, 1.2M+ lines of production code. Meet the engineering company behind enterprise-grade software.",
       eyebrow: "Who we are",
       heroTitle: "Engineering that solves real problems.",
-      heroLead: "NuPtechs builds enterprise infrastructure — from identity management to AI-powered debugging. 15 products in production, running in Brazil's largest federal agencies.",
+      heroLead: "Founded in 2022 in Brasília, NuPtechs builds enterprise infrastructure — from identity management to AI-powered debugging. 15 products in production, running in Brazil's largest federal agencies.",
       stats: [
         { value: "1.2M+", label: "lines of code" },
         { value: "15", label: "shipped products" },
@@ -193,7 +193,7 @@ export const dictionaries = {
       ogDescription: "Equipo senior, 15 productos entregados, 1,2M+ líneas de código en producción. Conoce la empresa de ingeniería detrás de software de grado empresarial.",
       eyebrow: "Quiénes somos",
       heroTitle: "Ingeniería que resuelve problemas reales.",
-      heroLead: "NuPtechs construye infraestructura empresarial — de gestión de identidad a debugging con IA. 15 productos en producción, operando en las mayores agencias federales de Brasil.",
+      heroLead: "Fundada en 2022 en Brasília, NuPtechs construye infraestructura empresarial — de gestión de identidad a debugging con IA. 15 productos en producción, operando en las mayores agencias federales de Brasil.",
       stats: [
         { value: "1,2M+", label: "líneas de código" },
         { value: "15", label: "productos entregados" },
