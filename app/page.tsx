@@ -28,7 +28,7 @@ const jsonLd = {
       "@id": `${siteUrl}/#website`,
       url: siteUrl,
       name: "NuPtechs",
-      description: "Engenharia de software para infraestrutura empresarial. 15 produtos próprios em produção, além de 200+ projetos entregues, 1,2M+ linhas de código e 12.300+ testes automatizados.",
+      description: "Engenharia de software para infraestrutura empresarial. 15 produtos próprios em produção e 200+ projetos entregues, com conformidade Lei 14.133/2021 e LGPD, auditoria à prova de adulteração e operação on-premise.",
       inLanguage: ["pt-BR", "en-US", "es-419"],
       potentialAction: {
         "@type": "SearchAction",
@@ -84,7 +84,7 @@ const jsonLd = {
       mainEntity: [
         { "@type": "Question", name: "Qual é o stack tecnológico da NuPtechs?", acceptedAnswer: { "@type": "Answer", text: "Trabalhamos com as principais tecnologias do mercado, escolhendo a melhor ferramenta para cada camada. Java 21 + Spring Boot e Node.js + Express para backends, React, Vue 3 e Next.js para frontends web e React Native + Expo para mobile, Python + FastAPI para pipelines de IA e processamento de documentos, PostgreSQL + Drizzle ORM para dados relacionais e Pinecone para busca vetorial, Claude, GPT-4 e Gemini para LLMs, Docker, Turborepo e CI/CD automatizado para infraestrutura." } },
         { "@type": "Question", name: "A NuPtechs trabalha com o setor público?", acceptedAnswer: { "@type": "Answer", text: "Sim. Nosso fundador acumula 18+ anos de experiência em TI governamental, com projetos para Caixa Econômica Federal, Serpro, TRF, ANVISA, Anatel e mais de 12 outros órgãos federais." } },
-        { "@type": "Question", name: "Quantos produtos próprios a NuPtechs mantém em produção?", acceptedAnswer: { "@type": "Answer", text: "Mantemos 15 produtos próprios em produção — entre SaaS, plataformas, bibliotecas e ferramentas de infraestrutura — além de mais de 200 projetos entregues. Só em código proprietário, são 2M+ linhas e 12.300+ testes automatizados, sem contar os projetos entregues a clientes." } }
+        { "@type": "Question", name: "Quantos produtos próprios a NuPtechs mantém em produção?", acceptedAnswer: { "@type": "Answer", text: "Mantemos 15 produtos próprios em produção — entre SaaS, plataformas, bibliotecas e ferramentas de infraestrutura — além de mais de 200 projetos entregues. A engenharia é pronta para o setor público: conformidade com a Lei 14.133/2021 e a LGPD, auditoria à prova de adulteração e operação on-premise." } }
       ]
     }
   ]
@@ -94,7 +94,7 @@ const faqs = [
   { q: "Qual é o stack tecnológico da NuPtechs?", a: "Trabalhamos com as principais tecnologias do mercado, escolhendo a melhor ferramenta para cada camada. Java 21 + Spring Boot e Node.js + Express para backends, React, Vue 3 e Next.js para frontends web, React Native + Expo para mobile, Python + FastAPI para pipelines de IA e processamento de documentos, PostgreSQL + Drizzle ORM para dados relacionais e Pinecone para busca vetorial, Claude, GPT-4 e Gemini como LLMs, e Docker, Turborepo e CI/CD automatizado para infraestrutura." },
   { q: "A NuPtechs trabalha com o setor público?", a: "Sim. Nosso fundador acumula 18+ anos de experiência em projetos de TI para órgãos como Caixa Econômica Federal, Serpro, TRF, ANVISA, Anatel, ANA e outros 12+ órgãos federais, estaduais e distritais." },
   { q: "Os produtos podem ser integrados a sistemas existentes?", a: "Toda a nossa arquitetura segue o padrão Port/Adapter — cada integração externa é abstraída por interfaces e adapters plugáveis. APIs REST, webhooks e event-driven architecture garantem integração com ERPs, CRMs e sistemas legados." },
-  { q: "Como a NuPtechs garante qualidade do código?", a: "12.300+ testes automatizados (unit, integration, e2e), CI/CD com pipelines de lint, build e teste, code review estruturado e análise de segurança automatizada com o Manifest. Nenhum código vai para produção sem passar por toda a pipeline." },
+  { q: "Como a NuPtechs garante qualidade do código?", a: "Testes automatizados em todas as camadas (unit, integration, e2e), CI/CD com pipelines de lint, build e teste, code review estruturado e análise de segurança automatizada com o Manifest. Nenhum código vai para produção sem passar por toda a pipeline." },
   { q: "Quais tipos de projeto a NuPtechs realiza?", a: "Construímos plataformas empresariais, ferramentas de infraestrutura e soluções de IA. Desde sistemas de gestão de contratos com 150+ entidades de domínio até pipelines de processamento de documentos com embeddings semânticos." }
 ];
 
@@ -148,7 +148,7 @@ export default function Home() {
               </TextReveal>
 
               <p className="lead" data-reveal style={{ transitionDelay: '300ms' }}>
-                +200 projetos entregues e 15 produtos próprios em produção — entre SaaS, plataformas e bibliotecas. Mais de 2 milhões de linhas de código proprietário em operação, sem contar os projetos entregues a clientes.
+                +200 projetos entregues e 15 produtos próprios em produção — entre SaaS, plataformas e bibliotecas. Engenharia pronta para o setor público: conformidade com a Lei 14.133/2021 e a LGPD, auditoria à prova de adulteração e operação on-premise.
               </p>
 
               <div className="flex flex-wrap gap-3 mt-2" data-reveal style={{ transitionDelay: '500ms' }}>
@@ -172,8 +172,8 @@ export default function Home() {
                   <span className="hero-proof__label">produtos próprios</span>
                 </div>
                 <div className="hero-proof-card" data-reveal-item>
-                  <span className="hero-proof__kpi">1,2M+</span>
-                  <span className="hero-proof__label">linhas de código reais</span>
+                  <span className="hero-proof__kpi">14.133</span>
+                  <span className="hero-proof__label">conformidade nativa</span>
                 </div>
                 <div className="hero-proof-card" data-reveal-item>
                   <span className="hero-proof__kpi">Gov</span>

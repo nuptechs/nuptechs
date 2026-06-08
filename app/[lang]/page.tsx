@@ -31,12 +31,12 @@ export default function LangPage({ params }: { params: { lang: string } }) {
   const heroProof = lang === "en"
     ? [
         { kpi: "15", label: "live products" },
-        { kpi: "1.2M+", label: "real production LOC" },
+        { kpi: "14.133", label: "compliance-native" },
         { kpi: "Gov", label: "federal-grade expertise" },
       ]
     : [
         { kpi: "15", label: "productos en producción" },
-        { kpi: "1,2M+", label: "líneas de código reales" },
+        { kpi: "14.133", label: "conformidad nativa" },
         { kpi: "Gov", label: "experiencia federal crítica" },
       ];
   const contactProof = lang === "en"
