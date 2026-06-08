@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | NuPtechs"
   },
   description:
-    "NuPtechs: desenvolvimento de software sob medida, automação inteligente com IA e produtos prontos para empresas de todos os portes. Diagnóstico grátis em 24h, primeira versão do sistema em 7 dias. Atendemos todo o Brasil.",
+    "NuPtechs: desenvolvimento de software sob medida, automação inteligente com IA e produtos prontos para empresas de todos os portes. Diagnóstico gratuito em 24h, primeira versão do sistema em 7 dias. Atendemos todo o Brasil.",
   keywords: [
     // Cauda curta — pilares
     "software sob medida",
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "NuPtechs — Desenvolvimento de Software Sob Medida com IA",
     description:
-      "Sistemas personalizados, automação com IA e primeira versão do sistema em 7 dias para empresas em todo o Brasil. Diagnóstico grátis.",
+      "Sistemas personalizados, automação com IA e primeira versão do sistema em 7 dias para empresas em todo o Brasil. Diagnóstico gratuito.",
     url: siteUrl,
     siteName: "NuPtechs",
     type: "website",
@@ -96,7 +96,7 @@ export const metadata: Metadata = {
     creator: "@nuptechs",
     title: "NuPtechs — Desenvolvimento de Software Sob Medida com IA",
     description:
-      "Sistemas personalizados, automação com IA e primeira versão do sistema em 7 dias. Diagnóstico grátis em 24h.",
+      "Sistemas personalizados, automação com IA e primeira versão do sistema em 7 dias. Diagnóstico gratuito em 24h.",
     images: [`${siteUrl}/og?title=NuPtechs+%E2%80%94+Software+Sob+Medida+com+IA&lang=pt`]
   },
   alternates: {

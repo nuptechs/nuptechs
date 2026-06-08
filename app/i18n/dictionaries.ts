@@ -14,7 +14,7 @@ export const dictionaries = {
     },
     hero: {
       title: "We build infrastructure for enterprise software",
-      lead: "13 products in production, compliant with Brazil's Procurement Law (14.133/2021) and LGPD — engineering that runs in Brazil's largest federal agencies.",
+      lead: "13 products in production, compliant with Brazil's Procurement Law (14.133/2021) and LGPD — engineering built to the standards of Brazil's largest federal agencies.",
       ctaPrimary: "Explore products",
       ctaSecondary: "GitHub",
     },
@@ -70,7 +70,7 @@ export const dictionaries = {
       ogDescription: "Senior team, 13 shipped products, public-sector-grade compliance and tamper-evident audit. Meet the engineering company behind enterprise-grade software.",
       eyebrow: "Who we are",
       heroTitle: "Engineering that solves real problems.",
-      heroLead: "Founded in 2022 in Brasília, NuPtechs builds enterprise infrastructure — from identity management to AI-powered debugging. 13 products in production, running in Brazil's largest federal agencies.",
+      heroLead: "Founded in 2022 in Brasília, NuPtechs builds enterprise infrastructure — from identity management to AI-powered debugging. 13 products in production, built for Brazil's largest federal agencies.",
       stats: [
         { value: "70+", label: "projects delivered" },
         { value: "13", label: "shipped products" },
@@ -100,7 +100,7 @@ export const dictionaries = {
       ],
       teamEyebrow: "Team",
       teamTitle: "Senior engineers, lean structure.",
-      teamLead: "NuPtechs operates with a senior core team of engineers — complemented by specialized partners for larger projects. Low overhead, high expertise, and a dedicated team on every project.",
+      teamLead: "NuPtechs operates with a senior team of engineers and specialized partners. Deep expertise and a dedicated team on every project.",
       team: [
         { name: "Yuri Francis", role: "Founder & Lead Engineer", bio: "18+ years of full-stack experience. Specialist in enterprise architecture, AI systems, and government IT infrastructure." },
         { name: "NuPtechs Team", role: "Engineering", bio: "Senior team with expertise in Java, TypeScript, Python, React, Vue, cloud infrastructure, and applied AI." },
@@ -137,7 +137,7 @@ export const dictionaries = {
     },
     hero: {
       title: "Construimos infraestructura para software empresarial",
-      lead: "13 productos en producción, en conformidad con la Ley de Licitaciones 14.133/2021 y la LGPD — ingeniería que opera en las mayores agencias del gobierno de Brasil.",
+      lead: "13 productos en producción, en conformidad con la Ley de Licitaciones 14.133/2021 y la LGPD — ingeniería diseñada para las mayores agencias del gobierno de Brasil.",
       ctaPrimary: "Explorar productos",
       ctaSecondary: "GitHub",
     },
@@ -193,7 +193,7 @@ export const dictionaries = {
       ogDescription: "Equipo senior, 13 productos entregados, conformidad de grado público y auditoría a prueba de manipulación. Conoce la empresa de ingeniería detrás de software de grado empresarial.",
       eyebrow: "Quiénes somos",
       heroTitle: "Ingeniería que resuelve problemas reales.",
-      heroLead: "Fundada en 2022 en Brasília, NuPtechs construye infraestructura empresarial — de gestión de identidad a debugging con IA. 13 productos en producción, operando en las mayores agencias federales de Brasil.",
+      heroLead: "Fundada en 2022 en Brasília, NuPtechs construye infraestructura empresarial — de gestión de identidad a debugging con IA. 13 productos en producción, diseñados para las mayores agencias federales de Brasil.",
       stats: [
         { value: "70+", label: "proyectos entregados" },
         { value: "13", label: "productos entregados" },
@@ -223,7 +223,7 @@ export const dictionaries = {
       ],
       teamEyebrow: "Equipo",
       teamTitle: "Ingenieros senior, estructura lean.",
-      teamLead: "NuPtechs opera con un equipo core senior de ingenieros — complementado por socios especializados para proyectos más grandes. Bajo overhead, alta especialización y equipo dedicado en cada proyecto.",
+      teamLead: "NuPtechs opera con un equipo senior de ingenieros y socios especializados. Profunda especialización y equipo dedicado en cada proyecto.",
       team: [
         { name: "Yuri Francis", role: "Fundador & Lead Engineer", bio: "18+ años de experiencia full-stack. Especialista en arquitectura empresarial, sistemas de IA e infraestructura de TI gubernamental." },
         { name: "Equipo NuPtechs", role: "Ingeniería", bio: "Equipo senior con expertise en Java, TypeScript, Python, React, Vue, infraestructura cloud e IA aplicada." },

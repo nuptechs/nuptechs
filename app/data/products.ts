@@ -843,7 +843,7 @@ export const products: Product[] = [
   {
     id: "nuptechs-aihub",
     slug: "nuptechs-aihub",
-    name: "NupTechs AIHub",
+    name: "NuPtechs AIHub",
     category: "ai",
     status: "beta",
     tech: ["Python", "FastAPI", "LangChain", "React 19", "Pinecone"],
@@ -898,7 +898,7 @@ export const products: Product[] = [
       ],
       keywords: [
         "hub serviços IA pronto",
-        "NupTechs AIHub",
+        "NuPtechs AIHub",
         "code review IA empresarial",
         "fine-tuning Apple Silicon",
         "mindmap Mermaid IA",

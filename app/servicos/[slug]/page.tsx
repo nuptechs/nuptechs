@@ -432,7 +432,7 @@ export default function ServicePage({ params }: ServiceParams) {
             <p className="lead mb-8">{service.description}</p>
             <div className="flex flex-wrap gap-3">
               <a href="mailto:nuptechs@nuptechs.com" className="btn btn-primary">
-                Solicitar diagnóstico grátis
+                Solicitar diagnóstico gratuito
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -513,7 +513,7 @@ export default function ServicePage({ params }: ServiceParams) {
           <h2 className="mb-6 text-3xl font-bold text-white">Pronto para começar?</h2>
           <p className="mx-auto mb-8 max-w-md text-base text-white/75">Diagnóstico gratuito em 24h — nossa equipe analisa seu desafio e devolve um plano técnico concreto.</p>
           <a href="mailto:nuptechs@nuptechs.com" className="inline-flex items-center gap-2 rounded-[0.875rem] bg-white px-7 py-3.5 text-[0.9375rem] font-semibold text-[var(--accent)] shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl">
-            Solicitar diagnóstico grátis
+            Solicitar diagnóstico gratuito
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

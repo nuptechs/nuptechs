@@ -17,6 +17,7 @@ const footerCopy = {
       { label: "Blog", href: "/blog" },
       { label: "FAQ", href: "/#faq" },
       { label: "Contato", href: "/#contato" },
+      { label: "Privacidade", href: "/privacidade" },
     ],
     serviceLinks: [
       { label: "Automação com IA", href: "/servicos/automacao-inteligente" },
@@ -45,6 +46,7 @@ const footerCopy = {
       { label: "Blog", href: "/blog" },
       { label: "FAQ", href: "/en#faq" },
       { label: "Contact", href: "/en#contact" },
+      { label: "Privacy", href: "/privacidade" },
     ],
     serviceLinks: [
       { label: "AI Automation", href: "/servicos/automacao-inteligente" },
@@ -73,6 +75,7 @@ const footerCopy = {
       { label: "Blog", href: "/blog" },
       { label: "FAQ", href: "/es#faq" },
       { label: "Contacto", href: "/es#contact" },
+      { label: "Privacidad", href: "/privacidade" },
     ],
     serviceLinks: [
       { label: "Automatización con IA", href: "/servicos/automacao-inteligente" },

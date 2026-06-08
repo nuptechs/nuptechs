@@ -126,7 +126,7 @@ export default function Image() {
             >
               <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#22c55e" }} />
               <span style={{ color: "rgba(255,255,255,0.75)", fontSize: "15px", fontWeight: 500 }}>
-                Diagnóstico grátis · 24h · Sem compromisso
+                Diagnóstico gratuito · 24h · Sem compromisso
               </span>
             </div>
             <span style={{ color: "rgba(255,255,255,0.28)", fontSize: "15px" }}>
