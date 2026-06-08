@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Serviços NuPtechs — Desenvolvimento de Software Sob Medida",
     description:
-      "Automação com IA, dashboards de BI, apps móveis, integrações de API e segurança. Primeira versão em 7 dias. Diagnóstico grátis.",
+      "Automação com IA, dashboards de BI, apps móveis, integrações de API e segurança. Primeira versão em 7 dias. Diagnóstico gratuito.",
     url: `${siteUrl}/servicos`,
     siteName: "NuPtechs",
     type: "website",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     site: "@nuptechs",
     title: "Serviços NuPtechs — Desenvolvimento de Software Sob Medida",
     description:
-      "Automação, BI, apps móveis e IA aplicada. Diagnóstico grátis em 24h, primeira versão em 7 dias.",
+      "Automação, BI, apps móveis e IA aplicada. Diagnóstico gratuito em 24h, primeira versão em 7 dias.",
     images: [`${siteUrl}/og?title=Serviços+NuPtechs+%E2%80%94+Software+Sob+Medida&lang=pt`],
   },
 };
@@ -203,7 +203,7 @@ export default function ServicosIndex() {
                 </p>
                 <div className="flex flex-wrap items-center gap-4">
                   <a href="mailto:nuptechs@nuptechs.com" className="btn btn-primary">
-                    Diagnóstico grátis
+                    Diagnóstico gratuito
                     <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                       <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>

@@ -175,14 +175,14 @@ const milestones = [
 const team = [
   {
     name: "Yuri Francis",
-    role: "CEO & Co-fundador",
+    role: "CEO & Fundador",
     bio: "Engenheiro de software com foco em sistemas de alta performance e automação empresarial. Responsável pela estratégia de produto e crescimento.",
     initials: "YF",
   },
   {
     name: "Time NuPtechs",
     role: "Engenharia & Produto",
-    bio: "Analistas de Requisitos, Scrum Masters, Product Owners, Analistas de QA, Desenvolvedores e Gerentes de Projetos — todos com experiência em projetos de produção.",
+    bio: "Núcleo sênior de engenharia e produto, apoiado por uma rede de especialistas acionada conforme cada projeto — todos com experiência em produção.",
     initials: "NT",
   },
 ];
@@ -191,7 +191,7 @@ const stats = [
   { value: "+70", label: "Projetos entregues" },
   { value: "13", label: "Produtos próprios" },
   { value: "7 dias", label: "Da contratação à 1ª versão" },
-  { value: "24h", label: "Diagnóstico grátis" },
+  { value: "24h", label: "Diagnóstico gratuito" },
 ];
 
 export default function SobrePage() {
@@ -242,11 +242,11 @@ export default function SobrePage() {
                   Somos uma empresa brasileira de desenvolvimento de software sob medida, automação com IA e produtos SaaS, <strong>fundada em 2022 em Brasília</strong> — com uma premissa simples: <strong>empresas merecem tecnologia que funciona de verdade, entregue no prazo, com custo previsível.</strong>
                 </p>
                 <p className="text-[var(--muted)] leading-relaxed mb-8">
-                  Não somos uma consultoria de PowerPoint. Somos engenheiros que escrevem código, entregam demos em semanas e ficam disponíveis após o deploy. Com base em Brasília e atendendo clientes em todo o Brasil e América Latina.
+                  Somos engenheiros que escrevem código, entregam demos em semanas e ficam disponíveis após o deploy. Com base em Brasília e atendendo clientes em todo o Brasil e América Latina.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <a href="mailto:nuptechs@nuptechs.com" className="btn btn-primary">
-                    Iniciar diagnóstico grátis
+                    Iniciar diagnóstico gratuito
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                       <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
@@ -368,7 +368,7 @@ export default function SobrePage() {
             </div>
 
             <p className="sobre-team-note">
-              <strong>Equipe enxuta e especializada.</strong> Cada projeto é alocado com os perfis certos — sem o overhead de equipes grandes. Isso mantém a qualidade alta e o custo previsível.
+              <strong>Equipe sênior e dedicada.</strong> Cada projeto é conduzido pelos especialistas certos, com acesso direto a quem decide. Isso mantém a qualidade alta e o custo previsível.
             </p>
           </div>
         </section>
@@ -571,7 +571,7 @@ export default function SobrePage() {
               href="mailto:nuptechs@nuptechs.com"
               className="inline-flex items-center gap-2 rounded-[0.875rem] bg-white px-7 py-3.5 text-[0.9375rem] font-semibold text-[var(--accent)] shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
             >
-              Solicitar diagnóstico grátis
+              Solicitar diagnóstico gratuito
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>

@@ -15,7 +15,7 @@ export async function GET(request: Request) {
       ? "Diagnóstico gratis · 24h · Sin compromiso"
       : lang === "en"
       ? "Free diagnosis · 24h · No commitment"
-      : "Diagnóstico grátis · 24h · Sem compromisso";
+      : "Diagnóstico gratuito · 24h · Sem compromisso";
 
   return new ImageResponse(
     (

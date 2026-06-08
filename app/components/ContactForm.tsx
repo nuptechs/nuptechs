@@ -17,7 +17,7 @@ const i18n = {
     companyPlaceholder: "Nome da sua empresa (opcional)",
     challengeLabel: "Seu desafio *",
     challengePlaceholder: "Descreva brevemente o problema que quer resolver ou o sistema que precisa construir...",
-    submitButton: "Enviar e receber diagnóstico grátis",
+    submitButton: "Enviar e receber diagnóstico gratuito",
     submitting: "Enviando...",
     successTitle: "Mensagem enviada!",
     successBody: "Você receberá uma confirmação por e-mail. Nossa equipe responde em até 24h úteis.",
