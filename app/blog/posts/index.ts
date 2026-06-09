@@ -1,6 +1,10 @@
 import type { Post } from "../[slug]/page";
 
 import lei14133Ou13303 from "./lei-14133-ou-13303-contrato-ti-orgao-publico";
+import glosaNaoAutomatica from "./glosa-nao-e-automatica-ato-do-gestor";
+import imrMedicaoResultado from "./imr-medicao-resultado-sem-glosa-arbitraria";
+import trpTrdRecebimento from "./trp-trd-recebimento-art-140";
+import produtividadeTi from "./produtividade-ti-pf-ust-homem-hora";
 
 import comoAutomatizarProcessosManuais from "./como-automatizar-processos-manuais";
 import llmsNoMundoCorporativo from "./llms-no-mundo-corporativo";
@@ -17,6 +21,10 @@ import lgpdParaDesenvolvedores from "./lgpd-para-desenvolvedores";
 
 export const allPosts: Record<string, Post> = {
   [lei14133Ou13303.slug]: lei14133Ou13303,
+  [glosaNaoAutomatica.slug]: glosaNaoAutomatica,
+  [imrMedicaoResultado.slug]: imrMedicaoResultado,
+  [trpTrdRecebimento.slug]: trpTrdRecebimento,
+  [produtividadeTi.slug]: produtividadeTi,
   [comoAutomatizarProcessosManuais.slug]: comoAutomatizarProcessosManuais,
   [llmsNoMundoCorporativo.slug]: llmsNoMundoCorporativo,
   [comoEscolherStackTecnologica.slug]: comoEscolherStackTecnologica,
