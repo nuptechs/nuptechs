@@ -1,5 +1,7 @@
 import type { Post } from "../[slug]/page";
 
+import lei14133Ou13303 from "./lei-14133-ou-13303-contrato-ti-orgao-publico";
+
 import comoAutomatizarProcessosManuais from "./como-automatizar-processos-manuais";
 import llmsNoMundoCorporativo from "./llms-no-mundo-corporativo";
 import comoEscolherStackTecnologica from "./como-escolher-stack-tecnologica";
@@ -14,6 +16,7 @@ import webhookN8nIntegracoesSemCodigo from "./webhook-n8n-integracoes-sem-codigo
 import lgpdParaDesenvolvedores from "./lgpd-para-desenvolvedores";
 
 export const allPosts: Record<string, Post> = {
+  [lei14133Ou13303.slug]: lei14133Ou13303,
   [comoAutomatizarProcessosManuais.slug]: comoAutomatizarProcessosManuais,
   [llmsNoMundoCorporativo.slug]: llmsNoMundoCorporativo,
   [comoEscolherStackTecnologica.slug]: comoEscolherStackTecnologica,
