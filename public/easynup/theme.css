@@ -1,0 +1,124 @@
+/* ════════════════════════════════════════════════════════════════════
+   EasyNuP — tema claro + controle de alternância (dark/light)
+   Compartilhado por todas as páginas /easynup/*.
+   O tema escuro é o padrão (definido nos :root de cada página).
+   As regras abaixo só entram quando html[data-theme="light"].
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── botão de alternância (vale nos dois temas, herda as variáveis) ── */
+.theme-toggle{
+  margin-left:auto;
+  display:inline-flex;align-items:center;gap:7px;
+  flex:0 0 auto;
+  background:var(--panel,#161a22);
+  border:1px solid var(--line,#272c38);
+  color:var(--ink-dim,#c3cbdb);
+  padding:6px 11px;border-radius:999px;
+  font:inherit;font-size:11.5px;font-weight:600;letter-spacing:0.02em;
+  cursor:pointer;white-space:nowrap;line-height:1;
+  transition:background .15s,border-color .15s,color .15s,box-shadow .15s,transform .15s;
+}
+.theme-toggle:hover{
+  color:var(--ink,#f1f5fb);
+  border-color:var(--line3,#33394a);
+  box-shadow:0 2px 10px rgba(0,0,0,0.18);
+  transform:translateY(-1px);
+}
+.theme-toggle:focus-visible{
+  outline:2px solid var(--core,#3b82f6);outline-offset:2px;
+}
+.theme-toggle .ico{
+  width:15px;height:15px;display:inline-block;flex:0 0 auto;
+}
+.theme-toggle .ico svg{display:block;width:15px;height:15px}
+/* mostra sol no claro, lua no escuro */
+.theme-toggle .ico-sun{display:none}
+.theme-toggle .ico-moon{display:inline-block}
+html[data-theme="light"] .theme-toggle .ico-sun{display:inline-block}
+html[data-theme="light"] .theme-toggle .ico-moon{display:none}
+.theme-toggle .lbl{font-variant:none}
+
+/* o botão também aparece bem dentro da navbar quando ela é o container */
+nav.toc .theme-toggle{margin-left:auto}
+
+/* ══════════════════════ PALETA CLARA ══════════════════════ */
+html[data-theme="light"]{
+  --bg:#f6f7f9;        --bg2:#eceff3;
+  --panel:#ffffff;     --panel2:#f7f9fb;   --panel3:#f0f3f7;   --panel4:#e9edf3;
+  --line:#e2e6ed;      --line2:#eef1f5;    --line3:#cfd6e0;
+  --muted:#5c657a;     --muted2:#727c91;
+  --ink:#0f1722;       --ink-dim:#39434f;  --ink-soft:#566072;
+
+  --core:#2563eb;  --core-bg:#eef5ff;  --core-br:#c2d8fb;  --core-soft:#1d4ed8;
+  --comm:#047857;  --comm-bg:#ecfdf5;  --comm-br:#a7e8cd;  --comm-soft:#059669;
+  --ai:#7c3aed;    --ai-bg:#f5effe;    --ai-br:#dcccf8;    --ai-soft:#6d28d9;
+  --opt:#5b6675;   --opt-bg:#f0f3f7;   --opt-br:#cbd3de;
+  --ext:#b45309;   --ext-bg:#fff5e8;   --ext-br:#f6d3a3;   --ext-soft:#c2620a;
+  --danger:#dc2626;--danger-bg:#fef2f2;--danger-br:#f7c6c6;
+  --gold:#a16207;  --gold-bg:#fefae6;  --gold-br:#f1d898;
+  --ok:#15803d;    --ok-bg:#f0fdf4;    --ok-br:#aee7c0;
+  --pink:#db2777;  --pink-bg:#fdf2f8;  --pink-br:#f7c6e0;
+  --teal:#0f766e;  --teal-bg:#effbf9;  --teal-br:#9be3da;
+}
+
+/* ── ajustes de cores hardcoded (não cobertas por variável) ── */
+
+/* navbar translúcida */
+html[data-theme="light"] nav.toc{
+  background:rgba(246,247,249,0.86);
+  border-bottom-color:var(--line);
+}
+
+/* código inline */
+html[data-theme="light"] code{
+  background:#eef1f6;
+  border-color:var(--line);
+  color:#324054;
+}
+
+/* tabela matriz / std — header */
+html[data-theme="light"] table.matriz th{background:var(--bg2)}
+html[data-theme="light"] table.matriz td.eu{background:rgba(37,99,235,0.06)}
+html[data-theme="light"] table.std th{background:var(--bg2)}
+
+/* botão fantasma do hero — sombra suave no claro */
+html[data-theme="light"] .hero .cta a.ghost:hover{
+  box-shadow:0 8px 24px rgba(15,23,34,0.10);
+}
+html[data-theme="light"] .hero .cta a:hover{
+  box-shadow:0 8px 24px rgba(37,99,235,0.20);
+}
+
+/* ── mockup "tela": vira screenshot claro e coeso ── */
+html[data-theme="light"] .tela{
+  box-shadow:0 12px 32px rgba(15,23,34,0.10);
+}
+html[data-theme="light"] .tela .chrome{
+  background:var(--bg2);
+  border-bottom-color:var(--line);
+}
+html[data-theme="light"] .tela .chrome .dots span{background:#cbd3de}
+html[data-theme="light"] .tela .chrome .url{
+  background:#ffffff;border-color:var(--line);color:var(--ink-dim);
+}
+html[data-theme="light"] .tela .frame{background:var(--panel2)}
+
+/* sombras genéricas de cards ficam mais leves no claro */
+html[data-theme="light"] .roi-card,
+html[data-theme="light"] .card,
+html[data-theme="light"] .panel{box-shadow:0 1px 2px rgba(15,23,34,0.04)}
+
+/* ── gradiente do título hero: aprofunda no claro p/ contraste ── */
+html[data-theme="light"] .hero h1 .grad{
+  background:linear-gradient(120deg,#2563eb 0%,#7c3aed 50%,#db2777 100%);
+  -webkit-background-clip:text;background-clip:text;
+}
+
+/* destaque (mark) com fundo translúcido escuro vira claro */
+html[data-theme="light"] .tese .text strong{
+  background:linear-gradient(120deg,rgba(124,58,237,0) 0%,rgba(124,58,237,0.14) 50%,rgba(124,58,237,0) 100%);
+}
+
+/* glows radiais do hero — mais sutis no fundo claro */
+html[data-theme="light"] .hero::before{background:radial-gradient(circle,rgba(124,58,237,0.07) 0%,transparent 70%)}
+html[data-theme="light"] .hero::after{background:radial-gradient(circle,rgba(37,99,235,0.07) 0%,transparent 70%)}
