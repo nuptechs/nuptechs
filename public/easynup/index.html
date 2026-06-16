@@ -86,6 +86,9 @@
   .ctx .label{font-size:11px;color:var(--core);letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
   .ctx.warn .label{color:var(--ext)}
   .ctx.danger .label{color:var(--danger)}
+  .ctx.ai::before{background:var(--ai)}
+  .ctx.ai .label{color:var(--ai)}
+  .ctx .src-strong{color:var(--ink-soft)}
   .ctx h4{font-size:17px;margin:0 0 10px;color:var(--ink);font-weight:600;letter-spacing:-0.01em}
   .ctx p{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.55}
   .ctx p strong{color:var(--ink)}
@@ -232,6 +235,12 @@
   .callout h4{color:var(--ink);font-size:18px;margin:0 0 10px;letter-spacing:-0.01em}
   .callout p{margin:0;color:var(--ink-dim);font-size:15px;line-height:1.6}
   .callout p strong{color:var(--ink);font-weight:600}
+  .callout .turn{font-size:11px;color:var(--comm);letter-spacing:0.14em;text-transform:uppercase;font-weight:700;margin-bottom:10px;display:block}
+  .sol-list{list-style:none;margin:20px 0 18px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 28px}
+  .sol-list li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--ink-dim);line-height:1.5}
+  .sol-list li::before{content:"";flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--comm);box-shadow:0 0 0 4px var(--comm-bg);margin-top:6px}
+  .sol-list li strong{color:var(--ink);font-weight:600}
+  @media(max-width:760px){.sol-list{grid-template-columns:1fr}}
 
   .entenda-mais{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:12.5px;color:var(--ink-soft);text-decoration:none;padding:6px 0;border-bottom:1px dashed var(--line3);transition:all 0.2s;letter-spacing:0.02em}
   .entenda-mais:hover{color:var(--core);border-bottom-color:var(--core);text-decoration:none}
@@ -319,51 +328,42 @@
 <!-- CONTEXTO -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 <section id="contexto">
-  <h2><span class="num">01</span>O Brasil mudou em 2021 — e o gestor ficou com a conta</h2>
-  <p class="lead">A Lei 14.133/2021 (Nova Lei de Licitações) ampliou drasticamente as exigências de fiscalização de contratos administrativos, especialmente em TI. A IN SGD/ME 94/2022 detalhou como contratar TIC. O TCU passou a apontar como irregularidade sistemática o que antes era tolerado. Resultado: o fiscal e o gestor passaram a responder pessoalmente por contratos cada vez mais complexos — sem ferramenta à altura.</p>
+  <h2><span class="num">01</span>O problema nunca foi a falta de lei</h2>
+  <p class="lead">A Lei 14.133/2021, o Decreto 11.246/2022, a IN SGD/ME 94/2022 e as portarias entregaram ao gestor público um arsenal de instrumentos para contratar e fiscalizar TI com rigor: IMR, glosa, recebimento provisório e definitivo, atesto fundamentado, garantia de execução, reajuste, sanção escalonada. <strong>O instrumento existe — e é robusto.</strong> O que ninguém entregou junto foi tempo, conhecimento técnico e segurança para usá-lo. Na ponta, fiscal e gestor respondem pessoalmente por contratos cada vez mais complexos com instrumentos que, na prática, mal saem do papel.</p>
 
+  <p class="sub" style="margin-top:36px">Três lacunas que transformam instrumento robusto em letra morta</p>
   <div class="ctx-grid">
-    <div class="ctx danger">
-      <span class="label">Realidade do TCU</span>
-      <h4>UST sem padronização vira irregularidade</h4>
-      <p>O TCU já apontou explicitamente que a Unidade de Serviços Técnicos não deve ser utilizada em contratações públicas sem padronização. Dimensionamento por parâmetros não justificados e preços inconsistentes com o mercado são alvo direto de glosa em auditoria.</p>
-      <div class="source">Portal TCU · jurisprudência sistemática · IN SGD/ME 94/2022</div>
-    </div>
-    <div class="ctx danger">
-      <span class="label">Realidade do TCU</span>
-      <h4>Fiscal sem qualificação técnica é irregularidade</h4>
-      <p>Designar fiscal sem qualificação técnica compatível com a complexidade do objeto é irregularidade que o TCU sistematicamente aponta. Fiscalização de sistemas de TI exige conhecimento de TI. O sistema precisa preencher essa lacuna sem virar dependência de pessoa.</p>
-      <div class="source">Revista TCU · art. 117 Lei 14.133 · responsabilidade pessoal</div>
+    <div class="ctx warn">
+      <span class="label">Tempo que ninguém tem</span>
+      <h4>Um fiscal, muitos contratos, um dia só</h4>
+      <p>O mesmo servidor acumula a fiscalização com as tarefas do próprio cargo e, na prática, acompanha <strong>vários contratos ao mesmo tempo</strong>. A própria administração reconhece: o acúmulo compromete a fiscalização efetiva por insuficiência de tempo — e recusar a função, fora das exceções legais, é insubordinação. Ler cláusula a cláusula, medir SLA, calcular glosa e fundamentar cada ato, manualmente, não cabe na agenda.</p>
+      <div class="source"><span class="src-strong">Conaci · Portal de Contratos ES</span> · acúmulo de função × tempo de fiscalização</div>
     </div>
     <div class="ctx danger">
-      <span class="label">Realidade do TCU</span>
-      <h4>Atesto sem fundamentação não vale</h4>
-      <p>O art. 117 §1º da Lei 14.133 obriga o atesto técnico fundamentado em conformidade com as especificações. Atesto genérico, sem narrativa técnica e sem referência à cláusula descumprida, expõe o fiscal a responsabilização pessoal e o contrato a anulação.</p>
-      <div class="source">Lei 14.133/2021 art. 117 §1º I-III</div>
+      <span class="label">Técnica que a Lei exige — e cobra</span>
+      <h4>Fiscalizar TI exige saber de TI <em>e</em> da norma</h4>
+      <p>A Lei 14.133 tornou a <strong>capacitação do fiscal obrigatória</strong> justamente porque o déficit é real e admitido — e o servidor só pode declinar da função quando não domina o objeto técnico, como TI. Conhecer ao mesmo tempo a tecnologia, a Lei, as INs e a jurisprudência do TCU é exceção, não regra. A lacuna de capacidade técnica é o estado natural de quem assina.</p>
+      <div class="source"><span class="src-strong">Revista do TCU</span> · Lei 14.133 art. 7º e 117 · capacitação obrigatória do fiscal</div>
     </div>
-    <div class="ctx warn">
-      <span class="label">Realidade operacional</span>
-      <h4>Glosa que não acontece é dinheiro público perdido</h4>
-      <p>Todo contrato tem IMR (Instrumento de Medição de Resultado) — mecanismo legal para ajustar pagamento conforme qualidade entregue. Mas sem ferramenta que mede automaticamente e calcula a dedução, o controle vira excepcional. A sanção existe no papel; raramente é exercida.</p>
-      <div class="source">IN SGD/ME 94/2022 · art. 19 inciso III</div>
-    </div>
-    <div class="ctx warn">
-      <span class="label">Mercado global</span>
-      <h4>CLM importado não fala português jurídico</h4>
-      <p>SAP Ariba/Icertis, Docusign CLM, ServiceNow CLM dominam contratos privados globais. Nenhum modela nativamente IMR, glosa, Pontos de Função, UST/USN, TRP/TRD, atesto fundamentado em art. Lei 14.133. O gestor brasileiro adapta planilhas — ou se vira sozinho.</p>
-      <div class="source">Capterra · G2 · SAP Ariba Contracts + Icertis integration</div>
-    </div>
-    <div class="ctx warn">
-      <span class="label">Heterogeneidade real</span>
-      <h4>Cada órgão tem seu arcabouço</h4>
-      <p>Cada contratante tem sua legislação aplicável, sua metodologia interna, suas diretrizes próprias, seus modelos de processo. Ferramenta engessada não serve. Ferramenta sem governança vira bagunça. Equilíbrio: configuração estrutural por organização, sem código.</p>
-      <div class="source">Decreto 11.246/2022 · ENCP · valor público &gt; menor preço</div>
+    <div class="ctx ai">
+      <span class="label">O “apagão das canetas”</span>
+      <h4>Decidir virou risco pessoal — então não se decide</h4>
+      <p>Entre TCU, TCE, Ministério Público, Judiciário e controladoria, o gestor opera no <strong>“direito administrativo do medo”</strong>: na dúvida, não decide — e a omissão também é punível. O art. 28 da LINDB diz que ele só responde por dolo ou erro grosseiro, e que um <strong>parecer técnico bem fundamentado é o seu porto seguro</strong>. Mas fundamentar bem exige, de novo, tempo e técnica — exatamente o que falta.</p>
+      <div class="source"><span class="src-strong">LINDB art. 28 (Lei 13.655/2018)</span> · fundamentação como porto seguro</div>
     </div>
   </div>
 
   <div class="callout" style="margin-top:32px">
-    <h4>O gap é claro</h4>
-    <p>A Lei deu ao gestor público brasileiro <strong>todas as ferramentas legais</strong> para exercer fiscalização rigorosa de contrato de TI (IMR, glosa, recebimento em duas etapas, atesto fundamentado, sanção escalonada). <strong>Faltava a ferramenta operacional</strong> que materializasse isso no dia-a-dia — sem virar dependência de talento individual, sem virar planilha frágil, sem virar CLM importado que ignora a legislação brasileira. É esse o espaço que o EasyNuP ocupa.</p>
+    <span class="turn">A virada</span>
+    <h4>O EasyNuP não te entrega outra lei — entrega a lei funcionando</h4>
+    <p>Ele pega os instrumentos jurídicos e operacionais que você <strong>já tem</strong> e os coloca para operar no seu dia a dia — sem exigir que você seja, ao mesmo tempo, especialista em Lei 14.133 e em TI. O que antes dependia de tempo e conhecimento que ninguém tem, vira fluxo:</p>
+    <ul class="sol-list">
+      <li><span><strong>Lê o contrato contra o arcabouço legal</strong> e aponta riscos e pontos de acompanhamento com a norma citada na frente — você não precisa decorar a Lei nem cotejá-la cláusula a cláusula.</span></li>
+      <li><span><strong>Vigia sozinho as obrigações</strong> legais e contratuais a cada acontecimento do contrato e destaca só o que saiu da conformidade — a fiscalização deixa de depender de você lembrar.</span></li>
+      <li><span><strong>Entrega a glosa ou sanção já fundamentada</strong> — cláusula, artigo, execução e diretriz do órgão reunidos — e deixa a decisão e a assinatura com você. Nada é automático: o ato é seu, o embasamento é dado.</span></li>
+      <li><span><strong>Registra tudo numa trilha à prova de adulteração</strong> — quem fez, o quê e quando — o seu porto seguro quando o Tribunal de Contas perguntar.</span></li>
+    </ul>
+    <p>Os quatro regimes legais (14.133, 13.303, 8.666 e LC 123) já vêm carregados, e <strong>cada órgão configura o que é seu — sem código</strong>. O instrumento você já tinha. O que faltava era ele funcionando.</p>
   </div>
 </section>
 
