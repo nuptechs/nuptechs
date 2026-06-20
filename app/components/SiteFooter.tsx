@@ -27,9 +27,9 @@ const footerCopy = {
     ],
     productLinks: [
       { label: "EasyNuP", href: "/produtos/easynup" },
-      { label: "NuPIdentify", href: "/produtos/nupidentify" },
-      { label: "Sentinel", href: "/produtos/sentinel" },
-      { label: "nupai-gateway", href: "/produtos/nupai-gateway" },
+      { label: "NuP-Identify", href: "/produtos/nupidentify" },
+      { label: "NuP-Sentinel", href: "/produtos/sentinel" },
+      { label: "NuP-Gateway", href: "/produtos/nupai-gateway" },
     ],
   },
   en: {
@@ -56,9 +56,9 @@ const footerCopy = {
     ],
     productLinks: [
       { label: "EasyNuP", href: "/produtos/easynup" },
-      { label: "NuPIdentify", href: "/produtos/nupidentify" },
-      { label: "Sentinel", href: "/produtos/sentinel" },
-      { label: "nupai-gateway", href: "/produtos/nupai-gateway" },
+      { label: "NuP-Identify", href: "/produtos/nupidentify" },
+      { label: "NuP-Sentinel", href: "/produtos/sentinel" },
+      { label: "NuP-Gateway", href: "/produtos/nupai-gateway" },
     ],
   },
   es: {
@@ -85,9 +85,9 @@ const footerCopy = {
     ],
     productLinks: [
       { label: "EasyNuP", href: "/produtos/easynup" },
-      { label: "NuPIdentify", href: "/produtos/nupidentify" },
-      { label: "Sentinel", href: "/produtos/sentinel" },
-      { label: "nupai-gateway", href: "/produtos/nupai-gateway" },
+      { label: "NuP-Identify", href: "/produtos/nupidentify" },
+      { label: "NuP-Sentinel", href: "/produtos/sentinel" },
+      { label: "NuP-Gateway", href: "/produtos/nupai-gateway" },
     ],
   },
 } as const;
