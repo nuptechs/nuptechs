@@ -90,7 +90,6 @@ export default function AboutPage({ params }: Props) {
         },
         sameAs: [
           "https://www.linkedin.com/company/nuptechs",
-          "https://github.com/nuptechs",
         ],
       },
       {
@@ -309,11 +308,11 @@ export default function AboutPage({ params }: Props) {
                 </svg>
                 nuptechs@nuptechs.com
               </a>
-              <a href="tel:+5561993691692" className="flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--accent)] transition-colors">
+              <a href="tel:+556285507649" className="flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--accent)] transition-colors">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path d="M14 10.5c-1 1-2.5 1.5-4 .5L7.5 8.5l-2-2C4.5 5 5 3.5 6 2.5L4 1 1 4c0 6 5 11 11 11l3-3-1-1.5z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/>
                 </svg>
-                +55 (61) 99369-1692
+                +55 (62) 8550-7649
               </a>
               <a href="https://www.linkedin.com/company/nuptechs" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--accent)] transition-colors">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -321,12 +320,6 @@ export default function AboutPage({ params }: Props) {
                   <circle cx="4" cy="4" r="2" stroke="currentColor" strokeWidth="1.5"/>
                 </svg>
                 LinkedIn
-              </a>
-              <a href="https://github.com/nuptechs" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--accent)] transition-colors">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                GitHub
               </a>
             </div>
           </div>
