@@ -81,7 +81,7 @@ export async function POST(request: Request) {
               <li>Sem compromisso — é 100% gratuito</li>
             </ul>
           </div>
-          <p style="font-size: 14px; color: #9ca3af; margin: 0 0 24px;">Se quiser agilizar, responda este e-mail ou ligue direto: <a href="tel:+5561993691692" style="color: #7c3aed;">+55 (61) 99369-1692</a></p>
+          <p style="font-size: 14px; color: #9ca3af; margin: 0 0 24px;">Se quiser agilizar, responda este e-mail ou ligue direto: <a href="tel:+556285507649" style="color: #7c3aed;">+55 (62) 8550-7649</a></p>
           <hr style="border: none; border-top: 1px solid #1f1f2e; margin: 24px 0;"/>
           <p style="font-size: 12px; color: #4b5563; margin: 0;">NuPtechs · Brasília, DF · Brasil<br/>Seus dados estão protegidos conforme a LGPD.</p>
         </div>

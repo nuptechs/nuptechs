@@ -14,7 +14,7 @@ export const dictionaries = {
     },
     hero: {
       title: "We build infrastructure for enterprise software",
-      lead: "13 products in production, compliant with Brazil's public procurement framework (Laws 14.133/2021 and 13.303/2016) and LGPD — engineering built to the standards of Brazil's largest federal agencies.",
+      lead: "13 products in production, with official TOGAF architecture consulting — engineering built to the standards of Brazil's largest federal agencies.",
       ctaPrimary: "Explore products",
       ctaSecondary: "GitHub",
     },
@@ -65,7 +65,7 @@ export const dictionaries = {
     },
     about: {
       pageTitle: "About NuPtechs",
-      pageDescription: "Meet NuPtechs: senior software engineering team with 13 products in production, public-sector compliance (Laws 14.133/2021 and 13.303/2016, LGPD), and 18+ years of government IT experience.",
+      pageDescription: "Meet NuPtechs: senior software engineering team with 13 products in production, official TOGAF architecture consulting, and 18+ years of government IT experience.",
       ogTitle: "About NuPtechs — Who we are and how we work",
       ogDescription: "Senior team, 13 shipped products, public-sector-grade compliance and tamper-evident audit. Meet the engineering company behind enterprise-grade software.",
       eyebrow: "Who we are",
@@ -137,7 +137,7 @@ export const dictionaries = {
     },
     hero: {
       title: "Construimos infraestructura para software empresarial",
-      lead: "13 productos en producción, en conformidad con el marco de contrataciones públicas (Leyes 14.133/2021 y 13.303/2016) y la LGPD — ingeniería diseñada para las mayores agencias del gobierno de Brasil.",
+      lead: "13 productos en producción, con consultoría oficial en arquitectura TOGAF — ingeniería diseñada para las mayores agencias del gobierno de Brasil.",
       ctaPrimary: "Explorar productos",
       ctaSecondary: "GitHub",
     },
@@ -188,7 +188,7 @@ export const dictionaries = {
     },
     about: {
       pageTitle: "Sobre NuPtechs",
-      pageDescription: "Conoce a NuPtechs: equipo de ingeniería de software con 13 productos en producción, conformidad con el sector público (Leyes 14.133/2021 y 13.303/2016, LGPD) y 18+ años de experiencia en TI gubernamental.",
+      pageDescription: "Conoce a NuPtechs: equipo de ingeniería de software con 13 productos en producción, consultoría oficial en arquitectura TOGAF y 18+ años de experiencia en TI gubernamental.",
       ogTitle: "Sobre NuPtechs — Quiénes somos y cómo trabajamos",
       ogDescription: "Equipo senior, 13 productos entregados, conformidad de grado público y auditoría a prueba de manipulación. Conoce la empresa de ingeniería detrás de software de grado empresarial.",
       eyebrow: "Quiénes somos",
