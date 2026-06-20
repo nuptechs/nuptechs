@@ -117,7 +117,7 @@ export const products: Product[] = [
   {
     id: "nupidentify",
     slug: "nupidentify",
-    name: "NuPIdentify",
+    name: "NuP-Identify",
     category: "platform",
     status: "live",
     tech: ["Node.js", "TypeScript", "React", "PostgreSQL", "Drizzle ORM"],
@@ -175,7 +175,7 @@ export const products: Product[] = [
         "IAM open source Brasil",
         "alternativa Auth0",
         "OIDC SAML WebAuthn",
-        "NuPIdentify NuPtechs",
+        "NuP-Identify NuPtechs",
         "RBAC ABAC ReBAC",
         "Keycloak alternative",
       ],
@@ -184,7 +184,7 @@ export const products: Product[] = [
   {
     id: "nupai-gateway",
     slug: "nupai-gateway",
-    name: "nupai-gateway",
+    name: "NuP-Gateway",
     category: "platform",
     status: "live",
     tech: ["Express.js", "TypeScript", "LiteLLM", "Langfuse", "BAML"],
@@ -242,7 +242,7 @@ export const products: Product[] = [
         "AI gateway empresarial",
         "alternativa LiteLLM",
         "MCP server",
-        "nupai-gateway NuPtechs",
+        "NuP-Gateway NuPtechs",
         "LLM provider agnostic",
         "Langfuse observability",
       ],
@@ -451,7 +451,7 @@ export const products: Product[] = [
   {
     id: "debug-probe",
     slug: "debug-probe",
-    name: "Debug Probe",
+    name: "NuP-Probe",
     category: "devtools",
     status: "live",
     tech: ["TypeScript", "React 19", "Playwright", "WebSocket", "PostgreSQL"],
@@ -506,7 +506,7 @@ export const products: Product[] = [
       ],
       keywords: [
         "runtime debugging full-stack",
-        "Debug Probe NuPtechs",
+        "NuP-Probe NuPtechs",
         "distributed tracing browser-backend",
         "alternative datadog logging",
       ],
@@ -515,7 +515,7 @@ export const products: Product[] = [
   {
     id: "manifest",
     slug: "manifest",
-    name: "Manifest",
+    name: "NuP-Manifest",
     category: "devtools",
     status: "live",
     tech: ["Java", "Node.js", "React", "OpenAI", "Drizzle ORM"],
@@ -570,7 +570,7 @@ export const products: Product[] = [
       ],
       keywords: [
         "análise de código estática IA",
-        "Manifest NuPtechs",
+        "NuP-Manifest NuPtechs",
         "Keycloak realm generator",
         "OPA Rego policy generator",
         "compliance LGPD automatizada",
@@ -582,7 +582,7 @@ export const products: Product[] = [
   {
     id: "sentinel",
     slug: "sentinel",
-    name: "Sentinel",
+    name: "NuP-Sentinel",
     category: "ai",
     status: "beta",
     tech: ["Node.js", "Express 5", "Claude AI", "rrweb", "PostgreSQL"],
@@ -638,7 +638,7 @@ export const products: Product[] = [
       ],
       keywords: [
         "QA com IA self-healing",
-        "Sentinel NuPtechs",
+        "NuP-Sentinel NuPtechs",
         "diagnose bug com Claude",
         "rrweb session replay",
         "alternativa Datadog Bugsnag",
@@ -843,7 +843,7 @@ export const products: Product[] = [
   {
     id: "nuptechs-aihub",
     slug: "nuptechs-aihub",
-    name: "NuPtechs AIHub",
+    name: "NuP-AIHub",
     category: "ai",
     status: "beta",
     tech: ["Python", "FastAPI", "LangChain", "React 19", "Pinecone"],
@@ -898,7 +898,7 @@ export const products: Product[] = [
       ],
       keywords: [
         "hub serviços IA pronto",
-        "NuPtechs AIHub",
+        "NuP-AIHub NuPtechs",
         "code review IA empresarial",
         "fine-tuning Apple Silicon",
         "mindmap Mermaid IA",
@@ -910,7 +910,7 @@ export const products: Product[] = [
   {
     id: "kan",
     slug: "kan",
-    name: "KAN",
+    name: "NuP-Kan",
     category: "productivity",
     status: "live",
     tech: ["React 18", "Express.js", "PostgreSQL", "Drizzle ORM", "TanStack Query"],
@@ -918,7 +918,7 @@ export const products: Product[] = [
       pt: {
         tagline: "Kanban & Gestão de Projetos",
         description:
-          "Board colaborativo com workspaces por equipe, custom fields, permissões granulares por board e analytics de produtividade. Integração SSO com NuPIdentify e sincronização automática de permissões.",
+          "Board colaborativo com workspaces por equipe, custom fields, permissões granulares por board e analytics de produtividade. Integração SSO com NuP-Identify e sincronização automática de permissões.",
         stats: [
           { label: "Tipos de campo", value: "8" },
           { label: "Visualizações", value: "3" },
@@ -929,7 +929,7 @@ export const products: Product[] = [
       en: {
         tagline: "Kanban & Project Management",
         description:
-          "Collaborative board with team workspaces, custom fields, granular per-board permissions, and productivity analytics. SSO integration with NuPIdentify and automatic permission sync.",
+          "Collaborative board with team workspaces, custom fields, granular per-board permissions, and productivity analytics. SSO integration with NuP-Identify and automatic permission sync.",
         stats: [
           { label: "Field types", value: "8" },
           { label: "Views", value: "3" },
@@ -940,7 +940,7 @@ export const products: Product[] = [
       es: {
         tagline: "Kanban & Gestión de Proyectos",
         description:
-          "Board colaborativo con workspaces por equipo, campos personalizados, permisos granulares por board y analytics de productividad. Integración SSO con NuPIdentify.",
+          "Board colaborativo con workspaces por equipo, campos personalizados, permisos granulares por board y analytics de productividad. Integración SSO con NuP-Identify.",
         stats: [
           { label: "Tipos de campo", value: "8" },
           { label: "Vistas", value: "3" },
@@ -953,9 +953,9 @@ export const products: Product[] = [
       headline: "Kanban com permissão granular e SSO — pra times que cresceram e o Trello não dá mais conta.",
       features: [
         { iconId: "clipboard", title: "Workspaces + boards", desc: "Workspace por equipe, boards por projeto. Custom fields (8 tipos) com filtros e relatórios." },
-        { iconId: "key", title: "Permissão por board", desc: "Cada board tem ACL própria. Sync automático com NuPIdentify a cada 5 min — sem manter permissão em 2 lugares." },
+        { iconId: "key", title: "Permissão por board", desc: "Cada board tem ACL própria. Sync automático com NuP-Identify a cada 5 min — sem manter permissão em 2 lugares." },
         { iconId: "chart", title: "Analytics nativos", desc: "Burn-down, throughput, ciclo de vida por card. Exportável pra dashboard executivo." },
-        { iconId: "refresh", title: "SSO + JWT", desc: "Login via NuPIdentify (OIDC). API protegida com JWT. Cache 5 min reduz calls." },
+        { iconId: "refresh", title: "SSO + JWT", desc: "Login via NuP-Identify (OIDC). API protegida com JWT. Cache 5 min reduz calls." },
       ],
       useCases: [
         "Times que cresceram além do plano gratuito do Trello/Asana",
@@ -965,7 +965,7 @@ export const products: Product[] = [
       ],
       keywords: [
         "kanban empresarial SSO",
-        "KAN NuPtechs",
+        "NuP-Kan NuPtechs",
         "alternativa Trello Jira",
         "permissão granular board",
         "TanStack Query kanban",
