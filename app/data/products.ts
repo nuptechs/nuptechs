@@ -57,7 +57,7 @@ export const products: Product[] = [
       pt: {
         tagline: "Gestão de Contratos e Workflows",
         description:
-          "Plataforma enterprise para gestão do ciclo de vida de contratos de TI com análise documental por IA, designer visual de workflows BPMN e dashboards executivos 360°. Construída para conformidade com o setor público brasileiro (Lei 14.133/2021, Decreto 11.246/2022, IN SGD/ME 94/2022).",
+          "Plataforma enterprise para gestão do ciclo de vida de contratos de TI com análise documental por IA, designer visual de workflows BPMN e dashboards executivos 360°. Construída para conformidade com o setor público brasileiro.",
         stats: [
           { label: "Linhas de código", value: "591k" },
           { label: "Testes automatizados", value: "6.100+" },
