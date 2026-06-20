@@ -9,9 +9,9 @@ import { products, type ProductCategory, type ProductStatus } from "../data/prod
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nuptechs.com";
 
 export const metadata: Metadata = {
-  title: "Produtos — 13 produtos próprios em produção",
+  title: "Produtos — 15 produtos próprios em produção",
   description:
-    "EasyNuP, NuP-Identify, NuP-Sentinel, NuP-School, NuP-Sales, NuP-Gateway e mais — 13 produtos próprios desenvolvidos pela NuPtechs, em produção.",
+    "EasyNuP, NuP-Identify, NuP-Sentinel, NuP-School, NuP-Sales, NuP-Gateway e mais — 15 produtos próprios desenvolvidos pela NuPtechs, em produção.",
   keywords: [
     "produtos NuPtechs",
     "EasyNuP gestão contratos",
@@ -30,29 +30,29 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Produtos NuPtechs — 13 produtos em produção",
+    title: "Produtos NuPtechs — 15 produtos em produção",
     description:
-      "Plataformas, verticais, devtools e IA — 13 produtos próprios já em produção.",
+      "Plataformas, verticais, devtools e IA — 15 produtos próprios já em produção.",
     url: `${siteUrl}/produtos`,
     siteName: "NuPtechs",
     type: "website",
     locale: "pt_BR",
     images: [
       {
-        url: `${siteUrl}/og?title=Produtos+NuPtechs+%E2%80%94+13+em+produ%C3%A7%C3%A3o&sub=EasyNuP%2C+NuP-Identify%2C+NuP-Sentinel+e+mais&lang=pt`,
+        url: `${siteUrl}/og?title=Produtos+NuPtechs+%E2%80%94+15+em+produ%C3%A7%C3%A3o&sub=EasyNuP%2C+NuP-Identify%2C+NuP-Sentinel+e+mais&lang=pt`,
         width: 1200,
         height: 630,
-        alt: "Produtos NuPtechs — 13 produtos em produção",
+        alt: "Produtos NuPtechs — 15 produtos em produção",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     site: "@nuptechs",
-    title: "Produtos NuPtechs — 13 produtos em produção",
+    title: "Produtos NuPtechs — 15 produtos em produção",
     description:
-      "EasyNuP, NuP-Identify, NuP-Sentinel, NuP-Manifest, NuP-Chunks e mais — 13 produtos em produção. Veja a lista completa.",
-    images: [`${siteUrl}/og?title=Produtos+NuPtechs+%E2%80%94+13+em+produ%C3%A7%C3%A3o&sub=EasyNuP%2C+NuP-Identify%2C+NuP-Sentinel+e+mais&lang=pt`],
+      "EasyNuP, NuP-Identify, NuP-Sentinel, NuP-Manifest, NuP-Chunks e mais — 15 produtos em produção. Veja a lista completa.",
+    images: [`${siteUrl}/og?title=Produtos+NuPtechs+%E2%80%94+15+em+produ%C3%A7%C3%A3o&sub=EasyNuP%2C+NuP-Identify%2C+NuP-Sentinel+e+mais&lang=pt`],
   },
 };
 
@@ -153,7 +153,7 @@ export default function ProdutosIndex() {
             <div className="mb-10 max-w-3xl">
               <span className="eyebrow mb-4 block" data-genesis="default">Suite de produtos</span>
               <h1 id="products-heading" className="display-title mb-5 max-w-5xl">
-                13 produtos próprios.<br />Em produção, hoje.
+                15 produtos próprios.<br />Em produção, hoje.
               </h1>
               <p className="lead">
                 Plataformas, verticais, devtools e IA — software construído a partir de dezenas de projetos reais. EasyNuP é voltado ao setor público; NuP-Identify, NuP-Sentinel e NuP-Gateway são fundação dos demais. Cada um aqui é código vivo em <span className="text-[var(--text)] font-medium">main</span>.
