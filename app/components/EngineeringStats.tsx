@@ -13,7 +13,7 @@ interface Stat {
 
 const stats: Stat[] = [
   { value: 70, suffix: "+", label: { pt: "projetos entregues", en: "projects delivered", es: "proyectos entregados" }, sublabel: { pt: "software sob medida", en: "custom software", es: "software a medida" } },
-  { value: 13, suffix: "", label: { pt: "produtos próprios em produção", en: "proprietary products in production", es: "productos propios en producción" }, sublabel: { pt: "SaaS, plataformas e bibliotecas", en: "SaaS, platforms and libraries", es: "SaaS, plataformas y bibliotecas" } },
+  { value: 15, suffix: "", label: { pt: "produtos próprios em produção", en: "proprietary products in production", es: "productos propios en producción" }, sublabel: { pt: "SaaS, plataformas e bibliotecas", en: "SaaS, platforms and libraries", es: "SaaS, plataformas y bibliotecas" } },
   { value: 12, suffix: "+", label: { pt: "órgãos governamentais", en: "government agencies", es: "órganos gubernamentales" }, sublabel: { pt: "federal, estadual, distrital", en: "federal, state, municipal", es: "federal, estatal, municipal" } },
   { value: 18, suffix: "+", label: { pt: "anos de experiência em TI gov", en: "years of gov IT experience", es: "años de experiencia en TI gov" }, sublabel: { pt: "do nosso fundador — Caixa, Serpro, TRF…", en: "of our founder — Caixa, Serpro, TRF…", es: "de nuestro fundador — Caixa, Serpro, TRF…" } },
 ];

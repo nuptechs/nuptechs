@@ -14,7 +14,7 @@ export const dictionaries = {
     },
     hero: {
       title: "We build infrastructure for enterprise software",
-      lead: "13 products in production, with official TOGAF architecture consulting — engineering built to the standards of Brazil's largest federal agencies.",
+      lead: "15 products in production, with official TOGAF architecture consulting — engineering built to the standards of Brazil's largest federal agencies.",
       ctaPrimary: "Explore products",
       ctaSecondary: "GitHub",
     },
@@ -23,7 +23,7 @@ export const dictionaries = {
     },
     products: {
       eyebrow: "Products",
-      title: "13 products. Real code in production.",
+      title: "15 products. Real code in production.",
       lead: "Each product was born from real needs in enterprise projects. No prototypes — code running in production.",
     },
     blog: {
@@ -56,7 +56,7 @@ export const dictionaries = {
       lead: "Have an engineering challenge? Need an enterprise platform? Talk to us — we love complex problems.",
     },
     footer: {
-      tagline: "Software engineering for enterprise infrastructure. 13 products in production.",
+      tagline: "Software engineering for enterprise infrastructure. 15 products in production.",
       company: "Company",
       about: "About",
       platforms: "Platforms",
@@ -65,15 +65,15 @@ export const dictionaries = {
     },
     about: {
       pageTitle: "About NuPtechs",
-      pageDescription: "Meet NuPtechs: senior software engineering team with 13 products in production, official TOGAF architecture consulting, and 18+ years of government IT experience.",
+      pageDescription: "Meet NuPtechs: senior software engineering team with 15 products in production, official TOGAF architecture consulting, and 18+ years of government IT experience.",
       ogTitle: "About NuPtechs — Who we are and how we work",
-      ogDescription: "Senior team, 13 shipped products, public-sector-grade compliance and tamper-evident audit. Meet the engineering company behind enterprise-grade software.",
+      ogDescription: "Senior team, 15 shipped products, public-sector-grade compliance and tamper-evident audit. Meet the engineering company behind enterprise-grade software.",
       eyebrow: "Who we are",
       heroTitle: "Engineering that solves real problems.",
-      heroLead: "Founded in 2022 in Brasília, NuPtechs builds enterprise infrastructure — from identity management to AI-powered debugging. 13 products in production, built for Brazil's largest federal agencies.",
+      heroLead: "Founded in 2022 in Brasília, NuPtechs builds enterprise infrastructure — from identity management to AI-powered debugging. 15 products in production, built for Brazil's largest federal agencies.",
       stats: [
         { value: "70+", label: "projects delivered" },
-        { value: "13", label: "shipped products" },
+        { value: "15", label: "shipped products" },
         { value: "12+", label: "government agencies" },
         { value: "18+", label: "years in gov IT" },
       ],
@@ -91,12 +91,12 @@ export const dictionaries = {
         { icon: "innovation", title: "Applied innovation", body: "We use AI and modern technologies where they generate real value — not for the sake of being trendy." },
       ],
       timelineEyebrow: "Our journey",
-      timelineTitle: "From idea to 13 products in production.",
+      timelineTitle: "From idea to 15 products in production.",
       timeline: [
         { year: "2022", title: "Foundation", body: "NuPtechs is founded in Brasília with a clear mission: build production-grade software with quality, speed, and transparency." },
         { year: "2023", title: "First platforms", body: "EasyNuP and NuP-Identify launched. Consolidation in enterprise contract management and identity & access management." },
         { year: "2024", title: "AI products", body: "Launch of NuP-Sentinel, NuP-Manifest, NuP-Chunks — AI-powered tools for debugging, security analysis, and document processing." },
-        { year: "2025", title: "Scale", body: "13 products in production. Expansion to serve US and global markets." },
+        { year: "2025", title: "Scale", body: "15 products in production. Expansion to serve US and global markets." },
       ],
       teamEyebrow: "Team",
       teamTitle: "Senior engineers, lean structure.",
@@ -137,7 +137,7 @@ export const dictionaries = {
     },
     hero: {
       title: "Construimos infraestructura para software empresarial",
-      lead: "13 productos en producción, con consultoría oficial en arquitectura TOGAF — ingeniería diseñada para las mayores agencias del gobierno de Brasil.",
+      lead: "15 productos en producción, con consultoría oficial en arquitectura TOGAF — ingeniería diseñada para las mayores agencias del gobierno de Brasil.",
       ctaPrimary: "Explorar productos",
       ctaSecondary: "GitHub",
     },
@@ -146,7 +146,7 @@ export const dictionaries = {
     },
     products: {
       eyebrow: "Productos",
-      title: "13 productos. Código real en producción.",
+      title: "15 productos. Código real en producción.",
       lead: "Cada producto nació de necesidades reales en proyectos empresariales. Sin prototipos — código que corre en producción.",
     },
     blog: {
@@ -179,7 +179,7 @@ export const dictionaries = {
       lead: "¿Tienes un desafío de ingeniería? ¿Necesitas una plataforma enterprise? Habla con nosotros — nos encantan los problemas complejos.",
     },
     footer: {
-      tagline: "Ingeniería de software para infraestructura empresarial. 13 productos en producción.",
+      tagline: "Ingeniería de software para infraestructura empresarial. 15 productos en producción.",
       company: "Empresa",
       about: "Nosotros",
       platforms: "Plataformas",
@@ -188,15 +188,15 @@ export const dictionaries = {
     },
     about: {
       pageTitle: "Sobre NuPtechs",
-      pageDescription: "Conoce a NuPtechs: equipo de ingeniería de software con 13 productos en producción, consultoría oficial en arquitectura TOGAF y 18+ años de experiencia en TI gubernamental.",
+      pageDescription: "Conoce a NuPtechs: equipo de ingeniería de software con 15 productos en producción, consultoría oficial en arquitectura TOGAF y 18+ años de experiencia en TI gubernamental.",
       ogTitle: "Sobre NuPtechs — Quiénes somos y cómo trabajamos",
-      ogDescription: "Equipo senior, 13 productos entregados, conformidad de grado público y auditoría a prueba de manipulación. Conoce la empresa de ingeniería detrás de software de grado empresarial.",
+      ogDescription: "Equipo senior, 15 productos entregados, conformidad de grado público y auditoría a prueba de manipulación. Conoce la empresa de ingeniería detrás de software de grado empresarial.",
       eyebrow: "Quiénes somos",
       heroTitle: "Ingeniería que resuelve problemas reales.",
-      heroLead: "Fundada en 2022 en Brasília, NuPtechs construye infraestructura empresarial — de gestión de identidad a debugging con IA. 13 productos en producción, diseñados para las mayores agencias federales de Brasil.",
+      heroLead: "Fundada en 2022 en Brasília, NuPtechs construye infraestructura empresarial — de gestión de identidad a debugging con IA. 15 productos en producción, diseñados para las mayores agencias federales de Brasil.",
       stats: [
         { value: "70+", label: "proyectos entregados" },
-        { value: "13", label: "productos entregados" },
+        { value: "15", label: "productos entregados" },
         { value: "12+", label: "órganos gubernamentales" },
         { value: "18+", label: "años en TI gov" },
       ],
@@ -214,12 +214,12 @@ export const dictionaries = {
         { icon: "innovation", title: "Innovación aplicada", body: "Usamos IA y tecnologías modernas donde generan valor real — no por estar de moda." },
       ],
       timelineEyebrow: "Nuestro camino",
-      timelineTitle: "De la idea a 13 productos en producción.",
+      timelineTitle: "De la idea a 15 productos en producción.",
       timeline: [
         { year: "2022", title: "Fundación", body: "NuPtechs es fundada en Brasília con una misión clara: construir software de grado producción con calidad, velocidad y transparencia." },
         { year: "2023", title: "Primeras plataformas", body: "Lanzamiento de EasyNuP y NuP-Identify. Consolidación en gestión de contratos empresariales e identidad y control de acceso." },
         { year: "2024", title: "Productos de IA", body: "Lanzamiento de NuP-Sentinel, NuP-Manifest, NuP-Chunks — herramientas con IA para debugging, análisis de seguridad y procesamiento de documentos." },
-        { year: "2025", title: "Escala", body: "13 productos en producción. Expansión para atender mercados de EE. UU. y globales." },
+        { year: "2025", title: "Escala", body: "15 productos en producción. Expansión para atender mercados de EE. UU. y globales." },
       ],
       teamEyebrow: "Equipo",
       teamTitle: "Ingenieros senior, estructura lean.",
