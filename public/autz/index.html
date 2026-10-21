@@ -39,7 +39,8 @@
   }
 
   * { box-sizing: border-box; }
-  body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   .wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: 24px; }
   section { padding-block: clamp(64px, 9vw, 120px); }
   h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.07; letter-spacing: -0.02em; text-wrap: balance; margin: 0; }
@@ -283,6 +284,48 @@
     .hero .wrap > * { opacity: 0; transform: translateY(12px); animation: rise .7s cubic-bezier(.2,.7,.2,1) forwards; }
     .hero .wrap > *:last-child { animation-delay: .1s; }
     @keyframes rise { to { opacity: 1; transform: none; } }
+  }
+
+  /* ── Mobile-first: o celular é o layout primário ── */
+  @media (max-width: 600px) {
+    section { padding-block: clamp(44px, 12vw, 72px); }
+    .wrap { padding-inline: 16px; }
+    .hero h1 { font-size: clamp(2.05rem, 9vw, 2.9rem); }
+    .lead { font-size: 1.02rem; }
+    .head h2, .cta h2 { font-size: clamp(1.5rem, 7vw, 2.05rem); }
+    .mini-head h3 { font-size: clamp(1.25rem, 6vw, 1.6rem); }
+
+    /* CTAs de largura cheia — polegar alcança fácil */
+    .hero-cta { gap: 0.9rem; }
+    .hero-cta .btn, .cta-box .btn { width: 100%; justify-content: center; }
+    .cta-box { align-items: stretch; }
+
+    /* Nav compacta */
+    .nav .wrap { gap: 0.7rem; }
+    .nav .btn { font-size: 0.84rem; padding: .5em .85em; }
+    .brand { font-size: 1.1rem; }
+
+    /* Campanhas: modos empilham, estúdio respira */
+    .modes .mode { width: 100%; }
+    .studio-bar { flex-wrap: wrap; font-size: 0.68rem; gap: 6px; }
+    .studio-rail, .canvas-body { padding: 16px 14px; }
+    .builder, .report, .panel, .landing .lb { padding: 16px; }
+
+    /* Números */
+    .metric-row { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .rcounts { gap: 6px; }
+    .rc { padding: 9px 2px; }
+    .rc .rv { font-size: 1.05rem; }
+    .rc .rk { font-size: 0.58rem; }
+
+    /* Alvos de toque ≥ confortáveis */
+    .rtabs span, .sched span, .rail-sel span { padding: 7px 12px; }
+    .ritem .ract { padding: 6px 11px; }
+    .nav-links a { padding: 4px 0; }
+  }
+  @media (max-width: 380px) {
+    /* 5 contadores viram 3 + 2 em telas muito estreitas */
+    .rcounts { grid-template-columns: repeat(3, 1fr); }
   }
 </style>
 </head>
