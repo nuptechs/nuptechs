@@ -24,6 +24,10 @@
     --accent: #16a35a;        /* verde de marca */
     --accent-strong: #0f8048; /* verde escuro p/ dígitos e hover */
     --accent-wash: #e4f4ea;   /* fundo de ícone */
+    --blue: #2563c9; --blue-soft: #e8f0fc;     /* semânticos das telas de sistema */
+    --amber: #a8630a; --amber-soft: #fdf1df;
+    --red: #c23b3b; --red-soft: #fdecec;
+    --faint: #9aa4b0;
     /* verde profundo constante (CTA / rodapé) */
     --deep: #0c5536;
     --deep-2: #083a26;
@@ -272,11 +276,12 @@
   @media (max-width: 880px) { .cap-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 480px) { .cap-grid { grid-template-columns: 1fr; } }
 
-  /* ── Telas do sistema (janela) ── */
-  .win { background: var(--surface); border: 1px solid var(--line-tint); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 52px color-mix(in srgb, var(--accent) 10%, transparent); }
+  /* ── Telas do sistema (janela estilo app) ── */
+  .win { background: var(--surface); border: 1px solid var(--line-tint); border-radius: 16px; overflow: hidden; box-shadow: 0 24px 60px color-mix(in srgb, var(--accent) 11%, transparent); }
   .win + .win, .duo + .win, .win + .duo { margin-top: 18px; }
   .win-bar { display: flex; align-items: center; gap: 7px; padding: 11px 15px; border-bottom: 1px solid var(--line); background: var(--wash); }
-  .win-bar .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--line-tint); }
+  .win-bar .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .win-bar .dot:nth-child(1) { background: #f06a5e; } .win-bar .dot:nth-child(2) { background: #f4bf4f; } .win-bar .dot:nth-child(3) { background: #5ac46a; }
   .win-bar .t { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); margin-left: 6px; }
   .win-bar .spacer { flex: 1; }
   .win-bar .seg { display: flex; gap: 4px; }
@@ -284,53 +289,99 @@
   .win-bar .seg span.on { background: var(--accent); color: #fff; }
   .win-body { padding: 18px; }
 
-  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .kpi { border: 1px solid var(--line); border-radius: 10px; padding: 13px 14px; }
-  .kpi .v { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; font-variant-numeric: tabular-nums; }
-  .kpi .v.good { color: var(--accent-strong); }
-  .kpi .l { font-size: 0.73rem; color: var(--ink-soft); margin-top: 3px; }
-  @media (max-width: 600px) { .kpis { grid-template-columns: 1fr 1fr; } }
+  /* shell com trilho lateral (produto real) */
+  .appwrap { display: grid; grid-template-columns: 198px 1fr; }
+  .side { border-right: 1px solid var(--line); background: var(--wash); padding: 14px 11px; display: flex; flex-direction: column; gap: 2px; }
+  .side .brand-mini { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; padding: 2px 8px 12px; }
+  .side .brand-mini .m { width: 22px; height: 22px; border-radius: 6px; background: linear-gradient(140deg, var(--accent), var(--deep)); flex: none; }
+  .snav { display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 9px; font-size: 0.83rem; color: var(--ink-soft); }
+  .snav svg { width: 17px; height: 17px; flex: none; }
+  .snav.on { background: var(--accent-wash); color: var(--accent-strong); font-weight: 600; }
+  .appmain { padding: 18px 20px; min-width: 0; }
+  .appmain .ptitle { font-family: var(--font-display); font-size: 1.18rem; font-weight: 660; }
+  .appmain .psub { font-size: 0.8rem; color: var(--ink-soft); margin-top: 2px; }
+  @media (max-width: 720px) { .appwrap { grid-template-columns: 1fr; } .side { flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--line); gap: 4px; } .side .brand-mini { display: none; } .snav { white-space: nowrap; } }
 
+  /* KPIs */
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+  .kpi { border: 1px solid var(--line); border-radius: 11px; padding: 13px 14px; }
+  .kpi .top { display: flex; align-items: center; gap: 7px; font-size: 0.74rem; color: var(--ink-soft); }
+  .kpi .top i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
+  .kpi .top i.w { background: var(--amber); } .kpi .top i.b { background: var(--blue); }
+  .kpi .v { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; font-variant-numeric: tabular-nums; margin-top: 7px; }
+  .kpi .s { font-size: 0.74rem; color: var(--ink-soft); margin-top: 2px; }
+  @media (max-width: 620px) { .kpis { grid-template-columns: 1fr 1fr; } }
+
+  /* navegação da central de relatórios */
+  .repnav { display: flex; gap: 6px; flex-wrap: wrap; margin: 18px 0 16px; }
+  .repnav span { font-size: 0.78rem; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-soft); }
+  .repnav span.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* relatório Saúde da carteira */
+  .health-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+  .health-head .big { font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; }
+  .health-head .big .gr { color: var(--accent-strong); }
+  .health-head .mut { font-size: 0.82rem; color: var(--ink-soft); }
+  .hbar { display: flex; height: 16px; border-radius: 8px; overflow: hidden; margin: 14px 0 8px; background: var(--line); }
+  .hbar i { display: block; height: 100%; }
+  .hbar .ok { background: var(--accent); } .hbar .pend { background: var(--blue); }
+  .hleg { display: flex; gap: 18px; font-size: 0.78rem; color: var(--ink-soft); }
+  .hleg b { color: var(--ink); } .hleg .d { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+  .hleg .d.ok { background: var(--accent); } .hleg .d.pend { background: var(--blue); }
+  .missing { margin-top: 18px; }
+  .missing .lbl { font-size: 0.66rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 11px; }
+  .mrow { display: grid; grid-template-columns: 112px 1fr 30px; gap: 10px; align-items: center; font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 9px; }
+  .mrow .bar { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .mrow .bar i { display: block; height: 100%; background: var(--amber); }
+  .mrow .n { font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink); text-align: right; }
+  .rel-foot { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-soft); }
+
+  /* tabelas e chips de status reais */
   .scrollx { overflow-x: auto; }
-  .atable { min-width: 640px; display: flex; flex-direction: column; margin-top: 16px; }
-  .ahead, .arow { display: grid; grid-template-columns: 1.7fr 1.2fr 0.8fr 1fr 1.4fr; gap: 10px; align-items: center; }
-  .ahead { font-size: 0.68rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-soft); padding: 0 2px 10px; border-bottom: 1px solid var(--line); }
-  .arow { padding: 12px 2px; border-bottom: 1px solid var(--line); font-size: 0.86rem; }
+  .atable { min-width: 560px; display: flex; flex-direction: column; }
+  .ahead, .arow { display: grid; gap: 10px; align-items: center; }
+  .atable.cli .ahead, .atable.cli .arow { grid-template-columns: 1.7fr 1fr 0.9fr 0.9fr 1.3fr; }
+  .atable.hist .ahead, .atable.hist .arow { grid-template-columns: 1.4fr 0.9fr 1.7fr 0.6fr 0.9fr; }
+  .ahead { font-size: 0.66rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-soft); padding: 0 2px 10px; border-bottom: 1px solid var(--line); }
+  .arow { padding: 11px 2px; border-bottom: 1px solid var(--line); font-size: 0.84rem; }
   .arow:last-child { border-bottom: none; }
   .arow .nm { font-weight: 600; min-width: 0; }
-  .chchips { display: flex; gap: 5px; flex-wrap: wrap; }
-  .chchips span { font-size: 0.66rem; border: 1px solid var(--line-tint); border-radius: 6px; padding: 2px 7px; color: var(--accent-strong); background: var(--accent-wash); }
-  .pill { font-size: 0.69rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; display: inline-block; }
-  .pill.on { background: var(--accent-wash); color: var(--accent-strong); }
-  .pill.off { background: var(--line); color: var(--ink-soft); }
-  .arow .res { color: var(--ink-soft); font-size: 0.8rem; }
-  .arow .res b { color: var(--ink); }
+  .arow .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .arow .late { color: var(--red); }
+  .st { display: inline-flex; align-items: center; gap: 6px; font-size: 0.71rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+  .st i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .st.ok { background: var(--accent-wash); color: var(--accent-strong); } .st.ok i { background: var(--accent); }
+  .st.warn { background: var(--amber-soft); color: var(--amber); } .st.warn i { background: var(--amber); }
+  .st.bad { background: var(--red-soft); color: var(--red); } .st.bad i { background: var(--red); }
+  .st.mut { background: var(--line); color: var(--ink-soft); } .st.mut i { background: var(--ink-soft); }
+  .hb { font-size: 0.7rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+  .hb.g { background: var(--accent-wash); color: var(--accent-strong); }
+  .hb.r { background: var(--red-soft); color: var(--red); }
+  .hb.n { background: var(--line); color: var(--ink-soft); }
 
-  .funnel { display: flex; flex-direction: column; gap: 11px; }
-  .frow { display: grid; grid-template-columns: 92px 1fr 52px; gap: 10px; align-items: center; font-size: 0.82rem; color: var(--ink-soft); }
-  .frow .bar { height: 10px; border-radius: 999px; background: var(--line); overflow: hidden; }
-  .frow .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--deep)); }
-  .frow .n { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink); text-align: right; }
-
+  /* respostas dos clientes */
   .resp { display: flex; flex-direction: column; gap: 10px; }
-  .rmsg { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  .rmsg { border: 1px solid var(--line); border-radius: 11px; padding: 11px 13px; }
   .rmsg .top { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
   .rmsg .who { font-weight: 600; font-size: 0.84rem; }
-  .rmsg .ch { font-family: var(--font-mono); font-size: 0.66rem; color: var(--accent-strong); }
-  .rmsg .txt { font-size: 0.85rem; color: var(--ink-soft); margin-top: 3px; }
-  .rmsg .tag { display: inline-block; margin-top: 6px; font-size: 0.66rem; padding: 2px 8px; border-radius: 999px; background: var(--accent-wash); color: var(--accent-strong); }
+  .rmsg .when { font-family: var(--font-mono); font-size: 0.66rem; color: var(--faint); }
+  .rmsg .txt { font-size: 0.85rem; color: var(--ink-soft); margin-top: 4px; }
+  .rmsg .tag { display: inline-block; margin-top: 7px; font-size: 0.66rem; padding: 2px 9px; border-radius: 999px; }
+  .rmsg .tag.a { background: var(--amber-soft); color: var(--amber); }
+  .rmsg .tag.p { background: var(--accent-wash); color: var(--accent-strong); }
+  .rmsg .tag.c { background: var(--blue-soft); color: var(--blue); }
 
-  .chart { display: flex; align-items: flex-end; gap: 8px; height: 150px; }
+  /* gráfico de colunas empilhadas (Parcelas do mês) */
+  .chart { display: flex; align-items: flex-end; gap: 7px; height: 150px; }
   .col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; height: 100%; }
-  .col .bar2 { width: 68%; min-height: 4px; border-radius: 6px 6px 0 0; background: linear-gradient(180deg, var(--accent), var(--accent-strong)); }
-  .col .d { font-size: 0.66rem; color: var(--ink-soft); }
-  .rep-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(20px, 3vw, 36px); align-items: center; }
-  .rep-grid h4 { font-family: var(--font-display); font-size: 0.95rem; font-weight: 600; margin-bottom: 12px; }
-  .bychannel { display: flex; flex-direction: column; gap: 10px; }
-  .bc { display: grid; grid-template-columns: 78px 1fr 40px; gap: 10px; align-items: center; font-size: 0.8rem; color: var(--ink-soft); }
-  .bc .bar { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
-  .bc .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--deep)); }
-  .bc .p { font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink); text-align: right; }
+  .stackbar { width: 64%; min-height: 4px; border-radius: 5px 5px 0 0; overflow: hidden; display: flex; flex-direction: column; }
+  .stackbar .s2 { background: color-mix(in srgb, var(--ink-soft) 34%, var(--line)); } .stackbar .s1 { background: var(--blue); }
+  .col .d { font-size: 0.64rem; color: var(--ink-soft); }
+  .legend { display: flex; gap: 16px; font-size: 0.76rem; color: var(--ink-soft); margin-top: 12px; }
+  .legend .d { width: 9px; height: 9px; border-radius: 3px; display: inline-block; margin-right: 6px; vertical-align: middle; }
+  .legend .d.b { background: var(--blue); } .legend .d.g { background: color-mix(in srgb, var(--ink-soft) 34%, var(--line)); }
+  .rep-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(20px, 3vw, 36px); align-items: start; }
+  .rep-grid h4 { font-family: var(--font-display); font-size: 0.92rem; font-weight: 640; margin-bottom: 12px; }
   @media (max-width: 680px) { .rep-grid { grid-template-columns: 1fr; } }
 
   /* CTA — verde profundo */
@@ -682,128 +733,81 @@
   <div class="wrap">
     <div class="head">
       <span class="label">Por dentro do sistema</span>
-      <h2>Tudo sob controle, da automação ao relatório.</h2>
-      <p class="lead">O painel mostra o que está rodando, o que já saiu e como os clientes responderam — em tempo real, por canal.</p>
+      <h2>Telas reais de gestão, da cobrança ao relatório.</h2>
+      <p class="lead">Trilho lateral, status com cor e rótulo, respostas dos clientes e uma central de relatórios com gráficos próprios — o que a equipe usa todo dia.</p>
     </div>
 
-    <!-- Tela 1: painel de automações -->
+    <!-- Janela 1: shell + Relatórios (Saúde da carteira) -->
     <div class="win">
-      <div class="win-bar">
-        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        <span class="t">AutZap · Painel de automações</span>
-        <span class="spacer"></span>
-        <span class="seg"><span class="on">Hoje</span><span>7 dias</span><span>Mês</span></span>
-      </div>
-      <div class="win-body">
-        <div class="kpis">
-          <div class="kpi"><div class="v">1.248</div><div class="l">Enviadas hoje</div></div>
-          <div class="kpi"><div class="v good">57%</div><div class="l">Taxa de resposta</div></div>
-          <div class="kpi"><div class="v">7</div><div class="l">Automações ativas</div></div>
-          <div class="kpi"><div class="v">86</div><div class="l">Na fila</div></div>
+      <div class="win-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="t">AutZap — Relatórios</span></div>
+      <div class="appwrap">
+        <div class="side">
+          <div class="brand-mini"><span class="m"></span>AutZap</div>
+          <div class="snav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-8 0v2"/><circle cx="12" cy="7" r="4"/></svg>Clientes e boletos</div>
+          <div class="snav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Mensagem</div>
+          <div class="snav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>Agendamento</div>
+          <div class="snav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Histórico</div>
+          <div class="snav on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></svg>Relatórios</div>
+          <div class="snav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg>Configurações</div>
         </div>
-        <div class="scrollx">
-          <div class="atable">
-            <div class="ahead"><span>Automação</span><span>Canais</span><span>Status</span><span>Último disparo</span><span>Resultado</span></div>
-            <div class="arow">
-              <span class="nm">Lembrete de vencimento</span>
-              <span class="chchips"><span>WhatsApp</span><span>E-mail</span></span>
-              <span><span class="pill on">Ativa</span></span>
-              <span>hoje 09:00</span>
-              <span class="res"><b>214</b> enviadas · 61% resp.</span>
-            </div>
-            <div class="arow">
-              <span class="nm">Cobrança D+3</span>
-              <span class="chchips"><span>WhatsApp</span><span>SMS</span></span>
-              <span><span class="pill on">Ativa</span></span>
-              <span>hoje 10:15</span>
-              <span class="res"><b>120</b> enviadas · 52% resp.</span>
-            </div>
-            <div class="arow">
-              <span class="nm">Pós-venda (7 dias)</span>
-              <span class="chchips"><span>WhatsApp</span></span>
-              <span><span class="pill on">Ativa</span></span>
-              <span>hoje 08:30</span>
-              <span class="res"><b>98</b> enviadas · 44% resp.</span>
-            </div>
-            <div class="arow">
-              <span class="nm">Pesquisa de satisfação</span>
-              <span class="chchips"><span>E-mail</span><span>Telegram</span></span>
-              <span><span class="pill off">Pausada</span></span>
-              <span>ontem 17:00</span>
-              <span class="res"><b>60</b> enviadas · 33% resp.</span>
-            </div>
-            <div class="arow">
-              <span class="nm">Boas-vindas</span>
-              <span class="chchips"><span>WhatsApp</span></span>
-              <span><span class="pill on">Ativa</span></span>
-              <span>hoje 11:40</span>
-              <span class="res"><b>32</b> enviadas · 70% resp.</span>
-            </div>
+        <div class="appmain">
+          <div class="ptitle">Relatórios</div>
+          <div class="psub">Atualizado hoje, 11:42 · canal oficial</div>
+          <div class="kpis">
+            <div class="kpi"><div class="top"><i></i>Prontas para cobrar</div><div class="v">842</div><div class="s">de 968 cotas</div></div>
+            <div class="kpi"><div class="top"><i class="b"></i>Vencem em 7 dias</div><div class="v">R$ 38.420</div><div class="s">134 boletos</div></div>
+            <div class="kpi"><div class="top"><i class="w"></i>Envios hoje</div><div class="v">1.248</div><div class="s">4 falharam</div></div>
           </div>
+          <div class="repnav"><span class="on">Saúde da carteira</span><span>Parcelas do mês</span><span>Evolução de pagamento</span><span>Respostas dos clientes</span></div>
+          <div class="health-head"><span class="big"><span class="gr">842</span> prontas para cobrar</span><span class="mut">· 87% de 968 cotas</span></div>
+          <div class="hbar"><i class="ok" style="width:87%"></i><i class="pend" style="width:13%"></i></div>
+          <div class="hleg"><span><span class="d ok"></span><b>842</b> prontas</span><span><span class="d pend"></span><b>126</b> pendentes</span></div>
+          <div class="missing">
+            <div class="lbl">O que falta nas 126 pendentes</div>
+            <div class="mrow"><span>Sem PDF</span><span class="bar"><i style="width:62%"></i></span><span class="n">58</span></div>
+            <div class="mrow"><span>Sem telefone</span><span class="bar"><i style="width:40%"></i></span><span class="n">34</span></div>
+            <div class="mrow"><span>Linha inválida</span><span class="bar"><i style="width:24%"></i></span><span class="n">21</span></div>
+            <div class="mrow"><span>Sem boleto</span><span class="bar"><i style="width:15%"></i></span><span class="n">13</span></div>
+          </div>
+          <div class="rel-foot">Gerado hoje 11:42 · base: 968 cotas · exporta PNG, CSV e impressão · AutZap</div>
         </div>
       </div>
     </div>
 
-    <!-- Tela 2: entregas + respostas -->
+    <!-- Janela 2 (duo): Clientes e boletos | Respostas dos clientes -->
     <div class="duo">
       <div class="win">
-        <div class="win-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="t">Entregas de hoje</span></div>
-        <div class="win-body">
-          <div class="funnel">
-            <div class="frow"><span>Enviadas</span><span class="bar"><i style="width:100%"></i></span><span class="n">1.248</span></div>
-            <div class="frow"><span>Entregues</span><span class="bar"><i style="width:96%"></i></span><span class="n">1.197</span></div>
-            <div class="frow"><span>Lidas</span><span class="bar"><i style="width:82%"></i></span><span class="n">1.020</span></div>
-            <div class="frow"><span>Respondidas</span><span class="bar"><i style="width:57%"></i></span><span class="n">712</span></div>
-            <div class="frow"><span>Sem telefone</span><span class="bar"><i style="width:4%;background:var(--ink-soft);opacity:.4"></i></span><span class="n">51</span></div>
-          </div>
-        </div>
+        <div class="win-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="t">Clientes e boletos</span></div>
+        <div class="win-body"><div class="scrollx"><div class="atable cli">
+          <div class="ahead"><span>Cliente</span><span>Grupo · cota</span><span>Vencimento</span><span class="num">Valor</span><span>Boleto</span></div>
+          <div class="arow"><span class="nm">Marina Alves</span><span>1420 · 032</span><span>15/11</span><span class="num">R$ 289,90</span><span><span class="st ok"><i></i>Pronto para cobrar</span></span></div>
+          <div class="arow"><span class="nm">Ana Souza</span><span>1385 · 091</span><span>18/11</span><span class="num">R$ 199,00</span><span><span class="st ok"><i></i>Pronto para cobrar</span></span></div>
+          <div class="arow"><span class="nm">Carlos Dias</span><span>1420 · 108</span><span>12/11</span><span class="num">R$ 312,40</span><span><span class="st warn"><i></i>Sem telefone</span></span></div>
+          <div class="arow"><span class="nm">Pedro Lima</span><span>1420 · 054</span><span>20/11</span><span class="num">R$ 289,90</span><span><span class="st warn"><i></i>Sem PDF</span></span></div>
+          <div class="arow"><span class="nm">Júlia Reis</span><span>1385 · 077</span><span class="late">02/11</span><span class="num">R$ 254,10</span><span><span class="st bad"><i></i>Linha inválida</span></span></div>
+        </div></div></div>
       </div>
       <div class="win">
-        <div class="win-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="t">Respostas recentes</span></div>
-        <div class="win-body">
-          <div class="resp">
-            <div class="rmsg"><div class="top"><span class="who">Marina Alves</span><span class="ch">WhatsApp</span></div><div class="txt">"Pode me mandar o código do PIX?"</div><span class="tag">Cobrança</span></div>
-            <div class="rmsg"><div class="top"><span class="who">Carlos Dias</span><span class="ch">WhatsApp</span></div><div class="txt">"Já paguei, obrigado!"</div><span class="tag">Pós-venda</span></div>
-            <div class="rmsg"><div class="top"><span class="who">Júlia Reis</span><span class="ch">Telegram</span></div><div class="txt">"Quero aproveitar a promoção 🙌"</div><span class="tag">Campanha</span></div>
-            <div class="rmsg"><div class="top"><span class="who">Pedro Lima</span><span class="ch">SMS</span></div><div class="txt">"Confirmo presença"</div><span class="tag">Lembrete</span></div>
-          </div>
-        </div>
+        <div class="win-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="t">Respostas dos clientes</span></div>
+        <div class="win-body"><div class="resp">
+          <div class="rmsg"><div class="top"><span class="who">Marina Alves</span><span class="when">11:12</span></div><div class="txt">"Pode me mandar o código e o PDF?"</div><span class="tag c">Pediu o código e o PDF</span></div>
+          <div class="rmsg"><div class="top"><span class="who">Carlos Dias</span><span class="when">10:48</span></div><div class="txt">"Já paguei, obrigado!"</div><span class="tag p">Avisou que já pagou</span></div>
+          <div class="rmsg"><div class="top"><span class="who">Júlia Reis</span><span class="when">10:21</span></div><div class="txt">"Quero falar com alguém, por favor"</div><span class="tag a">Pediu um atendente</span></div>
+        </div></div>
       </div>
     </div>
 
-    <!-- Tela 3: relatórios -->
+    <!-- Janela 3: Histórico de envios (status) -->
     <div class="win">
-      <div class="win-bar">
-        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        <span class="t">Relatórios</span>
-        <span class="spacer"></span>
-        <span class="seg"><span>Semana</span><span class="on">Mês</span></span>
-      </div>
-      <div class="win-body">
-        <div class="rep-grid">
-          <div>
-            <h4>Envios na semana</h4>
-            <div class="chart">
-              <div class="col"><div class="bar2" style="height:55%"></div><div class="d">Seg</div></div>
-              <div class="col"><div class="bar2" style="height:72%"></div><div class="d">Ter</div></div>
-              <div class="col"><div class="bar2" style="height:61%"></div><div class="d">Qua</div></div>
-              <div class="col"><div class="bar2" style="height:88%"></div><div class="d">Qui</div></div>
-              <div class="col"><div class="bar2" style="height:100%"></div><div class="d">Sex</div></div>
-              <div class="col"><div class="bar2" style="height:40%"></div><div class="d">Sáb</div></div>
-              <div class="col"><div class="bar2" style="height:26%"></div><div class="d">Dom</div></div>
-            </div>
-          </div>
-          <div>
-            <h4>Por canal</h4>
-            <div class="bychannel">
-              <div class="bc"><span>WhatsApp</span><span class="bar"><i style="width:68%"></i></span><span class="p">68%</span></div>
-              <div class="bc"><span>E-mail</span><span class="bar"><i style="width:19%"></i></span><span class="p">19%</span></div>
-              <div class="bc"><span>SMS</span><span class="bar"><i style="width:8%"></i></span><span class="p">8%</span></div>
-              <div class="bc"><span>Telegram</span><span class="bar"><i style="width:5%"></i></span><span class="p">5%</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="win-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="t">Histórico de envios</span><span class="spacer"></span><span class="seg"><span class="on">Hoje</span><span>7 dias</span></span></div>
+      <div class="win-body"><div class="scrollx"><div class="atable hist">
+        <div class="ahead"><span>Cliente</span><span>Canal</span><span>Mensagem</span><span>Hora</span><span>Status</span></div>
+        <div class="arow"><span class="nm">Marina Alves</span><span>WhatsApp</span><span>Lembrete de vencimento</span><span>09:00</span><span><span class="hb g">Lido</span></span></div>
+        <div class="arow"><span class="nm">Ana Souza</span><span>WhatsApp</span><span>Lembrete de vencimento</span><span>09:00</span><span><span class="hb g">Entregue</span></span></div>
+        <div class="arow"><span class="nm">Roberto Nunes</span><span>E-mail</span><span>Cobrança D+3</span><span>10:15</span><span><span class="hb g">Enviado</span></span></div>
+        <div class="arow"><span class="nm">Carlos Dias</span><span>WhatsApp</span><span>Cobrança D+3</span><span>10:15</span><span><span class="hb r">Falhou</span></span></div>
+        <div class="arow"><span class="nm">Pedro Lima</span><span>SMS</span><span>Boas-vindas</span><span>11:40</span><span><span class="hb g">Entregue</span></span></div>
+      </div></div></div>
     </div>
   </div>
 </section>
