@@ -123,6 +123,9 @@ const nextConfig = {
       // Vitrine comercial — 4 painéis lado a lado
       { source: "/vitrine-segmentos", destination: "/vitrine-segmentos/index.html" },
       { source: "/vitrine-segmentos/", destination: "/vitrine-segmentos/index.html" },
+      // Landing comercial AutZap — HTML estático auto-contido (WhatsApp comercial + campanhas)
+      { source: "/autz", destination: "/autz/index.html" },
+      { source: "/autz/", destination: "/autz/index.html" },
       // Apresentação executiva EasyNuP — HTML estático auto-contido (home + 3 momentos + 5 pilares)
       { source: "/easynup", destination: "/easynup/index.html" },
       { source: "/easynup/", destination: "/easynup/index.html" },
